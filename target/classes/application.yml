@@ -1,0 +1,13 @@
+
+spring:
+    mail:
+        host: smtp.gmail.com
+        username: ludoankien422001@gmail.com
+        password: kien422001
+        port: 587
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true

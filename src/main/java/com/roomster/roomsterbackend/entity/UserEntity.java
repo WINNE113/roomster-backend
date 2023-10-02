@@ -49,8 +49,12 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @Enumerated(EnumType.STRING)
     private RoleDTO role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

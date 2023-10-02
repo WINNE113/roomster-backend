@@ -1,35 +1,31 @@
-package com.roomster.roomsterbackend.service.impl;
-/*
+package com.roomster.roomsterbackend.service;
+
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.UserRepository;
-import com.roomster.roomsterbackend.service.IUserService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Transactional
-public class UserService implements IUserService {
-
+public class UserService {
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepo;
 
-    @Override
-    public Optional findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
+
+    public void updateResetPasswordToken(String token, String email) throws CustomerNotFoundException {
+        UserEntity user = userRepo.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepo.save(user);
+        } else {
+            throw new CustomerNotFoundException("Could not find any customer with the email " + email);
+        }
     }
 
-    @Override
-    public Optional findUserByResetToken(String resetToken) {
-        return userRepository.findByResetToken(resetToken);
-    }
-
-    @Override
-    public void save(UserEntity user) {
-        userRepository.save(user);
+    public UserEntity getByResetPasswordToken(String token) {
+        return userRepo.findByResetPasswordToken(token);
     }
 
     public void updatePassword(UserEntity user, String newPassword) {
@@ -38,7 +34,6 @@ public class UserService implements IUserService {
         user.setPasswordHash(encodedPassword);
 
         user.setResetPasswordToken(null);
-        userRepository.save(user);
+        userRepo.save(user);
     }
 }
-*/
