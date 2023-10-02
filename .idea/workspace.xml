@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/ApplicationConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/RegisterRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/RoleDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/Comment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/ImageEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostTypeEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/RatingEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/RoleEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/RoomEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/JwtService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/common/ModelCommon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/common/ModelCommon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/client/ClientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/client/ClientController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/model/UserModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/model/UserModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/UserRepository.java" afterDir="false" />
@@ -30,18 +53,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "history": [
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
     {
-      "author": "TrongTanLe"
+      &quot;author&quot;: &quot;TrongTanLe&quot;
     },
     {
-      "author": "WINNE113"
+      &quot;author&quot;: &quot;WINNE113&quot;
     }
   ],
-  "lastFilter": {
+  &quot;lastFilter&quot;: {
   }
-}]]></component>
+}</component>
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
@@ -49,6 +72,9 @@
         <option name="url" value="https://github.com/WINNE113/roomster-backend.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -59,26 +85,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tanlt&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging tanlt",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -90,6 +116,7 @@
       <workItem from="1696085133071" duration="4833000" />
       <workItem from="1696172995813" duration="3205000" />
       <workItem from="1696219435497" duration="1265000" />
+      <workItem from="1696242358258" duration="1989000" />
     </task>
     <servers />
   </component>
