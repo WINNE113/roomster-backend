@@ -1,10 +1,13 @@
-package com.roomster.roomsterbackend.controller.auth;
+package com.roomster.roomsterbackend.service.impl;
 
 
+import com.roomster.roomsterbackend.dto.RegisterRequest;
+import com.roomster.roomsterbackend.dto.LoginRequest;
+import com.roomster.roomsterbackend.dto.AuthenticationResponse;
 import com.roomster.roomsterbackend.dto.RoleDTO;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.UserRepository;
-import com.roomster.roomsterbackend.service.impl.JwtService;
+import com.roomster.roomsterbackend.service.IAuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthenticationService {
+public class AuthenticationService implements IAuthenticationService {
 
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
@@ -33,7 +36,7 @@ public class AuthenticationService {
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    public AuthenticationResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),

@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.controller.auth;
+package com.roomster.roomsterbackend.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
