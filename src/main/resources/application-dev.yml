@@ -5,15 +5,15 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    password: huuthang
-    url: jdbc:mysql://localhost:3306/testdb
-    username: root
+    driver-class-name: org.postgresql.Driver
+    password: lVHk_x5cE4onlb8muWHPzRPChppqPiyS
+    url: jdbc:postgresql://rain.db.elephantsql.com:5432/mmqtrjux
+    username: mmqtrjux
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     generate-ddl: true
     hibernate:
       ddl-auto: update
