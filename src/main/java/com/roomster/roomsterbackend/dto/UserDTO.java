@@ -12,8 +12,6 @@ import java.util.Date;
 import java.util.List;
 
 public class UserDTO implements UserDetails {
-    private Long id;
-
     private String userName;
 
     private String passwordHash;
