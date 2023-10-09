@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Change db to postgreSQL">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application-dev.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/RoomsterBackendApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/RoomsterBackendApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/roomster-backend-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" afterDir="false" />
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="add dockerfile">
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +139,7 @@
       <workItem from="1696242358258" duration="1989000" />
       <workItem from="1696693371176" duration="3108000" />
       <workItem from="1696770412954" duration="2428000" />
-      <workItem from="1696870858200" duration="1325000" />
+      <workItem from="1696870858200" duration="1729000" />
     </task>
     <task id="LOCAL-00001" summary="Fit conflict">
       <option name="closed" value="true" />
@@ -168,7 +157,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696694218547</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add dockerfile">
+      <option name="closed" value="true" />
+      <created>1696872417796</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1696872417796</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -220,6 +217,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fit conflict" />
     <MESSAGE value="Change db to postgreSQL" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change db to postgreSQL" />
+    <MESSAGE value="add dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="add dockerfile" />
   </component>
 </project>
