@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="add dockerfile">
-      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="modified Dockerfile">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/RoomsterBackendApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +140,7 @@
       <workItem from="1696242358258" duration="1989000" />
       <workItem from="1696693371176" duration="3108000" />
       <workItem from="1696770412954" duration="2428000" />
-      <workItem from="1696870858200" duration="1729000" />
+      <workItem from="1696870858200" duration="2565000" />
     </task>
     <task id="LOCAL-00001" summary="Fit conflict">
       <option name="closed" value="true" />
@@ -165,7 +166,15 @@
       <option name="project" value="LOCAL" />
       <updated>1696872417796</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="modified Dockerfile">
+      <option name="closed" value="true" />
+      <created>1696872630838</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1696872630838</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,6 +227,7 @@
     <MESSAGE value="Fit conflict" />
     <MESSAGE value="Change db to postgreSQL" />
     <MESSAGE value="add dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="add dockerfile" />
+    <MESSAGE value="modified Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="modified Dockerfile" />
   </component>
 </project>

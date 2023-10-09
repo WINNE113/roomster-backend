@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @EnableConfigurationProperties
 @SpringBootApplication()
 public class RoomsterBackendApplication {
-	public String POST = System.getenv("POST");
+	public String PORT = System.getenv("PORT");
 
 
 	public static void main(String[] args) {
