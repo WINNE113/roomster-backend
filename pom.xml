@@ -17,6 +17,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <start-class>om.roomster.roomsterbackend.RoomsterBackendApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -99,24 +100,6 @@
             <scope>test</scope>
         </dependency>
 
-<!--         Document API-->
-<!--        <dependency>-->
-<!--            <groupId>io.springfox</groupId>-->
-<!--            <artifactId>springfox-boot-starter</artifactId>-->
-<!--            <version>3.0.0</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.springdoc</groupId>-->
-<!--            <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>-->
-<!--            <version>2.0.0</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -138,10 +121,20 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
                 <configuration>
+                    <mainClass>com.roomster.roomsterbackend.RoomsterBackendApplication</mainClass>
+                    <layout>JAR</layout>
                     <skip>true</skip>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
+        <finalName>roomster-backend</finalName>
     </build>
 
 </project>
