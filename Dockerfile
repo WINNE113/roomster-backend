@@ -1,3 +1,5 @@
 FROM openjdk:17
-ADD ./roomster-backend.jar roomster-backend.jar
+EXPOSE 8080
+WORKDIR /app
+COPY target/roomster-backend.jar roomster-backend.jar
 ENTRYPOINT ["java", "-jar", "roomster-backend.jar"]
