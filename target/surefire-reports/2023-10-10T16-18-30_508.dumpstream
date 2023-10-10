@@ -1,5 +1,0 @@
-# Created at 2023-10-10T16:18:30.767
-Boot Manifest-JAR contains absolute paths in classpath 'D:\WorkSpace\_Capstone Project\BE\roomster-backend\roomster-backend\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-

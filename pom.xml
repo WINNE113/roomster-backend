@@ -17,7 +17,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <start-class>om.roomster.roomsterbackend.RoomsterBackendApplication</start-class>
+<!--        <start-class>om.roomster.roomsterbackend.RoomsterBackendApplication</start-class>-->
     </properties>
     <dependencies>
         <dependency>
@@ -120,18 +120,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${project.parent.version}</version>
-                <configuration>
-                    <mainClass>com.roomster.roomsterbackend.RoomsterBackendApplication</mainClass>
-                    <layout>JAR</layout>
-                    <skip>true</skip>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+<!--                <configuration>-->
+<!--                    <mainClass>com.roomster.roomsterbackend.RoomsterBackendApplication</mainClass>-->
+<!--                    <layout>JAR</layout>-->
+<!--                    <skip>true</skip>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>repackage</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
             </plugin>
         </plugins>
         <finalName>roomster-backend</finalName>
