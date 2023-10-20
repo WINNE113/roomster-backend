@@ -1,18 +1,14 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.roomster.roomsterbackend.dto.RoleDTO;
+import com.roomster.roomsterbackend.dto.RoleDto;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "phone_number"))
 public class UserEntity extends BaseEntity implements UserDetails {
 
     @Column(name = "user_name")
@@ -53,12 +49,12 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private RatingEntity ratingEntity;
 
     @Enumerated(EnumType.STRING)
-    private RoleDTO role;
+    private RoleDto role;
 
 
     public UserEntity(){}
 
-    public UserEntity(String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDTO role) {
+    public UserEntity(String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
         this.userName = userName;
         this.passwordHash = passwordHash;
         this.email = email;
@@ -74,7 +70,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.role = role;
     }
 
-    public UserEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDTO role) {
+    public UserEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.userName = userName;
         this.passwordHash = passwordHash;
@@ -187,17 +183,16 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.ratingEntity = ratingEntity;
     }
 
-    public RoleDTO getRole() {
+    public RoleDto getRole() {
         return role;
     }
 
-    public void setRole(RoleDTO role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.getAuthority();
     }
 
     @Override
@@ -207,7 +202,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.phoneNumber;
     }
 
     @Override

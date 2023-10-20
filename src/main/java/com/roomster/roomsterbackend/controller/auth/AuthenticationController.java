@@ -18,9 +18,14 @@ public class AuthenticationController {
 
     private final TwilioOTPService twilioOTPService;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
+    @PostMapping("/registration")
+    public ResponseEntity<BaseResponse> register(@RequestBody RegisterRequest request){
         return ResponseEntity.ok(authenticationService.register(request));
+    }
+
+    @PostMapping("/verification-otp")
+    public ResponseEntity<BaseResponse> verificationOTP(@RequestBody OtpValidationRequestDto requestDto){
+        return ResponseEntity.ok(authenticationService.registerTwoFactor(requestDto));
     }
 
     @PostMapping("/authenticate")
@@ -34,14 +39,14 @@ public class AuthenticationController {
         return "SMS sent";
     }
 
-    @PostMapping("/send-otp")
-    public OtpResponseDto sendOTP(@RequestBody OtpRequestDto requestDto) {
+    @PostMapping("/demo-send-otp")
+    public ResponseDto sendOTP(@RequestBody OtpRequestDto requestDto) {
         log.info("inside sendOtp :: "+requestDto.getUserName());
         return twilioOTPService.sendSMS(requestDto);
     }
 
-    @PostMapping("/validate-otp")
-    public String validateOTP(@RequestBody OtpValidationRequestDto otpValidationRequestDto) {
+    @PostMapping("/demo-validate-otp")
+    public boolean validateOTP(@RequestBody OtpValidationRequestDto otpValidationRequestDto) {
         log.info("inside validateOtp :: "+otpValidationRequestDto.getUserName()+" "+otpValidationRequestDto.getOtpNumber());
         return twilioOTPService.validateOtp(otpValidationRequestDto);
     }

@@ -1,6 +1,8 @@
 package com.roomster.roomsterbackend.dto;
 
-public enum OtpStatus {
+public enum Status {
     DELIVERED,
-    FAILED
+    FAILED,
+    VALID,
+    INVALID
 }

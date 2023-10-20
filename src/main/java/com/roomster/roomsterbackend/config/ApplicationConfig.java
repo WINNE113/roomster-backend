@@ -19,7 +19,7 @@ public class ApplicationConfig {
     private final IUserService userService;
     @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userService.findByEmail(username)
+        return phoneNumber -> userService.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

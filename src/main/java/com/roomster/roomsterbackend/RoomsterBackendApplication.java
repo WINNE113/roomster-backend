@@ -12,17 +12,17 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 @SpringBootApplication()
 public class RoomsterBackendApplication {
 
-	@Autowired
-	private TwilioConfig twilioConfig;
+    @Autowired
+    private TwilioConfig twilioConfig;
 
-	@PostConstruct
-	public void setup(){
-		Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
-	}
+    @PostConstruct
+    public void setup() {
+        Twilio.init(twilioConfig.getAccountSid(), twilioConfig.getAuthToken());
+    }
 
 
-	public static void main(String[] args) {
-		SpringApplication.run(RoomsterBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(RoomsterBackendApplication.class, args);
+    }
 
 }
