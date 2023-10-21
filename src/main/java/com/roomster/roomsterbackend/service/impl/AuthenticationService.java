@@ -4,7 +4,7 @@ package com.roomster.roomsterbackend.service.impl;
 import com.roomster.roomsterbackend.dto.*;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.UserRepository;
-import com.roomster.roomsterbackend.service.IAuthenticationService;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;

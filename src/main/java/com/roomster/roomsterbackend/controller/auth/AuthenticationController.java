@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.controller.auth;
 
 import com.roomster.roomsterbackend.dto.*;
-import com.roomster.roomsterbackend.service.IAuthenticationService;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

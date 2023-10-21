@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service;
+package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.*;
 import org.springframework.stereotype.Service;
