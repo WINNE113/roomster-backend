@@ -20,6 +20,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "images")
+    private String images;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -48,44 +51,14 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @OneToOne(mappedBy = "userRating")
     private RatingEntity ratingEntity;
 
+    @OneToMany(mappedBy = "userChatMessage")
+    private List<ChatMessageEntity> chatMessage = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private RoleDto role;
 
 
     public UserEntity(){}
 
-    public UserEntity(String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        TwoFactorEnable = twoFactorEnable;
-        this.isActive = isActive;
-        this.isDeleted = isDeleted;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.roles = roles;
-        this.posts = posts;
-        this.ratingEntity = ratingEntity;
-        this.role = role;
-    }
-
-    public UserEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
-        super(createdDate, modifiedDate, createdBy, modifiedBy);
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        TwoFactorEnable = twoFactorEnable;
-        this.isActive = isActive;
-        this.isDeleted = isDeleted;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.roles = roles;
-        this.posts = posts;
-        this.ratingEntity = ratingEntity;
-        this.role = role;
-    }
 
     public String getUserName() {
         return userName;

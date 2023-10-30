@@ -16,9 +16,6 @@ public class PostEntity extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "publisher")
-    private String publisher;
-
     @Column(name = "description")
     private String description;
 
@@ -31,13 +28,16 @@ public class PostEntity extends BaseEntity {
     @Column(name = "surroundings")
     private String surroundings;
 
+    @Column(name = "image_url_list")
+    private String imageUrlList;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private RoomEntity room;
+    private InforRoomEntity room;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_type_id", referencedColumnName = "id")
@@ -47,17 +47,16 @@ public class PostEntity extends BaseEntity {
     private List<Comment> comments = new ArrayList<>();
 
     @OneToMany(mappedBy = "postImage")
-    private List<ImageEntity> image = new ArrayList<>();
+    private List<ImageEntity> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "postRating")
     private List<RatingEntity> ratings = new ArrayList<>();
 
     public PostEntity(){}
 
-    public PostEntity(String title, String address, String publisher, String description, String object, String convenient, String surroundings, UserEntity user, RoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
+    public PostEntity(String title, String address, String description, String object, String convenient, String surroundings, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
         this.title = title;
         this.address = address;
-        this.publisher = publisher;
         this.description = description;
         this.object = object;
         this.convenient = convenient;
@@ -66,15 +65,14 @@ public class PostEntity extends BaseEntity {
         this.room = room;
         this.postType = postType;
         this.comments = comments;
-        this.image = image;
+        this.images = image;
         this.ratings = ratings;
     }
 
-    public PostEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String title, String address, String publisher, String description, String object, String convenient, String surroundings, UserEntity user, RoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
+    public PostEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String title, String address, String description, String object, String convenient, String surroundings, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.title = title;
         this.address = address;
-        this.publisher = publisher;
         this.description = description;
         this.object = object;
         this.convenient = convenient;
@@ -83,7 +81,7 @@ public class PostEntity extends BaseEntity {
         this.room = room;
         this.postType = postType;
         this.comments = comments;
-        this.image = image;
+        this.images = image;
         this.ratings = ratings;
     }
 
@@ -101,14 +99,6 @@ public class PostEntity extends BaseEntity {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
     }
 
     public String getDescription() {
@@ -151,11 +141,11 @@ public class PostEntity extends BaseEntity {
         this.user = user;
     }
 
-    public RoomEntity getRoom() {
+    public InforRoomEntity getRoom() {
         return room;
     }
 
-    public void setRoom(RoomEntity room) {
+    public void setRoom(InforRoomEntity room) {
         this.room = room;
     }
 
@@ -176,11 +166,11 @@ public class PostEntity extends BaseEntity {
     }
 
     public List<ImageEntity> getImage() {
-        return image;
+        return images;
     }
 
     public void setImage(List<ImageEntity> image) {
-        this.image = image;
+        this.images = image;
     }
 
     public List<RatingEntity> getRatings() {
