@@ -8,7 +8,7 @@
       <jdbc-url>jdbc:mysql://localhost:3306/jspservletjdbc</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="testdb@localhost" uuid="4a581295-6f0f-4137-b1be-be756e9b3c02">
+    <data-source source="LOCAL" name="testdb@localhost [2]" uuid="baa3c9fd-eefb-4f2d-8ae3-cf6865f29592">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

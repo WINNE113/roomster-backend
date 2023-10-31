@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="fix deploy">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix model database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/roomster-backend-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/roomster-backend.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/roomster-backend.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2023-10-10T01-20-27_055.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2023-10-10T16-18-30_508.dumpstream" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RoomEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,17 +20,16 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="thanglh" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="thanglh" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,15 +57,8 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -82,35 +72,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;thanglh&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
+    ]
   }
-}]]></component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="mvn install" />
-      <command value="mvn clean" />
-    </option>
+}</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.roomster.roomsterbackend.dto" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.roomster.roomsterbackend.controller.management" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
@@ -146,102 +144,52 @@
       <workItem from="1696172995813" duration="3205000" />
       <workItem from="1696219435497" duration="1265000" />
       <workItem from="1696242358258" duration="1989000" />
-      <workItem from="1696693371176" duration="3108000" />
-      <workItem from="1696770412954" duration="2428000" />
-      <workItem from="1696870858200" duration="5033000" />
-      <workItem from="1696900330339" duration="64000" />
-      <workItem from="1696929193892" duration="1360000" />
-      <workItem from="1696930832255" duration="18000" />
+      <workItem from="1697013902612" duration="24263000" />
+      <workItem from="1697094648229" duration="616000" />
+      <workItem from="1697537251987" duration="2149000" />
+      <workItem from="1697557734245" duration="1138000" />
+      <workItem from="1697683781439" duration="78000" />
+      <workItem from="1697686829853" duration="18931000" />
+      <workItem from="1697761794661" duration="4607000" />
+      <workItem from="1697766580611" duration="666000" />
+      <workItem from="1697792120808" duration="1787000" />
+      <workItem from="1698334735969" duration="1217000" />
+      <workItem from="1698676644319" duration="2496000" />
+      <workItem from="1698760636941" duration="1050000" />
     </task>
-    <task id="LOCAL-00001" summary="Fit conflict">
+    <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
-      <created>1696676392519</created>
+      <created>1697019183867</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1696676392519</updated>
+      <updated>1697019183867</updated>
     </task>
-    <task id="LOCAL-00002" summary="Change db to postgreSQL">
+    <task id="LOCAL-00002" summary=" modified send OTP and validate OTP">
       <option name="closed" value="true" />
-      <created>1696694218547</created>
+      <created>1697766944375</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1696694218547</updated>
+      <updated>1697766944375</updated>
     </task>
-    <task id="LOCAL-00003" summary="add dockerfile">
+    <task id="LOCAL-00003" summary="Modified file AuthenticationService">
       <option name="closed" value="true" />
-      <created>1696872417796</created>
+      <created>1697767144816</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1696872417796</updated>
+      <updated>1697767144816</updated>
     </task>
-    <task id="LOCAL-00004" summary="modified Dockerfile">
+    <task id="LOCAL-00004" summary="Fix model database">
       <option name="closed" value="true" />
-      <created>1696872630838</created>
+      <created>1698678909257</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1696872630838</updated>
+      <updated>1698678909257</updated>
     </task>
-    <task id="LOCAL-00005" summary="modified file">
-      <option name="closed" value="true" />
-      <created>1696873520401</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1696873520401</updated>
-    </task>
-    <task id="LOCAL-00006" summary="fix">
-      <option name="closed" value="true" />
-      <created>1696873694592</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1696873694592</updated>
-    </task>
-    <task id="LOCAL-00007" summary="fix deploy">
-      <option name="closed" value="true" />
-      <created>1696873829872</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1696873829872</updated>
-    </task>
-    <task id="LOCAL-00008" summary="fix deploy">
-      <option name="closed" value="true" />
-      <created>1696874235651</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1696874235651</updated>
-    </task>
-    <task id="LOCAL-00009" summary="fix deploy">
-      <option name="closed" value="true" />
-      <created>1696874296420</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1696874296420</updated>
-    </task>
-    <task id="LOCAL-00010" summary="fix deploy">
-      <option name="closed" value="true" />
-      <created>1696929733287</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1696929733287</updated>
-    </task>
-    <task id="LOCAL-00011" summary="fix deploy">
-      <option name="closed" value="true" />
-      <created>1696929995944</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1696929995944</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,11 +201,6 @@
         <entry key="Branch">
           <value>
             <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="main" />
-                </option>
-              </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
                   <option value="thanglh" />
@@ -278,7 +221,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="main" />
+                        <option value="thanglh" />
                       </list>
                     </value>
                   </entry>
@@ -291,13 +234,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fit conflict" />
-    <MESSAGE value="Change db to postgreSQL" />
-    <MESSAGE value="add dockerfile" />
-    <MESSAGE value="modified Dockerfile" />
-    <MESSAGE value="modified file" />
-    <MESSAGE value="fix" />
-    <MESSAGE value="fix deploy" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix deploy" />
+    <MESSAGE value="add send OTP and validate OTP" />
+    <MESSAGE value=" modified send OTP and validate OTP" />
+    <MESSAGE value="Modified file AuthenticationService" />
+    <MESSAGE value="Fix model database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix model database" />
   </component>
 </project>

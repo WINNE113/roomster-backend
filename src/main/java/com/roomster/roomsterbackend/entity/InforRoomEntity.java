@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
-@Table(name = "rooms")
-public class RoomEntity extends BaseEntity{
+@Table(name = "infor_rooms")
+public class InforRoomEntity extends BaseEntity{
 
     @Column(name = "number_room")
     private int numberRoom;
@@ -36,9 +36,9 @@ public class RoomEntity extends BaseEntity{
     @OneToOne(mappedBy = "room")
     private PostEntity post;
 
-    public RoomEntity(){}
+    public InforRoomEntity(){}
 
-    public RoomEntity(int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
+    public InforRoomEntity(int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
         this.numberRoom = numberRoom;
         this.emptyRoom = emptyRoom;
         this.stayMax = stayMax;
@@ -49,7 +49,7 @@ public class RoomEntity extends BaseEntity{
         this.post = post;
     }
 
-    public RoomEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
+    public InforRoomEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.numberRoom = numberRoom;
         this.emptyRoom = emptyRoom;

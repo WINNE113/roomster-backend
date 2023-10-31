@@ -11,5 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
     private String token;
+    private String message;
 
+    public static AuthenticationResponse error(String errorMessage) {
+        AuthenticationResponse response = new AuthenticationResponse();
+        response.setMessage(errorMessage);
+        return response;
+    }
 }

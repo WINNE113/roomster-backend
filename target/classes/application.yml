@@ -1,14 +1,25 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /
+
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: huuthang
         url: jdbc:mysql://localhost:3306/testdb
         username: root
-#    profiles:
-#        active: dev
+    mvc:
+        pathmatch:
+            matching-strategy: ant_path_matcher
     jpa:
         database-platform: org.hibernate.dialect.MySQLDialect
         generate-ddl: true
         hibernate:
             ddl-auto: update
         show-sql: true
+
+twilio:
+    account_sid: ACc2a522ebd3172b9f66ac39c838814f51
+    auth_token: 3db836b47f6499cb4b8291ede670a688
+    trial_number: +12314004777
