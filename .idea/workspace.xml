@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Modified file AuthenticationService">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix model database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/RoomEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RoomEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +49,7 @@
   <component name="GithubPullRequestsUISettings">
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
-        <option name="accountId" value="89f55b4f-2ee4-4ec2-a188-de5d14d8b354" />
+        <option name="accountId" value="c98a180d-7074-4d64-9a38-05d37ba56b5f" />
         <option name="url" value="https://github.com/WINNE113/roomster-backend.git" />
       </UrlAndAccount>
     </option>
@@ -152,7 +154,8 @@
       <workItem from="1697766580611" duration="666000" />
       <workItem from="1697792120808" duration="1787000" />
       <workItem from="1698334735969" duration="1217000" />
-      <workItem from="1698676644319" duration="2130000" />
+      <workItem from="1698676644319" duration="2496000" />
+      <workItem from="1698760636941" duration="1050000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -178,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1697767144816</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Fix model database">
+      <option name="closed" value="true" />
+      <created>1698678909257</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698678909257</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +237,7 @@
     <MESSAGE value="add send OTP and validate OTP" />
     <MESSAGE value=" modified send OTP and validate OTP" />
     <MESSAGE value="Modified file AuthenticationService" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modified file AuthenticationService" />
+    <MESSAGE value="Fix model database" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix model database" />
   </component>
 </project>
