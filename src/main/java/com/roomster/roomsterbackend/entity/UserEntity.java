@@ -1,8 +1,8 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.roomster.roomsterbackend.dto.RoleDto;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
@@ -41,9 +41,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleEntity> roles = new ArrayList<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private List<PostEntity> posts = new ArrayList<>();
@@ -53,8 +53,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "userChatMessage")
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
-    @Enumerated(EnumType.STRING)
-    private RoleDto role;
 
 
     public UserEntity(){}
@@ -132,11 +130,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.address = address;
     }
 
-    public List<RoleEntity> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleEntity> roles) {
+    public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
 
@@ -156,16 +154,14 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.ratingEntity = ratingEntity;
     }
 
-    public RoleDto getRole() {
-        return role;
-    }
 
-    public void setRole(RoleDto role) {
-        this.role = role;
-    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthority();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for(RoleEntity role: roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override

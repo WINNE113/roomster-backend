@@ -2,7 +2,9 @@ package com.roomster.roomsterbackend.service.impl;
 
 
 import com.roomster.roomsterbackend.dto.*;
+import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IAuthenticationService;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +29,7 @@ public class AuthenticationService implements IAuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final TwilioOTPService twilioOTPService;
+    private final RoleRepository roleRepository;
     private final Map<String, RegisterRequest> registerAccounts = new HashMap<>();
 
     public BaseResponse register(RegisterRequest request) {
@@ -61,24 +65,29 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     public BaseResponse registerTwoFactor(OtpValidationRequestDto requestDto) {
-
-        boolean checkValidOTP = twilioOTPService.validateOtp(requestDto);
-        if (checkValidOTP) {
-            for (Map.Entry<String, RegisterRequest> entry : registerAccounts.entrySet()
-            ) {
-                String phoneNumber = entry.getKey();
-                RegisterRequest item = entry.getValue();
-                if (item.getUserName().equals(requestDto.getUserName())) {
-                    UserEntity user = new UserEntity();
-                    user.setUserName(item.getUserName());
-                    user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(item.getPhoneNumber()));
-                    user.setPasswordHash(passwordEncoder.encode(item.getPassword()));
-                    user.setRole(item.getRole());
-                    repository.save(user);
-                    registerAccounts.remove(phoneNumber);
+        RoleEntity role = roleRepository.findByName("ROLE_USER");
+        if(role != null) {
+            boolean checkValidOTP = twilioOTPService.validateOtp(requestDto);
+            if (checkValidOTP) {
+                for (Map.Entry<String, RegisterRequest> entry : registerAccounts.entrySet()
+                ) {
+                    String phoneNumber = entry.getKey();
+                    RegisterRequest item = entry.getValue();
+                    if (item.getUserName().equals(requestDto.getUserName())) {
+                        UserEntity user = new UserEntity();
+                        user.setUserName(item.getUserName());
+                        user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(item.getPhoneNumber()));
+                        user.setPasswordHash(passwordEncoder.encode(item.getPassword()));
+                        user.setRoles(Set.of(role));
+                        user.setActive(true);
+                        repository.save(user);
+                        registerAccounts.remove(phoneNumber);
+                    }
                 }
+                return BaseResponse.success("OTP is valid");
             }
-            return BaseResponse.success("OTP is valid");
+        }else {
+            return BaseResponse.error("Role is not found!");
         }
         return BaseResponse.error("OTP is invalid");
     }
