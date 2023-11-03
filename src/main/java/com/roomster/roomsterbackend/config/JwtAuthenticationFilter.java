@@ -1,6 +1,5 @@
 package com.roomster.roomsterbackend.config;
 
-import com.roomster.roomsterbackend.service.IUserService;
 import com.roomster.roomsterbackend.service.impl.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
