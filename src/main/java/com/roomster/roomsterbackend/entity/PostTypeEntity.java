@@ -20,7 +20,7 @@ public class PostTypeEntity extends BaseEntity {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    @OneToOne(mappedBy = "postType")
+    @OneToOne
     private PostEntity post;
 
     public PostTypeEntity(){}

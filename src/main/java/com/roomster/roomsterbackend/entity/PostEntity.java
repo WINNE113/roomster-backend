@@ -31,9 +31,14 @@ public class PostEntity extends BaseEntity {
     @Column(name = "image_url_list")
     private String imageUrlList;
 
+    @Column(name = "active")
+    private boolean active;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity user;
+        private UserEntity user;
+
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
@@ -43,24 +48,29 @@ public class PostEntity extends BaseEntity {
     @JoinColumn(name = "post_type_id", referencedColumnName = "id")
     private PostTypeEntity postType;
 
+
     @OneToMany(mappedBy = "postComment")
-    private List<Comment> comments = new ArrayList<>();
+    private List<CommentEntity> comments = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "postImage")
     private List<ImageEntity> images = new ArrayList<>();
+
 
     @OneToMany(mappedBy = "postRating")
     private List<RatingEntity> ratings = new ArrayList<>();
 
     public PostEntity(){}
 
-    public PostEntity(String title, String address, String description, String object, String convenient, String surroundings, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
+    public PostEntity(String title, String address, String description, String object, String convenient, String surroundings, String imageUrlList, Boolean active, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<CommentEntity> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
         this.title = title;
         this.address = address;
         this.description = description;
         this.object = object;
         this.convenient = convenient;
         this.surroundings = surroundings;
+        this.imageUrlList = imageUrlList;
+        this.active = active;
         this.user = user;
         this.room = room;
         this.postType = postType;
@@ -69,7 +79,7 @@ public class PostEntity extends BaseEntity {
         this.ratings = ratings;
     }
 
-    public PostEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String title, String address, String description, String object, String convenient, String surroundings, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<Comment> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
+    public PostEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String title, String address, String description, String object, String convenient, String surroundings, String imageUrlList, Boolean active, UserEntity user, InforRoomEntity room, PostTypeEntity postType, List<CommentEntity> comments, List<ImageEntity> image, List<RatingEntity> ratings) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.title = title;
         this.address = address;
@@ -77,6 +87,8 @@ public class PostEntity extends BaseEntity {
         this.object = object;
         this.convenient = convenient;
         this.surroundings = surroundings;
+        this.imageUrlList = imageUrlList;
+        this.active = active;
         this.user = user;
         this.room = room;
         this.postType = postType;
@@ -88,6 +100,7 @@ public class PostEntity extends BaseEntity {
     public String getTitle() {
         return title;
     }
+
 
     public void setTitle(String title) {
         this.title = title;
@@ -133,6 +146,22 @@ public class PostEntity extends BaseEntity {
         this.surroundings = surroundings;
     }
 
+    public String getImageUrlList() {
+        return imageUrlList;
+    }
+
+    public void setImageUrlList(String imageUrlList) {
+        this.imageUrlList = imageUrlList;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public UserEntity getUser() {
         return user;
     }
@@ -157,11 +186,11 @@ public class PostEntity extends BaseEntity {
         this.postType = postType;
     }
 
-    public List<Comment> getComments() {
+    public List<CommentEntity> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
+    public void setComments(List<CommentEntity> comments) {
         this.comments = comments;
     }
 

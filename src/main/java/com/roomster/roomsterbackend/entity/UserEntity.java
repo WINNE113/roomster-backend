@@ -45,8 +45,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleEntity> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany
     private List<PostEntity> posts = new ArrayList<>();
+
+    @OneToMany
+    private List<CommentEntity> comments = new ArrayList<>();
 
     @OneToOne(mappedBy = "userRating")
     private RatingEntity ratingEntity;
@@ -146,6 +149,14 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public void setPosts(List<PostEntity> posts) {
         this.posts = posts;
+    }
+
+    public List<CommentEntity> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentEntity> comments) {
+        this.comments = comments;
     }
 
     public RatingEntity getRatingEntity() {

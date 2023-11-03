@@ -33,7 +33,7 @@ public class InforRoomEntity extends BaseEntity{
     @Column(name = "water_price")
     private BigDecimal waterPrice;
 
-    @OneToOne(mappedBy = "room")
+    @OneToOne
     private PostEntity post;
 
     public InforRoomEntity(){}

@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.config;
 
 import com.roomster.roomsterbackend.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,4 +42,9 @@ public class ApplicationConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 }

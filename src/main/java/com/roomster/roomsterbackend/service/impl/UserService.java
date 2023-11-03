@@ -21,4 +21,10 @@ public class UserService implements IUserService {
     public Optional<UserEntity> findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
     }
+
+    @Override
+    public Optional<UserEntity> findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
 }

@@ -28,6 +28,4 @@ public class UserDto {
     private Date dateOfBirth;
 
     private String address;
-
-
 }
