@@ -6,7 +6,7 @@ import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
-import com.roomster.roomsterbackend.service.IAuthenticationService;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
