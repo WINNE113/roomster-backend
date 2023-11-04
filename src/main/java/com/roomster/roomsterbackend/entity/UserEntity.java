@@ -26,8 +26,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "phone_number_confirmed")
+    private boolean phoneNumberConfirmed;
+
     @Column(name = "two_factor_enable")
-    private int TwoFactorEnable;
+    private boolean TwoFactorEnable;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -90,11 +93,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getTwoFactorEnable() {
+    public boolean getPhoneNumberConfirmed(){return phoneNumberConfirmed;}
+
+    public void setPhoneNumberConfirmed(boolean phoneNumberConfirmed){
+        this.phoneNumberConfirmed = phoneNumberConfirmed;
+    }
+
+    public boolean getTwoFactorEnable() {
         return TwoFactorEnable;
     }
 
-    public void setTwoFactorEnable(int twoFactorEnable) {
+    public void setTwoFactorEnable(boolean twoFactorEnable) {
         TwoFactorEnable = twoFactorEnable;
     }
 
