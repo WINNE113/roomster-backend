@@ -7,7 +7,7 @@ spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         password: huuthang
-        url: jdbc:mysql://localhost:3306/testdb
+        url: jdbc:mysql://localhost:3306/database
         username: root
     mvc:
         pathmatch:
