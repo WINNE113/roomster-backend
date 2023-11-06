@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 
+import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.dto.*;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
@@ -24,7 +25,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class AuthenticationService implements IAuthenticationService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -33,12 +34,12 @@ public class AuthenticationService implements IAuthenticationService {
     private final Map<String, RegisterRequest> registerAccounts = new HashMap<>();
 
     public BaseResponse register(RegisterRequest request) {
-
-        Optional<UserEntity> existingUser = repository.findByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
-
         if (!PhoneNumberValidator.isValidPhoneNumber(request.getPhoneNumber())) {
             return BaseResponse.error("Invalid phone number format");
         }
+
+        Optional<UserEntity> existingUser = userRepository.findByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
+
         if (existingUser.isPresent()) {
             return BaseResponse.error("User with this phone number already exists");
         }
@@ -47,14 +48,22 @@ public class AuthenticationService implements IAuthenticationService {
             registerAccounts.remove(request.getPhoneNumber());
         }
 
-        OtpRequestDto otpRequestDto = createOtpRequest(request);
-        ResponseDto otpResponseDto = twilioOTPService.sendSMS(otpRequestDto);
-        if (otpResponseDto.getStatus().equals(Status.DELIVERED)) {
-            registerAccounts.put(request.getPhoneNumber(), request);
-            return BaseResponse.success("Successful to send OTP");
-        } else {
-            return BaseResponse.error("Failed to send OTP");
+        if(request.getRole().equals(ModelCommon.USER)){
+          boolean checkRegister = this.baseRegister(request);
+          if(checkRegister){
+              return BaseResponse.success("Successful to register");
+          }
+        }else if(request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ADMIN)){
+            OtpRequestDto otpRequestDto = createOtpRequest(request);
+            ResponseDto otpResponseDto = twilioOTPService.sendSMS(otpRequestDto);
+            if (otpResponseDto.getStatus().equals(Status.DELIVERED)) {
+                registerAccounts.put(request.getPhoneNumber(), request);
+                return BaseResponse.success("Successful to send OTP");
+            } else {
+                return BaseResponse.error("Failed to send OTP");
+            }
         }
+        return BaseResponse.error("Failed to register! ");
     }
 
     private OtpRequestDto createOtpRequest(RegisterRequest request) {
@@ -64,31 +73,51 @@ public class AuthenticationService implements IAuthenticationService {
         return otpRequestDto;
     }
 
+
+    private boolean baseRegister(RegisterRequest request){
+        RoleEntity role = roleRepository.findByName(request.getRole());
+        if(role != null){
+            UserEntity user = new UserEntity();
+            user.setUserName(request.getUserName());
+            user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
+            user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+            user.setRoles(Set.of(role));
+            if(request.getRole().equals(ModelCommon.USER)){
+                user.setPhoneNumberConfirmed(false);
+                user.setTwoFactorEnable(false);
+            }else if(request.getRole().equals(ModelCommon.ADMIN) || request.getRole().equals(ModelCommon.MANAGEMENT)){
+                user.setPhoneNumberConfirmed(true);
+                user.setTwoFactorEnable(true);
+            }
+            user.setActive(true);
+            user.setDeleted(false);
+            userRepository.save(user);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public BaseResponse registerTwoFactor(OtpValidationRequestDto requestDto) {
-        RoleEntity role = roleRepository.findByName("ROLE_USER");
-        if(role != null) {
             boolean checkValidOTP = twilioOTPService.validateOtp(requestDto);
             if (checkValidOTP) {
                 for (Map.Entry<String, RegisterRequest> entry : registerAccounts.entrySet()
                 ) {
-                    String phoneNumber = entry.getKey();
                     RegisterRequest item = entry.getValue();
                     if (item.getUserName().equals(requestDto.getUserName())) {
-                        UserEntity user = new UserEntity();
-                        user.setUserName(item.getUserName());
-                        user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(item.getPhoneNumber()));
-                        user.setPasswordHash(passwordEncoder.encode(item.getPassword()));
-                        user.setRoles(Set.of(role));
-                        user.setActive(true);
-                        repository.save(user);
-                        registerAccounts.remove(phoneNumber);
+                        RegisterRequest request = new RegisterRequest();
+                        request.setUserName(item.getUserName());
+                        request.setPhoneNumber(item.getPhoneNumber());
+                        request.setPassword(item.getPassword());
+                        request.setRole(item.getRole());
+                        boolean checkRegister =  this.baseRegister(request);
+                        if(!checkRegister){
+                            return BaseResponse.error("Register is fail!");
+                        }
                     }
                 }
                 return BaseResponse.success("OTP is valid");
             }
-        }else {
-            return BaseResponse.error("Role is not found!");
-        }
         return BaseResponse.error("OTP is invalid");
     }
 
@@ -106,7 +135,7 @@ public class AuthenticationService implements IAuthenticationService {
             return AuthenticationResponse.error("Authentication failed. Invalid phone number or password.");
         }
 
-       var user = repository.findByPhoneNumber(normalizePhoneNumber);
+       var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
         if (user.isPresent()) {
             var jwtToken = jwtService.generateToken(user.get());
             return AuthenticationResponse.builder()

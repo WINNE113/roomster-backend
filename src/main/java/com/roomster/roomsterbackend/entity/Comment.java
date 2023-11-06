@@ -1,9 +1,12 @@
 package com.roomster.roomsterbackend.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "comments")
 public class Comment extends BaseEntity {
@@ -17,55 +20,9 @@ public class Comment extends BaseEntity {
     @Column(name = "status")
     private boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    private PostEntity postComment;
+    @Column(name = "post_id")
+    private Long postId;
+    @Column(name = "user_id")
+    private Long userId;
 
-    public Comment(){}
-    public Comment(String title, String content, boolean status, PostEntity postComment) {
-        this.title = title;
-        this.content = content;
-        this.status = status;
-        this.postComment = postComment;
-    }
-
-    public Comment(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String title, String content, boolean status, PostEntity postComment) {
-        super(createdDate, modifiedDate, createdBy, modifiedBy);
-        this.title = title;
-        this.content = content;
-        this.status = status;
-        this.postComment = postComment;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public PostEntity getPostComment() {
-        return postComment;
-    }
-
-    public void setPostComment(PostEntity postComment) {
-        this.postComment = postComment;
-    }
 }
