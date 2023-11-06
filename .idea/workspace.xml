@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="delete userModel">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/TwilioOTPService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/TwilioOTPService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="main" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;author&quot;: &quot;TrongTanLe&quot;
+    },
+    {
+      &quot;author&quot;: &quot;WINNE113&quot;
+    }
+  ],
+  &quot;lastFilter&quot;: {
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="c98a180d-7074-4d64-9a38-05d37ba56b5f" />
+        <option name="url" value="https://github.com/WINNE113/roomster-backend.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2W7YWt4UFlLoWbHCtpYUfcuTMQG" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "thanglh",
+    "last_opened_file_path": "D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
+    ],
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.roomster.roomsterbackend.dto" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.roomster.roomsterbackend.controller.management" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="roomster-backend" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.roomster.roomsterbackend.RoomsterBackendApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.roomster.roomsterbackend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="" />
+      <created>1696085128950</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1696085128950</updated>
+      <workItem from="1696085133071" duration="4833000" />
+      <workItem from="1696172995813" duration="3205000" />
+      <workItem from="1696219435497" duration="1265000" />
+      <workItem from="1696242358258" duration="1989000" />
+      <workItem from="1697013902612" duration="24263000" />
+      <workItem from="1697094648229" duration="616000" />
+      <workItem from="1697537251987" duration="2149000" />
+      <workItem from="1697557734245" duration="1138000" />
+      <workItem from="1697683781439" duration="78000" />
+      <workItem from="1697686829853" duration="18931000" />
+      <workItem from="1697761794661" duration="4607000" />
+      <workItem from="1697766580611" duration="666000" />
+      <workItem from="1697792120808" duration="1787000" />
+      <workItem from="1698334735969" duration="1217000" />
+      <workItem from="1698676644319" duration="2496000" />
+      <workItem from="1698760636941" duration="1050000" />
+      <workItem from="1698822761443" duration="2626000" />
+      <workItem from="1698843965117" duration="7244000" />
+      <workItem from="1698936312700" duration="1277000" />
+      <workItem from="1699018772223" duration="1170000" />
+    </task>
+    <task id="LOCAL-00001" summary="add send OTP and validate OTP">
+      <option name="closed" value="true" />
+      <created>1697019183867</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1697019183867</updated>
+    </task>
+    <task id="LOCAL-00002" summary=" modified send OTP and validate OTP">
+      <option name="closed" value="true" />
+      <created>1697766944375</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1697766944375</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Modified file AuthenticationService">
+      <option name="closed" value="true" />
+      <created>1697767144816</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1697767144816</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix model database">
+      <option name="closed" value="true" />
+      <created>1698678909257</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1698678909257</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fix model database">
+      <option name="closed" value="true" />
+      <created>1698762276570</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1698762276570</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Change enum role to entity role">
+      <option name="closed" value="true" />
+      <created>1698936874194</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1698936874194</updated>
+    </task>
+    <task id="LOCAL-00007" summary="delete userModel">
+      <option name="closed" value="true" />
+      <created>1699019466811</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1699019466811</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="thanglh" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="thanglh" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add send OTP and validate OTP" />
+    <MESSAGE value=" modified send OTP and validate OTP" />
+    <MESSAGE value="Modified file AuthenticationService" />
+    <MESSAGE value="Fix model database" />
+    <MESSAGE value="merge from thanglh branch" />
+    <MESSAGE value="Change enum role to entity role" />
+    <MESSAGE value="delete userModel" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete userModel" />
+  </component>
+</project>
