@@ -9,52 +9,11 @@ import java.util.Date;
 public class RatingEntity extends BaseEntity {
 
     @Column(name = "star_point")
-    private String starPoint;
+    private double starPoint;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private UserEntity userRating;
+    @Column(name = "post_id")
+    private Long postId;
+    @Column(name = "user_id")
+    private Long userId;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    private PostEntity postRating;
-
-    public RatingEntity(){}
-
-    public RatingEntity(String starPoint, UserEntity userRating, PostEntity postRating) {
-        this.starPoint = starPoint;
-        this.userRating = userRating;
-        this.postRating = postRating;
-    }
-
-    public RatingEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String starPoint, UserEntity userRating, PostEntity postRating) {
-        super(createdDate, modifiedDate, createdBy, modifiedBy);
-        this.starPoint = starPoint;
-        this.userRating = userRating;
-        this.postRating = postRating;
-    }
-
-    public String getStarPoint() {
-        return starPoint;
-    }
-
-    public void setStarPoint(String starPoint) {
-        this.starPoint = starPoint;
-    }
-
-    public UserEntity getUserRating() {
-        return userRating;
-    }
-
-    public void setUserRating(UserEntity userRating) {
-        this.userRating = userRating;
-    }
-
-    public PostEntity getPostRating() {
-        return postRating;
-    }
-
-    public void setPostRating(PostEntity postRating) {
-        this.postRating = postRating;
-    }
 }

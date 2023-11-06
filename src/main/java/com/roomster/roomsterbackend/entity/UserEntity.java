@@ -48,12 +48,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<PostEntity> posts = new ArrayList<>();
-
-    @OneToOne(mappedBy = "userRating")
-    private RatingEntity ratingEntity;
-
     @OneToMany(mappedBy = "userChatMessage")
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
 
@@ -145,22 +139,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
-    }
-
-    public List<PostEntity> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
-    }
-
-    public RatingEntity getRatingEntity() {
-        return ratingEntity;
-    }
-
-    public void setRatingEntity(RatingEntity ratingEntity) {
-        this.ratingEntity = ratingEntity;
     }
 
 
