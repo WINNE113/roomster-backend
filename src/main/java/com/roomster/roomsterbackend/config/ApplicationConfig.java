@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.config;
 
-import com.roomster.roomsterbackend.service.IUserService;
+import com.roomster.roomsterbackend.service.IService.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

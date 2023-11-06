@@ -2,9 +2,9 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.config.TwilioConfig;
 import com.roomster.roomsterbackend.dto.OtpRequestDto;
+import com.roomster.roomsterbackend.dto.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.Status;
-import com.roomster.roomsterbackend.dto.OtpValidationRequestDto;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,14 +30,10 @@ public class TwilioOTPService {
             PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber()); // from
             String otp = generateOTP();
             String otpMessage = "Dear Customer , Your OTP is  " + otp + " for sending sms through Spring boot application. Thank You.";
-            Message message = Message
-                    .creator(to, from,
-                            otpMessage)
-                    .create();
+            Message message = Message.creator(to, from, otpMessage).create();
             otpMap.put(otpRequest.getUserName(), otp);
             otpResponseDto = new ResponseDto(Status.DELIVERED, otpMessage);
         } catch (Exception e) {
-            e.printStackTrace();
             otpResponseDto = new ResponseDto(Status.FAILED, e.getMessage());
         }
         return otpResponseDto;
@@ -58,7 +54,7 @@ public class TwilioOTPService {
     }
 
     //    generation OTP
-    private String generateOTP(){
+    private String generateOTP() {
         return new DecimalFormat("000000")
                 .format(new Random().nextInt(999999));
     }

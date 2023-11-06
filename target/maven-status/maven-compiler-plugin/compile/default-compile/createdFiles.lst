@@ -5,6 +5,7 @@ com\roomster\roomsterbackend\common\ModelCommon.class
 com\roomster\roomsterbackend\service\impl\PostService.class
 com\roomster\roomsterbackend\service\impl\JwtService.class
 com\roomster\roomsterbackend\dto\LoginRequest.class
+com\roomster\roomsterbackend\repository\RoleRepository.class
 com\roomster\roomsterbackend\model\UserModel.class
 com\roomster\roomsterbackend\entity\UserEntity.class
 com\roomster\roomsterbackend\config\ApplicationConfig.class
