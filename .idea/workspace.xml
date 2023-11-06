@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="delete userModel">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/TwilioOTPService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/TwilioOTPService.java" afterDir="false" />
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +80,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "thanglh",
+    "git-widget-placeholder": "kienld",
     "last_opened_file_path": "D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -129,6 +129,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
@@ -277,6 +279,6 @@
     <MESSAGE value="merge from thanglh branch" />
     <MESSAGE value="Change enum role to entity role" />
     <MESSAGE value="delete userModel" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete userModel" />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
