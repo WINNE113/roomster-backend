@@ -26,8 +26,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "phone_number_confirmed")
+    private boolean phoneNumberConfirmed;
+
     @Column(name = "two_factor_enable")
-    private int TwoFactorEnable;
+    private boolean TwoFactorEnable;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -44,12 +47,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<PostEntity> posts = new ArrayList<>();
-
-    @OneToOne(mappedBy = "userRating")
-    private RatingEntity ratingEntity;
 
     @OneToMany(mappedBy = "userChatMessage")
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
@@ -90,11 +87,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getTwoFactorEnable() {
+    public boolean getPhoneNumberConfirmed(){return phoneNumberConfirmed;}
+
+    public void setPhoneNumberConfirmed(boolean phoneNumberConfirmed){
+        this.phoneNumberConfirmed = phoneNumberConfirmed;
+    }
+
+    public boolean getTwoFactorEnable() {
         return TwoFactorEnable;
     }
 
-    public void setTwoFactorEnable(int twoFactorEnable) {
+    public void setTwoFactorEnable(boolean twoFactorEnable) {
         TwoFactorEnable = twoFactorEnable;
     }
 
@@ -136,22 +139,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
-    }
-
-    public List<PostEntity> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
-    }
-
-    public RatingEntity getRatingEntity() {
-        return ratingEntity;
-    }
-
-    public void setRatingEntity(RatingEntity ratingEntity) {
-        this.ratingEntity = ratingEntity;
     }
 
 
