@@ -26,8 +26,7 @@ public class PostDto {
     private List<CommentPostDto> commentPostDTOList;
     private List<RatingDto> ratingDTOList;
 
-    public PostDto(Long postId, String title, String address, String description, String object, String convenient, String surroundings, String post_type, boolean isDeleted, InforRoomDto roomDto) {
-        this.postId = postId;
+    public PostDto(String title, String address, String description, String object, String convenient, String surroundings, String post_type, boolean isDeleted, InforRoomDto roomDto) {
         this.title = title;
         this.address = address;
         this.description = description;

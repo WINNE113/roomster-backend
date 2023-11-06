@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix OpenAPI document">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/OpenApiConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/OpenApiConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/auth/AuthenticationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/auth/AuthenticationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/PostDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/PostDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
