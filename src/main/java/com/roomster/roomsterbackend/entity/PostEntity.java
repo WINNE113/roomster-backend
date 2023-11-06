@@ -36,7 +36,8 @@ public class PostEntity extends BaseEntity {
     private String surroundings;
 
     @Column(name = "image_url_list")
-    private String imageUrlList;
+    @ElementCollection
+    private List<String> imageUrlList;
 
     @Column(name = "is_deleted")
     private boolean isDeleted;
@@ -48,9 +49,5 @@ public class PostEntity extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "post_type_id", referencedColumnName = "id")
     private PostTypeEntity postType;
-
-    @Column(name = "image_url_list")
-    @ElementCollection
-    private List<String> videoUrls;
 
 }
