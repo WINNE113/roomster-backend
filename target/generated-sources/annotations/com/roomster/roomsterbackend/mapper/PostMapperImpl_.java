@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 /*
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-07T21:20:41+0700",
+    date = "2023-11-07T22:55:17+0700",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 */
@@ -34,6 +34,7 @@ public class PostMapperImpl_ implements PostMapper {
         postDto.setConvenient( postEntity.getConvenient() );
         postDto.setSurroundings( postEntity.getSurroundings() );
         postDto.setDeleted( postEntity.isDeleted() );
+        postDto.setAuthorId( postEntity.getAuthorId() );
         List<String> list = postEntity.getImageUrlList();
         if ( list != null ) {
             postDto.setImageUrlList( new ArrayList<String>( list ) );
@@ -53,6 +54,7 @@ public class PostMapperImpl_ implements PostMapper {
 
         PostEntity postEntity = new PostEntity();
 
+        postEntity.setAuthorId( postDTO.getAuthorId() );
         postEntity.setTitle( postDTO.getTitle() );
         postEntity.setAddress( postDTO.getAddress() );
         postEntity.setDescription( postDTO.getDescription() );
