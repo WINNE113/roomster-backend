@@ -1,25 +1,31 @@
 package com.roomster.roomsterbackend.dto;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.roomster.roomsterbackend.entity.RoleEntity;
+import lombok.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserDto {
+    private Long userId;
     private String userName;
 
-    private String passwordHash;
+    private String password;
 
     private String email;
 
     private String phoneNumber;
 
-    private int twoFactorEnable;
+    private boolean twoFactorEnable;
 
     private boolean isActive;
 
@@ -29,5 +35,5 @@ public class UserDto {
 
     private String address;
 
-
+    private Set<RoleEntity> roleList;
 }

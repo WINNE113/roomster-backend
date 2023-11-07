@@ -1,8 +1,9 @@
-package com.roomster.roomsterbackend.controller;
+package com.roomster.roomsterbackend.controller.management;
 
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,10 +15,10 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/post")
+@RequestMapping("/api/v1/auth/post")
+@RequiredArgsConstructor
 public class PostController {
-    @Autowired
-    private IPostService service;
+    private final IPostService service;
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
     public HttpStatus saveNewPost(@RequestBody PostDto postDTO,
