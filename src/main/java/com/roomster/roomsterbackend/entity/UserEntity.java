@@ -1,8 +1,8 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.roomster.roomsterbackend.dto.RoleDto;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
@@ -20,11 +20,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "images")
+    private String images;
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "phone_number_confirmed")
+    private boolean phoneNumberConfirmed;
+
     @Column(name = "two_factor_enable")
-    private int TwoFactorEnable;
+    private boolean TwoFactorEnable;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -38,54 +44,16 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "address")
     private String address;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<RoleEntity> roles = new ArrayList<>();
+    private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<PostEntity> posts = new ArrayList<>();
-
-    @OneToOne(mappedBy = "userRating")
-    private RatingEntity ratingEntity;
-
-    @Enumerated(EnumType.STRING)
-    private RoleDto role;
+    @OneToMany(mappedBy = "userChatMessage")
+    private List<ChatMessageEntity> chatMessage = new ArrayList<>();
 
 
     public UserEntity(){}
 
-    public UserEntity(String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        TwoFactorEnable = twoFactorEnable;
-        this.isActive = isActive;
-        this.isDeleted = isDeleted;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.roles = roles;
-        this.posts = posts;
-        this.ratingEntity = ratingEntity;
-        this.role = role;
-    }
-
-    public UserEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String userName, String passwordHash, String email, String phoneNumber, int twoFactorEnable, boolean isActive, boolean isDeleted, Date dateOfBirth, String address, List<RoleEntity> roles, List<PostEntity> posts, RatingEntity ratingEntity, RoleDto role) {
-        super(createdDate, modifiedDate, createdBy, modifiedBy);
-        this.userName = userName;
-        this.passwordHash = passwordHash;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        TwoFactorEnable = twoFactorEnable;
-        this.isActive = isActive;
-        this.isDeleted = isDeleted;
-        this.dateOfBirth = dateOfBirth;
-        this.address = address;
-        this.roles = roles;
-        this.posts = posts;
-        this.ratingEntity = ratingEntity;
-        this.role = role;
-    }
 
     public String getUserName() {
         return userName;
@@ -119,11 +87,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public int getTwoFactorEnable() {
+    public boolean getPhoneNumberConfirmed(){return phoneNumberConfirmed;}
+
+    public void setPhoneNumberConfirmed(boolean phoneNumberConfirmed){
+        this.phoneNumberConfirmed = phoneNumberConfirmed;
+    }
+
+    public boolean getTwoFactorEnable() {
         return TwoFactorEnable;
     }
 
-    public void setTwoFactorEnable(int twoFactorEnable) {
+    public void setTwoFactorEnable(boolean twoFactorEnable) {
         TwoFactorEnable = twoFactorEnable;
     }
 
@@ -159,40 +133,22 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.address = address;
     }
 
-    public List<RoleEntity> getRoles() {
+    public Set<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<RoleEntity> roles) {
+    public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
 
-    public List<PostEntity> getPosts() {
-        return posts;
-    }
 
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
-    }
-
-    public RatingEntity getRatingEntity() {
-        return ratingEntity;
-    }
-
-    public void setRatingEntity(RatingEntity ratingEntity) {
-        this.ratingEntity = ratingEntity;
-    }
-
-    public RoleDto getRole() {
-        return role;
-    }
-
-    public void setRole(RoleDto role) {
-        this.role = role;
-    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.getAuthority();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for(RoleEntity role: roles){
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override
