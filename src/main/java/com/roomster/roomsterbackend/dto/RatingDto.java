@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class RatingDto {
+    private Long ratingId;
     private Long postId;
     private Long userId;
     private double starPoint;

@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.controller.management;
 
 import com.roomster.roomsterbackend.dto.CommentPostDto;
-import com.roomster.roomsterbackend.service.impl.ICommentPostService;
+import com.roomster.roomsterbackend.service.IService.ICommentPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

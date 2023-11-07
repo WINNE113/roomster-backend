@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.CommentPostDto;
 
