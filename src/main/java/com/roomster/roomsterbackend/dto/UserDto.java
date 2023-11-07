@@ -1,16 +1,20 @@
 package com.roomster.roomsterbackend.dto;
 
 
+import com.roomster.roomsterbackend.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class UserDto {
+    private Long userId;
+
     private String userName;
 
     private String passwordHash;
@@ -19,7 +23,11 @@ public class UserDto {
 
     private String phoneNumber;
 
-    private int twoFactorEnable;
+    private String images;
+
+    private boolean phoneNumberConfirmed;
+
+    private boolean twoFactorEnable;
 
     private boolean isActive;
 
@@ -28,6 +36,5 @@ public class UserDto {
     private Date dateOfBirth;
 
     private String address;
-
 
 }
