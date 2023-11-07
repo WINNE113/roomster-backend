@@ -4,21 +4,93 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix OpenAPI document">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/PostDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/PostDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/client/CommentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/CommentEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/CommentRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/ICommentService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/CommentService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/RoomsterBackendApplication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/common/ModelCommon.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/ApplicationConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/OpenApiConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/SecurityConfiguration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/TwilioConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/TwilioRouterConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/admin/AdminController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/auth/AuthenticationController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/client/ClientController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/client/CommentController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/management/ManagementController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/management/PostController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/AuthenticationResponse$AuthenticationResponseBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/AuthenticationResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/BaseResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/LoginRequest$LoginRequestBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/LoginRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/OtpRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/OtpValidationRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/Permission.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/PostDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/PostTypeDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/RegisterRequest$RegisterRequestBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/RegisterRequest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/ResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/RomDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/Status.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/BaseEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/ChatEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/ChatMessageEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/Comment.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/CommentEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/ImageEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/InforRoomEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/NotificationEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostTypeEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RatingEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RoleEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/repository/CommentRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/repository/PostRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/repository/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/ICommentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/IService/IAuthenticationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/IService/IUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/IUserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/CommentService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/JwtService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/PostService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/TwilioOTPService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/util/validator/PhoneNumberValidator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/roomster-backend.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/roomster-backend.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/roomster-backend.jar.original" beforeDir="false" afterPath="$PROJECT_DIR$/target/roomster-backend.jar.original" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2023-10-31T21-34-40_074.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="COMPILER_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Djps.track.ap.dependencies=false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -35,7 +107,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="thanglh" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -78,37 +150,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;thanglh&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "tanlt",
+    "last_opened_file_path": "D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propCompiler",
+    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ],
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -224,6 +296,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -266,6 +342,7 @@
       <workItem from="1699259188228" duration="49000" />
       <workItem from="1699259260326" duration="5081000" />
       <workItem from="1699285971791" duration="652000" />
+      <workItem from="1699365658127" duration="3151000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -347,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699263660177</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1699296305650</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1699296305650</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -407,6 +492,23 @@
     <MESSAGE value="mapper for post dto" />
     <MESSAGE value="modified register account user or owner" />
     <MESSAGE value="Fix OpenAPI document" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix OpenAPI document" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java</url>
+          <line>26</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="java.util.Optional" memberName="value" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

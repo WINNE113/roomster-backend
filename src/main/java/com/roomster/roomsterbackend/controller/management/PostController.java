@@ -22,7 +22,7 @@ public class PostController {
     private final IPostService service;
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
-    public HttpStatus saveNewPost(@RequestBody PostDto postDTO,
+    public HttpStatus saveNewPost(@ModelAttribute PostDto postDTO,
                                   @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
         service.saveNewPost(postDTO, images);
         return HttpStatus.OK;
