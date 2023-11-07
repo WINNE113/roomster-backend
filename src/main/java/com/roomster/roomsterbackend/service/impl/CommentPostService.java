@@ -1,15 +1,12 @@
-package com.roomster.roomsterbackend.service.IService;
+package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.CommentPostDto;
 import com.roomster.roomsterbackend.entity.Comment;
-import com.roomster.roomsterbackend.entity.PostEntity;
-import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.CommentMapper;
 import com.roomster.roomsterbackend.repository.CommentPostRepository;
 import com.roomster.roomsterbackend.repository.PostRepository;
-import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
-import com.roomster.roomsterbackend.service.impl.ICommentPostService;
+import com.roomster.roomsterbackend.service.IService.ICommentPostService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
