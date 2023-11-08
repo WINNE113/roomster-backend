@@ -40,6 +40,11 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<PostEntity> getAllPost() {
+        return postRepository.findAll();
+    }
+
+    @Override
     public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
         return postRepository.getPostEntityByAuthorId(pageable, authorId)
                 .stream()
