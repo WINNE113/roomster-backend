@@ -18,8 +18,16 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: true
+    main:
+        allow-circular-references: true
 
-
+    servlet:
+        multipart:
+            max-file-size: 10MB
+            max-request-size: 10MB
+            enabled: true
+            file-size-threshold: 0
+            location: /tmp
 
 
 twilio:
