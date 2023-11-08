@@ -18,6 +18,8 @@ spring:
         hibernate:
             ddl-auto: update
         show-sql: true
+    main:
+        allow-circular-references: true
 
     servlet:
         multipart:

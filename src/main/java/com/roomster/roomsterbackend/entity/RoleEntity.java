@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -43,6 +44,7 @@ public class RoleEntity extends BaseEntity{
         this.name = name;
     }
 
+    @JsonBackReference
     public List<UserEntity> getUsers() {
         return users;
     }

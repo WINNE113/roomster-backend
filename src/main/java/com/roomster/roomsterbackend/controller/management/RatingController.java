@@ -3,12 +3,14 @@ package com.roomster.roomsterbackend.controller.management;
 import com.roomster.roomsterbackend.dto.RatingDto;
 import com.roomster.roomsterbackend.service.IService.IRatingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/auth/rating")
+@RequestMapping("/api/v1/rating")
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequiredArgsConstructor
 public class RatingController {
     private final IRatingService ratingService;
