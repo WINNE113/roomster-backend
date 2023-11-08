@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,11 +14,10 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/auth/post")
+@RequestMapping("/api/v1/post")
+@PreAuthorize("hasAnyRole('ROLE_MANAGE','ROLE_ADMIN')")
 @RequiredArgsConstructor
 public class PostController {
-//    @Autowired
-//    private IPostService service;
 
     private final IPostService service;
 

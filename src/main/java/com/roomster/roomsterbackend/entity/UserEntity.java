@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private boolean phoneNumberConfirmed;
 
     @Column(name = "two_factor_enable")
-    private boolean TwoFactorEnable;
+    private boolean twoFactorEnable;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -54,6 +55,29 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     public UserEntity(){}
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public boolean isPhoneNumberConfirmed() {
+        return phoneNumberConfirmed;
+    }
+
+    public boolean isTwoFactorEnable() {
+        return twoFactorEnable;
+    }
+
+    public List<ChatMessageEntity> getChatMessage() {
+        return chatMessage;
+    }
+
+    public void setChatMessage(List<ChatMessageEntity> chatMessage) {
+        this.chatMessage = chatMessage;
+    }
 
     public String getUserName() {
         return userName;
@@ -94,11 +118,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
     }
 
     public boolean getTwoFactorEnable() {
-        return TwoFactorEnable;
+        return twoFactorEnable;
     }
 
     public void setTwoFactorEnable(boolean twoFactorEnable) {
-        TwoFactorEnable = twoFactorEnable;
+        this.twoFactorEnable = twoFactorEnable;
     }
 
     public boolean isActive() {
@@ -133,6 +157,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.address = address;
     }
 
+    @JsonManagedReference
     public Set<RoleEntity> getRoles() {
         return roles;
     }
