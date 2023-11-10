@@ -45,6 +45,15 @@ public class PostService implements IPostService {
     }
 
     @Override
+    public List<PostDto> getAllPostBy(Pageable pageable, String postType) {
+        return postRepository.findAll(pageable)
+                .stream()
+                .map(postEntity -> postMapper.entityToDto(postEntity))
+                .filter(postDto -> !postDto.isDeleted() && postDto.getPost_type() == postType)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
         return postRepository.getPostEntityByAuthorId(pageable, authorId)
                 .stream()

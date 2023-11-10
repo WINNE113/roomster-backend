@@ -15,8 +15,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDto {
+
     private Long userId;
+
     private String userName;
 
     private String password;
@@ -24,6 +27,8 @@ public class UserDto {
     private String email;
 
     private String phoneNumber;
+
+    private String images;
 
     private boolean twoFactorEnable;
 

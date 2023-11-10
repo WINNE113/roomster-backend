@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,8 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/auth/post")
+@RequestMapping("/api/v1/post")
+@PreAuthorize("hasAnyRole('ROLE_MANAGE','ROLE_ADMIN')")
 @RequiredArgsConstructor
 public class PostController {
     private final IPostService service;
@@ -36,5 +38,10 @@ public class PostController {
     @GetMapping("/list/{postId}")
     public PostDto getPostById(@PathVariable(name = "postId") Long postId) {
         return service.getPostById(postId);
+    }
+
+    @GetMapping("/danhsach/{postType}")
+    public List<PostDto> getPostByType(@PathVariable(name = "postType") String postType, Pageable pageable){
+        return  service.getAllPostBy(pageable, postType);
     }
 }

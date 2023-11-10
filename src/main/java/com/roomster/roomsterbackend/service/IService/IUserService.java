@@ -1,5 +1,7 @@
 package com.roomster.roomsterbackend.service.IService;
 
+import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 
 import java.util.List;
@@ -10,5 +12,8 @@ public interface IUserService {
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
     Optional<UserEntity> findByUserName(String userName);
 
+    UserDto viewProfile();
+
+    BaseResponse updatePassword(String oldPassword, String newPassword, String confirmPassword);
     List<UserEntity> getAllUser();
 }

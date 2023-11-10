@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,7 +31,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private boolean phoneNumberConfirmed;
 
     @Column(name = "two_factor_enable")
-    private boolean TwoFactorEnable;
+    private boolean twoFactorEnable;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -48,12 +49,35 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userChatMessage")
+    @OneToMany
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
 
 
     public UserEntity(){}
 
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public boolean isPhoneNumberConfirmed() {
+        return phoneNumberConfirmed;
+    }
+
+    public boolean isTwoFactorEnable() {
+        return twoFactorEnable;
+    }
+
+    public List<ChatMessageEntity> getChatMessage() {
+        return chatMessage;
+    }
+
+    public void setChatMessage(List<ChatMessageEntity> chatMessage) {
+        this.chatMessage = chatMessage;
+    }
 
     public String getUserName() {
         return userName;
@@ -94,11 +118,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
     }
 
     public boolean getTwoFactorEnable() {
-        return TwoFactorEnable;
+        return twoFactorEnable;
     }
 
     public void setTwoFactorEnable(boolean twoFactorEnable) {
-        TwoFactorEnable = twoFactorEnable;
+        twoFactorEnable = twoFactorEnable;
     }
 
     public boolean isActive() {
@@ -136,7 +160,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     public Set<RoleEntity> getRoles() {
         return roles;
     }
-
+    @JsonManagedReference
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }

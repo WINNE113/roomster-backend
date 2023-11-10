@@ -19,6 +19,9 @@ spring:
             ddl-auto: update
         show-sql: true
 
+    main:
+        allow-circular-references: true
+
 twilio:
     account_sid: ACc2a522ebd3172b9f66ac39c838814f51
     auth_token: 3db836b47f6499cb4b8291ede670a688

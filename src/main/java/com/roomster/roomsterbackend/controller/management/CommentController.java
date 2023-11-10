@@ -3,12 +3,14 @@ package com.roomster.roomsterbackend.controller.management;
 import com.roomster.roomsterbackend.dto.CommentPostDto;
 import com.roomster.roomsterbackend.service.IService.ICommentPostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/auth/comment")
+@RequestMapping("/api/v1/comment")
+@PreAuthorize("hasRole('ROLE_USER')")
 @RequiredArgsConstructor
 public class CommentController {
     private final ICommentPostService service;
