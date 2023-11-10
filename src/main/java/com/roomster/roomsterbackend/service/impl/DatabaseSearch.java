@@ -19,7 +19,7 @@ public class DatabaseSearch implements IDatabaseSearch {
     public List<PostDto> searchFilter(LinkedHashMap<String, Object> map) throws SQLException {
         String url = "";
         String username = "root";
-        String password = "Anh18120021@";
+        String password = "huuthang";
         String tableName = "posts";
 
         if(map.containsKey("")){
