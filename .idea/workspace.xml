@@ -4,50 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/RoomsterBackendApplication.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/common/ModelCommon.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/ApplicationConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/OpenApiConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/config/SecurityConfiguration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/admin/AdminController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/auth/AuthenticationController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/controller/client/ClientController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/AuthenticationResponse$AuthenticationResponseBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/AuthenticationResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/LoginRequest$LoginRequestBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/LoginRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/RegisterRequest$RegisterRequestBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/RegisterRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/dto/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/BaseEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/Comment.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/ImageEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/PostTypeEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RatingEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/RoleEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/entity/UserEntity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/exception/ResourceNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/repository/PostRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/AuthenticationService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/JwtService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/PostService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.roomster.roomsterbackend.RoomsterBackendApplicationTests.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/com.roomster.roomsterbackend.RoomsterBackendApplicationTests.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/roomster/roomsterbackend/RoomsterBackendApplicationTests.class" beforeDir="false" />
-    </list>
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
