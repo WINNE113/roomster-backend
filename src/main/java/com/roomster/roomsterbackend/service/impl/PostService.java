@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,6 +91,10 @@ public class PostService implements IPostService {
         PostEntity post = postRepository.findById(postDto.getPostId()).get();
         post.setTitle(postDto.getTitle());
         post.setAddress(postDto.getAddress());
+        post.setDescription(postDto.getDescription());
+        post.setConvenient(postDto.getConvenient());
+        post.setModifiedDate(new Date());
+        post.setSurroundings(postDto.getSurroundings());
         post.setDeleted(postDto.isDeleted());
         PostEntity updatePost = postRepository.save(post);
         return postMapper.entityToDto(updatePost);
