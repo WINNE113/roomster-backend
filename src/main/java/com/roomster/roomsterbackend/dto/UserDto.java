@@ -6,6 +6,8 @@ import com.roomster.roomsterbackend.entity.RoleEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import java.util.Date;
 import java.util.Set;
@@ -14,6 +16,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class UserDto {
     private Long userId;
 

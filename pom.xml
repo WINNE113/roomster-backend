@@ -170,5 +170,4 @@
         </plugins>
         <finalName>roomster-backend</finalName>
     </build>
-
 </project>
