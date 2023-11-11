@@ -6,8 +6,8 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: huuthang
-        url: jdbc:mysql://localhost:3306/trouytin_db
+        password: 422001
+        url: jdbc:mysql://localhost:3306/testdb
         username: root
     mvc:
         pathmatch:
