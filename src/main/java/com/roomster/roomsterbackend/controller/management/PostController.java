@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -60,19 +61,22 @@ public class PostController {
         return service.getAllPost(pageable);
     }
 
-    @GetMapping("/listAll")
-    public List<PostEntity> getAll(){
-        return service.getAllPost();
-    }
-
-
     @GetMapping("/list/{postId}")
-    public PostDto getPostById(@PathVariable(name = "postId") Long postId) {
-        return service.getPostById(postId);
+    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "postId") Long postId) {
+       PostDto postDto = service.getPostById(postId);
+        return new ResponseEntity<>(postDto, HttpStatus.OK);
     }
 
-    @GetMapping("/danhsach/{postType}")
-    public List<PostDto> getPostByType(@PathVariable(name = "postType") String postType, Pageable pageable){
-        return  service.getAllPostBy(pageable, postType);
+    @PutMapping("/update/{postId}")
+    public ResponseEntity<PostDto> updatePost(@PathVariable("postId") Long postId, @RequestBody PostDto postDto){
+        postDto.setPostId(postId);
+          PostDto updatedPost = service.updatePost(postDto);
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{postId}")
+    public ResponseEntity<String> deleteUser(@PathVariable("postId") Long postId){
+        service.deletePost(postId);
+        return new ResponseEntity<>("Post successfully deleted!", HttpStatus.OK);
     }
 }

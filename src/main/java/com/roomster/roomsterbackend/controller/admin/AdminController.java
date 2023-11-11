@@ -1,7 +1,10 @@
 package com.roomster.roomsterbackend.controller.admin;
 
+import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -13,10 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private IUserService service;
+    private final IPostService iPostService;
+
+    private final IUserService iUserService;
     @GetMapping()
     public String get(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -26,6 +31,11 @@ public class AdminController {
 
     @GetMapping("/list-user")
     public List<UserEntity> getAllUser() {
-        return service.getAllUser();
+        return iUserService.getAllUser();
+    }
+
+    @GetMapping("/list-post")
+    public List<PostDto> getPostByType(){
+        return  iPostService.getAllPost();
     }
 }

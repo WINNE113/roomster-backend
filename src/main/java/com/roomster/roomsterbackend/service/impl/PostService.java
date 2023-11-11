@@ -51,22 +51,13 @@ public class PostService implements IPostService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<PostEntity> getAllPost() {
-        return postRepository.findAll()
-                .stream()
-                .filter(postEntity -> !postEntity.isDeleted())
-                .toList();
-    }
 
     @Override
-    public List<PostDto> getAllPostBy(Pageable pageable, String postType) {
-        List<PostDto> collect = postRepository.findAll(pageable)
-                .stream()
+    public List<PostDto> getAllPost() {
+        List<PostEntity> list = postRepository.findAll();
+        return list.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
-                .filter(postDto -> !postDto.isDeleted())
                 .collect(Collectors.toList());
-        return collect;
     }
 
     @Override
@@ -80,7 +71,9 @@ public class PostService implements IPostService {
 
     @Override
     public PostDto getPostById(Long postId) {
-        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+        PostEntity post = postRepository.findById(postId).get();
+//        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+        return postMapper.entityToDto(post);
     }
 
     @Override
@@ -94,6 +87,21 @@ public class PostService implements IPostService {
             postEntity.setImageUrlList(imageUrls);
         }
         postRepository.save(postEntity);
+    }
+
+    @Override
+    public PostDto updatePost(PostDto postDto) {
+        PostEntity post = postRepository.findById(postDto.getPostId()).get();
+        post.setTitle(postDto.getTitle());
+        post.setAddress(postDto.getAddress());
+        post.setDeleted(postDto.isDeleted());
+        PostEntity updatePost = postRepository.save(post);
+        return postMapper.entityToDto(updatePost);
+    }
+
+    @Override
+    public void deletePost(Long postId) {
+        postRepository.deleteById(postId);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{
