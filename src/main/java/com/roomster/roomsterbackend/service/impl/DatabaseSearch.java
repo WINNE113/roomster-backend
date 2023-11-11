@@ -19,7 +19,7 @@ public class DatabaseSearch implements IDatabaseSearch {
     public List<PostDto> searchFilter(LinkedHashMap<String, Object> map) throws SQLException {
         String url = "";
         String username = "root";
-        String password = "Anh18120021@";
+        String password = "huuthang";
         String tableName = "posts";
 
         if(map.containsKey("")){
@@ -60,7 +60,16 @@ public class DatabaseSearch implements IDatabaseSearch {
         List<PostDto> postDTOs = new ArrayList<>();
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-
+            PostDto postDTO = new PostDto(Long.valueOf(rs.getString(1)),
+                    rs.getString("title"),
+                    rs.getString("address"),
+                    rs.getString("description"),
+                    rs.getString("object"),
+                    rs.getString("convenient"),
+                    rs.getString("surroundings"),
+                    repository.getById(rs.getLong("apartment_type_id")).getName(),
+                    Long.valueOf(rs.getString("author_id")));
+            postDTOs.add(postDTO);
         }
 
         return null;

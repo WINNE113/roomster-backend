@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
+@CrossOrigin(origins = "*")
 public class AdminController {
     @GetMapping()
     public String get(){
