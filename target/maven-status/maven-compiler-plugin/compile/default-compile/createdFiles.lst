@@ -8,6 +8,7 @@ com\roomster\roomsterbackend\service\impl\JwtService.class
 com\roomster\roomsterbackend\controller\management\CommentController.class
 com\roomster\roomsterbackend\dto\LoginRequest.class
 com\roomster\roomsterbackend\repository\RoleRepository.class
+com\roomster\roomsterbackend\dto\UpdateProfileRequest.class
 com\roomster\roomsterbackend\entity\UserEntity.class
 com\roomster\roomsterbackend\repository\CommentPostRepository.class
 com\roomster\roomsterbackend\mapper\PostMapperImpl_.class
@@ -60,6 +61,7 @@ com\roomster\roomsterbackend\service\IService\IUserService.class
 com\roomster\roomsterbackend\util\validator\PhoneNumberValidator.class
 com\roomster\roomsterbackend\entity\PostTypeEntity.class
 com\roomster\roomsterbackend\service\IService\IRatingService.class
+com\roomster\roomsterbackend\dto\ChangePasswordRequest.class
 com\roomster\roomsterbackend\mapper\PostMapperDecorator.class
 com\roomster\roomsterbackend\entity\ChatMessageEntity.class
 com\roomster\roomsterbackend\service\IService\IPostService.class

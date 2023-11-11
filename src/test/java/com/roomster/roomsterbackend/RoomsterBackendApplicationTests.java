@@ -9,5 +9,4 @@ class RoomsterBackendApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

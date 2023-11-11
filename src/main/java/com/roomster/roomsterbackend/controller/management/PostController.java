@@ -17,11 +17,12 @@ import java.util.List;
 @RequestMapping("/api/v1/post")
 @PreAuthorize("hasAnyRole('ROLE_MANAGE','ROLE_ADMIN')")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class PostController {
 
     private final IPostService service;
 
-    @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
+    @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public HttpStatus saveNewPost(@RequestBody PostDto postDTO,
                                   @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
         service.saveNewPost(postDTO, images);

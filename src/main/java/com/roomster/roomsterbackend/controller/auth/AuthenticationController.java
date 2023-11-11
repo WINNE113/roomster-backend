@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class AuthenticationController {
 
     private final IAuthenticationService authenticationService;
@@ -46,6 +47,11 @@ public class AuthenticationController {
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request){
 
         return ResponseEntity.ok(authenticationService.login(request));
+    }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(){
+        return ResponseEntity.ok("Logout successfully!");
     }
     @Hidden
     @GetMapping("/process")

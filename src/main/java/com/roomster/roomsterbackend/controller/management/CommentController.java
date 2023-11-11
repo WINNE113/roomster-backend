@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/v1/comment")
 @PreAuthorize("hasRole('ROLE_USER')")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class CommentController {
     private final ICommentPostService service;
     @PostMapping("/new")
