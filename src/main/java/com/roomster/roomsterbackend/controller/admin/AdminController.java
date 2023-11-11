@@ -28,16 +28,4 @@ public class AdminController {
     public List<UserEntity> getAllUser() {
         return service.getAllUser();
     }
-    @PostMapping
-    public String post(){
-        return "POST::Admin controller";
-    }
-    @PutMapping
-    public String put(){
-        return "PUT::Admin controller";
-    }
-    @DeleteMapping
-    public String delete(){
-        return "DELETE::Admin controller";
-    }
 }

@@ -10,6 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,6 +32,16 @@ public class PostService implements IPostService {
     private PostMapper postMapper;
 
     private final Cloudinary cloudinary;
+
+    @Override
+    public List<PostDto> getAllPostByType() {
+        return postRepository.findAll()
+                .stream()
+                .map(postEntity -> postMapper.entityToDto(postEntity))
+                .filter(postDto -> !postDto.isDeleted())
+                .toList();
+    }
+
     @Override
     public List<PostDto> getAllPost(Pageable pageable) {
         return postRepository.findAll(pageable)
@@ -41,25 +53,29 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostEntity> getAllPost() {
-        return postRepository.findAll();
+        return postRepository.findAll()
+                .stream()
+                .filter(postEntity -> !postEntity.isDeleted())
+                .toList();
     }
 
     @Override
     public List<PostDto> getAllPostBy(Pageable pageable, String postType) {
-        return postRepository.findAll(pageable)
-                .stream()
-                .map(postEntity -> postMapper.entityToDto(postEntity))
-                .filter(postDto -> !postDto.isDeleted() && postDto.getPost_type() == postType)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
-        return postRepository.getPostEntityByAuthorId(pageable, authorId)
+        List<PostDto> collect = postRepository.findAll(pageable)
                 .stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .filter(postDto -> !postDto.isDeleted())
                 .collect(Collectors.toList());
+        return collect;
+    }
+
+    @Override
+    public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
+            return postRepository.getPostEntityByAuthorId(pageable, authorId)
+                    .stream()
+                    .map(postEntity -> postMapper.entityToDto(postEntity))
+                    .filter(postDto -> !postDto.isDeleted())
+                    .collect(Collectors.toList());
     }
 
     @Override

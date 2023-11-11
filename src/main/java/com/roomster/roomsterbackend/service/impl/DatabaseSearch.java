@@ -19,11 +19,13 @@ public class DatabaseSearch implements IDatabaseSearch {
     public List<PostDto> searchFilter(LinkedHashMap<String, Object> map) throws SQLException {
         String url = "";
         String username = "root";
-        String password = "Anh18120021@";
+        String password = "123456";
         String tableName = "posts";
 
-        if(map.containsKey("")){
-
+        if(map.containsKey("post_type")){
+            Long postTypeId = repository.getPostEntityByName((String) map.get("post_type")).getId();
+            map.put("post_type_id", postTypeId);
+            map.remove("post_type");
         }
 
         final Connection connection = DriverManager.getConnection(url, username, password);

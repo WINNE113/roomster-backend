@@ -53,7 +53,7 @@ public class UserService implements IUserService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if(authentication != null){
             String phoneNumber = authentication.getName();
-            System.out.println("Image is: " + userRepository.findByPhoneNumber(phoneNumber).get()/*.getImages()*/);
+            System.out.println("Image is: " + userRepository.findByPhoneNumber(phoneNumber).get().getImages());
             return userMapper.entityToDto(userRepository.findByPhoneNumber(phoneNumber).get());
         }
         return null;

@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IPostService {
+    List<PostDto> getAllPostByType();
     List<PostDto> getAllPost(Pageable pageable);
 
     List<PostEntity> getAllPost();

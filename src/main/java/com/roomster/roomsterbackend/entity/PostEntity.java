@@ -15,8 +15,10 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 public class PostEntity extends BaseEntity {
+
     @Column(name = "author_id")
     private Long authorId;
+
     @Column(name = "title")
     private String title;
 
