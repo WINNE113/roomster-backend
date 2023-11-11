@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,8 +28,8 @@ public class UserController {
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);
     }
-    @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
-    public BaseResponse saveNewPost(@RequestBody UpdateProfileRequest profileRequest, @Valid MultipartFile images, Principal connectedUser) throws IOException {
+    @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public BaseResponse saveNewPost(@RequestPart UpdateProfileRequest profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
         return userService.updateProfile(profileRequest, images, connectedUser);
     }
     @PatchMapping("/update-password")

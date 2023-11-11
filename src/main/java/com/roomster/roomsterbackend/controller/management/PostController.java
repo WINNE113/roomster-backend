@@ -24,7 +24,8 @@ public class PostController {
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public HttpStatus saveNewPost(@RequestBody PostDto postDTO,
-                                  @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {service.saveNewPost(postDTO, images);
+                                  @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
+        service.saveNewPost(postDTO, images);
         return HttpStatus.OK;
     }
 }

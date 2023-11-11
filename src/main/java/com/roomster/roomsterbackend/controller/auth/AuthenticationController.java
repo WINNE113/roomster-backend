@@ -48,6 +48,11 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(authenticationService.login(request));
     }
+
+    @GetMapping("/logout")
+    public ResponseEntity<String> logout(){
+        return ResponseEntity.ok("Logout successfully!");
+    }
     @Hidden
     @GetMapping("/process")
     public String processSMS() {

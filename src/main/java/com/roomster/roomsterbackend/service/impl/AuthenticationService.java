@@ -4,8 +4,10 @@ package com.roomster.roomsterbackend.service.impl;
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.dto.*;
 import com.roomster.roomsterbackend.entity.RoleEntity;
+import com.roomster.roomsterbackend.entity.TokenEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.RoleRepository;
+import com.roomster.roomsterbackend.repository.TokenRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
@@ -31,6 +33,7 @@ public class AuthenticationService implements IAuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final TwilioOTPService twilioOTPService;
     private final RoleRepository roleRepository;
+    private final TokenRepository tokenRepository;
     private final Map<String, RegisterRequest> registerAccounts = new HashMap<>();
 
     public BaseResponse register(RegisterRequest request) {
@@ -138,6 +141,10 @@ public class AuthenticationService implements IAuthenticationService {
        var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
         if (user.isPresent()) {
             var jwtToken = jwtService.generateToken(user.get());
+
+            revokeAllUserTokens(user.get());
+            saveUserToken(user, jwtToken);
+
             return AuthenticationResponse.builder()
                     .token(jwtToken)
                     .message("Get token successfully!")
@@ -147,5 +154,25 @@ public class AuthenticationService implements IAuthenticationService {
         }
     }
 
+    private void saveUserToken(Optional<UserEntity> user, String jwtToken) {
+        var token = TokenEntity.builder()
+                .userToken(user.get())
+                .token(jwtToken)
+                .tokeType(TokenType.BEARER)
+                .revoked(false)
+                .expired(false)
+                .build();
+        tokenRepository.save(token);
+    }
 
+    private void revokeAllUserTokens(UserEntity user){
+         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
+         if(validUserTokens.isEmpty())
+             return;
+         validUserTokens.forEach( t -> {
+             t.setRevoked(true);
+             t.setExpired(true);
+         });
+         tokenRepository.saveAll(validUserTokens);
+    }
 }

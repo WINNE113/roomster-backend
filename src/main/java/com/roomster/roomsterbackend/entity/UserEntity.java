@@ -52,8 +52,18 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "userChatMessage")
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userToken")
+    private List<TokenEntity> tokens;
 
     public UserEntity(){}
+
+    public List<TokenEntity> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<TokenEntity> tokens) {
+        this.tokens = tokens;
+    }
 
     public String getImages() {
         return images;
