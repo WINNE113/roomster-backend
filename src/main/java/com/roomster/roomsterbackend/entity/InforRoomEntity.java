@@ -49,7 +49,7 @@ public class InforRoomEntity extends BaseEntity{
         this.post = post;
     }
 
-    public InforRoomEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
+    public InforRoomEntity(Date createdDate, Date modifiedDate, Long createdBy, Long modifiedBy, int numberRoom, int emptyRoom, int stayMax, double acreage, BigDecimal price, BigDecimal electricityPrice, BigDecimal waterPrice, PostEntity post) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.numberRoom = numberRoom;
         this.emptyRoom = emptyRoom;
