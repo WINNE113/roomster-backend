@@ -1,3 +1,35 @@
 insert into roles(name) values ('ROLE_USER');
 insert into roles(name) values ('ROLE_MANAGE');
 insert into roles(name) values ('ROLE_ADMIN');
+
+
+
+// Change order column in post table
+ALTER TABLE `trouytin_db`.`posts`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `title` `title` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+CHANGE COLUMN `address` `address` VARCHAR(255) NULL DEFAULT NULL AFTER `title`,
+CHANGE COLUMN `description` `description` VARCHAR(255) NULL DEFAULT NULL AFTER `address`,
+CHANGE COLUMN `object` `object` VARCHAR(255) NULL DEFAULT NULL AFTER `description`,
+CHANGE COLUMN `convenient` `convenient` VARCHAR(255) NULL DEFAULT NULL AFTER `object`,
+CHANGE COLUMN `surroundings` `surroundings` VARCHAR(255) NULL DEFAULT NULL AFTER `convenient`,
+CHANGE COLUMN `post_type_id` `post_type_id` BIGINT NULL DEFAULT NULL AFTER `surroundings`,
+CHANGE COLUMN `author_id` `author_id` BIGINT NULL DEFAULT NULL AFTER `post_type_id`,
+CHANGE COLUMN `created_date` `created_date` DATETIME(6) NOT NULL AFTER `is_deleted`;
+
+// Change order column in post type table
+ALTER TABLE `trouytin_db`.`post_types`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `code` `code` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL AFTER `code`;
+
+
+
+select * from posts inner join infor_rooms
+	on posts.room_id = infor_rooms.id
+    where address like '%Quảng Trị%'
+    and price between 0 and 30000
+    and acreage between 17 and 200;
+
+
+SELECT * FROM posts inner join infor_rooms on posts.room_id = infor_rooms.id  where address LIKE '%Quảng Trị%' AND object LIKE '%Sinh Viên%'

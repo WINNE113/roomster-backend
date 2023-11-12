@@ -17,18 +17,21 @@ public class DatabaseSearch implements IDatabaseSearch {
     private PostTypeRepository repository;
     @Override
     public List<PostDto> searchFilter(LinkedHashMap<String, Object> map) throws SQLException {
-        String url = "";
+        String url = "jdbc:mysql://localhost:3306/trouytin_db";
         String username = "root";
         String password = "huuthang";
         String tableName = "posts";
+        String joinTable = "infor_rooms";
 
-        if(map.containsKey("")){
-
+        if(map.containsKey("post_type")){
+            Long postTypeId = repository.getPostEntityByName((String) map.get("post_type")).getId();
+            map.put("post_type_id", postTypeId);
+            map.remove("post_type");
         }
 
         final Connection connection = DriverManager.getConnection(url, username, password);
         StringBuilder sql = new StringBuilder();
-        sql.append("SELECT * FROM ").append(tableName).append(" WHERE ");
+        sql.append("SELECT * FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id ").append(" where ");
         int count = 0;
         for(String key : map.keySet()){
             if(count > 0){
@@ -60,18 +63,19 @@ public class DatabaseSearch implements IDatabaseSearch {
         List<PostDto> postDTOs = new ArrayList<>();
         ResultSet rs = stmt.executeQuery();
         while (rs.next()){
-            PostDto postDTO = new PostDto(Long.valueOf(rs.getString(1)),
+            PostDto postDTO = new PostDto(
+                    Long.valueOf(rs.getString(1)),
                     rs.getString("title"),
                     rs.getString("address"),
                     rs.getString("description"),
                     rs.getString("object"),
                     rs.getString("convenient"),
                     rs.getString("surroundings"),
-                    repository.getById(rs.getLong("apartment_type_id")).getName(),
+                    repository.getPostEntityById(rs.getLong("post_type_id")).getName(),
                     Long.valueOf(rs.getString("author_id")));
             postDTOs.add(postDTO);
         }
 
-        return null;
+        return postDTOs;
     }
 }
