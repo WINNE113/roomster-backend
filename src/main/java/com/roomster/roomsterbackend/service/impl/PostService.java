@@ -9,6 +9,7 @@ import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,11 +33,17 @@ public class PostService implements IPostService {
     private final Cloudinary cloudinary;
     @Override
     public List<PostDto> getAllPost(Pageable pageable) {
-        return postRepository.findAll(pageable)
-                .stream()
+        Page<PostEntity> postPage = postRepository.findAll(pageable);
+
+        // Get the content (posts) from the page
+        List<PostEntity> posts = postPage.getContent();
+
+        List<PostDto> postDtos = posts.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .filter(postDto -> !postDto.isDeleted())
-                .collect(Collectors.toList());
+                .toList();
+        return postDtos;
+
     }
 
     @Override
