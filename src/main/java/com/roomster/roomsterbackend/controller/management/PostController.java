@@ -7,6 +7,7 @@ import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -31,6 +32,7 @@ public class PostController {
     private final IPostService service;
 
     private final IDatabaseSearch iDatabaseSearch;
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @GetMapping("/list")
     public List<PostDto> listPost(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
@@ -47,7 +49,11 @@ public class PostController {
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
-    public List<PostDto> searchPost(@RequestPart String json) throws SQLException {
+    public List<PostDto> searchPost(@RequestPart String json,
+                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size ) throws SQLException {
+
+        Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
          LinkedHashMap<String, Object> map = null;
         try {
@@ -56,7 +62,7 @@ public class PostController {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return iDatabaseSearch.searchFilter(map);
+        return iDatabaseSearch.searchFilter(pageable,map);
     }
 
     private static void convertStringToArray(LinkedHashMap<String, Object> map) {

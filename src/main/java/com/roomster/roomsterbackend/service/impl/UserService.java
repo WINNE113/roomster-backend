@@ -70,7 +70,7 @@ public class UserService implements IUserService {
             userEntity.setImages(getFileUrls(images));
         }
         userRepository.save(userEntity);
-        return BaseResponse.success("Update profile successfully!");
+        return BaseResponse.success("Cập nhật thông tin thành công!");
     }
 
 //    @Override

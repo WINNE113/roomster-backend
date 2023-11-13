@@ -1,7 +1,6 @@
 package com.roomster.roomsterbackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
