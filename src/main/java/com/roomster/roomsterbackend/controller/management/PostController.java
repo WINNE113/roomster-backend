@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,15 +45,31 @@ public class PostController {
         return HttpStatus.OK;
     }
 
-    @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
+    @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
     public List<PostDto> searchPost(@RequestPart String json) throws SQLException {
         ObjectMapper objectMapper = new ObjectMapper();
-        LinkedHashMap<String, Object> map = null;
+         LinkedHashMap<String, Object> map = null;
         try {
             map = objectMapper.readValue(json, LinkedHashMap.class);
+            convertStringToArray(map);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
         return iDatabaseSearch.searchFilter(map);
+    }
+
+    private static void convertStringToArray(LinkedHashMap<String, Object> map) {
+        for(String key : map.keySet()){
+            if(key.equals("price")){
+                String priceRange = (String) map.get(key);
+                int[] price = Arrays.stream(priceRange.split(",")).mapToInt(Integer::parseInt).toArray();
+                map.put(key, price);
+            } else if (key.equals("acreage")) {
+                String acreageRange = (String) map.get(key);
+                int[] acreage = Arrays.stream(acreageRange.split(",")).mapToInt(Integer::parseInt).toArray();
+                map.put(key,acreage);
+            }
+        }
     }
 }

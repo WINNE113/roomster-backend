@@ -24,7 +24,12 @@ CHANGE COLUMN `code` `code` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
 CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL AFTER `code`;
 
 
+// Insert value in post table
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Thiên Vương', 'Điện Bàn - Điện Ngọc - Quảng Nam', 'Đầy đủ tiện nghi', 'Tất cả', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học FPT', '1', '1', b'0', '2023-9-8', b'1', b'1');
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Hữu Nghị', 'Cam Lộ - Quảng Trị', 'Đầy đủ tiện nghi', 'Nam', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học Việt Hàn, Chợ Cam Lộ', '1', '1', b'0', '2023-9-8', b'1', '2');
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Việt Mỹ', 'Đông Hà - Quảng Trị', 'Đầy đủ tiện nghi', 'Nữ', 'Wifi, Điều hòa, Máy Giặt', 'Chợ, Trường Tiểu Học', '1', '1', b'0', '2023-9-8', b'1', '3');
 
+// filter
 select * from posts inner join infor_rooms
 	on posts.room_id = infor_rooms.id
     where address like '%Quảng Trị%'
