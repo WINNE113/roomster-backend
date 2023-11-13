@@ -1,3 +1,40 @@
-INSERT INTO roles (created_by, created_date, modified_by, modified_date,name) VALUES (1, current_timestamp,1, current_timestamp, "ROLE_USER");
-INSERT INTO roles (created_by, created_date, modified_by, modified_date,name) VALUES (1, current_timestamp,1, current_timestamp, "ROLE_MANAGE");
-INSERT INTO roles (created_by, created_date, modified_by, modified_date,name) VALUES (1, current_timestamp,1, current_timestamp, "ROLE_ADMIN");
+insert into roles(name) values ('ROLE_USER');
+insert into roles(name) values ('ROLE_MANAGE');
+insert into roles(name) values ('ROLE_ADMIN');
+
+
+
+// Change order column in post table
+ALTER TABLE `trouytin_db`.`posts`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `title` `title` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+CHANGE COLUMN `address` `address` VARCHAR(255) NULL DEFAULT NULL AFTER `title`,
+CHANGE COLUMN `description` `description` VARCHAR(255) NULL DEFAULT NULL AFTER `address`,
+CHANGE COLUMN `object` `object` VARCHAR(255) NULL DEFAULT NULL AFTER `description`,
+CHANGE COLUMN `convenient` `convenient` VARCHAR(255) NULL DEFAULT NULL AFTER `object`,
+CHANGE COLUMN `surroundings` `surroundings` VARCHAR(255) NULL DEFAULT NULL AFTER `convenient`,
+CHANGE COLUMN `post_type_id` `post_type_id` BIGINT NULL DEFAULT NULL AFTER `surroundings`,
+CHANGE COLUMN `author_id` `author_id` BIGINT NULL DEFAULT NULL AFTER `post_type_id`,
+CHANGE COLUMN `created_date` `created_date` DATETIME(6) NOT NULL AFTER `is_deleted`;
+
+// Change order column in post type table
+ALTER TABLE `trouytin_db`.`post_types`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `code` `code` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL AFTER `code`;
+
+
+// Insert value in post table
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Thiên Vương', 'Điện Bàn - Điện Ngọc - Quảng Nam', 'Đầy đủ tiện nghi', 'Tất cả', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học FPT', '1', '1', b'0', '2023-9-8', b'1', b'1');
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Hữu Nghị', 'Cam Lộ - Quảng Trị', 'Đầy đủ tiện nghi', 'Nam', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học Việt Hàn, Chợ Cam Lộ', '1', '1', b'0', '2023-9-8', b'1', '2');
+INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Việt Mỹ', 'Đông Hà - Quảng Trị', 'Đầy đủ tiện nghi', 'Nữ', 'Wifi, Điều hòa, Máy Giặt', 'Chợ, Trường Tiểu Học', '1', '1', b'0', '2023-9-8', b'1', '3');
+
+// filter
+select * from posts inner join infor_rooms
+	on posts.room_id = infor_rooms.id
+    where address like '%Quảng Trị%'
+    and price between 0 and 30000
+    and acreage between 17 and 200;
+
+
+SELECT * FROM posts inner join infor_rooms on posts.room_id = infor_rooms.id  where address LIKE '%Quảng Trị%' AND object LIKE '%Sinh Viên%'

@@ -30,7 +30,7 @@ public class ImageEntity extends BaseEntity{
         this.postImage = postImage;
     }
 
-    public ImageEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String originLinkImage, String localLinkImage, boolean isDeleted, PostEntity postImage) {
+    public ImageEntity(Date createdDate, Date modifiedDate, Long createdBy, Long modifiedBy, String originLinkImage, String localLinkImage, boolean isDeleted, PostEntity postImage) {
         super(createdDate, modifiedDate, createdBy, modifiedBy);
         this.originLinkImage = originLinkImage;
         this.localLinkImage = localLinkImage;

@@ -1,10 +1,7 @@
 package com.roomster.roomsterbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.management.relation.Role;
@@ -15,7 +12,11 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "roles")
-public class RoleEntity extends BaseEntity{
+public class RoleEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -25,15 +26,18 @@ public class RoleEntity extends BaseEntity{
 
     public RoleEntity(){}
 
-    public RoleEntity(String name, List<UserEntity> users) {
+    public RoleEntity(Long id, String name, List<UserEntity> users) {
+        this.id = id;
         this.name = name;
         this.users = users;
     }
 
-    public RoleEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy, String name, String code, List<UserEntity> users) {
-        super(createdDate, modifiedDate, createdBy, modifiedBy);
-        this.name = name;
-        this.users = users;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

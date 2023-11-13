@@ -10,4 +10,5 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface PostTypeRepository extends JpaRepository<PostTypeEntity, Long> {
     PostTypeEntity getPostEntityByName(String postTypeName);
+    PostTypeEntity getPostEntityById(Long id);
 }

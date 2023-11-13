@@ -4,17 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix cors config and update profile">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="add filter and fix update profile">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/auth/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Database" beforeDir="false" afterPath="$PROJECT_DIR$/Database" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UpdateProfileRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UpdateProfileRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UserDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/UserDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +18,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -36,7 +30,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="hta" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -226,6 +220,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -275,7 +270,11 @@
       <workItem from="1699518185098" duration="4713000" />
       <workItem from="1699537044677" duration="12432000" />
       <workItem from="1699625148820" duration="11417000" />
-      <workItem from="1699670702421" duration="14251000" />
+      <workItem from="1699670702421" duration="14471000" />
+      <workItem from="1699711404587" duration="7142000" />
+      <workItem from="1699772497863" duration="4505000" />
+      <workItem from="1699799635024" duration="7489000" />
+      <workItem from="1699846093945" duration="1008000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -397,7 +396,23 @@
       <option name="project" value="LOCAL" />
       <updated>1699636363705</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add logout and token entity">
+      <option name="closed" value="true" />
+      <created>1699695915750</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1699695915750</updated>
+    </task>
+    <task id="LOCAL-00017" summary="add filter and fix update profile">
+      <option name="closed" value="true" />
+      <created>1699772616516</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1699772616516</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -461,15 +476,17 @@
     <MESSAGE value="add view profile and update password" />
     <MESSAGE value="Fix cross-origin config" />
     <MESSAGE value="Fix cors config and update profile" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix cors config and update profile" />
+    <MESSAGE value="add logout and token entity" />
+    <MESSAGE value="add filter and fix update profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="add filter and fix update profile" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java</url>
-          <line>32</line>
-          <option name="timeStamp" value="2" />
+          <line>34</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
