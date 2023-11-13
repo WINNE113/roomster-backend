@@ -4,6 +4,7 @@ import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -16,7 +17,7 @@ public class DatabaseSearch implements IDatabaseSearch {
     @Autowired
     private PostTypeRepository repository;
     @Override
-    public List<PostDto> searchFilter(LinkedHashMap<String, Object> map) throws SQLException {
+    public List<PostDto> searchFilter(Pageable pageable, LinkedHashMap<String, Object> map) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/trouytin_db";
         String username = "root";
         String password = "huuthang";
@@ -52,6 +53,8 @@ public class DatabaseSearch implements IDatabaseSearch {
             }
             count++;
         }
+        // Use Pageable to determine limit and offset
+        sql.append(" LIMIT ? OFFSET ?");
 
         System.out.println(sql);
 
@@ -75,6 +78,8 @@ public class DatabaseSearch implements IDatabaseSearch {
                 parameterIndex++;
             }
         }
+        stmt.setInt(parameterIndex + 1, pageable.getPageSize());
+        stmt.setLong(parameterIndex + 2, pageable.getOffset());
         System.out.println(stmt);
 
         List<PostDto> postDTOs = new ArrayList<>();
