@@ -3,8 +3,11 @@ package com.roomster.roomsterbackend.service.impl;
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
+import com.roomster.roomsterbackend.repository.InforRoomRepository;
 import com.roomster.roomsterbackend.repository.PostRepository;
+import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,16 @@ public class PostService implements IPostService {
 
     @Autowired
     private PostMapper postMapper;
+
+    @Autowired
+    private InforRoomMapper inforRoomMapper;
+
+
+    @Autowired
+    private PostTypeRepository postTypeRepository;
+
+    @Autowired
+    private InforRoomRepository inforRoomRepository;
 
     private final Cloudinary cloudinary;
     @Override
@@ -63,12 +76,17 @@ public class PostService implements IPostService {
     @Override
     public void saveNewPost(PostDto postDTO, List<MultipartFile> images) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
+        postEntity.setPostType(postTypeRepository.getPostEntityByName(postDTO.getPost_type()));
+        postEntity.setDeleted(false);
         if (!images.isEmpty()) {
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile multipartFile : images) {
                 imageUrls.add(getFileUrls(multipartFile));
             }
             postEntity.setImageUrlList(imageUrls);
+        }
+        if(postDTO.getRoomDto() != null){
+            postEntity.setRoom(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
         }
         postRepository.save(postEntity);
     }
