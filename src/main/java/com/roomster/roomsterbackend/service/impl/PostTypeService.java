@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.service.impl;
 
+import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.PostTypeDto;
 import com.roomster.roomsterbackend.mapper.PostTypeMapper;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
@@ -22,5 +23,15 @@ public class PostTypeService implements IPostTypeService {
         return postTypeRepository.findAll().stream()
                 .map(dto -> postTypeMapper.entityToDto(dto))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public BaseResponse addPostType(PostTypeDto postTypeDto) {
+        try {
+            postTypeRepository.save(postTypeMapper.dtoToEntity(postTypeDto));
+        }catch (Exception ex){
+            BaseResponse.error(ex.getMessage());
+        }
+        return BaseResponse.success("Insert post type successfully");
     }
 }
