@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.controller.user;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.UpdateProfileRequest;
@@ -29,8 +30,12 @@ public class UserController {
         return userService.viewProfile(connectedUser);
     }
     @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public BaseResponse saveNewPost(@RequestPart UpdateProfileRequest profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
-        return userService.updateProfile(profileRequest, images, connectedUser);
+    public BaseResponse saveNewPost(@RequestPart String profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        UpdateProfileRequest profile = objectMapper.readValue(profileRequest, UpdateProfileRequest.class);
+
+        return userService.updateProfile(profile, images, connectedUser);
     }
     @PatchMapping("/update-password")
     public BaseResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser){

@@ -18,10 +18,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -84,6 +81,7 @@ public class AuthenticationService implements IAuthenticationService {
             user.setUserName(request.getUserName());
             user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
+            user.setCreatedBy(0L);
             user.setRoles(Set.of(role));
             if(request.getRole().equals(ModelCommon.USER)){
                 user.setPhoneNumberConfirmed(false);

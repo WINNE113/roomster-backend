@@ -65,11 +65,12 @@ public class UserService implements IUserService {
         userEntity.setUserName(profileRequest.getUserName());
         userEntity.setEmail(profileRequest.getEmail());
         userEntity.setDateOfBirth(profileRequest.getDateOfBirth());
-        if(!images.isEmpty()){
+        userEntity.setAddress(profileRequest.getAddress());
+        if(images != null){
             userEntity.setImages(getFileUrls(images));
         }
         userRepository.save(userEntity);
-        return BaseResponse.success("Update profile successfully!");
+        return BaseResponse.success("Cập nhật thông tin thành công!");
     }
 
 //    @Override
