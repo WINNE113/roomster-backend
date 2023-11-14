@@ -28,6 +28,7 @@ public class PostTypeService implements IPostTypeService {
     @Override
     public BaseResponse addPostType(PostTypeDto postTypeDto) {
         try {
+            postTypeDto.setDeleted(false);
             postTypeRepository.save(postTypeMapper.dtoToEntity(postTypeDto));
         }catch (Exception ex){
             BaseResponse.error(ex.getMessage());
