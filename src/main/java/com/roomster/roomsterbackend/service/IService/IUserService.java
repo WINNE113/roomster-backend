@@ -20,4 +20,6 @@ public interface IUserService {
     BaseResponse updateProfile(UpdateProfileRequest profileRequest, MultipartFile images, Principal connectedUser) throws IOException;
 
     BaseResponse changePassword(ChangePasswordRequest changePasswordRequest, Principal connectedUser);
+
+    UserDto getUserById(Long userId);
 }

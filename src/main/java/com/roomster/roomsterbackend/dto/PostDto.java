@@ -1,6 +1,8 @@
 package com.roomster.roomsterbackend.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,12 +26,13 @@ public class PostDto {
     private String post_type;
     private boolean isDeleted;
     private InforRoomDto roomDto;
-    private Long authorId;
+    @JsonIgnore
+    private UserDto authorId;
     private List<String> imageUrlList;
     private List<CommentPostDto> commentPostDTOList;
     private List<RatingDto> ratingDTOList;
 
-    public PostDto(Long postId, String title, String address, String description, String object, String convenient, String surroundings, String post_type, Long authorId) {
+    public PostDto(Long postId, String title, String address, String description, String object, String convenient, String surroundings, String post_type, UserDto authorId) {
         this.postId = postId;
         this.title = title;
         this.address = address;

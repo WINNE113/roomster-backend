@@ -3,9 +3,9 @@ package com.roomster.roomsterbackend.service.impl;
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
-import com.roomster.roomsterbackend.repository.InforRoomRepository;
 import com.roomster.roomsterbackend.repository.PostRepository;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
@@ -14,10 +14,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,10 +73,14 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void saveNewPost(PostDto postDTO, List<MultipartFile> images) throws IOException {
+    public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
         postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
+        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        if(user != null){
+            postEntity.setAuthorId(user);
+        }
         if (!images.isEmpty()) {
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile multipartFile : images) {

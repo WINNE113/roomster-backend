@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.controller.management;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.PostDto;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -31,6 +33,7 @@ public class PostController {
     private final IPostService service;
 
     private final IDatabaseSearch iDatabaseSearch;
+
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @GetMapping("/list")
     public List<PostDto> listPost(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -39,20 +42,13 @@ public class PostController {
         return service.getAllPost(pageable);
     }
 
-//    @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
-//    public HttpStatus saveNewPost(@ModelAttribute PostDto postDTO,
-//                                  @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
-//        service.saveNewPost(postDTO, images);
-//        return HttpStatus.OK;
-//    }
-
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public BaseResponse saveNewPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
+    public BaseResponse saveNewPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images, Principal principal) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             PostDto postDTO = objectMapper.readValue(postDto, PostDto.class);
-            service.saveNewPost(postDTO, images);
-        }catch (Exception ex){
+            service.saveNewPost(postDTO, images, principal);
+        } catch (Exception ex) {
             return BaseResponse.error(ex.getMessage());
         }
         return BaseResponse.success("Thêm bài viết thành công!");
@@ -62,30 +58,30 @@ public class PostController {
     @PostMapping(value = "/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public List<PostDto> searchPost(@RequestPart String json,
                                     @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size ) throws SQLException {
+                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
 
         Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
-         LinkedHashMap<String, Object> map = null;
+        LinkedHashMap<String, Object> map = null;
         try {
             map = objectMapper.readValue(json, LinkedHashMap.class);
             convertStringToArray(map);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        return iDatabaseSearch.searchFilter(pageable,map);
+        return iDatabaseSearch.searchFilter(pageable, map);
     }
 
     private static void convertStringToArray(LinkedHashMap<String, Object> map) {
-        for(String key : map.keySet()){
-            if(key.equals("price")){
+        for (String key : map.keySet()) {
+            if (key.equals("price")) {
                 String priceRange = (String) map.get(key);
                 int[] price = Arrays.stream(priceRange.split(",")).mapToInt(Integer::parseInt).toArray();
                 map.put(key, price);
             } else if (key.equals("acreage")) {
                 String acreageRange = (String) map.get(key);
                 int[] acreage = Arrays.stream(acreageRange.split(",")).mapToInt(Integer::parseInt).toArray();
-                map.put(key,acreage);
+                map.put(key, acreage);
             }
         }
     }

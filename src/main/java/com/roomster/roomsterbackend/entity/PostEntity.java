@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,8 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "posts")
 public class PostEntity extends BaseEntity {
-    @Column(name = "author_id")
-    private Long authorId;
+
     @Column(name = "title")
     private String title;
 
@@ -50,4 +50,15 @@ public class PostEntity extends BaseEntity {
     @JoinColumn(name = "post_type_id", referencedColumnName = "id")
     private PostTypeEntity postType;
 
+    @ManyToOne()
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
+    private UserEntity authorId;
+
+    public UserEntity getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(UserEntity authorId) {
+        this.authorId = authorId;
+    }
 }

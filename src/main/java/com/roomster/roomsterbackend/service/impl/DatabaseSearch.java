@@ -1,7 +1,10 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
+import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -11,11 +14,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DatabaseSearch implements IDatabaseSearch {
     @Autowired
     private PostTypeRepository repository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public List<PostDto> searchFilter(Pageable pageable, LinkedHashMap<String, Object> map) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/trouytin_db";
@@ -24,7 +35,7 @@ public class DatabaseSearch implements IDatabaseSearch {
         String tableName = "posts";
         String joinTable = "infor_rooms";
 
-        if(map.containsKey("post_type")){
+        if (map.containsKey("post_type")) {
             Long postTypeId = repository.getPostEntityByName((String) map.get("post_type")).getId();
             map.put("post_type_id", postTypeId);
             map.remove("post_type");
@@ -36,8 +47,8 @@ public class DatabaseSearch implements IDatabaseSearch {
                 .append(" inner join ").append(joinTable)
                 .append(" on posts.room_id = infor_rooms.id ").append(" where ");
         int count = 0;
-        for(String key : map.keySet()){
-            if(count > 0){
+        for (String key : map.keySet()) {
+            if (count > 0) {
                 sql.append(" AND ");
             }
             switch (key) {
@@ -63,8 +74,8 @@ public class DatabaseSearch implements IDatabaseSearch {
         int parameterIndex = 0;
         for (String key : map.keySet()) {
             if (map.get(key) instanceof int[]) {
-                int[] range = (int[])map.get(key);
-                if(range.length >= 2){
+                int[] range = (int[]) map.get(key);
+                if (range.length >= 2) {
                     stmt.setObject(parameterIndex + 1, range[0]);
                     stmt.setObject(parameterIndex + 2, range[1]);
                 }
@@ -83,18 +94,23 @@ public class DatabaseSearch implements IDatabaseSearch {
         System.out.println(stmt);
 
         List<PostDto> postDTOs = new ArrayList<>();
-        try(ResultSet rs = stmt.executeQuery()) {
+        try (ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                PostDto postDTO = new PostDto(
-                        Long.valueOf(rs.getString(1)),
-                        rs.getString("title"),
-                        rs.getString("address"),
-                        rs.getString("description"),
-                        rs.getString("object"),
-                        rs.getString("convenient"),
-                        rs.getString("surroundings"),
-                        repository.getPostEntityById(rs.getLong("post_type_id")).getName(),
-                        Long.valueOf(rs.getString("author_id")));
+                PostDto postDTO = new PostDto();
+                postDTO.setPostId(Long.valueOf(rs.getString("id")));
+                postDTO.setTitle(rs.getString("title"));
+                postDTO.setAddress(rs.getString("address"));
+                postDTO.setDescription(rs.getString("description"));
+                postDTO.setConvenient(rs.getString("convenient"));
+                postDTO.setObject(rs.getString("object"));
+                postDTO.setSurroundings(rs.getString("surroundings"));
+                if (rs.getLong("post_type_id") != 0 && rs.getLong("author_id") != 0) {
+                    postDTO.setPost_type(repository.getPostEntityById(rs.getLong("post_type_id")).getName());
+                    Optional<UserEntity> user = userRepository.getUserEntityByUserId(rs.getLong("author_id"));
+                    if(user.isPresent()){
+                        postDTO.setAuthorId(userMapper.entityToDto(user.get()));
+                    }
+                }
                 postDTOs.add(postDTO);
             }
         }

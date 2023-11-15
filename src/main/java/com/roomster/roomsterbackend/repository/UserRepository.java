@@ -17,5 +17,5 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = "SELECT * FROM users " +
             "WHERE id=:userId", nativeQuery = true)
-    UserEntity getUserEntityByUserId(@Param("userId") Long userId);
+    Optional<UserEntity> getUserEntityByUserId(@Param("userId") Long userId);
 }

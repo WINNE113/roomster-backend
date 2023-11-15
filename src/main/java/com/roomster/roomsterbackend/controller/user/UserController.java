@@ -42,4 +42,9 @@ public class UserController {
        return userService.changePassword(changePasswordRequest, connectedUser);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/get-user")
+    public UserDto getUserById(Long userId){
+        return userService.getUserById(userId);
+    }
 }
