@@ -40,9 +40,6 @@ public class PostService implements IPostService {
     @Autowired
     private PostTypeRepository postTypeRepository;
 
-    @Autowired
-    private InforRoomRepository inforRoomRepository;
-
     private final Cloudinary cloudinary;
     @Override
     public List<PostDto> getAllPost(Pageable pageable) {
@@ -76,7 +73,7 @@ public class PostService implements IPostService {
     @Override
     public void saveNewPost(PostDto postDTO, List<MultipartFile> images) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
-        postEntity.setPostType(postTypeRepository.getPostEntityByName(postDTO.getPost_type()));
+        postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
         if (!images.isEmpty()) {
             List<String> imageUrls = new ArrayList<>();
