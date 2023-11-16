@@ -1,3 +1,8 @@
+// Importance must be setting in MySQL
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+
+
 insert into roles(name) values ('ROLE_USER');
 insert into roles(name) values ('ROLE_MANAGE');
 insert into roles(name) values ('ROLE_ADMIN');
@@ -23,6 +28,12 @@ CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
 CHANGE COLUMN `code` `code` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
 CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL AFTER `code`;
 
+ALTER TABLE `trouytin_db`.`ratings`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `post_id` `post_id` BIGINT NULL DEFAULT NULL AFTER `star_point`,
+CHANGE COLUMN `user_id` `user_id` BIGINT NULL DEFAULT NULL AFTER `post_id`;
+
+
 
 // Insert value in post table
 INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Thiên Vương', 'Điện Bàn - Điện Ngọc - Quảng Nam', 'Đầy đủ tiện nghi', 'Tất cả', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học FPT', '1', '1', b'0', '2023-9-8', b'1', b'1');
@@ -45,5 +56,10 @@ select * from posts inner join infor_rooms
     and price between 0 and 30000
     and acreage between 17 and 200;
 
+
+Select p.id, p.title, p.address, p.author_id, p.created_date, i.price,p.is_deleted, AVG(r.star_point) as average_rating
+from posts p left join ratings r on p.id = r.post_id inner join infor_rooms i on p.room_id = i.id
+group by p.id
+Order by average_rating desc;
 
 SELECT * FROM posts inner join infor_rooms on posts.room_id = infor_rooms.id  where address LIKE '%Quảng Trị%' AND object LIKE '%Sinh Viên%'

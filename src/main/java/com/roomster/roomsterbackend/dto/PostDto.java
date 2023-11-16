@@ -2,12 +2,12 @@ package com.roomster.roomsterbackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.roomster.roomsterbackend.entity.UserEntity;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -28,6 +28,10 @@ public class PostDto {
     private InforRoomDto roomDto;
     @JsonIgnore
     private UserDto authorId;
+    private String rotation;
+    private Date createdDate;
+    private Date modifiedDate;
+    private Long modifiedBy;
     private List<String> imageUrlList;
     private List<CommentPostDto> commentPostDTOList;
     private List<RatingDto> ratingDTOList;

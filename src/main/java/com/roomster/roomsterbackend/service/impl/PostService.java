@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
@@ -16,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -27,6 +29,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PostService implements IPostService {
     @Autowired
@@ -77,6 +80,9 @@ public class PostService implements IPostService {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
         postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
+        if(postDTO.getRotation() != null){
+            postEntity.setRotation(postDTO.getRotation());
+        }
         var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
         if(user != null){
             postEntity.setAuthorId(user);
@@ -89,9 +95,14 @@ public class PostService implements IPostService {
             postEntity.setImageUrlList(imageUrls);
         }
         if(postDTO.getRoomDto() != null){
-            postEntity.setRoom(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
+            postEntity.setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
         }
         postRepository.save(postEntity);
+    }
+
+    @Override
+    public List<PostDtoWithRating> getPostByRating(Pageable pageable) {
+        return postRepository.getPostByRating(pageable).stream().filter(postPOJO -> !postPOJO.isDeleted()).collect(Collectors.toList());
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

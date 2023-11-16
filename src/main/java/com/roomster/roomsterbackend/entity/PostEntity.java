@@ -1,18 +1,16 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "posts")
 public class PostEntity extends BaseEntity {
@@ -42,14 +40,19 @@ public class PostEntity extends BaseEntity {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
+    @Column(name = "rotation")
+    private String rotation;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
-    private InforRoomEntity room;
+    private InforRoomEntity roomId;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "post_type_id", referencedColumnName = "id")
     private PostTypeEntity postType;
 
+    @JsonIgnore
     @ManyToOne()
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity authorId;

@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,4 +17,5 @@ public interface IPostService {
     void saveNewPost(PostDto postDTO,
                      List<MultipartFile> images, Principal connectedUser) throws IOException;
 
+    List<PostDtoWithRating> getPostByRating(Pageable pageable);
 }
