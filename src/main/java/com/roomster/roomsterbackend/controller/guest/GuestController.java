@@ -1,15 +1,20 @@
 package com.roomster.roomsterbackend.controller.guest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
+import com.roomster.roomsterbackend.util.ConvertUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -18,6 +23,8 @@ import java.util.List;
 public class GuestController {
 
     private final IPostService postService;
+
+    private final IDatabaseSearch iDatabaseSearch;
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam( name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
@@ -25,4 +32,22 @@ public class GuestController {
 
         return postService.getPostByRating(pageable);
     }
+    @PostMapping(value = "/post/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public List<PostDto> searchPost(@RequestPart String json,
+                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
+
+        Pageable pageable = PageRequest.of(page, size);
+        ObjectMapper objectMapper = new ObjectMapper();
+        LinkedHashMap<String, Object> map = null;
+        try {
+            map = objectMapper.readValue(json, LinkedHashMap.class);
+            ConvertUtil.convertStringToArray(map);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        return iDatabaseSearch.searchFilter(pageable, map);
+    }
+
+
 }
