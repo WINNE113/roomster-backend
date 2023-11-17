@@ -102,7 +102,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostDtoWithRating> getPostByRating(Pageable pageable) {
-        return postRepository.getPostByRating(pageable).stream().filter(postPOJO -> !postPOJO.isDeleted()).collect(Collectors.toList());
+            return postRepository.getPostByRating(pageable);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

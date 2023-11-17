@@ -13,13 +13,12 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
     List<PostEntity> getPostEntityByAuthorId(Pageable pageable, Long id);
 
-    @Query("""
-    select new com.roomster.roomsterbackend.dto.PostDtoWithRating(p.id, p.title, p.address, p.createdBy, p.createdDate, i.price, p.isDeleted, AVG(r.starPoint))
-    from PostEntity p
-    left join RatingEntity r on p.id = r.postId
-    inner join InforRoomEntity i on p.roomId.id = i.id
-    group by p.id
-    order by AVG(r.starPoint) desc
-""")
+    @Query(value = "Select p.id, p.title, p.address, p.created_date as createdDate, i.price, p.is_deleted as isDeleted, max(pimg.image_url_list) as image, AVG(r.star_point) as averageRating\n" +
+            "from posts p \n" +
+            "left join ratings r on p.id = r.post_id \n" +
+            "inner join infor_rooms i on p.room_id = i.id\n" +
+            "inner join post_entity_image_url_list pimg on pimg.post_entity_id = p.id\n" +
+            "group by p.id\n" +
+            "Order by averageRating desc", nativeQuery = true)
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
 }
