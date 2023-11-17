@@ -1,6 +1,8 @@
 // Importance must be setting in MySQL
 SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
 
+SET @@global.sql_mode= 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
 
 
 insert into roles(name) values ('ROLE_USER');

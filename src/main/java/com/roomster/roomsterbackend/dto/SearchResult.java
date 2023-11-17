@@ -7,5 +7,5 @@ import java.util.List;
 @Data
 public class SearchResult {
     public int total;
-    public List<PostDto> data;
+    public List<PostDtoWithFilter> data;
 }

@@ -1,30 +1,22 @@
 package com.roomster.roomsterbackend.service.impl;
 
+import com.roomster.roomsterbackend.dto.PostDtoWithFilter;
 import com.roomster.roomsterbackend.dto.SearchResult;
-import com.roomster.roomsterbackend.dto.PostDto;
-import com.roomster.roomsterbackend.entity.UserEntity;
-import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
-import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service
 public class DatabaseSearch implements IDatabaseSearch {
     @Autowired
     private PostTypeRepository repository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private UserMapper userMapper;
-
     @Override
     public SearchResult searchFilter(Pageable pageable, LinkedHashMap<String, Object> map) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/trouytin_db";
@@ -43,7 +35,12 @@ public class DatabaseSearch implements IDatabaseSearch {
         StringBuilder filterQuery = new StringBuilder();
         StringBuilder totalResultQuery = new StringBuilder();
         totalResultQuery.append("SELECT count(*) as total FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id ").append(" where ");
-        filterQuery.append("SELECT * FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id ").append(" where ");
+        filterQuery.append("Select p.id, p.title, p.address, p.created_date, ir.price, p.is_deleted, max(pimg.image_url_list) as image")
+                .append(" from posts p")
+                .append(" left join post_entity_image_url_list pimg")
+                .append(" on p.id = pimg.post_entity_id")
+                .append(" inner join infor_rooms ir on ir.id = p.room_id")
+                .append(" where ");
         int count = 0;
         for (String key : map.keySet()) {
             if (count > 0) {
@@ -71,6 +68,13 @@ public class DatabaseSearch implements IDatabaseSearch {
             }
             count++;
         }
+        // Use Group By on filter query
+        filterQuery.append(" group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted");
+
+        //Order by Created data DESC
+
+        filterQuery.append(" order by p.created_date DESC");
+
         // Use Pageable to determine limit and offset
         filterQuery.append(" LIMIT ? OFFSET ?");
 
@@ -121,25 +125,18 @@ public class DatabaseSearch implements IDatabaseSearch {
 
         System.out.println(totalCount);
 
-        List<PostDto> postDTOs = new ArrayList<>();
+        List<PostDtoWithFilter> postDTOs = new ArrayList<>();
         try (ResultSet rs = stmtToFilter.executeQuery()) {
             while (rs.next()) {
-                PostDto postDTO = new PostDto();
-                postDTO.setPostId(Long.valueOf(rs.getString("id")));
-                postDTO.setTitle(rs.getString("title"));
-                postDTO.setAddress(rs.getString("address"));
-                postDTO.setDescription(rs.getString("description"));
-                postDTO.setConvenient(rs.getString("convenient"));
-                postDTO.setObject(rs.getString("object"));
-                postDTO.setSurroundings(rs.getString("surroundings"));
-                if (rs.getLong("post_type_id") != 0 && rs.getLong("author_id") != 0) {
-                    postDTO.setPost_type(repository.getPostEntityById(rs.getLong("post_type_id")).getName());
-                    Optional<UserEntity> user = userRepository.getUserEntityByUserId(rs.getLong("author_id"));
-                    if(user.isPresent()){
-                        postDTO.setAuthorId(userMapper.entityToDto(user.get()));
-                    }
-                }
-                postDTOs.add(postDTO);
+                PostDtoWithFilter postDtoWithFilter = new PostDtoWithFilter();
+                postDtoWithFilter.setId(rs.getLong("id"));
+                postDtoWithFilter.setTitle(rs.getString("title"));
+                postDtoWithFilter.setAddress(rs.getString("address"));
+                postDtoWithFilter.setCreatedDate(rs.getDate("created_date"));
+                postDtoWithFilter.setPrice(rs.getBigDecimal("price"));
+                postDtoWithFilter.setDeleted(rs.getBoolean("is_deleted"));
+                postDtoWithFilter.setImage(rs.getString("image"));
+                postDTOs.add(postDtoWithFilter);
             }
         }
         SearchResult searchResult = new SearchResult();
