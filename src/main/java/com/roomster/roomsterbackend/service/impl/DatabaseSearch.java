@@ -12,6 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DatabaseSearch implements IDatabaseSearch {
@@ -25,7 +26,7 @@ public class DatabaseSearch implements IDatabaseSearch {
         String tableName = "posts";
         String joinTable = "infor_rooms";
 
-        if (map.containsKey("post_type")) {
+        if (!map.isEmpty() && map.containsKey("post_type")) {
             Long postTypeId = repository.getPostEntityByName((String) map.get("post_type")).getId();
             map.put("post_type_id", postTypeId);
             map.remove("post_type");
@@ -34,39 +35,43 @@ public class DatabaseSearch implements IDatabaseSearch {
         final Connection connection = DriverManager.getConnection(url, username, password);
         StringBuilder filterQuery = new StringBuilder();
         StringBuilder totalResultQuery = new StringBuilder();
-        totalResultQuery.append("SELECT count(*) as total FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id ").append(" where ");
+        totalResultQuery.append("SELECT count(*) as total FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id").append(" where posts.is_deleted = false ");
         filterQuery.append("Select p.id, p.title, p.address, p.created_date, ir.price, p.is_deleted, max(pimg.image_url_list) as image")
                 .append(" from posts p")
                 .append(" left join post_entity_image_url_list pimg")
                 .append(" on p.id = pimg.post_entity_id")
                 .append(" inner join infor_rooms ir on ir.id = p.room_id")
-                .append(" where ");
+                .append(" where p.is_deleted = false");
         int count = 0;
-        for (String key : map.keySet()) {
-            if (count > 0) {
-                filterQuery.append(" AND ");
-                totalResultQuery.append(" AND ");
-            }
-            switch (key) {
-                case "price" -> {
-                    filterQuery.append("price BETWEEN ? AND ?");
-                    totalResultQuery.append("price BETWEEN ? AND ?");
+        if(!map.isEmpty()) {
+            totalResultQuery.append(" AND ");
+            filterQuery.append(" AND ");
+            for (String key : map.keySet()) {
+                if (count > 0) {
+                    filterQuery.append(" AND ");
+                    totalResultQuery.append(" AND ");
                 }
-                case "acreage" -> {
-                    filterQuery.append("acreage BETWEEN ? AND ?");
-                    totalResultQuery.append("acreage BETWEEN ? AND ?");
-                }
-                default -> {
-                    if (map.get(key) instanceof String) {
-                        filterQuery.append(key).append(" LIKE ?");
-                        totalResultQuery.append(key).append(" LIKE ?");
-                    } else if (map.get(key) instanceof Number) {
-                        filterQuery.append(key).append(" = ?");
-                        totalResultQuery.append(key).append(" = ?");
+                switch (key) {
+                    case "price" -> {
+                        filterQuery.append("price BETWEEN ? AND ?");
+                        totalResultQuery.append("price BETWEEN ? AND ?");
+                    }
+                    case "acreage" -> {
+                        filterQuery.append("acreage BETWEEN ? AND ?");
+                        totalResultQuery.append("acreage BETWEEN ? AND ?");
+                    }
+                    default -> {
+                        if (map.get(key) instanceof String) {
+                            filterQuery.append(key).append(" LIKE ?");
+                            totalResultQuery.append(key).append(" LIKE ?");
+                        } else if (map.get(key) instanceof Number) {
+                            filterQuery.append(key).append(" = ?");
+                            totalResultQuery.append(key).append(" = ?");
+                        }
                     }
                 }
+                count++;
             }
-            count++;
         }
         // Use Group By on filter query
         filterQuery.append(" group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted");
@@ -85,28 +90,30 @@ public class DatabaseSearch implements IDatabaseSearch {
         PreparedStatement stmtToFilter = connection.prepareStatement(filterQuery.toString());
         PreparedStatement stmtToTotalResult = connection.prepareStatement(totalResultQuery.toString());
         int parameterIndex = 0;
-        for (String key : map.keySet()) {
-            if (map.get(key) instanceof int[]) {
-                int[] range = (int[]) map.get(key);
-                if (range.length >= 2) {
-                    stmtToFilter.setObject(parameterIndex + 1, range[0]);
-                    stmtToFilter.setObject(parameterIndex + 2, range[1]);
+        if(!map.isEmpty()) {
+            for (String key : map.keySet()) {
+                if (map.get(key) instanceof int[]) {
+                    int[] range = (int[]) map.get(key);
+                    if (range.length >= 2) {
+                        stmtToFilter.setObject(parameterIndex + 1, range[0]);
+                        stmtToFilter.setObject(parameterIndex + 2, range[1]);
 
-                    stmtToTotalResult.setObject(parameterIndex + 1, range[0]);
-                    stmtToTotalResult.setObject(parameterIndex + 2, range[1]);
+                        stmtToTotalResult.setObject(parameterIndex + 1, range[0]);
+                        stmtToTotalResult.setObject(parameterIndex + 2, range[1]);
+                    }
+                    parameterIndex += 2;
+                } else {
+                    if (map.get(key) instanceof String) {
+                        stmtToFilter.setString(parameterIndex + 1, "%" + map.get(key) + "%");
+
+                        stmtToTotalResult.setString(parameterIndex + 1, "%" + map.get(key) + "%");
+                    } else if (map.get(key) instanceof Number) {
+                        stmtToFilter.setObject(parameterIndex + 1, map.get(key));
+
+                        stmtToTotalResult.setObject(parameterIndex + 1, map.get(key));
+                    }
+                    parameterIndex++;
                 }
-                parameterIndex += 2;
-            } else {
-                if (map.get(key) instanceof String) {
-                    stmtToFilter.setString(parameterIndex + 1, "%" + map.get(key) + "%");
-
-                    stmtToTotalResult.setString(parameterIndex + 1, "%" + map.get(key) + "%");
-                } else if (map.get(key) instanceof Number) {
-                    stmtToFilter.setObject(parameterIndex + 1, map.get(key));
-
-                    stmtToTotalResult.setObject(parameterIndex + 1, map.get(key));
-                }
-                parameterIndex++;
             }
         }
 
@@ -141,7 +148,7 @@ public class DatabaseSearch implements IDatabaseSearch {
         }
         SearchResult searchResult = new SearchResult();
         searchResult.setTotal(totalCount);
-        searchResult.setData(postDTOs);
+        searchResult.setData(postDTOs.stream().filter(postDtoWithFilter -> !postDtoWithFilter.isDeleted()).collect(Collectors.toList()));
         return searchResult;
     }
 }
