@@ -2,7 +2,7 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.SearchResult;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
@@ -33,9 +33,9 @@ public class GuestController {
         return postService.getPostByRating(pageable);
     }
     @PostMapping(value = "/post/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public List<PostDto> searchPost(@RequestPart String json,
-                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
+    public SearchResult searchPost(@RequestPart String json,
+                                                       @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
 
         Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -48,6 +48,4 @@ public class GuestController {
         }
         return iDatabaseSearch.searchFilter(pageable, map);
     }
-
-
 }
