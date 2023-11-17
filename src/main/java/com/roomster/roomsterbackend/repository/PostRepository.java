@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.repository;
 
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,4 +22,16 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             "group by p.id\n" +
             "Order by averageRating desc", nativeQuery = true)
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
+
+    @Query(value = "SELECT\n" +
+            "    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(address, ',', -1), ',', 1)) AS provinceName,\n" +
+            "    COUNT(*) AS totalPosts\n" +
+            "FROM\n" +
+            "    posts\n" +
+            "where posts.is_deleted = false\n" +
+            "GROUP BY\n" +
+            "    provinceName\n" +
+            "ORDER BY\n" +
+            "    totalPosts DESC", nativeQuery = true)
+    List<ProvinceDto> getTopOfProvince(Pageable pageable);
 }

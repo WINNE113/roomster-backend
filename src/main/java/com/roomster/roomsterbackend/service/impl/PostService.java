@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.service.impl;
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
@@ -103,6 +104,11 @@ public class PostService implements IPostService {
     @Override
     public List<PostDtoWithRating> getPostByRating(Pageable pageable) {
             return postRepository.getPostByRating(pageable).stream().filter(postDtoWithRating -> !postDtoWithRating.getIsDeleted()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProvinceDto> getTopOfProvince(Pageable pageable) {
+        return postRepository.getTopOfProvince(pageable);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,4 +19,6 @@ public interface IPostService {
                      List<MultipartFile> images, Principal connectedUser) throws IOException;
 
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
+
+    List<ProvinceDto> getTopOfProvince(Pageable pageable);
 }

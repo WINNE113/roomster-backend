@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.controller.guest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import com.roomster.roomsterbackend.dto.SearchResult;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
@@ -50,5 +51,12 @@ public class GuestController {
             }
         }
         return iDatabaseSearch.searchFilter(pageable, map);
+    }
+
+    @GetMapping(value = "/post/top-province")
+    public List<ProvinceDto> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
+                                              @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return postService.getTopOfProvince(pageable);
     }
 }
