@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/guest")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class GuestController {
 
     private final IPostService postService;
