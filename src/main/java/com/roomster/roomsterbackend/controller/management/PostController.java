@@ -10,14 +10,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -57,21 +53,21 @@ public class PostController {
         return BaseResponse.success("Thêm bài viết thành công!");
     }
 
-    @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-    public List<PostDto> searchPost(@RequestPart String json) throws SQLException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        LinkedHashMap<String, Object> map = null;
-        try {
-            map = objectMapper.readValue(json, LinkedHashMap.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-        return iDatabaseSearch.searchFilter(map);
-    }
-    @GetMapping("/listAllPost")
-    public List<PostDto> getAllPost(Pageable pageable){
-        return service.getAllPost(pageable);
-    }
+//    @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+//    public List<PostDto> searchPost(@RequestPart String json) throws SQLException {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        LinkedHashMap<String, Object> map = null;
+//        try {
+//            map = objectMapper.readValue(json, LinkedHashMap.class);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return iDatabaseSearch.searchFilter(map);
+//    }
+//    @GetMapping("/listAllPost")
+//    public List<PostDto> getAllPost(Pageable pageable){
+//        return service.getAllPost(pageable);
+//    }
 
     @GetMapping("/list/{postId}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "postId") Long postId) {

@@ -1,6 +1,8 @@
 package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import org.springframework.web.multipart.MultipartFile;

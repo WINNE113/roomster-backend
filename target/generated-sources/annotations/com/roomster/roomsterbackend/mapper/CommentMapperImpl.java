@@ -2,15 +2,14 @@ package com.roomster.roomsterbackend.mapper;
 
 import com.roomster.roomsterbackend.dto.CommentPostDto;
 import com.roomster.roomsterbackend.entity.Comment;
+import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
-/*
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-14T01:51:27+0700",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
+    date = "2023-11-20T00:50:26+0700",
+    comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
-*/
 @Component
 public class CommentMapperImpl implements CommentMapper {
 
@@ -22,8 +21,8 @@ public class CommentMapperImpl implements CommentMapper {
 
         CommentPostDto commentPostDto = new CommentPostDto();
 
-        commentPostDto.setCreatedDate( comment.getCreatedDate() );
         commentPostDto.setCommentPostId( comment.getId() );
+        commentPostDto.setCreatedDate( comment.getCreatedDate() );
         commentPostDto.setUserId( comment.getUserId() );
         commentPostDto.setPostId( comment.getPostId() );
         commentPostDto.setTitle( comment.getTitle() );
@@ -58,11 +57,11 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
+        oldComment.setCreatedBy( newCommentPostEntity.getCreatedBy() );
+        oldComment.setModifiedBy( newCommentPostEntity.getModifiedBy() );
         oldComment.setId( newCommentPostEntity.getId() );
         oldComment.setCreatedDate( newCommentPostEntity.getCreatedDate() );
         oldComment.setModifiedDate( newCommentPostEntity.getModifiedDate() );
-        oldComment.setCreatedBy( newCommentPostEntity.getCreatedBy() );
-        oldComment.setModifiedBy( newCommentPostEntity.getModifiedBy() );
         oldComment.setTitle( newCommentPostEntity.getTitle() );
         oldComment.setContent( newCommentPostEntity.getContent() );
         oldComment.setStatus( newCommentPostEntity.isStatus() );

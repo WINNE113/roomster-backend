@@ -1,13 +1,14 @@
 package com.roomster.roomsterbackend.service.impl;
 
+import com.roomster.roomsterbackend.dto.SearchResult;
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithFilter;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import javax.naming.directory.SearchResult;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

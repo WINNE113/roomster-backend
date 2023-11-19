@@ -5,6 +5,7 @@ import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.UserDto;
+import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,16 @@ public class UserController {
 
     private final IPostService service;
 
-    @GetMapping("/quan-li-tin/{authorId}")
-    public List<PostDto> getPostByUserId(@PathVariable Long authorId, Pageable pageable){
-        return service.getPostByAuthorId(pageable, authorId);
+//    @GetMapping("/quan-li-tin/{authorId}")
+//    public List<PostDto> getPostByUserId(@PathVariable Long authorId, Pageable pageable) {
+//        return service.getPostByAuthorId(pageable, authorId);
+//    }
 
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);
     }
+
     @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public BaseResponse saveNewPost(@RequestPart String profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
 

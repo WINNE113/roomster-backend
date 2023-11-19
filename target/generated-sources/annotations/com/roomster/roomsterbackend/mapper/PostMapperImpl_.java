@@ -1,19 +1,20 @@
 package com.roomster.roomsterbackend.mapper;
 
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.UserDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-/*
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-14T01:51:26+0700",
-    comments = "version: 1.2.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
+    date = "2023-11-20T00:51:01+0700",
+    comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
-*/
 @Component
 @Qualifier("delegate")
 public class PostMapperImpl_ implements PostMapper {
@@ -34,13 +35,14 @@ public class PostMapperImpl_ implements PostMapper {
         postDto.setConvenient( postEntity.getConvenient() );
         postDto.setSurroundings( postEntity.getSurroundings() );
         postDto.setDeleted( postEntity.isDeleted() );
-        postDto.setAuthorId( postEntity.getAuthorId() );
+        postDto.setAuthorId( userEntityToUserDto( postEntity.getAuthorId() ) );
+        postDto.setRotation( postEntity.getRotation() );
+        postDto.setCreatedDate( postEntity.getCreatedDate() );
+        postDto.setModifiedDate( postEntity.getModifiedDate() );
+        postDto.setModifiedBy( postEntity.getModifiedBy() );
         List<String> list = postEntity.getImageUrlList();
         if ( list != null ) {
             postDto.setImageUrlList( new ArrayList<String>( list ) );
-        }
-        else {
-            postDto.setImageUrlList( null );
         }
 
         return postDto;
@@ -54,7 +56,10 @@ public class PostMapperImpl_ implements PostMapper {
 
         PostEntity postEntity = new PostEntity();
 
-        postEntity.setAuthorId( postDTO.getAuthorId() );
+        postEntity.setModifiedBy( postDTO.getModifiedBy() );
+        postEntity.setCreatedDate( postDTO.getCreatedDate() );
+        postEntity.setModifiedDate( postDTO.getModifiedDate() );
+        postEntity.setAuthorId( userDtoToUserEntity( postDTO.getAuthorId() ) );
         postEntity.setTitle( postDTO.getTitle() );
         postEntity.setAddress( postDTO.getAddress() );
         postEntity.setDescription( postDTO.getDescription() );
@@ -65,10 +70,8 @@ public class PostMapperImpl_ implements PostMapper {
         if ( list != null ) {
             postEntity.setImageUrlList( new ArrayList<String>( list ) );
         }
-        else {
-            postEntity.setImageUrlList( null );
-        }
         postEntity.setDeleted( postDTO.isDeleted() );
+        postEntity.setRotation( postDTO.getRotation() );
 
         return postEntity;
     }
@@ -79,10 +82,10 @@ public class PostMapperImpl_ implements PostMapper {
             return null;
         }
 
-        oldPost.setCreatedDate( newPost.getCreatedDate() );
-        oldPost.setModifiedDate( newPost.getModifiedDate() );
         oldPost.setCreatedBy( newPost.getCreatedBy() );
         oldPost.setModifiedBy( newPost.getModifiedBy() );
+        oldPost.setCreatedDate( newPost.getCreatedDate() );
+        oldPost.setModifiedDate( newPost.getModifiedDate() );
         oldPost.setAuthorId( newPost.getAuthorId() );
         oldPost.setTitle( newPost.getTitle() );
         oldPost.setAddress( newPost.getAddress() );
@@ -107,9 +110,53 @@ public class PostMapperImpl_ implements PostMapper {
             }
         }
         oldPost.setDeleted( newPost.isDeleted() );
-        oldPost.setRoom( newPost.getRoom() );
+        oldPost.setRotation( newPost.getRotation() );
+        oldPost.setRoomId( newPost.getRoomId() );
         oldPost.setPostType( newPost.getPostType() );
 
         return oldPost;
+    }
+
+    protected UserDto userEntityToUserDto(UserEntity userEntity) {
+        if ( userEntity == null ) {
+            return null;
+        }
+
+        UserDto userDto = new UserDto();
+
+        userDto.setUserName( userEntity.getUserName() );
+        userDto.setPassword( userEntity.getPassword() );
+        userDto.setEmail( userEntity.getEmail() );
+        userDto.setImages( userEntity.getImages() );
+        userDto.setPhoneNumber( userEntity.getPhoneNumber() );
+        userDto.setPhoneNumberConfirmed( userEntity.getPhoneNumberConfirmed() );
+        userDto.setTwoFactorEnable( userEntity.getTwoFactorEnable() );
+        userDto.setActive( userEntity.isActive() );
+        userDto.setDeleted( userEntity.isDeleted() );
+        userDto.setDateOfBirth( userEntity.getDateOfBirth() );
+        userDto.setAddress( userEntity.getAddress() );
+
+        return userDto;
+    }
+
+    protected UserEntity userDtoToUserEntity(UserDto userDto) {
+        if ( userDto == null ) {
+            return null;
+        }
+
+        UserEntity userEntity = new UserEntity();
+
+        userEntity.setImages( userDto.getImages() );
+        userEntity.setUserName( userDto.getUserName() );
+        userEntity.setEmail( userDto.getEmail() );
+        userEntity.setPhoneNumber( userDto.getPhoneNumber() );
+        userEntity.setPhoneNumberConfirmed( userDto.isPhoneNumberConfirmed() );
+        userEntity.setTwoFactorEnable( userDto.isTwoFactorEnable() );
+        userEntity.setActive( userDto.isActive() );
+        userEntity.setDeleted( userDto.isDeleted() );
+        userEntity.setDateOfBirth( userDto.getDateOfBirth() );
+        userEntity.setAddress( userDto.getAddress() );
+
+        return userEntity;
     }
 }

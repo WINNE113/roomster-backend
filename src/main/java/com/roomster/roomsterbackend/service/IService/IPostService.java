@@ -1,10 +1,13 @@
 package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 public interface IPostService {
@@ -13,7 +16,7 @@ public interface IPostService {
 
     PostDto getPostById(Long postId);
     void saveNewPost(PostDto postDTO,
-                     List<MultipartFile> images) throws IOException;
+                     List<MultipartFile> images, Principal connectedUser) throws IOException;
 
     PostDto updatePost(PostDto postDto);
     void deletePost(Long postId);

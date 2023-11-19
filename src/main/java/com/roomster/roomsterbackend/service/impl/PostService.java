@@ -2,22 +2,27 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
 import com.roomster.roomsterbackend.repository.PostRepository;
+import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.security.Principal;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,14 +43,7 @@ public class PostService implements IPostService {
 
 
     private final Cloudinary cloudinary;
-    @Override
-    public List<PostDto> getAllPostByType() {
-        return postRepository.findAll()
-                .stream()
-                .map(postEntity -> postMapper.entityToDto(postEntity))
-                .filter(postDto -> !postDto.isDeleted())
-                .toList();
-    }
+
 
     @Override
     public List<PostDto> getAllPost(Pageable pageable) {
@@ -71,10 +69,11 @@ public class PostService implements IPostService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public PostDto getPostById(Long postId) {
-        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
-    }
+//    @Override
+//    public PostDto getPostById(Long postId) {
+//        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+//    }
+
 
     @Override
     public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
@@ -111,13 +110,6 @@ public class PostService implements IPostService {
         return postRepository.getTopOfProvince(pageable);
     }
 
-    @Override
-    public List<PostDto> getAllPost() {
-        List<PostEntity> list = postRepository.findAll();
-        return list.stream()
-                .map(postEntity -> postMapper.entityToDto(postEntity))
-                .collect(Collectors.toList());
-    }
 
     @Override
     public PostDto getPostById(Long postId) {
@@ -126,14 +118,6 @@ public class PostService implements IPostService {
         return postMapper.entityToDto(post);
     }
 
-    @Override
-    public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
-        return postRepository.getPostEntityByAuthorId(pageable, authorId)
-                .stream()
-                .map(postEntity -> postMapper.entityToDto(postEntity))
-                .filter(postDto -> !postDto.isDeleted())
-                .collect(Collectors.toList());
-    }
 
     @Override
     public PostDto updatePost(PostDto postDto) {

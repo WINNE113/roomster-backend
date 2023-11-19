@@ -34,8 +34,8 @@ public class AdminController {
         return iUserService.getAllUser();
     }
 
-    @GetMapping("/list-post")
-    public List<PostDto> getPostByType(){
-        return  iPostService.getAllPost();
-    }
+//    @GetMapping("/list-post")
+//    public List<PostDto> getPostByType(){
+//        return  iPostService.getAllPost();
+//    }
 }
