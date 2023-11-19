@@ -1,10 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
-import com.roomster.roomsterbackend.dto.PostDto;
-import com.roomster.roomsterbackend.dto.PostDtoWithRating;
-import com.roomster.roomsterbackend.dto.ProvinceDto;
-import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
+import com.roomster.roomsterbackend.dto.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
@@ -24,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -110,6 +104,16 @@ public class PostService implements IPostService {
     @Override
     public List<ProvinceDto> getTopOfProvince(Pageable pageable) {
         return postRepository.getTopOfProvince(pageable);
+    }
+
+    @Override
+    public Optional<PostDetailDto> getPostDetail(Long postId) {
+        return postRepository.getPostDetail(postId);
+    }
+
+    @Override
+    public List<PostImageDto> getPostImages(Long postId) {
+        return postRepository.getPostImages(postId);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

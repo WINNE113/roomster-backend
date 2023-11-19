@@ -1,15 +1,13 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.PostDto;
-import com.roomster.roomsterbackend.dto.PostDtoWithRating;
-import com.roomster.roomsterbackend.dto.ProvinceDto;
-import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
+import com.roomster.roomsterbackend.dto.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 public interface IPostService {
     List<PostDto> getAllPost(Pageable pageable);
@@ -22,4 +20,8 @@ public interface IPostService {
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
 
     List<ProvinceDto> getTopOfProvince(Pageable pageable);
+
+    Optional<PostDetailDto> getPostDetail(Long postId);
+
+    List<PostImageDto> getPostImages(Long postId);
 }
