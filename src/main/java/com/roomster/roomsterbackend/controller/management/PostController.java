@@ -46,7 +46,8 @@ public class PostController {
 //        return HttpStatus.OK;
 //    }
 
-    @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE})
+    @PreAuthorize("hasAnyRole('ROLE_MANAGE','ROLE_ADMIN')")
+    @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public HttpStatus saveNewPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         PostDto postDTO = objectMapper.readValue(postDto, PostDto.class);
