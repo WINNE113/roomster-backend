@@ -167,9 +167,6 @@ public class ProvinceService {
             case "Tỉnh Tây Ninh" -> {
                 return "https://dulich9.com/wp-content/uploads/2019/10/cac-dia-diem-du-lich-ca-nuoc-4-1.webp";
             }
-            case "" -> {
-                return "";
-            }
             case "Tỉnh Bình Dương" -> {
                 return "https://dulich9.com/wp-content/uploads/2019/10/cac-dia-diem-du-lich-ca-nuoc-2-1.webp";
             }
