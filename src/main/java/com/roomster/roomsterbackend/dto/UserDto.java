@@ -3,21 +3,21 @@ package com.roomster.roomsterbackend.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.roomster.roomsterbackend.entity.RoleEntity;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserDto {
-
     private Long userId;
 
     private String userName;
@@ -26,9 +26,11 @@ public class UserDto {
 
     private String email;
 
+    private String images;
+
     private String phoneNumber;
 
-    private String images;
+    private boolean phoneNumberConfirmed;
 
     private boolean twoFactorEnable;
 

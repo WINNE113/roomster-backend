@@ -15,9 +15,9 @@
     <description>Project for spring boot</description>
     <properties>
         <java.version>17</java.version>
-        <org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+        <org.mapstruct.version>1.4.0.Final</org.mapstruct.version>
         <spring.boot.version>2.4.1</spring.boot.version>
-        <org.projectlombok.version>1.18.26</org.projectlombok.version>
+        <org.projectlombok.version>1.18.24</org.projectlombok.version>
     </properties>
     <dependencies>
         <dependency>
@@ -77,11 +77,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-websocket</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
@@ -113,12 +108,6 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>2.3.5</version>
-        </dependency>
-
         <!-- SMS-->
         <dependency>
             <groupId>com.twilio.sdk</groupId>
@@ -130,6 +119,12 @@
             <groupId>com.cloudinary</groupId>
             <artifactId>cloudinary-http44</artifactId>
             <version>1.33.0</version>
+        </dependency>
+        <!--    ObjectMapper-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.15.2</version>
         </dependency>
 
         <dependency>
@@ -168,6 +163,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${org.projectlombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${org.mapstruct.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>

@@ -12,6 +12,7 @@ import java.util.List;
 @RequestMapping("/api/v1/rating")
 @PreAuthorize("hasRole('ROLE_USER')")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class RatingController {
     private final IRatingService ratingService;
 

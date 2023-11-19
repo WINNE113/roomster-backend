@@ -16,21 +16,51 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @CreatedDate
+    @Column(
+            nullable = false,
+            updatable = false
+    )
     private Date createdDate;
     @LastModifiedDate
+    @Column(
+            insertable = false
+    )
     private Date modifiedDate;
     @CreatedBy
-    private String createdBy;
+    @Column(
+            nullable = false,
+            updatable = false
+    )
+    private Long createdBy;
     @LastModifiedBy
-    private String modifiedBy;
+    @Column(
+            insertable = false
+    )
+    private Long modifiedBy;
 
     public BaseEntity() {
     }
 
-    public BaseEntity(Date createdDate, Date modifiedDate, String createdBy, String modifiedBy) {
+    public BaseEntity(Date createdDate, Date modifiedDate, Long createdBy, Long modifiedBy) {
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
         this.createdBy = createdBy;
+        this.modifiedBy = modifiedBy;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 
@@ -38,7 +68,7 @@ public abstract class BaseEntity {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Long id){
         this.id = id;
     }
 
@@ -56,21 +86,5 @@ public abstract class BaseEntity {
 
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(String modifiedBy) {
-        this.modifiedBy = modifiedBy;
     }
 }

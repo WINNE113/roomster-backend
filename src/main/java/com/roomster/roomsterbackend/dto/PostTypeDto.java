@@ -4,16 +4,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class PostTypeDto {
-
-    private Long id;
 
     private String name;
 
-    private int code;
+    private String code;
 
-    private String is_delete;
+    private boolean isDeleted;
+
+    private Date createdDate;
+
+    private Date modifiedDate;
+
+    private Long createdBy;
+
+    private Long modifiedBy;
+
 }

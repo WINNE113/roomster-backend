@@ -2,9 +2,9 @@ package com.roomster.roomsterbackend.config;
 
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,18 +33,16 @@ public class ApplicationConfig {
     }
 
     @Bean
+    public AuditorAware<Long> auditorAware(){
+        return new ApplicationAuditAware();
+    }
+
+    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
     }
 }

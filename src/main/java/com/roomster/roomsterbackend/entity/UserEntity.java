@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -49,11 +50,32 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "userChatMessage")
     private List<ChatMessageEntity> chatMessage = new ArrayList<>();
 
+    @OneToMany(mappedBy = "userToken")
+    private List<TokenEntity> tokens;
+
+    @OneToMany(mappedBy = "authorId")
+    private List<PostEntity> posts;
 
     public UserEntity(){}
+
+    public List<PostEntity> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostEntity> posts) {
+        this.posts = posts;
+    }
+
+    public List<TokenEntity> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(List<TokenEntity> tokens) {
+        this.tokens = tokens;
+    }
 
     public String getImages() {
         return images;
@@ -122,7 +144,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     }
 
     public void setTwoFactorEnable(boolean twoFactorEnable) {
-        twoFactorEnable = twoFactorEnable;
+        this.twoFactorEnable = twoFactorEnable;
     }
 
     public boolean isActive() {
@@ -157,10 +179,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
         this.address = address;
     }
 
+    @JsonManagedReference
     public Set<RoleEntity> getRoles() {
         return roles;
     }
-    @JsonManagedReference
+
     public void setRoles(Set<RoleEntity> roles) {
         this.roles = roles;
     }
