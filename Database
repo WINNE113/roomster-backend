@@ -1,3 +1,11 @@
+// Importance must be setting in MySQL
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+SET @@global.sql_mode= 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+
+
+
+// insert role
 insert into roles(name) values ('ROLE_USER');
 insert into roles(name) values ('ROLE_MANAGE');
 insert into roles(name) values ('ROLE_ADMIN');
@@ -23,6 +31,12 @@ CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
 CHANGE COLUMN `code` `code` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
 CHANGE COLUMN `name` `name` VARCHAR(255) NULL DEFAULT NULL AFTER `code`;
 
+ALTER TABLE `trouytin_db`.`ratings`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `post_id` `post_id` BIGINT NULL DEFAULT NULL AFTER `star_point`,
+CHANGE COLUMN `user_id` `user_id` BIGINT NULL DEFAULT NULL AFTER `post_id`;
+
+
 
 // Insert value in post table
 INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, `convenient`, `surroundings`, `post_type_id`, `author_id`, `is_deleted`, `created_date`, `created_by`, `room_id`) VALUES ('Nhà Trọ Thiên Vương', 'Điện Bàn - Điện Ngọc - Quảng Nam', 'Đầy đủ tiện nghi', 'Tất cả', 'Wifi, Điều hòa, Máy Giặt', 'Đại Học FPT', '1', '1', b'0', '2023-9-8', b'1', b'1');
@@ -39,11 +53,22 @@ INSERT INTO `trouytin_db`.`posts` (`title`, `address`, `description`, `object`, 
 VALUES ('Nhà Trọ Việt Á', 'Quận 1 - Thành Phố Hồ Chí Minh', 'Đầy đủ tiện nghi', 'Nữ', 'Wifi, Nhà gửi xe', 'Chợ, Sân Bóng', '1', '1', b'0', '2023-11-13', '1', '4');
 
 // filter
-select * from posts inner join infor_rooms
-	on posts.room_id = infor_rooms.id
-    where address like '%Quảng Trị%'
-    and price between 0 and 30000
-    and acreage between 17 and 200;
+Select p.id, p.title, p.address, p.created_date, ir.price, p.is_deleted, max(pimg.image_url_list) as image
+from posts p
+left join post_entity_image_url_list pimg
+on p.id = pimg.post_entity_id
+inner join infor_rooms ir
+on ir.id = p.room_id
+where object LIKE '%Tat Ca%' AND price BETWEEN 0 AND 1000000
+group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted
+order by p.created_date DESC
+LIMIT 3 OFFSET 0;
 
-
-SELECT * FROM posts inner join infor_rooms on posts.room_id = infor_rooms.id  where address LIKE '%Quảng Trị%' AND object LIKE '%Sinh Viên%'
+// select post with rating desc
+Select p.id, p.title, p.address, p.created_date, i.price,p.is_deleted, max(pimg.image_url_list) as image, AVG(r.star_point) as average_rating
+from posts p
+left join ratings r on p.id = r.post_id
+inner join infor_rooms i on p.room_id = i.id
+inner join post_entity_image_url_list pimg on pimg.post_entity_id = p.id
+group by p.id
+Order by average_rating desc;

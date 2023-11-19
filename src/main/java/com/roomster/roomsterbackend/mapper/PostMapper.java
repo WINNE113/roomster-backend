@@ -12,6 +12,8 @@ import org.mapstruct.MappingTarget;
 public interface PostMapper {
     @Mapping(target = "postId", source = "id")
     PostDto entityToDto(PostEntity postEntity);
+
+    @Mapping(target = "id", ignore = true)
     PostEntity dtoToEntity(PostDto postDTO);
 
     @Mapping(target = "id", ignore = true)

@@ -4,20 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="fix delete post, update post and modify get post by id">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Add api get top of province and total post of province">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/roomster/roomsterbackend/service/impl/PostService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/PostRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/PostService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="COMPILER_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Djps.track.ap.dependencies=false" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -34,7 +31,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="tanlt" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -77,37 +74,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "thanglh",
-    "last_opened_file_path": "D:/WorkSpace/_Capstone Project/BE/roomster-backend/roomster-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;thanglh&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_CapstoneProject/BE/roomster-backend/roomster-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ],
-    "DatabaseDriversLRU": [
-      "mysql"
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -225,8 +223,6 @@
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -269,10 +265,28 @@
       <workItem from="1699259188228" duration="49000" />
       <workItem from="1699259260326" duration="5081000" />
       <workItem from="1699285971791" duration="652000" />
-      <workItem from="1699365658127" duration="3151000" />
-      <workItem from="1699450622546" duration="10060000" />
-      <workItem from="1699710130749" duration="4783000" />
-      <workItem from="1699779661493" duration="603000" />
+      <workItem from="1699323333843" duration="717000" />
+      <workItem from="1699335383248" duration="10919000" />
+      <workItem from="1699367995560" duration="3657000" />
+      <workItem from="1699449164198" duration="22531000" />
+      <workItem from="1699518185098" duration="4713000" />
+      <workItem from="1699537044677" duration="12432000" />
+      <workItem from="1699625148820" duration="11417000" />
+      <workItem from="1699670702421" duration="14471000" />
+      <workItem from="1699711404587" duration="7142000" />
+      <workItem from="1699772497863" duration="4505000" />
+      <workItem from="1699799635024" duration="7489000" />
+      <workItem from="1699846093945" duration="2118000" />
+      <workItem from="1699857245524" duration="1098000" />
+      <workItem from="1699862905603" duration="4456000" />
+      <workItem from="1700044079960" duration="4116000" />
+      <workItem from="1700056829481" duration="6194000" />
+      <workItem from="1700142515855" duration="8465000" />
+      <workItem from="1700151022790" duration="9390000" />
+      <workItem from="1700207212334" duration="12328000" />
+      <workItem from="1700242447001" duration="5618000" />
+      <workItem from="1700371089838" duration="2388000" />
+      <workItem from="1700394060201" duration="5518000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -354,55 +368,143 @@
       <option name="project" value="LOCAL" />
       <updated>1699263660177</updated>
     </task>
-    <task id="LOCAL-00011" summary="Fix">
+    <task id="LOCAL-00011" summary="add post new">
       <option name="closed" value="true" />
-      <created>1699296305650</created>
+      <created>1699293644418</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1699296305650</updated>
+      <updated>1699293644418</updated>
     </task>
-    <task id="LOCAL-00012" summary="Fix">
+    <task id="LOCAL-00012" summary="add view profile and update password">
       <option name="closed" value="true" />
-      <created>1699374151954</created>
+      <created>1699465322234</created>
       <option name="number" value="00012" />
       <option name="presentableId" value="LOCAL-00012" />
       <option name="project" value="LOCAL" />
-      <updated>1699374151954</updated>
+      <updated>1699465322236</updated>
     </task>
-    <task id="LOCAL-00013" summary="Add comment and ratings, modifie post">
+    <task id="LOCAL-00013" summary="Fix cross-origin config">
       <option name="closed" value="true" />
-      <created>1699374217229</created>
+      <created>1699519600421</created>
       <option name="number" value="00013" />
       <option name="presentableId" value="LOCAL-00013" />
       <option name="project" value="LOCAL" />
-      <updated>1699374217229</updated>
+      <updated>1699519600421</updated>
     </task>
-    <task id="LOCAL-00014" summary="Add change password and view profile user">
+    <task id="LOCAL-00014" summary="Fix cross-origin config">
       <option name="closed" value="true" />
-      <created>1699611569219</created>
+      <created>1699537671485</created>
       <option name="number" value="00014" />
       <option name="presentableId" value="LOCAL-00014" />
       <option name="project" value="LOCAL" />
-      <updated>1699611569219</updated>
+      <updated>1699537671485</updated>
     </task>
-    <task id="LOCAL-00015" summary="Add delete post, update post and modify get post by id">
+    <task id="LOCAL-00015" summary="Fix cors config and update profile">
       <option name="closed" value="true" />
-      <created>1699730757115</created>
+      <created>1699636363702</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1699730757116</updated>
+      <updated>1699636363705</updated>
     </task>
-    <task id="LOCAL-00016" summary="Add delete post, update post and modify get post by id">
+    <task id="LOCAL-00016" summary="add logout and token entity">
       <option name="closed" value="true" />
-      <created>1699731207043</created>
+      <created>1699695915750</created>
       <option name="number" value="00016" />
       <option name="presentableId" value="LOCAL-00016" />
       <option name="project" value="LOCAL" />
-      <updated>1699731207043</updated>
+      <updated>1699695915750</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add filter and fix update profile">
+      <option name="closed" value="true" />
+      <created>1699772616516</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1699772616516</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix filter">
+      <option name="closed" value="true" />
+      <created>1699847465564</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1699847465564</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Just - commit">
+      <option name="closed" value="true" />
+      <created>1700064189281</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1700064189281</updated>
+    </task>
+    <task id="LOCAL-00020" summary="List post by rating">
+      <option name="closed" value="true" />
+      <created>1700152210799</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1700152210799</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Change permission for filter">
+      <option name="closed" value="true" />
+      <created>1700153006017</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1700153006017</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add total result filter">
+      <option name="closed" value="true" />
+      <created>1700208840223</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1700208840223</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Fix filter search">
+      <option name="closed" value="true" />
+      <created>1700211766655</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1700211766655</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Fix get post by rating">
+      <option name="closed" value="true" />
+      <created>1700215767612</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1700215767612</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Don't get post is deleted">
+      <option name="closed" value="true" />
+      <created>1700219226766</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1700219226766</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fix cors">
+      <option name="closed" value="true" />
+      <created>1700242520218</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1700242520218</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Add api get top of province and total post of province">
+      <option name="closed" value="true" />
+      <created>1700247362590</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1700247362590</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,12 +518,17 @@
             <list>
               <RecentGroup>
                 <option name="FILTER_VALUES">
-                  <option value="main" />
+                  <option value="thanglh" />
                 </option>
               </RecentGroup>
               <RecentGroup>
                 <option name="FILTER_VALUES">
-                  <option value="thanglh" />
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="main" />
                 </option>
               </RecentGroup>
             </list>
@@ -452,7 +559,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add send OTP and validate OTP" />
     <MESSAGE value=" modified send OTP and validate OTP" />
     <MESSAGE value="Modified file AuthenticationService" />
     <MESSAGE value="Fix model database" />
@@ -462,32 +568,22 @@
     <MESSAGE value="mapper for post dto" />
     <MESSAGE value="modified register account user or owner" />
     <MESSAGE value="Fix OpenAPI document" />
-    <MESSAGE value="Fix" />
-    <MESSAGE value="Add comment and ratings, modifie post" />
-    <MESSAGE value="Add change password and view profile user" />
-    <MESSAGE value="Add delete post, update post and modify get post by id" />
-    <MESSAGE value="fix delete post, update post and modify get post by id" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix delete post, update post and modify get post by id" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java</url>
-          <line>33</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="java.util.Optional" memberName="value" />
-      </pinned-members>
-    </pin-to-top-manager>
+    <MESSAGE value="add post new" />
+    <MESSAGE value="add view profile and update password" />
+    <MESSAGE value="Fix cross-origin config" />
+    <MESSAGE value="Fix cors config and update profile" />
+    <MESSAGE value="add logout and token entity" />
+    <MESSAGE value="add filter and fix update profile" />
+    <MESSAGE value="fix filter" />
+    <MESSAGE value="Just - commit" />
+    <MESSAGE value="List post by rating" />
+    <MESSAGE value="Change permission for filter" />
+    <MESSAGE value="Add total result filter" />
+    <MESSAGE value="Fix filter search" />
+    <MESSAGE value="Fix get post by rating" />
+    <MESSAGE value="Don't get post is deleted" />
+    <MESSAGE value="fix cors" />
+    <MESSAGE value="Add api get top of province and total post of province" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add api get top of province and total post of province" />
   </component>
 </project>

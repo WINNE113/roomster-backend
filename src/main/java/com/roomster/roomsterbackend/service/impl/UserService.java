@@ -109,6 +109,12 @@ public class UserService implements IUserService {
         return BaseResponse.success("Update password successfully");
     }
 
+    @Override
+    public UserDto getUserById(Long userId) {
+         Optional<UserEntity> userEntity = userRepository.getUserEntityByUserId(userId).filter(user -> !user.isDeleted());
+        return userEntity.map(user -> userMapper.entityToDto(user)).orElse(null);
+    }
+
     private String getFileUrls(MultipartFile multipartFile) throws IOException {
         return cloudinary.uploader()
                 .upload(multipartFile.getBytes(), Map.of("public_id", UUID.randomUUID().toString()))

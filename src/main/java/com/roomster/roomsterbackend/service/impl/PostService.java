@@ -2,10 +2,13 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.PostDtoWithRating;
+import com.roomster.roomsterbackend.dto.ProvinceDto;
+import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
-import com.roomster.roomsterbackend.repository.InforRoomRepository;
 import com.roomster.roomsterbackend.repository.PostRepository;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
@@ -14,10 +17,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +31,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class PostService implements IPostService {
     @Autowired
@@ -39,9 +46,6 @@ public class PostService implements IPostService {
 
     @Autowired
     private PostTypeRepository postTypeRepository;
-
-    @Autowired
-    private InforRoomRepository inforRoomRepository;
 
     private final Cloudinary cloudinary;
     @Override
@@ -74,10 +78,17 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void saveNewPost(PostDto postDTO, List<MultipartFile> images) throws IOException {
+    public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
-        postEntity.setPostType(postTypeRepository.getPostEntityByName(postDTO.getPost_type()));
+        postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
+        if(postDTO.getRotation() != null){
+            postEntity.setRotation(postDTO.getRotation());
+        }
+        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        if(user != null){
+            postEntity.setAuthorId(user);
+        }
         if (!images.isEmpty()) {
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile multipartFile : images) {
@@ -86,9 +97,19 @@ public class PostService implements IPostService {
             postEntity.setImageUrlList(imageUrls);
         }
         if(postDTO.getRoomDto() != null){
-            postEntity.setRoom(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
+            postEntity.setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
         }
         postRepository.save(postEntity);
+    }
+
+    @Override
+    public List<PostDtoWithRating> getPostByRating(Pageable pageable) {
+            return postRepository.getPostByRating(pageable).stream().filter(postDtoWithRating -> !postDtoWithRating.getIsDeleted()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProvinceDto> getTopOfProvince(Pageable pageable) {
+        return postRepository.getTopOfProvince(pageable);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

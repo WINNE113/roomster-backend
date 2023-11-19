@@ -87,6 +87,4 @@ public abstract class BaseEntity {
     public void setModifiedDate(Date modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
-
-
 }
