@@ -13,17 +13,18 @@ public class ProvinceService {
         List<ProvinceDtoWithImage> dtoList = new ArrayList<>();
         for (ProvinceDto item : provinceDtos) {
             ProvinceDtoWithImage provinceDtoWithImage = new ProvinceDtoWithImage();
-             provinceDtoWithImage.setProvinceName(item.getProvinceName());
-             provinceDtoWithImage.setTotalPosts(item.getTotalPosts());
-             provinceDtoWithImage.setImage(getImageUrlForProvince(item.getProvinceName()));
+            provinceDtoWithImage.setProvinceName(item.getProvinceName());
+            provinceDtoWithImage.setTotalPosts(item.getTotalPosts());
+            provinceDtoWithImage.setImage(getImageUrlForProvince(item.getProvinceName()));
 
-             dtoList.add(provinceDtoWithImage);
+            dtoList.add(provinceDtoWithImage);
         }
         return dtoList;
     }
+
     private String getImageUrlForProvince(String provinceName) {
         // Logic to determine the image URL based on provinceName
-        switch (provinceName){
+        switch (provinceName) {
             case "Thành phố Hà Nội" -> {
                 return "https://media.vietravel.com/images/News/ha-noi-1.jpg";
             }
@@ -48,77 +49,178 @@ public class ProvinceService {
             case "Tỉnh Lào Cai" -> {
                 return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGiMpkDIFRHlkvu4ivVRsyZu2AukZ36UQkBA&usqp=CAU";
             }
-            case "Tỉnh Điện Biên" ->{
+            case "Tỉnh Điện Biên" -> {
                 return "";
             }
-            case "Tỉnh Lai Châu" ->{
+            case "Tỉnh Lai Châu" -> {
                 return "";
             }
-            case "Tỉnh Sơn La" ->{
+            case "Tỉnh Sơn La" -> {
                 return "";
             }
-            case "Tỉnh Yên Bái" ->{
+            case "Tỉnh Yên Bái" -> {
                 return "";
             }
-            case "Tỉnh Hòa Bình" ->{
+            case "Tỉnh Hòa Bình" -> {
                 return "";
             }
-            case "Tỉnh Thái Nguyên" ->{
+            case "Tỉnh Thái Nguyên" -> {
                 return "";
             }
-            case "Tỉnh Lạng Sơn" ->{
+            case "Tỉnh Lạng Sơn" -> {
                 return "";
             }
-            case "Tỉnh Quảng Ninh" ->{
+            case "Tỉnh Quảng Ninh" -> {
                 return "";
             }
-            case "Tỉnh Bắc Giang" ->{
+            case "Tỉnh Bắc Giang" -> {
 
             }
-            case "Tỉnh Phú Thọ" ->{
+            case "Tỉnh Phú Thọ" -> {
 
             }
-            case "Tỉnh Vĩnh Phúc" ->{
+            case "Tỉnh Vĩnh Phúc" -> {
 
             }
-            case "Tỉnh Bắc Ning" ->{
+            case "Tỉnh Bắc Ninh" -> {
 
             }
-            case "Tỉnh Hải Dương" ->{
+            case "Tỉnh Hải Dương" -> {
 
             }
-            case "Thành Phố Hải Phòng" ->{
+            case "Thành Phố Hải Phòng" -> {
 
             }
-            case "Tỉnh Hưng Yên" ->{
-
-            }case "Tỉnh Thái Bình" ->{
+            case "Tỉnh Hưng Yên" -> {
 
             }
-            case "Tỉnh Hà Nam" ->{
+            case "Tỉnh Thái Bình" -> {
 
             }
-            case "Tỉnh Nam Định" ->{
+            case "Tỉnh Hà Nam" -> {
 
             }
-            case "Tỉnh Ninh Bình" ->{
+            case "Tỉnh Nam Định" -> {
 
             }
-            case "Tỉnh Thanh Hóa" ->{
-
-            }case "Tỉnh Nghệ An" ->{
+            case "Tỉnh Ninh Bình" -> {
 
             }
-            case "Tỉnh Hà Tỉnh" ->{
+            case "Tỉnh Thanh Hóa" -> {
 
             }
-            case "Tỉnh Quảng Bình" ->{
+            case "Tỉnh Nghệ An" -> {
 
-            }case "Tỉnh " ->{
+            }
+            case "Tỉnh Hà Tỉnh" -> {
+
+            }
+            case "Tỉnh Quảng Bình" -> {
 
             }
 
+            case "Tỉnh Thừa Thiên Huế " -> {
 
+            }
+            case "Thành phố Đà Nẵng" -> {
+                return "";
+            }
+            case "Tỉnh Quảng Nam" -> {
+                return "";
+            }
+            case "Tỉnh Quảng Ngãi" -> {
+                return "";
+            }
+            case "Tỉnh Bình Định" -> {
+                return "";
+            }
+            case "Tỉnh Phú Yên" -> {
+                return "";
+            }
+            case "Tỉnh Khánh Hòa" -> {
+                return "";
+            }
+            case "Tỉnh Ninh Thuận" -> {
+                return "";
+            }
+            case "Tỉnh Bình Thuận" -> {
+                return "";
+            }
+            case "Tỉnh Kon Tum" -> {
+                return "";
+            }
+            case "Tỉnh Gia Lai" -> {
+                return "";
+            }
+            case "Tỉnh ĐắK Lắk" -> {
+                return "";
+            }
+            case "Tỉnh Đắk Nông" -> {
+                return "";
+            }
+            case "Tỉnh Lâm Đồng" -> {
+                return "";
+            }
+            case "Tỉnh Bình Phước" -> {
+                return "";
+            }
+            case "Tỉnh Tây Ninh" -> {
+                return "";
+            }
+            case "" -> {
+                return "";
+            }
+            case "Tỉnh Bình Dương" -> {
+                return "";
+            }
+            case "Tỉnh Đồng Nai" -> {
+                return "";
+            }
+            case "Tỉnh Bà Rịa - Vũng Tàu" -> {
+                return "";
+            }
+            case "Thành phố Hồ Chí Minh" -> {
+                return "";
+            }
+            case "Tỉnh Long An" -> {
+                return "";
+            }
+            case "Tỉnh Tiền Giang" -> {
+                return "";
+            }
+            case "Tỉnh Bến Tre" -> {
+                return "";
+            }
+            case "Tỉnh Trà Vinh" -> {
+                return "";
+            }
+            case "Tỉnh Vĩnh Long" -> {
+                return "";
+            }
+            case "Tỉnh Đồng Tháp" -> {
+                return "";
+            }
+            case "Tỉnh An Giang" -> {
+                return "";
+            }
+            case "Tỉnh Kiên Giang" -> {
+                return "";
+            }
+            case "Thành Phố Cần Thơ" -> {
+                return "";
+            }
+            case "Tỉnh Hậu Giang" -> {
+                return "";
+            }
+            case "Tỉnh Sóc Trăng" -> {
+                return "";
+            }
+            case "Tỉnh Bạc Liêu" -> {
+                return "";
+            }
+            case "Tỉnh Cà Mau" -> {
+                return "";
+            }
         }
         // Example: return a default URL for illustration purposes
         return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbUA62btBX_L6Q8oZsLIe0M8Kb9cftDaMhkWTlaKKrXRU4XB04rBK1iyv0KRJ6BenEoNA&usqp=CAU";
