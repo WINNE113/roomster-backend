@@ -1,15 +1,19 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.dto.RatingDto;
+import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.entity.RatingEntity;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.RatingMapper;
 import com.roomster.roomsterbackend.repository.RatingRepository;
 import com.roomster.roomsterbackend.service.IService.IRatingService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,14 +24,21 @@ public class RatingService implements IRatingService {
     @Autowired
     RatingMapper ratingMapper;
     @Override
-    public RatingDto saveNewRating(RatingDto ratingDto) {
+    public RatingDto saveNewRating(RatingDto ratingDto, Principal connectedUser) {
+        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        ratingDto.setUserId(user.getId());
         return ratingMapper.entityToDTO(ratingRepository.save(ratingMapper.dtoToEntity(ratingDto)));
     }
 
     @Override
-    public RatingDto updateRating(RatingDto ratingDto) {
-        RatingEntity oldRating = ratingRepository.findById(ratingDto.getRatingId()).orElseThrow(EntityNotFoundException::new);
-        return ratingMapper.entityToDTO(ratingMapper.updateRating(oldRating, ratingMapper.dtoToEntity(ratingDto)));
+    public BaseResponse updateRating(Long ratingId, RatingDto ratingDto) {
+        Optional<RatingEntity> oldRating = ratingRepository.findById(ratingId);
+        if(oldRating.isPresent()){
+            oldRating.get().setStarPoint(ratingDto.getStarPoint());
+            ratingRepository.save(oldRating.get());
+            return BaseResponse.success("Cập Nhật Thành Công!");
+        }
+        return BaseResponse.error("Cập Nhật Thất Bại!");
     }
 
     @Override
@@ -39,9 +50,7 @@ public class RatingService implements IRatingService {
     }
 
     @Override
-    public void deleteRating(RatingDto ratingDto) {
-        ratingRepository.delete(
-                ratingMapper.dtoToEntity(ratingDto)
-        );
+    public void deleteRating(Long ratingId) {
+        ratingRepository.deleteById(ratingId);
     }
 }

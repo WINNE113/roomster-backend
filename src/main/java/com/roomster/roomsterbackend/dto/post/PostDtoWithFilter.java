@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

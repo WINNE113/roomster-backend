@@ -2,7 +2,7 @@ package com.roomster.roomsterbackend.controller.management;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

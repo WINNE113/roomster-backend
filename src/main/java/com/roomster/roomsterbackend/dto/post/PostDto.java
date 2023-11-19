@@ -1,7 +1,11 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
+import com.roomster.roomsterbackend.dto.inforRoom.InforRoomDto;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
+import com.roomster.roomsterbackend.dto.user.UserDto;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

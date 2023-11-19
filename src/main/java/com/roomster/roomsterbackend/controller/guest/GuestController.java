@@ -2,7 +2,7 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.roomster.roomsterbackend.dto.*;
+import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
@@ -13,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -58,7 +57,7 @@ public class GuestController {
 
     @GetMapping(value = "/post/top-province")
     public List<ProvinceDtoWithImage> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
-                                              @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
+                                                       @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
         Pageable pageable = PageRequest.of(page, size);
         List<ProvinceDto> topOfProvince = postService.getTopOfProvince(pageable);
 

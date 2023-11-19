@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
 @Getter
 @Setter
 @Entity
 @Table(name = "comments")
-public class Comment extends BaseEntity {
+public class CommentEnity extends BaseEntity {
 
     @Column(name = "title")
     private String title;

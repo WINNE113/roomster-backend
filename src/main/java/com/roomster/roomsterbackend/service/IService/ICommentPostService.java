@@ -1,12 +1,14 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.CommentPostDto;
+import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface ICommentPostService {
-    CommentPostDto saveNewComment(CommentPostDto commentPostDTO);
-    CommentPostDto updateComment(CommentPostDto commentPostDTO);
-    void deleteComment(CommentPostDto commentPostDTO);
+    CommentPostDto saveNewComment(CommentPostDto commentPostDTO, Principal connectedUser);
+    CommentPostDto updateComment(Long commentId, CommentPostDto commentPostDTO);
+    BaseResponse deleteComment(Long commentId);
     List<CommentPostDto> getAllCommentOfPost(Long postId);
 }

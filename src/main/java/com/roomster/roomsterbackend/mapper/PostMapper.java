@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;

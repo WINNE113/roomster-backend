@@ -1,5 +1,6 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.post;
 
+import com.roomster.roomsterbackend.dto.post.PostDtoWithFilter;
 import lombok.Data;
 
 import java.util.List;
