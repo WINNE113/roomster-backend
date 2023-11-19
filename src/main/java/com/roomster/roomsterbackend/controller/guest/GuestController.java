@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import com.roomster.roomsterbackend.dto.ProvinceDto;
+import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
 import com.roomster.roomsterbackend.dto.SearchResult;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
+import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.ConvertUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -27,6 +29,8 @@ public class GuestController {
     private final IPostService postService;
 
     private final IDatabaseSearch iDatabaseSearch;
+
+    private final ProvinceService provinceService;
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam( name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
@@ -54,9 +58,11 @@ public class GuestController {
     }
 
     @GetMapping(value = "/post/top-province")
-    public List<ProvinceDto> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
+    public List<ProvinceDtoWithImage> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
                                               @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
         Pageable pageable = PageRequest.of(page, size);
-        return postService.getTopOfProvince(pageable);
+        List<ProvinceDto> topOfProvince = postService.getTopOfProvince(pageable);
+
+        return provinceService.setImages(topOfProvince);
     }
 }

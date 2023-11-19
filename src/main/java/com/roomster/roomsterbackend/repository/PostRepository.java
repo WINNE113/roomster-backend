@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.repository;
 
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import com.roomster.roomsterbackend.dto.ProvinceDto;
+import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

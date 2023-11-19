@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.PostDto;
 import com.roomster.roomsterbackend.dto.PostDtoWithRating;
 import com.roomster.roomsterbackend.dto.ProvinceDto;
+import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
