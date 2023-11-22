@@ -13,7 +13,9 @@ D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\Status.
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper\CommentMapper.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\RoomsterBackendApplication.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\BaseResponse.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\PostTypeDto.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\management\RatingController.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl\PostTypeService.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper\UserMapper.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\CommentPostRepository.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\InforRoomDto.java
@@ -24,12 +26,14 @@ D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\config\JwtA
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\RatingDto.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity\ImageEntity.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity\TokenEntity.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\IService\IPostTypeService.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\PostTypeRepository.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\CommentPostDto.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\ResponseDto.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\RegisterRequest.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\config\OpenApiConfig.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\IService\IUserService.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper\PostTypeMapper.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\TokenRepository.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\user\UserController.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\exception\ResourceNotFoundException.java
@@ -41,9 +45,12 @@ D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\TokenType.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\Permission.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\admin\AdminController.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\management\PostTypeController.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\config\ApplicationAuditAware.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity\UserEntity.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\LoginRequest.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity\InforRoomEntity.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\InforRoomRepository.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\config\ApplicationConfig.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto\PostDto.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity\ChatEntity.java
@@ -74,4 +81,5 @@ D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper\User
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\util\validator\PhoneNumberValidator.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\RoleRepository.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\RatingRepository.java
+D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper\InforRoomMapper.java
 D:\Do_an\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl\TwilioOTPService.java
