@@ -1,16 +1,17 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.CommentPostDto;
-import com.roomster.roomsterbackend.dto.RatingDto;
+import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface IRatingService {
-    RatingDto saveNewRating(RatingDto ratingDto);
+    RatingDto saveNewRating(RatingDto ratingDto, Principal connectedUser);
 
-    RatingDto updateRating(RatingDto ratingDto);
+    BaseResponse updateRating(Long ratingId, RatingDto ratingDto);
 
     List<RatingDto> getAllRatingByPost(Long postId);
 
-    void deleteRating(RatingDto ratingDto);
+    void deleteRating(Long ratingId);
 }

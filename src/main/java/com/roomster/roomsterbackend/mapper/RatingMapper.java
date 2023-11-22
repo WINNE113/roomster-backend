@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.RatingDto;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.entity.RatingEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -10,8 +10,8 @@ import org.mapstruct.MappingTarget;
 public interface RatingMapper {
     @Mapping(target = "ratingId", source = "id")
     RatingDto entityToDTO(RatingEntity ratingEntity);
-    @Mapping(target = "id", source = "ratingId")
 
+    @Mapping(target = "id", source = "ratingId")
     RatingEntity dtoToEntity(RatingDto likePostDTO);
     RatingEntity updateRating(@MappingTarget RatingEntity oldRating, RatingEntity newRating);
 

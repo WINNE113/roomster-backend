@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import org.mapstruct.DecoratedWith;
 import org.mapstruct.Mapper;
@@ -12,6 +12,8 @@ import org.mapstruct.MappingTarget;
 public interface PostMapper {
     @Mapping(target = "postId", source = "id")
     PostDto entityToDto(PostEntity postEntity);
+
+    @Mapping(target = "id", ignore = true)
     PostEntity dtoToEntity(PostDto postDTO);
 
     @Mapping(target = "id", ignore = true)

@@ -2,9 +2,9 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ChangePasswordRequest;
-import com.roomster.roomsterbackend.dto.UpdateProfileRequest;
-import com.roomster.roomsterbackend.dto.UserDto;
+import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
+import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.UserRepository;
@@ -107,6 +107,12 @@ public class UserService implements IUserService {
         user.setPasswordHash(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
         userRepository.save(user);
         return BaseResponse.success("Update password successfully");
+    }
+
+    @Override
+    public UserDto getUserById(Long userId) {
+         Optional<UserEntity> userEntity = userRepository.getUserEntityByUserId(userId).filter(user -> !user.isDeleted());
+        return userEntity.map(user -> userMapper.entityToDto(user)).orElse(null);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException {
