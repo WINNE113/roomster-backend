@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;

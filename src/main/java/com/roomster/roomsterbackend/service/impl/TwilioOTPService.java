@@ -1,10 +1,10 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.config.TwilioConfig;
-import com.roomster.roomsterbackend.dto.OtpRequestDto;
-import com.roomster.roomsterbackend.dto.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
+import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.ResponseDto;
-import com.roomster.roomsterbackend.dto.Status;
+import com.roomster.roomsterbackend.common.Status;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;

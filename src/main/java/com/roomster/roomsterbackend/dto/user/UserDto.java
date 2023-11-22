@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,7 +17,6 @@ import java.util.Set;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-
 public class UserDto {
     private Long userId;
 

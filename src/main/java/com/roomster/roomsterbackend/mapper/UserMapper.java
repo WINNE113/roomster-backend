@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.UserDto;
+import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import org.mapstruct.*;
 

@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.controller.auth;
 
 import com.roomster.roomsterbackend.dto.*;
+import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import io.swagger.v3.oas.annotations.Hidden;
