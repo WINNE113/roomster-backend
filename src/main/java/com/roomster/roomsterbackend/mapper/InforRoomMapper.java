@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.InforRoomDto;
+import com.roomster.roomsterbackend.dto.inforRoom.InforRoomDto;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import org.mapstruct.Mapper;
 

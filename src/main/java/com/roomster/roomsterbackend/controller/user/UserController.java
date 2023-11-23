@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 
+
 @RestController
 @RequestMapping("/api/v1/user")
 @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
@@ -37,7 +38,6 @@ public class UserController {
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);
     }
-
     @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public BaseResponse saveNewPost(@RequestPart String profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
 

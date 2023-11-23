@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.rating;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

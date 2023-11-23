@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.user;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

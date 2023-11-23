@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.dto;
+package com.roomster.roomsterbackend.dto.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OtpValidationRequestDto {
+public class OtpRequestDto {
     private String userName;
-    private String otpNumber;
+    private String phoneNumber;
 }

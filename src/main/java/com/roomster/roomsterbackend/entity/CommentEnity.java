@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "comments")
-public class Comment extends BaseEntity {
+public class CommentEnity extends BaseEntity {
 
     @Column(name = "title")
     private String title;

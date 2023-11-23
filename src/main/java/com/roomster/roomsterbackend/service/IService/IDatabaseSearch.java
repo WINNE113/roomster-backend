@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.SearchResult;
+import com.roomster.roomsterbackend.dto.post.SearchResult;
 import org.springframework.data.domain.Pageable;
 
 import java.sql.SQLException;

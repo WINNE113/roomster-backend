@@ -2,10 +2,7 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.roomster.roomsterbackend.dto.PostDtoWithRating;
-import com.roomster.roomsterbackend.dto.ProvinceDto;
-import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
-import com.roomster.roomsterbackend.dto.SearchResult;
+import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
@@ -14,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/guest")
@@ -59,10 +58,32 @@ public class GuestController {
 
     @GetMapping(value = "/post/top-province")
     public List<ProvinceDtoWithImage> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
-                                              @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
+                                                       @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
         Pageable pageable = PageRequest.of(page, size);
         List<ProvinceDto> topOfProvince = postService.getTopOfProvince(pageable);
 
         return provinceService.setImages(topOfProvince);
+    }
+
+//    @GetMapping(value = "/postDetail")
+//    public Optional<PostDetailDto> getPostDetail(@RequestParam Long postId){
+//        return postService.getPostDetail(postId);
+//    }
+
+    @GetMapping(value = "/postDetail")
+    public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId){
+        PostDetailDtoWithImage postDetailDtoWithImage = new PostDetailDtoWithImage();
+        try {
+            postDetailDtoWithImage.setImages(postService.getPostImages(postId));
+            postDetailDtoWithImage.setPostDetail(postService.getPostDetail(postId));
+        }catch (Exception ex){
+            ResponseEntity.badRequest();
+        }
+        return ResponseEntity.ok(postDetailDtoWithImage);
+    }
+
+    @GetMapping(value = "/post/images")
+    public List<PostImageDto> getPostImage(@RequestParam Long postId){
+        return postService.getPostImages(postId);
     }
 }

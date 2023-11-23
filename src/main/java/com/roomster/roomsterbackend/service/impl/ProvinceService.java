@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.dto.ProvinceDto;
-import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
+import com.roomster.roomsterbackend.dto.post.ProvinceDto;
+import com.roomster.roomsterbackend.dto.post.ProvinceDtoWithImage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ public class ProvinceService {
     }
 
     private String getImageUrlForProvince(String provinceName) {
-        // Logic to determine the image URL based on provinceName
         switch (provinceName) {
             case "Thành phố Hà Nội" -> {
                 return "https://media.vietravel.com/images/News/ha-noi-1.jpg";
@@ -223,3 +222,4 @@ public class ProvinceService {
         return "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbUA62btBX_L6Q8oZsLIe0M8Kb9cftDaMhkWTlaKKrXRU4XB04rBK1iyv0KRJ6BenEoNA&usqp=CAU";
     }
 }
+

@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.RatingDto;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.entity.RatingEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

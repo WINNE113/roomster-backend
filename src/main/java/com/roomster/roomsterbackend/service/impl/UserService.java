@@ -2,9 +2,9 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ChangePasswordRequest;
-import com.roomster.roomsterbackend.dto.UpdateProfileRequest;
-import com.roomster.roomsterbackend.dto.UserDto;
+import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
+import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.UserRepository;

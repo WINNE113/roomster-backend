@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.roomster.roomsterbackend.dto.TokenType;
+import com.roomster.roomsterbackend.dto.auth.TokenType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
