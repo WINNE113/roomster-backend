@@ -3,11 +3,13 @@ package com.roomster.roomsterbackend.service.impl;
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
+import com.roomster.roomsterbackend.entity.PostTypeEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
 import com.roomster.roomsterbackend.repository.PostRepository;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
+import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,8 @@ public class PostService implements IPostService {
     @Autowired
     private InforRoomMapper inforRoomMapper;
 
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private PostTypeRepository postTypeRepository;
@@ -107,8 +111,38 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public Optional<PostDetailDto> getPostDetail(Long postId) {
-        return postRepository.getPostDetail(postId);
+    public PostDetailDtoImp getPostDetail(Long postId) {
+        Optional<PostDetailDto> postDetailDto = postRepository.getPostDetail(postId);
+        PostDetailDtoImp postDetailDtoImp = new PostDetailDtoImp();
+        if(postDetailDto.isPresent()){
+            userRepository.getUserEntityByUserId(postDetailDto.get().getCreatedBy());
+            convertPostDetail(postDetailDtoImp, postDetailDto);
+        }
+        return postDetailDtoImp;
+    }
+
+    private void convertPostDetail(PostDetailDtoImp postDetailDtoImp, Optional<PostDetailDto> postDetailDto) {
+        postDetailDtoImp.setId(postDetailDto.get().getId());
+        postDetailDtoImp.setTitle(postDetailDto.get().getTitle());
+        postDetailDtoImp.setAddress(postDetailDto.get().getAddress());
+        postDetailDtoImp.setDescription(postDetailDto.get().getDescription());
+        postDetailDtoImp.setObject(postDetailDto.get().getObject());
+        postDetailDtoImp.setConvenient(postDetailDto.get().getConvenient());
+        postDetailDtoImp.setSurroundings(postDetailDto.get().getSurroundings());
+
+        Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.get().getPostType());
+        postType.ifPresent(postTypeEntity -> postDetailDtoImp.setPostType(postTypeEntity.getName()));
+
+        Optional<UserEntity> user = userRepository.findById(postDetailDto.get().getCreatedBy());
+        user.ifPresent(userEntity -> postDetailDtoImp.setCreatedBy(userEntity.getUserName()));
+
+        postDetailDtoImp.setCreatedDate(postDetailDto.get().getCreatedDate());
+        postDetailDtoImp.setRotation(postDetailDto.get().getRotation());
+        postDetailDtoImp.setAcreage(postDetailDto.get().getAcreage());
+        postDetailDtoImp.setElectricityPrice(postDetailDto.get().getElectricityPrice());
+        postDetailDtoImp.setPrice(postDetailDto.get().getPrice());
+        postDetailDtoImp.setWaterPrice(postDetailDto.get().getWaterPrice());
+        postDetailDtoImp.setStayMax(postDetailDto.get().getStayMax());
     }
 
     @Override
