@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.dto.post;
 
+import com.roomster.roomsterbackend.dto.user.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class PostDetailDtoImp{
 
     private String postType;
 
-    private String createdBy;
+    private UserDto createdBy;
 
     private Date createdDate;
 

@@ -7,6 +7,7 @@ import com.roomster.roomsterbackend.entity.PostTypeEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.InforRoomMapper;
 import com.roomster.roomsterbackend.mapper.PostMapper;
+import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.PostRepository;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
@@ -44,6 +45,9 @@ public class PostService implements IPostService {
 
     @Autowired
     private PostTypeRepository postTypeRepository;
+
+    @Autowired
+    private UserMapper userMapper;
 
     private final Cloudinary cloudinary;
     @Override
@@ -134,7 +138,7 @@ public class PostService implements IPostService {
         postType.ifPresent(postTypeEntity -> postDetailDtoImp.setPostType(postTypeEntity.getName()));
 
         Optional<UserEntity> user = userRepository.findById(postDetailDto.get().getCreatedBy());
-        user.ifPresent(userEntity -> postDetailDtoImp.setCreatedBy(userEntity.getUserName()));
+        user.ifPresent(userEntity -> postDetailDtoImp.setCreatedBy(userMapper.entityToDto(user.get())));
 
         postDetailDtoImp.setCreatedDate(postDetailDto.get().getCreatedDate());
         postDetailDtoImp.setRotation(postDetailDto.get().getRotation());
