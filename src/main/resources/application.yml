@@ -6,7 +6,7 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: huuthang
+        password: 422001
         url: jdbc:mysql://localhost:3306/trouytin_db
         username: root
     mvc:
@@ -16,7 +16,7 @@ spring:
         database-platform: org.hibernate.dialect.MySQLDialect
         generate-ddl: true
         hibernate:
-            ddl-auto: update
+            ddl-auto: create-drop
         show-sql: true
     main:
         allow-circular-references: true
