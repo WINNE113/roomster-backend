@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -64,9 +65,21 @@ public class GuestController {
         return provinceService.setImages(topOfProvince);
     }
 
+//    @GetMapping(value = "/postDetail")
+//    public Optional<PostDetailDto> getPostDetail(@RequestParam Long postId){
+//        return postService.getPostDetail(postId);
+//    }
+
     @GetMapping(value = "/postDetail")
-    public Optional<PostDetailDto> getPostDetail(@RequestParam Long postId){
-        return postService.getPostDetail(postId);
+    public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId){
+        PostDetailDtoWithImage postDetailDtoWithImage = new PostDetailDtoWithImage();
+        try {
+            postDetailDtoWithImage.setImages(postService.getPostImages(postId));
+            postDetailDtoWithImage.setPostDetail(postService.getPostDetail(postId));
+        }catch (Exception ex){
+            ResponseEntity.badRequest();
+        }
+        return ResponseEntity.ok(postDetailDtoWithImage);
     }
 
     @GetMapping(value = "/post/images")
