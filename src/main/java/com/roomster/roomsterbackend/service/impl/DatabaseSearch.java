@@ -1,8 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.dto.SearchResult;
-import com.roomster.roomsterbackend.dto.PostDto;
-import com.roomster.roomsterbackend.dto.PostDtoWithFilter;
+import com.roomster.roomsterbackend.dto.post.PostDtoWithFilter;
+import com.roomster.roomsterbackend.dto.post.SearchResult;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import org.springframework.beans.factory.annotation.Autowired;

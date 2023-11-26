@@ -65,10 +65,6 @@ public class GuestController {
         return provinceService.setImages(topOfProvince);
     }
 
-//    @GetMapping(value = "/postDetail")
-//    public Optional<PostDetailDto> getPostDetail(@RequestParam Long postId){
-//        return postService.getPostDetail(postId);
-//    }
 
     @GetMapping(value = "/postDetail")
     public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId){

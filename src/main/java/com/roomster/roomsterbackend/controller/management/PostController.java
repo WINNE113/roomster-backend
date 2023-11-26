@@ -1,9 +1,8 @@
 package com.roomster.roomsterbackend.controller.management;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.PostDto;
+import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.validation.Valid;
@@ -19,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.SQLException;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 @RestController
@@ -53,22 +50,6 @@ public class PostController {
         return BaseResponse.success("Thêm bài viết thành công!");
     }
 
-//    @PostMapping(value = "/filters",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-//    public List<PostDto> searchPost(@RequestPart String json) throws SQLException {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        LinkedHashMap<String, Object> map = null;
-//        try {
-//            map = objectMapper.readValue(json, LinkedHashMap.class);
-//        } catch (JsonProcessingException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return iDatabaseSearch.searchFilter(map);
-//    }
-//    @GetMapping("/listAllPost")
-//    public List<PostDto> getAllPost(Pageable pageable){
-//        return service.getAllPost(pageable);
-//    }
-
     @GetMapping("/list/{postId}")
     public ResponseEntity<PostDto> getPostById(@PathVariable(name = "postId") Long postId) {
         PostDto postDto = service.getPostById(postId);
@@ -83,7 +64,7 @@ public class PostController {
     }
 
     @DeleteMapping("/delete/{postId}")
-    public ResponseEntity<String> deleteUser(@PathVariable("postId") Long postId){
+    public ResponseEntity<String> deletePostById(@PathVariable("postId") Long postId){
         service.deletePost(postId);
         return new ResponseEntity<>("Post successfully deleted!", HttpStatus.OK);
     }

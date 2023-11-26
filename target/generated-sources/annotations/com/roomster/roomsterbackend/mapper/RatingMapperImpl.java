@@ -1,13 +1,13 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.RatingDto;
+import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.entity.RatingEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-20T00:51:02+0700",
+    date = "2023-11-23T22:55:08+0700",
     comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component

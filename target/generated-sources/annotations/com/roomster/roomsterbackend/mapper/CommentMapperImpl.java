@@ -1,73 +1,53 @@
 package com.roomster.roomsterbackend.mapper;
 
-import com.roomster.roomsterbackend.dto.CommentPostDto;
-import com.roomster.roomsterbackend.entity.Comment;
+import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
+import com.roomster.roomsterbackend.entity.CommentEnity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-20T00:50:26+0700",
+    date = "2023-11-23T22:55:08+0700",
     comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
 public class CommentMapperImpl implements CommentMapper {
 
     @Override
-    public CommentPostDto entityToDTO(Comment comment) {
-        if ( comment == null ) {
+    public CommentPostDto entityToDTO(CommentEnity commentEnity) {
+        if ( commentEnity == null ) {
             return null;
         }
 
         CommentPostDto commentPostDto = new CommentPostDto();
 
-        commentPostDto.setCommentPostId( comment.getId() );
-        commentPostDto.setCreatedDate( comment.getCreatedDate() );
-        commentPostDto.setUserId( comment.getUserId() );
-        commentPostDto.setPostId( comment.getPostId() );
-        commentPostDto.setTitle( comment.getTitle() );
-        commentPostDto.setContent( comment.getContent() );
-        commentPostDto.setStatus( comment.isStatus() );
+        commentPostDto.setCommentPostId( commentEnity.getId() );
+        commentPostDto.setCreatedDate( commentEnity.getCreatedDate() );
+        commentPostDto.setUserId( commentEnity.getUserId() );
+        commentPostDto.setPostId( commentEnity.getPostId() );
+        commentPostDto.setTitle( commentEnity.getTitle() );
+        commentPostDto.setContent( commentEnity.getContent() );
+        commentPostDto.setStatus( commentEnity.isStatus() );
 
         return commentPostDto;
     }
 
     @Override
-    public Comment dtoToEntity(CommentPostDto commentPostDTO) {
+    public CommentEnity dtoToEntity(CommentPostDto commentPostDTO) {
         if ( commentPostDTO == null ) {
             return null;
         }
 
-        Comment comment = new Comment();
+        CommentEnity commentEnity = new CommentEnity();
 
-        comment.setId( commentPostDTO.getCommentPostId() );
-        comment.setCreatedDate( commentPostDTO.getCreatedDate() );
-        comment.setTitle( commentPostDTO.getTitle() );
-        comment.setContent( commentPostDTO.getContent() );
-        comment.setStatus( commentPostDTO.isStatus() );
-        comment.setPostId( commentPostDTO.getPostId() );
-        comment.setUserId( commentPostDTO.getUserId() );
+        commentEnity.setId( commentPostDTO.getCommentPostId() );
+        commentEnity.setCreatedDate( commentPostDTO.getCreatedDate() );
+        commentEnity.setTitle( commentPostDTO.getTitle() );
+        commentEnity.setContent( commentPostDTO.getContent() );
+        commentEnity.setStatus( commentPostDTO.isStatus() );
+        commentEnity.setPostId( commentPostDTO.getPostId() );
+        commentEnity.setUserId( commentPostDTO.getUserId() );
 
-        return comment;
-    }
-
-    @Override
-    public Comment updateCommentPost(Comment oldComment, Comment newCommentPostEntity) {
-        if ( newCommentPostEntity == null ) {
-            return null;
-        }
-
-        oldComment.setCreatedBy( newCommentPostEntity.getCreatedBy() );
-        oldComment.setModifiedBy( newCommentPostEntity.getModifiedBy() );
-        oldComment.setId( newCommentPostEntity.getId() );
-        oldComment.setCreatedDate( newCommentPostEntity.getCreatedDate() );
-        oldComment.setModifiedDate( newCommentPostEntity.getModifiedDate() );
-        oldComment.setTitle( newCommentPostEntity.getTitle() );
-        oldComment.setContent( newCommentPostEntity.getContent() );
-        oldComment.setStatus( newCommentPostEntity.isStatus() );
-        oldComment.setPostId( newCommentPostEntity.getPostId() );
-        oldComment.setUserId( newCommentPostEntity.getUserId() );
-
-        return oldComment;
+        return commentEnity;
     }
 }

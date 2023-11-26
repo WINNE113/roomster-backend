@@ -1,10 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
-import com.roomster.roomsterbackend.dto.PostDto;
-import com.roomster.roomsterbackend.dto.PostDtoWithRating;
-import com.roomster.roomsterbackend.dto.ProvinceDto;
-import com.roomster.roomsterbackend.dto.ProvinceDtoWithImage;
+import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.PostTypeEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
@@ -77,10 +74,10 @@ public class PostService implements IPostService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public PostDto getPostById(Long postId) {
-        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
-    }
+//    @Override
+//    public PostDto getPostById(Long postId) {
+//        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+//    }
 
     @Override
     public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
