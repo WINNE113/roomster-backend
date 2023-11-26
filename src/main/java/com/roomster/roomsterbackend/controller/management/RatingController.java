@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.controller.management;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.rating.AverageRatingPoint;
 import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.service.IService.IRatingService;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,10 @@ public class RatingController {
     @GetMapping("/list/{postId}")
     public List<RatingDto> getAllRatingOfPost(@PathVariable(name = "postId") Long postId) {
         return ratingService.getAllRatingByPost(postId);
+    }
+
+    @GetMapping("/list/group")
+    public AverageRatingPoint getGroupRatingOfPost(@RequestParam Long postId){
+        return ratingService.getGroupRatingByPost(postId);
     }
 }

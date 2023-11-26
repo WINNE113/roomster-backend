@@ -1,7 +1,9 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.rating.AverageRatingPoint;
 import com.roomster.roomsterbackend.dto.rating.RatingDto;
+import com.roomster.roomsterbackend.dto.rating.RatingWithGroup;
 import com.roomster.roomsterbackend.entity.RatingEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.RatingMapper;
@@ -12,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -50,7 +53,30 @@ public class RatingService implements IRatingService {
     }
 
     @Override
+    public AverageRatingPoint getGroupRatingByPost(Long postId) {
+        AverageRatingPoint averageRatingPoint = new AverageRatingPoint();
+        List<RatingWithGroup> ratingWithGroups = ratingRepository.getGroupRatingByPostId(postId);
+        convertRatingToAverageRating(averageRatingPoint, ratingWithGroups);
+
+        return averageRatingPoint;
+    }
+
+    @Override
     public void deleteRating(Long ratingId) {
         ratingRepository.deleteById(ratingId);
+    }
+
+    private void convertRatingToAverageRating(AverageRatingPoint averageRatingPoint, List<RatingWithGroup> ratingWithGroups){
+        double totalRating = 0;
+        double totalCount = 0;
+        for (RatingWithGroup item: ratingWithGroups
+             ) {
+            totalRating += item.getStarPoint() * item.getCount();
+            totalCount += item.getCount();
+        }
+        double averageRating = ratingWithGroups.isEmpty() ? 0 : totalRating / totalCount;
+
+        averageRatingPoint.setAverageStarPoint(averageRating);
+        averageRatingPoint.setDetail(ratingWithGroups);
     }
 }
