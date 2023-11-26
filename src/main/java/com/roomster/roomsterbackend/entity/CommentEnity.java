@@ -10,6 +10,9 @@ import lombok.Setter;
 @Table(name = "comments")
 public class CommentEnity extends BaseEntity {
 
+    @Column(name = "parent_comment")
+    private Long parentComment;
+
     @Column(name = "title")
     private String title;
 
