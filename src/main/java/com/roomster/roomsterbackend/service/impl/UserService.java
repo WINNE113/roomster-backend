@@ -126,6 +126,11 @@ public class UserService implements IUserService {
         return null;
     }
 
+    @Override
+    public void deleteUserById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
     private String getFileUrls(MultipartFile multipartFile) throws IOException {
         return cloudinary.uploader()
                 .upload(multipartFile.getBytes(), Map.of("public_id", UUID.randomUUID().toString()))

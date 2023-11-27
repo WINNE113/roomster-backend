@@ -74,13 +74,13 @@ public class PostService implements IPostService {
                 .collect(Collectors.toList());
     }
 
-//    @Override
-//    public PostDto getPostById(Long postId) {
-//        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
-//    }
+    @Override
+    public PostDto getPostById(Long postId) {
+        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+    }
 
     @Override
-    public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
+    public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
         postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
@@ -154,13 +154,17 @@ public class PostService implements IPostService {
         return postRepository.getPostImages(postId);
     }
 
-    @Override
-    public PostDto getPostById(Long postId) {
-        PostEntity post = postRepository.findById(postId).get();
-//        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
-        return postMapper.entityToDto(post);
-    }
+//    @Override
+//    public PostDto getPostById(Long postId) {
+//        PostEntity post = postRepository.findById(postId).get();
+////        return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
+//        return postMapper.entityToDto(post);
+//    }
 
+    @Override
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
 
     @Override
     public PostDto updatePost(PostDto postDto) {

@@ -13,7 +13,7 @@ public interface PostMapper {
     @Mapping(target = "postId", source = "id")
     PostDto entityToDto(PostEntity postEntity);
 
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "id", source = "postId")
     PostEntity dtoToEntity(PostDto postDTO);
 
     @Mapping(target = "id", ignore = true)

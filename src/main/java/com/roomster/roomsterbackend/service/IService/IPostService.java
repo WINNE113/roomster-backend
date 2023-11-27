@@ -14,8 +14,8 @@ public interface IPostService {
     List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId);
 
     PostDto getPostById(Long postId);
-    void saveNewPost(PostDto postDTO,
-                     List<MultipartFile> images, Principal connectedUser) throws IOException;
+    void upsertPost(PostDto postDTO,
+                    List<MultipartFile> images, Principal connectedUser) throws IOException;
 
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
 
@@ -28,4 +28,6 @@ public interface IPostService {
     PostDetailDtoImp getPostDetail(Long postId);
 
     List<PostImageDto> getPostImages(Long postId);
+
+    void deletePostById(Long postId);
 }

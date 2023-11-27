@@ -16,7 +16,6 @@ public interface IUserService {
     Optional<UserEntity> findByEmail(String email);
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
     Optional<UserEntity> findByUserName(String userName);
-
     UserDto viewProfile(Principal connectedUser);
 
     BaseResponse updateProfile(UpdateProfileRequest profileRequest, MultipartFile images, Principal connectedUser) throws IOException;
@@ -26,4 +25,6 @@ public interface IUserService {
     UserDto getUserById(Long userId);
 
     List<UserEntity> getAllUser();
+
+    void deleteUserById(Long userId);
 }
