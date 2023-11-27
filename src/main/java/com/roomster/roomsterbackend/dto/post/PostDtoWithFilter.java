@@ -17,5 +17,6 @@ public class PostDtoWithFilter {
     private Date createdDate;
     private BigDecimal price;
     private boolean isDeleted;
+    private String status;
     private String image;
 }

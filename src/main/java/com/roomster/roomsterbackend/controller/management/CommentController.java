@@ -3,7 +3,6 @@ package com.roomster.roomsterbackend.controller.management;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
 import com.roomster.roomsterbackend.service.IService.ICommentPostService;
-import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

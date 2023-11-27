@@ -1,17 +1,16 @@
 package com.roomster.roomsterbackend.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.Constraint;
-import lombok.Data;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "ratings", uniqueConstraints = { @UniqueConstraint(name = "UC_rating", columnNames = { "post_id", "user_id" }) })
+@Table(name = "ratings", uniqueConstraints = { @UniqueConstraint(name = "UP_ratings", columnNames = { "post_id", "user_id" }) })
 public class RatingEntity extends BaseEntity {
 
     @Column(name = "star_point")
