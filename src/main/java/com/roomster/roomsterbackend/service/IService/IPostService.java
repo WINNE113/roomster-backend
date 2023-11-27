@@ -9,7 +9,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface IPostService {
-    List<PostDto> getAllPost(Pageable pageable);
+    List<PostDto> getPostsApproved(Pageable pageable);
     List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId);
 
     PostDto getPostById(Long postId);
@@ -25,4 +25,12 @@ public interface IPostService {
     List<PostImageDto> getPostImages(Long postId);
 
     void deletePostById(Long postId);
+
+    void setIsApprovedPosts(Long[] listPostId);
+
+    List<PostDto> getPostsReview(Pageable pageable);
+
+    List<PostDto> getPostsRejected(Pageable pageable);
+
+    void setIsRejectedPosts(Long[] listPostId);
 }

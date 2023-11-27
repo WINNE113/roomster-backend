@@ -72,3 +72,8 @@ inner join infor_rooms i on p.room_id = i.id
 inner join post_entity_image_url_list pimg on pimg.post_entity_id = p.id
 group by p.id
 Order by average_rating desc;
+
+
+// delete constraint in column status
+ALTER TABLE posts
+DROP CHECK posts_chk_1;

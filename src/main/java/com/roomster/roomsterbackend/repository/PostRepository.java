@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.repository;
 
+import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.post.PostDetailDto;
 import com.roomster.roomsterbackend.dto.post.PostDtoWithRating;
 import com.roomster.roomsterbackend.dto.post.PostImageDto;
@@ -50,4 +51,5 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Query(value = "select img.image_url_list as image from post_entity_image_url_list img where img.post_entity_id =:postId", nativeQuery = true)
     List<PostImageDto> getPostImages(@Param("postId") Long postId);
+    List<PostEntity> getAllByStatusAndIsDeleted(Pageable pageable, Status status, boolean isDeleted);
 }

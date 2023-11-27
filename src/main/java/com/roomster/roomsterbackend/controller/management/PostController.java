@@ -27,12 +27,30 @@ public class PostController {
     private final IPostService service;
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
-    @GetMapping("/list")
-    public List<PostDto> listPost(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+    @GetMapping("/approved")
+    public List<PostDto> listPostApproved(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return service.getAllPost(pageable);
+        return service.getPostsApproved(pageable);
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/review")
+    public List<PostDto> listPostReview(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return service.getPostsReview(pageable);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/rejected")
+    public List<PostDto> listPostRejected(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return service.getPostsRejected(pageable);
+    }
+
+
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public BaseResponse upsertPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images, Principal principal) throws IOException {

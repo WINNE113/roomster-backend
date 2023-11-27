@@ -2,14 +2,12 @@ package com.roomster.roomsterbackend.dto.post;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomDto;
 import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.dto.user.UserDto;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.List;
 @Setter
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostDto {
     private Long postId;
@@ -29,6 +28,7 @@ public class PostDto {
     private String surroundings;
     private String post_type;
     private boolean isDeleted;
+    private Status status;
     private InforRoomDto roomDto;
     @JsonIgnore
     private UserDto authorId;
@@ -39,16 +39,4 @@ public class PostDto {
     private List<String> imageUrlList;
     private List<CommentPostDto> commentPostDTOList;
     private List<RatingDto> ratingDTOList;
-
-    public PostDto(Long postId, String title, String address, String description, String object, String convenient, String surroundings, String post_type, UserDto authorId) {
-        this.postId = postId;
-        this.title = title;
-        this.address = address;
-        this.description = description;
-        this.object = object;
-        this.convenient = convenient;
-        this.surroundings = surroundings;
-        this.post_type = post_type;
-        this.authorId = authorId;
-    }
 }

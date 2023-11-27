@@ -4,5 +4,9 @@ public enum Status {
     DELIVERED,
     FAILED,
     VALID,
-    INVALID
+    INVALID,
+    OPEN,
+    REVIEW,
+    APPROVED,
+    REJECTED
 }

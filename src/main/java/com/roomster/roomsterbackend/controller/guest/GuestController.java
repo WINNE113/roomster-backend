@@ -7,6 +7,7 @@ import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.ConvertUtil;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/guest")
@@ -82,6 +82,7 @@ public class GuestController {
         return ResponseEntity.ok(postDetailDtoWithImage);
     }
 
+    @Hidden
     @GetMapping(value = "/post/images")
     public List<PostImageDto> getPostImage(@RequestParam Long postId){
         return postService.getPostImages(postId);
