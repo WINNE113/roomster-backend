@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.controller.admin;
 
+import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
@@ -12,28 +13,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/admin")
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AdminController {
-
-    private final IPostService iPostService;
-
+    private final IPostService postService;
     private final IUserService iUserService;
-    @GetMapping()
-    public String get(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-        return "GET::Admin controller" + currentPrincipalName;
+
+    @PatchMapping(value = "/setIsApprovedPost")
+    public BaseResponse setIsApprovedPosts(Long[] listPostId){
+        try {
+            postService.setIsApprovedPosts(listPostId);
+        }catch (Exception ex){
+            return BaseResponse.error("Ex: " + ex.getMessage());
+        }
+        return BaseResponse.success("Bài viết cập nhật thành công");
     }
 
+    @PatchMapping(value = "/setIsRejectedPost")
+    public BaseResponse setIsRejectedPosts(Long[] listPostId){
+        try {
+            postService.setIsRejectedPosts(listPostId);
+        }catch (Exception ex){
+            return BaseResponse.error("Ex: " + ex.getMessage());
+        }
+        return BaseResponse.success("Bài viết cập nhật thành công");
+    }
     @GetMapping("/list-user")
     public List<UserEntity> getAllUser() {
         return iUserService.getAllUser();
     }
-
-//    @GetMapping("/list-post")
-//    public List<PostDto> getPostByType(){
-//        return  iPostService.getAllPost();
-//    }
 }
