@@ -17,7 +17,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CommentController {
     private final ICommentPostService service;
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE')")
     @PostMapping("/new")
     public BaseResponse saveNewCommentPost(@RequestBody CommentPostDto commentPostDTO, Principal connectedUser) {
         try {
