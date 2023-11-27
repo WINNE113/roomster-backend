@@ -3,7 +3,6 @@ package com.roomster.roomsterbackend.controller.management;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
 import com.roomster.roomsterbackend.service.IService.ICommentPostService;
-import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class CommentController {
     private final ICommentPostService service;
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE')")
     @PostMapping("/new")
     public BaseResponse saveNewCommentPost(@RequestBody CommentPostDto commentPostDTO, Principal connectedUser) {
         try {

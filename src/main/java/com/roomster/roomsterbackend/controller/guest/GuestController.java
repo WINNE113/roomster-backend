@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.controller.guest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.post.*;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
@@ -13,8 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -39,8 +42,8 @@ public class GuestController {
     }
     @PostMapping(value = "/post/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public SearchResult searchPost(@RequestPart(required = false) String json,
-                                                       @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
+                                   @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size, Principal connectedUser) throws SQLException {
 
         Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -48,6 +51,16 @@ public class GuestController {
         if(json != null) {
             try {
                 map = objectMapper.readValue(json, LinkedHashMap.class);
+
+                for (var item: map.entrySet()
+                     ) {
+                    if(item.getKey().equals("author_id")){
+                        if(connectedUser != null) {
+                           var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+                            map.replace("author_id",user.getId());
+                        }
+                    }
+                }
                 ConvertUtil.convertStringToArray(map);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);

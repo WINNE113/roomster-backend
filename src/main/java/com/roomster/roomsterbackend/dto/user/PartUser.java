@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class PartUser {
     private String userName;
     private String images;
+    private String role;
 }

@@ -27,7 +27,7 @@ public class RatingController {
         }catch (Exception ex){
             BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.success("Thêm rating thành công!");
+        return BaseResponse.success("Thêm đánh giá thành công!");
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")

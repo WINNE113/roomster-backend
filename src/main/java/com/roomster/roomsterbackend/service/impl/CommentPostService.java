@@ -2,26 +2,24 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
-import com.roomster.roomsterbackend.dto.post.PostDto;
 import com.roomster.roomsterbackend.dto.user.PartUser;
 import com.roomster.roomsterbackend.entity.CommentEnity;
+import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.CommentMapper;
 import com.roomster.roomsterbackend.repository.CommentPostRepository;
 import com.roomster.roomsterbackend.repository.PostRepository;
+import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.ICommentPostService;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -34,6 +32,8 @@ public class CommentPostService implements ICommentPostService {
     PostRepository postRepository;
     @Autowired
     CommentMapper commentMapper;
+    @Autowired
+    RoleRepository roleRepository;
 
     @Override
     public CommentPostDto saveNewComment(CommentPostDto commentPostDTO, Principal connectedUser) {
@@ -70,12 +70,18 @@ public class CommentPostService implements ICommentPostService {
 
         for (CommentPostDto item : commentPostDtos
         ) {
-            UserEntity user = new UserEntity();
             PartUser partUser = new PartUser();
-            user = userRepository.findById(item.getUserId()).orElseThrow();
+            UserEntity user = userRepository.findById(item.getUserId()).orElseThrow();
             partUser.setUserName(user.getUserName());
             partUser.setImages(user.getImages());
-
+            Optional<PostEntity> post = postRepository.findById(item.getPostId());
+            if(post.isPresent()) {
+                if (item.getUserId().equals(post.get().getCreatedBy())) {
+                    partUser.setRole("Tác Giả");
+                }else{
+                    partUser.setRole("Người dùng");
+                }
+            }
             item.setPartUser(partUser);
         }
         return commentPostDtos;
