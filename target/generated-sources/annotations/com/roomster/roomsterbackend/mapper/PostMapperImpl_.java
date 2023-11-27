@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-26T21:22:15+0700",
+    date = "2023-11-27T20:31:43+0700",
     comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -56,6 +56,7 @@ public class PostMapperImpl_ implements PostMapper {
 
         PostEntity postEntity = new PostEntity();
 
+        postEntity.setId( postDTO.getPostId() );
         postEntity.setModifiedBy( postDTO.getModifiedBy() );
         postEntity.setCreatedDate( postDTO.getCreatedDate() );
         postEntity.setModifiedDate( postDTO.getModifiedDate() );

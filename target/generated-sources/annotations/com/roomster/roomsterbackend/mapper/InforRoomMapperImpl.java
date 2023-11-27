@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-11-26T21:22:15+0700",
+    date = "2023-11-27T20:31:43+0700",
     comments = "version: 1.4.0.Final, compiler: javac, environment: Java 17.0.8 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,7 @@ public class InforRoomMapperImpl implements InforRoomMapper {
 
         InforRoomDto inforRoomDto = new InforRoomDto();
 
+        inforRoomDto.setInforRoomId( inforRoomEntity.getId() );
         inforRoomDto.setNumberRoom( inforRoomEntity.getNumberRoom() );
         inforRoomDto.setEmptyRoom( inforRoomEntity.getEmptyRoom() );
         inforRoomDto.setStayMax( inforRoomEntity.getStayMax() );
@@ -40,6 +41,7 @@ public class InforRoomMapperImpl implements InforRoomMapper {
 
         InforRoomEntity inforRoomEntity = new InforRoomEntity();
 
+        inforRoomEntity.setId( postDTO.getInforRoomId() );
         inforRoomEntity.setNumberRoom( postDTO.getNumberRoom() );
         inforRoomEntity.setEmptyRoom( postDTO.getEmptyRoom() );
         inforRoomEntity.setStayMax( postDTO.getStayMax() );
