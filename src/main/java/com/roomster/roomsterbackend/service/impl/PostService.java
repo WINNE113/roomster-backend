@@ -80,7 +80,7 @@ public class PostService implements IPostService {
     }
 
     @Override
-    public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
+    public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
         postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);

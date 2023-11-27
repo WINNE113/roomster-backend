@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InforRoomDto {
+    private Long inforRoomId;
     private int numberRoom;
     private int emptyRoom;
     private int stayMax;

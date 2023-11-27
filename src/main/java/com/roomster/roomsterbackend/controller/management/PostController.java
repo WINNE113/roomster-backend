@@ -35,11 +35,11 @@ public class PostController {
     }
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
-    public BaseResponse saveNewPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images, Principal principal) throws IOException {
+    public BaseResponse upsertPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images, Principal principal) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             PostDto postDTO = objectMapper.readValue(postDto, PostDto.class);
-            service.saveNewPost(postDTO, images, principal);
+            service.upsertPost(postDTO, images, principal);
         } catch (Exception ex) {
             return BaseResponse.error(ex.getMessage());
         }
