@@ -45,4 +45,14 @@ public class PostController {
         }
         return BaseResponse.success("Thêm bài viết thành công!");
     }
+
+    @DeleteMapping(value = "/delete")
+    public BaseResponse deletePostById(@RequestParam Long postId){
+        try {
+            service.deletePostById(postId);
+        }catch (Exception ex){
+            BaseResponse.error("Ex: " + ex.getMessage());
+        }
+        return BaseResponse.success("Xóa bài viết thành công!");
+    }
 }

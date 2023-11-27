@@ -23,4 +23,6 @@ public interface IPostService {
     PostDetailDtoImp getPostDetail(Long postId);
 
     List<PostImageDto> getPostImages(Long postId);
+
+    void deletePostById(Long postId);
 }

@@ -154,6 +154,11 @@ public class PostService implements IPostService {
         return postRepository.getPostImages(postId);
     }
 
+    @Override
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
+
     private String getFileUrls(MultipartFile multipartFile) throws IOException{
         return cloudinary.uploader()
                 .upload(multipartFile.getBytes(), Map.of("public_id", UUID.randomUUID().toString()))
