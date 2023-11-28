@@ -30,7 +30,7 @@ public class RatingController {
         }catch (Exception ex){
             BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.error("Rất tiếc! Bạn Không thể đánh giá");
+        return BaseResponse.error("Rất tiếc! Bạn chỉ có thể đánh giá một lần");
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
