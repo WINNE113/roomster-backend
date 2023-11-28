@@ -14,7 +14,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +28,13 @@ public class RatingService implements IRatingService {
     @Override
     public RatingDto saveNewRating(RatingDto ratingDto, Principal connectedUser) {
         var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        List<RatingEntity> ratings = ratingRepository.getRatingEntitiesByPostId(ratingDto.getPostId());
+        for (RatingEntity item: ratings
+             ) {
+            if(item.getUserId().equals(user.getId())){
+                return null;
+            }
+        }
         ratingDto.setUserId(user.getId());
         return ratingMapper.entityToDTO(ratingRepository.save(ratingMapper.dtoToEntity(ratingDto)));
     }

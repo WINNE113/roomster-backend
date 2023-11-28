@@ -23,11 +23,14 @@ public class RatingController {
     @PostMapping("/new")
     public BaseResponse saveNewRating(@RequestBody RatingDto ratingDto, Principal connectedUser) {
         try {
-            ratingService.saveNewRating(ratingDto, connectedUser);
+           RatingDto rating = ratingService.saveNewRating(ratingDto, connectedUser);
+           if(rating != null){
+               return BaseResponse.success("Thêm đánh giá thành công!");
+           }
         }catch (Exception ex){
             BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.success("Thêm đánh giá thành công!");
+        return BaseResponse.error("Rất tiếc! Bạn Không thể đánh giá");
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
