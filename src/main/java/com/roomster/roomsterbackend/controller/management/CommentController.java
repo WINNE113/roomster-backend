@@ -27,7 +27,7 @@ public class CommentController {
         return BaseResponse.success("Thêm Bình Luận Thành Công");
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE')")
     @PutMapping("/update")
     public BaseResponse updateCommentPost(@RequestParam Long commentId, @RequestBody CommentPostDto commentPostDTO) {
         try {
@@ -38,7 +38,7 @@ public class CommentController {
         return BaseResponse.success("Cập nhật bình luận thành công!");
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public BaseResponse deleteCommentPost(@RequestParam Long commentId) {
         return service.deleteComment(commentId);
