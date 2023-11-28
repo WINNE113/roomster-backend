@@ -20,10 +20,11 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     List<PostEntity> getPostEntityByAuthorId(Pageable pageable, Long id);
 
     @Query(value = "Select p.id, p.title, p.address, p.created_date as createdDate, i.price, p.is_deleted as isDeleted, max(pimg.image_url_list) as image, AVG(r.star_point) as averageRating\n" +
-            "from posts p \n" +
-            "left join ratings r on p.id = r.post_id \n" +
+            "from posts p\n" +
+            "left join ratings r on p.id = r.post_id\n" +
             "inner join infor_rooms i on p.room_id = i.id\n" +
             "inner join post_entity_image_url_list pimg on pimg.post_entity_id = p.id\n" +
+            "where p.status like 'Approved'\n" +
             "group by p.id\n" +
             "Order by averageRating desc", nativeQuery = true)
     List<PostDtoWithRating> getPostByRating(Pageable pageable);

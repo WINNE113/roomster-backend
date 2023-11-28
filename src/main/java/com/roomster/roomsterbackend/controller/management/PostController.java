@@ -29,7 +29,7 @@ public class PostController {
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @GetMapping("/approved")
     public List<PostDto> listPostApproved(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return service.getPostsApproved(pageable);
     }
@@ -37,7 +37,7 @@ public class PostController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/review")
     public List<PostDto> listPostReview(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+                                        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return service.getPostsReview(pageable);
     }
@@ -45,30 +45,33 @@ public class PostController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/rejected")
     public List<PostDto> listPostRejected(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                        @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+                                          @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return service.getPostsRejected(pageable);
     }
-
-
 
     @PostMapping(value = "/new", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public BaseResponse upsertPost(@RequestPart String postDto, @RequestPart(required = false, name = "images") @Valid List<MultipartFile> images, Principal principal) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             PostDto postDTO = objectMapper.readValue(postDto, PostDto.class);
-            service.upsertPost(postDTO, images, principal);
+            if (postDTO.getPostId() != null) {
+                service.upsertPost(postDTO, images, principal);
+                return BaseResponse.success("Cập nhật bài viết thành công!");
+            } else {
+                service.upsertPost(postDTO, images, principal);
+                return BaseResponse.success("Thêm bài viết thành công!");
+            }
         } catch (Exception ex) {
             return BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.success("Thêm bài viết thành công!");
     }
 
     @DeleteMapping(value = "/delete")
-    public BaseResponse deletePostById(@RequestParam Long postId){
+    public BaseResponse deletePostById(@RequestParam Long postId) {
         try {
             service.deletePostById(postId);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             BaseResponse.error("Ex: " + ex.getMessage());
         }
         return BaseResponse.success("Xóa bài viết thành công!");
