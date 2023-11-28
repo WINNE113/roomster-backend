@@ -115,35 +115,32 @@ public class PostService implements IPostService {
     public PostDetailDtoImp getPostDetail(Long postId) {
         Optional<PostDetailDto> postDetailDto = postRepository.getPostDetail(postId);
         PostDetailDtoImp postDetailDtoImp = new PostDetailDtoImp();
-        if(postDetailDto.isPresent()){
-            userRepository.getUserEntityByUserId(postDetailDto.get().getCreatedBy());
-            convertPostDetail(postDetailDtoImp, postDetailDto);
-        }
+        postDetailDto.ifPresent(detailDto -> convertPostDetail(postDetailDtoImp, detailDto));
         return postDetailDtoImp;
     }
 
-    private void convertPostDetail(PostDetailDtoImp postDetailDtoImp, Optional<PostDetailDto> postDetailDto) {
-        postDetailDtoImp.setId(postDetailDto.get().getId());
-        postDetailDtoImp.setTitle(postDetailDto.get().getTitle());
-        postDetailDtoImp.setAddress(postDetailDto.get().getAddress());
-        postDetailDtoImp.setDescription(postDetailDto.get().getDescription());
-        postDetailDtoImp.setObject(postDetailDto.get().getObject());
-        postDetailDtoImp.setConvenient(postDetailDto.get().getConvenient());
-        postDetailDtoImp.setSurroundings(postDetailDto.get().getSurroundings());
+    private void convertPostDetail(PostDetailDtoImp postDetailDtoImp, PostDetailDto postDetailDto) {
+        postDetailDtoImp.setId(postDetailDto.getId());
+        postDetailDtoImp.setTitle(postDetailDto.getTitle());
+        postDetailDtoImp.setAddress(postDetailDto.getAddress());
+        postDetailDtoImp.setDescription(postDetailDto.getDescription());
+        postDetailDtoImp.setObject(postDetailDto.getObject());
+        postDetailDtoImp.setConvenient(postDetailDto.getConvenient());
+        postDetailDtoImp.setSurroundings(postDetailDto.getSurroundings());
 
-        Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.get().getPostType());
+        Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.getPostType());
         postType.ifPresent(postTypeEntity -> postDetailDtoImp.setPostType(postTypeEntity.getName()));
 
-        Optional<UserEntity> user = userRepository.findById(postDetailDto.get().getCreatedBy());
+        Optional<UserEntity> user = userRepository.findById(postDetailDto.getCreatedBy());
         user.ifPresent(userEntity -> postDetailDtoImp.setCreatedBy(userMapper.entityToDto(user.get())));
 
-        postDetailDtoImp.setCreatedDate(postDetailDto.get().getCreatedDate());
-        postDetailDtoImp.setRotation(postDetailDto.get().getRotation());
-        postDetailDtoImp.setAcreage(postDetailDto.get().getAcreage());
-        postDetailDtoImp.setElectricityPrice(postDetailDto.get().getElectricityPrice());
-        postDetailDtoImp.setPrice(postDetailDto.get().getPrice());
-        postDetailDtoImp.setWaterPrice(postDetailDto.get().getWaterPrice());
-        postDetailDtoImp.setStayMax(postDetailDto.get().getStayMax());
+        postDetailDtoImp.setCreatedDate(postDetailDto.getCreatedDate());
+        postDetailDtoImp.setRotation(postDetailDto.getRotation());
+        postDetailDtoImp.setAcreage(postDetailDto.getAcreage());
+        postDetailDtoImp.setElectricityPrice(postDetailDto.getElectricityPrice());
+        postDetailDtoImp.setPrice(postDetailDto.getPrice());
+        postDetailDtoImp.setWaterPrice(postDetailDto.getWaterPrice());
+        postDetailDtoImp.setStayMax(postDetailDto.getStayMax());
     }
 
     @Override

@@ -77,12 +77,9 @@ public class CommentPostService implements ICommentPostService {
             Optional<PostEntity> post = postRepository.findById(item.getPostId());
             if(post.isPresent()) {
                 if (item.getUserId().equals(post.get().getCreatedBy())) {
-                    partUser.setRole("Tác Giả");
-                }else{
-                    partUser.setRole("Người dùng");
+                    partUser.setUserName("Tác Giả");
                 }
             }
-            item.setPartUser(partUser);
         }
         return commentPostDtos;
     }
