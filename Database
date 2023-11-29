@@ -36,6 +36,19 @@ CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
 CHANGE COLUMN `post_id` `post_id` BIGINT NULL DEFAULT NULL AFTER `star_point`,
 CHANGE COLUMN `user_id` `user_id` BIGINT NULL DEFAULT NULL AFTER `post_id`;
 
+ALTER TABLE `trouytin_db`.`users`
+CHANGE COLUMN `id` `id` BIGINT NOT NULL AUTO_INCREMENT FIRST,
+CHANGE COLUMN `user_name` `user_name` VARCHAR(255) NULL DEFAULT NULL AFTER `id`,
+CHANGE COLUMN `phone_number` `phone_number` VARCHAR(255) NULL DEFAULT NULL AFTER `user_name`,
+CHANGE COLUMN `password_hash` `password_hash` VARCHAR(255) NULL DEFAULT NULL AFTER `phone_number`,
+CHANGE COLUMN `email` `email` VARCHAR(255) NULL DEFAULT NULL AFTER `password_hash`,
+CHANGE COLUMN `address` `address` VARCHAR(255) NULL DEFAULT NULL AFTER `email`,
+CHANGE COLUMN `images` `images` VARCHAR(255) NULL DEFAULT NULL AFTER `address`,
+CHANGE COLUMN `date_of_birth` `date_of_birth` DATETIME(6) NULL DEFAULT NULL AFTER `images`,
+CHANGE COLUMN `phone_number_confirmed` `phone_number_confirmed` BIT(1) NULL DEFAULT NULL AFTER `date_of_birth`,
+CHANGE COLUMN `two_factor_enable` `two_factor_enable` BIT(1) NULL DEFAULT NULL AFTER `phone_number_confirmed`,
+CHANGE COLUMN `modified_by` `modified_by` BIGINT NULL DEFAULT NULL AFTER `created_by`;
+
 
 
 // Insert value in post table

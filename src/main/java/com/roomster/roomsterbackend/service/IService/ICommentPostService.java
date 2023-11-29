@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ICommentPostService {
     CommentPostDto saveNewComment(CommentPostDto commentPostDTO, Principal connectedUser);
-    CommentPostDto updateComment(Long commentId, CommentPostDto commentPostDTO);
+    CommentPostDto updateComment(Long commentId, CommentPostDto commentPostDTO, Principal connectedUser);
     BaseResponse deleteComment(Long commentId);
     List<CommentPostDto> getAllCommentOfPost(Long postId);
 }

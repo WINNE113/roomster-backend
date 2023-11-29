@@ -62,7 +62,7 @@ public class PostController {
                 return BaseResponse.success("Cập nhật bài viết thành công!");
             } else {
                 service.upsertPost(postDTO, images, principal);
-                return BaseResponse.success("Thêm bài viết thành công!");
+                return BaseResponse.success("Bạn đã thêm bài viết thành công. Trọ Uy Tín xin cảm ơn bạn và đang chờ duyệt.");
             }
         } catch (Exception ex) {
             return BaseResponse.error(ex.getMessage());

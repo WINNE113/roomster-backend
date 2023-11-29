@@ -13,9 +13,6 @@ public class CommentEnity extends BaseEntity {
     @Column(name = "parent_comment")
     private Long parentComment;
 
-    @Column(name = "title")
-    private String title;
-
     @Column(name = "content")
     private String content;
 
@@ -24,6 +21,7 @@ public class CommentEnity extends BaseEntity {
 
     @Column(name = "post_id")
     private Long postId;
+
     @Column(name = "user_id")
     private Long userId;
 
