@@ -22,4 +22,5 @@ public class CommentPostDto {
     private String content;
     private boolean status;
     private Date createdDate;
+    private Date modifiedDate;
 }

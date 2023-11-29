@@ -41,10 +41,10 @@ public class CommentController {
         return BaseResponse.error("Không cho phép cập nhật!");
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @DeleteMapping("/delete")
-    public BaseResponse deleteCommentPost(@RequestParam Long commentId) {
-        return service.deleteComment(commentId);
+    public BaseResponse deleteCommentPost(@RequestParam Long commentId, Principal connectedUser) {
+        return service.deleteComment(commentId, connectedUser);
     }
 
     @GetMapping("/list/{postId}")
