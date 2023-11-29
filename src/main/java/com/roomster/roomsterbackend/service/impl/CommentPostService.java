@@ -44,12 +44,15 @@ public class CommentPostService implements ICommentPostService {
     }
 
     @Override
-    public CommentPostDto updateComment(Long commentId, CommentPostDto commentPostDTO) {
+    public CommentPostDto updateComment(Long commentId, CommentPostDto commentPostDTO, Principal connectedUser) {
         Optional<CommentEnity> oldComment = commentPostRepository.findById(commentId);
-        if (oldComment.isPresent()) {
-            oldComment.get().setTitle(commentPostDTO.getTitle());
-            oldComment.get().setContent(commentPostDTO.getContent());
-            return commentMapper.entityToDTO(commentPostRepository.save(oldComment.get()));
+        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        if (oldComment.isPresent() && user != null) {
+            if(user.getId().equals(oldComment.get().getUserId())) {
+                oldComment.get().setContent(commentPostDTO.getContent());
+                commentPostRepository.save(oldComment.get());
+                return commentMapper.entityToDTO(oldComment.get());
+            }
         }
         return null;
     }
@@ -80,6 +83,7 @@ public class CommentPostService implements ICommentPostService {
                     partUser.setUserName("Tác Giả");
                 }
             }
+            item.setPartUser(partUser);
         }
         return commentPostDtos;
     }

@@ -19,7 +19,6 @@ public class CommentPostDto {
     private Long userId;
     private PartUser partUser;
     private Long postId;
-    private String title;
     private String content;
     private boolean status;
     private Date createdDate;

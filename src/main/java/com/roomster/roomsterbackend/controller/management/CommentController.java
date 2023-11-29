@@ -27,15 +27,18 @@ public class CommentController {
         return BaseResponse.success("Thêm Bình Luận Thành Công");
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE','ROLE_ADMIN')")
     @PutMapping("/update")
-    public BaseResponse updateCommentPost(@RequestParam Long commentId, @RequestBody CommentPostDto commentPostDTO) {
+    public BaseResponse updateCommentPost(@RequestParam Long commentId, @RequestBody CommentPostDto commentPostDTO, Principal connectedUser) {
         try {
-            service.updateComment(commentId,commentPostDTO);
+           CommentPostDto commentPost = service.updateComment(commentId,commentPostDTO, connectedUser);
+           if(commentPost != null){
+               return BaseResponse.success("Cập nhật bình luận thành công!");
+           }
         }catch (Exception ex){
-            return BaseResponse.error(ex.getMessage());
+            return BaseResponse.error("Err: " + ex.getMessage());
         }
-        return BaseResponse.success("Cập nhật bình luận thành công!");
+        return BaseResponse.error("Không cho phép cập nhật!");
     }
 
     @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_ADMIN')")
