@@ -61,6 +61,9 @@ public class PostEntity extends BaseEntity {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity authorId;
 
+    @OneToMany(mappedBy = "postId")
+    private List<ReportEntity> reports;
+
     public UserEntity getAuthorId() {
         return authorId;
     }
