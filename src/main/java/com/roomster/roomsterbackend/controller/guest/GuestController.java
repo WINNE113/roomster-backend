@@ -2,10 +2,13 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.post.*;
+import com.roomster.roomsterbackend.dto.report.ReportDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
+import com.roomster.roomsterbackend.service.IService.IReportService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.ConvertUtil;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -33,6 +36,8 @@ public class GuestController {
     private final IDatabaseSearch iDatabaseSearch;
 
     private final ProvinceService provinceService;
+
+    private final IReportService reportService;
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam( name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
@@ -88,6 +93,19 @@ public class GuestController {
             ResponseEntity.badRequest();
         }
         return ResponseEntity.ok(postDetailDtoWithImage);
+    }
+
+    @PostMapping(value = "/report/add")
+    public BaseResponse addReport(@RequestBody ReportDto reportDto){
+        try{
+            ReportDto report = reportService.addReport(reportDto);
+            if(report != null){
+                return BaseResponse.success("Cảm ơn bạn đã đóng góp ý kiến");
+            }
+        }catch (Exception ex){
+            return BaseResponse.error("Ex: " + ex);
+        }
+        return BaseResponse.error("Xin lỗi! Ý kiến của bạn không được chấp nhận");
     }
 
     @Hidden

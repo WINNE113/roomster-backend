@@ -29,16 +29,10 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             "Order by averageRating desc", nativeQuery = true)
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
 
-    @Query(value = "SELECT\n" +
-            "    TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(address, ',', -1), ',', 1)) AS provinceName,\n" +
-            "    COUNT(*) AS totalPosts\n" +
-            "FROM\n" +
-            "    posts\n" +
-            "where posts.is_deleted = false\n" +
-            "GROUP BY\n" +
-            "    provinceName\n" +
-            "ORDER BY\n" +
-            "    totalPosts DESC", nativeQuery = true)
+    @Query(value = "SELECT TRIM(SUBSTRING_INDEX(SUBSTRING_INDEX(address, ',', -1), ',', 1)) AS provinceName, COUNT(*) AS totalPosts \n" +
+            "FROM  posts \n" +
+            "where posts.is_deleted = false and posts.status like 'Approved' \n" +
+            "GROUP BY provinceName ORDER BY totalPosts DESC", nativeQuery = true)
     List<ProvinceDto> getTopOfProvince(Pageable pageable);
 
     @Query(value = "select p.id, p.title, p.address, p.description, p.object, p.convenient, p.surroundings, p.post_type_id as postType, p.created_by as createdBy, p.created_date as createdDate, p.rotation, ir.acreage, ir.electricity_price as electricityPrice, ir.price, ir.staymax, ir.water_price as waterPrice\n" +

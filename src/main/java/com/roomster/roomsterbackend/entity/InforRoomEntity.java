@@ -3,19 +3,26 @@ package com.roomster.roomsterbackend.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.twilio.twiml.video.Room;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@Getter
+@AllArgsConstructor
 @Entity
 @Table(name = "infor_rooms")
-public class InforRoomEntity extends BaseEntity{
+public class InforRoomEntity{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @Column(name = "number_room")
     private int numberRoom;
 
