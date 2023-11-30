@@ -1,5 +1,8 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,6 +44,23 @@ public class InforRoomEntity{
     @Column(name = "water_price")
     private BigDecimal waterPrice;
 
+    @Column(name = "id_house" )
+    private Long houseId;
+
     @OneToOne(mappedBy = "roomId")
     private PostEntity post;
+
+    @ManyToOne()
+    @JoinColumn(name = "id_house" , insertable=false, updatable=false)
+    @JsonBackReference
+    private House house;
+
+    @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @OneToMany(mappedBy = "inforRoomEntity")
+    private List<RoomService> services;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "room")
+    private List<Tenant> tenantList;
 }
