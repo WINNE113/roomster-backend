@@ -22,6 +22,6 @@ public class PostTypeEntity extends BaseEntity {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
-    @OneToMany
+    @OneToMany(mappedBy = "postType")
     private List<PostEntity> posts;
 }

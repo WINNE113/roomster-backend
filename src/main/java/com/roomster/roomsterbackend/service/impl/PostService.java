@@ -16,7 +16,6 @@ import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -51,7 +50,6 @@ public class PostService implements IPostService {
     private UserMapper userMapper;
 
     private final Cloudinary cloudinary;
-
     @Override
     public List<PostDto> getPostsApproved(Pageable pageable) {
         List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.APPROVED, false);
@@ -59,7 +57,6 @@ public class PostService implements IPostService {
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .toList();
     }
-
     @Override
     public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
         return postRepository.getPostEntityByAuthorId(pageable, authorId)
@@ -68,12 +65,10 @@ public class PostService implements IPostService {
                 .filter(postDto -> !postDto.isDeleted())
                 .collect(Collectors.toList());
     }
-
     @Override
     public PostDto getPostById(Long postId) {
         return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
     }
-
     @Override
     public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
@@ -156,7 +151,7 @@ public class PostService implements IPostService {
     @Override
     public void setIsApprovedPosts(Long[] listPostId) {
         for (Long item: listPostId
-        ) {
+             ) {
             Optional<PostEntity> post = postRepository.findById(item);
             if(post.isPresent()){
                 post.get().setStatus(Status.APPROVED);
@@ -192,25 +187,6 @@ public class PostService implements IPostService {
                 postRepository.save(post.get());
             }
         }
-    }
-
-    @Override
-    public PostDto updatePost(PostDto postDto) {
-        PostEntity post = postRepository.findById(postDto.getPostId()).get();
-        post.setTitle(postDto.getTitle());
-        post.setAddress(postDto.getAddress());
-        post.setDescription(postDto.getDescription());
-        post.setConvenient(postDto.getConvenient());
-        post.setModifiedDate(new Date());
-        post.setSurroundings(postDto.getSurroundings());
-        post.setDeleted(postDto.isDeleted());
-        PostEntity updatePost = postRepository.save(post);
-        return postMapper.entityToDto(updatePost);
-    }
-
-    @Override
-    public void deletePost(Long postId) {
-        postRepository.deleteById(postId);
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

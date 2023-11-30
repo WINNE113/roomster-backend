@@ -13,8 +13,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByEmail(String email);
 
-    Optional<UserEntity> findByUserName(String userName);
-
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
     @Query(value = "SELECT * FROM users " +

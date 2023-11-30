@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -51,11 +50,6 @@ public class UserService implements IUserService {
     @Override
     public Optional<UserEntity> findByPhoneNumber(String phoneNumber) {
         return userRepository.findByPhoneNumber(phoneNumber);
-    }
-
-    @Override
-    public Optional<UserEntity> findByUserName(String userName) {
-        return Optional.empty();
     }
 
     @Override
@@ -119,11 +113,6 @@ public class UserService implements IUserService {
     public UserDto getUserById(Long userId) {
          Optional<UserEntity> userEntity = userRepository.getUserEntityByUserId(userId).filter(user -> !user.isDeleted());
         return userEntity.map(user -> userMapper.entityToDto(user)).orElse(null);
-    }
-
-    @Override
-    public List<UserEntity> getAllUser() {
-        return null;
     }
 
     @Override

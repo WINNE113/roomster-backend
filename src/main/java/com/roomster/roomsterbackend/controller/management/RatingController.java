@@ -19,7 +19,7 @@ public class RatingController {
 
     private final IRatingService ratingService;
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("/new")
     public BaseResponse saveNewRating(@RequestBody RatingDto ratingDto, Principal connectedUser) {
         try {
@@ -33,7 +33,7 @@ public class RatingController {
         return BaseResponse.error("Rất tiếc! Bạn chỉ có thể đánh giá một lần");
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER','ROLE_MANAGE')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/update")
     public BaseResponse updateRating(@RequestParam Long ratingId, @RequestBody RatingDto ratingDto) {
         return ratingService.updateRating(ratingId, ratingDto);

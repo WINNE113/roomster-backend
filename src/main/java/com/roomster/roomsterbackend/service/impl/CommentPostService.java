@@ -58,13 +58,20 @@ public class CommentPostService implements ICommentPostService {
     }
 
     @Override
-    public BaseResponse deleteComment(Long commentId) {
+    public BaseResponse deleteComment(Long commentId, Principal connectedUser) {
+        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        Optional<CommentEnity> comment = commentPostRepository.findById(commentId);
         try {
-            commentPostRepository.deleteById(commentId);
+            if(comment.isPresent() && user != null){
+               if(comment.get().getUserId().equals(user.getId())){
+                   commentPostRepository.deleteById(commentId);
+                   return BaseResponse.success("Bạn đã xóa bình luận!");
+               }
+            }
         } catch (Exception ex) {
             BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.success("Xóa Thành Công!");
+        return BaseResponse.error("Không thể xóa bình luận");
     }
 
     @Override

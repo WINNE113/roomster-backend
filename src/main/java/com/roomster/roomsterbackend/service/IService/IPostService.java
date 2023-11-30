@@ -1,6 +1,5 @@
 package com.roomster.roomsterbackend.service.IService;
 
-
 import com.roomster.roomsterbackend.dto.post.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,10 +19,6 @@ public interface IPostService {
     List<PostDtoWithRating> getPostByRating(Pageable pageable);
 
     List<ProvinceDto> getTopOfProvince(Pageable pageable);
-
-    PostDto updatePost(PostDto postDto);
-
-    void deletePost(Long postId);
 
     PostDetailDtoImp getPostDetail(Long postId);
 

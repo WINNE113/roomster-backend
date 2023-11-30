@@ -22,7 +22,7 @@ public class DatabaseSearch implements IDatabaseSearch {
     public SearchResult searchFilter(Pageable pageable, LinkedHashMap<String, Object> map) throws SQLException {
         String url = "jdbc:mysql://localhost:3306/trouytin_db";
         String username = "root";
-        String password = "123456";
+        String password = "huuthang";
         String tableName = "posts";
         String joinTable = "infor_rooms";
 

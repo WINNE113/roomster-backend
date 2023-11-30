@@ -4,558 +4,129 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="fix authorie comment and rating">
+    <list default="true" id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Final_Project - Shortcut.lnk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/CloudinaryConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/VnpayConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/CommentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PaymentController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/RatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/RatingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/RomDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/comment/CommentPostDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/comment/CommentPostDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/dto/payment/PaymentDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostTypeEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/PostTypeEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/mapper/CommentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/mapper/CommentMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/ICommentPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/ICommentPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/IUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/CommentPostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/CommentPostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-prod.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="CompilerWorkspaceConfiguration">
-    <option name="COMPILER_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Djps.track.ap.dependencies=false" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="main" />
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="thanglh" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;history&quot;: [
-    {
-      &quot;author&quot;: &quot;TrongTanLe&quot;
-    },
-    {
-      &quot;author&quot;: &quot;WINNE113&quot;
-    }
-  ],
-  &quot;lastFilter&quot;: {
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="c98a180d-7074-4d64-9a38-05d37ba56b5f" />
-        <option name="url" value="https://github.com/WINNE113/roomster-backend.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="2W7YWt4UFlLoWbHCtpYUfcuTMQG" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <ConfirmationsSetting value="1" id="Add" />
-  </component>
+  <component name="ProjectId" id="2YqvjfRDUT5RUKTvWEDJQOcW9h6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "tanlt",
-    "last_opened_file_path": "D:/Chuyen_nganh_9/roomster-backend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;tanlt&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Final_Project/roomster-backend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
-    ],
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
-  <component name="ReactorSettings">
-    <option name="notificationShown" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.roomster.roomsterbackend.dto" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.roomster.roomsterbackend.controller.management" />
-    </key>
-  </component>
+}</component>
   <component name="RunManager">
-    <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="roomster-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.roomster.roomsterbackend.RoomsterBackendApplication" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.roomster.roomsterbackend.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <module name="roomster-backend" />
-      <option name="SPRING_BOOT_MAIN_CLASS" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.13" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="BROWSER_ID" value="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" />
-      <option name="UPDATING_POLICY" value="restart-server" />
-      <deployment />
-      <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="c2177a59-36e8-4801-b898-3ed9c7249dc8" />
-      </server-settings>
-      <predefined_log_file enabled="true" id="Tomcat" />
-      <predefined_log_file enabled="true" id="Tomcat Catalina" />
-      <predefined_log_file id="Tomcat Manager" />
-      <predefined_log_file id="Tomcat Host Manager" />
-      <predefined_log_file id="Tomcat Localhost Access" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="50984" />
-      </RunnerSettings>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
-        <option name="USE_ENV_VARIABLES" value="true" />
-        <STARTUP>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </STARTUP>
-        <SHUTDOWN>
-          <option name="USE_DEFAULT" value="true" />
-          <option name="SCRIPT" value="" />
-          <option name="VM_PARAMETERS" value="" />
-          <option name="PROGRAM_PARAMETERS" value="" />
-        </SHUTDOWN>
-      </ConfigurationWrapper>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="" />
-      <created>1696085128950</created>
+      <changelist id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="" />
+      <created>1701266068715</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1696085128950</updated>
-      <workItem from="1696085133071" duration="4833000" />
-      <workItem from="1696172995813" duration="3205000" />
-      <workItem from="1696219435497" duration="1265000" />
-      <workItem from="1696242358258" duration="1989000" />
-      <workItem from="1697013902612" duration="24263000" />
-      <workItem from="1697094648229" duration="616000" />
-      <workItem from="1697537251987" duration="2149000" />
-      <workItem from="1697557734245" duration="1138000" />
-      <workItem from="1697683781439" duration="78000" />
-      <workItem from="1697686829853" duration="18931000" />
-      <workItem from="1697761794661" duration="4607000" />
-      <workItem from="1697766580611" duration="666000" />
-      <workItem from="1697792120808" duration="1787000" />
-      <workItem from="1698334735969" duration="1217000" />
-      <workItem from="1698676644319" duration="2496000" />
-      <workItem from="1698760636941" duration="1050000" />
-      <workItem from="1698822761443" duration="2626000" />
-      <workItem from="1698843965117" duration="7244000" />
-      <workItem from="1698936312700" duration="1277000" />
-      <workItem from="1699018772223" duration="4748000" />
-      <workItem from="1699086582339" duration="6264000" />
-      <workItem from="1699108693646" duration="1274000" />
-      <workItem from="1699121635339" duration="9000" />
-      <workItem from="1699190611194" duration="834000" />
-      <workItem from="1699231486263" duration="1637000" />
-      <workItem from="1699244607763" duration="380000" />
-      <workItem from="1699245246996" duration="1857000" />
-      <workItem from="1699257518114" duration="1488000" />
-      <workItem from="1699259188228" duration="49000" />
-      <workItem from="1699259260326" duration="5081000" />
-      <workItem from="1699285971791" duration="652000" />
-      <workItem from="1699365658127" duration="3151000" />
-      <workItem from="1699450622546" duration="10060000" />
-      <workItem from="1699710130749" duration="4783000" />
-      <workItem from="1699968837173" duration="2538000" />
-      <workItem from="1700753992566" duration="4802000" />
-      <workItem from="1700826752552" duration="1670000" />
-      <workItem from="1700834453204" duration="4823000" />
-      <workItem from="1700935037119" duration="693000" />
-      <workItem from="1700935751763" duration="293000" />
-      <workItem from="1700936875822" duration="2481000" />
-      <workItem from="1700980768857" duration="4076000" />
-      <workItem from="1701007987887" duration="5957000" />
-      <workItem from="1701091139249" duration="1576000" />
-      <workItem from="1701098853106" duration="8165000" />
-      <workItem from="1701112170147" duration="1423000" />
-      <workItem from="1701155793685" duration="2402000" />
-      <workItem from="1701174401129" duration="8537000" />
-      <workItem from="1701228425708" duration="11117000" />
-      <workItem from="1701255868389" duration="2922000" />
+      <updated>1701266068715</updated>
+      <workItem from="1701266071754" duration="1016000" />
+      <workItem from="1701270314201" duration="3423000" />
+      <workItem from="1701273775491" duration="1851000" />
+      <workItem from="1701275819796" duration="1735000" />
+      <workItem from="1701325880062" duration="893000" />
+      <workItem from="1701338738072" duration="661000" />
     </task>
-    <task id="LOCAL-00001" summary="add send OTP and validate OTP">
-      <option name="closed" value="true" />
-      <created>1697019183867</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1697019183867</updated>
-    </task>
-    <task id="LOCAL-00002" summary=" modified send OTP and validate OTP">
-      <option name="closed" value="true" />
-      <created>1697766944375</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1697766944375</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Modified file AuthenticationService">
-      <option name="closed" value="true" />
-      <created>1697767144816</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1697767144816</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Fix model database">
-      <option name="closed" value="true" />
-      <created>1698678909257</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1698678909257</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix model database">
-      <option name="closed" value="true" />
-      <created>1698762276570</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1698762276570</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Change enum role to entity role">
-      <option name="closed" value="true" />
-      <created>1698936874194</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1698936874194</updated>
-    </task>
-    <task id="LOCAL-00007" summary="delete userModel">
-      <option name="closed" value="true" />
-      <created>1699019466811</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1699019466811</updated>
-    </task>
-    <task id="LOCAL-00008" summary="mapper for post dto">
-      <option name="closed" value="true" />
-      <created>1699020335082</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1699020335082</updated>
-    </task>
-    <task id="LOCAL-00009" summary="modified register account user or owner">
-      <option name="closed" value="true" />
-      <created>1699109237818</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1699109237818</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Fix OpenAPI document">
-      <option name="closed" value="true" />
-      <created>1699263660177</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1699263660177</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Fix">
-      <option name="closed" value="true" />
-      <created>1699296305650</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1699296305650</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Fix">
-      <option name="closed" value="true" />
-      <created>1699374151954</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1699374151954</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Add comment and ratings, modifie post">
-      <option name="closed" value="true" />
-      <created>1699374217229</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1699374217229</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Add change password and view profile user">
-      <option name="closed" value="true" />
-      <created>1699611569219</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1699611569219</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Add delete post, update post and modify get post by id">
-      <option name="closed" value="true" />
-      <created>1699730757115</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1699730757116</updated>
-    </task>
-    <task id="LOCAL-00016" summary="merge thanglh and fix all error">
-      <option name="closed" value="true" />
-      <created>1700417451547</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1700417451548</updated>
-    </task>
-    <task id="LOCAL-00017" summary="fix">
-      <option name="closed" value="true" />
-      <created>1700754101007</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1700754101007</updated>
-    </task>
-    <task id="LOCAL-00018" summary="fix all">
-      <option name="closed" value="true" />
-      <created>1701008408113</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1701008408113</updated>
-    </task>
-    <task id="LOCAL-00019" summary="fix and test vnpay">
-      <option name="closed" value="true" />
-      <created>1701091306837</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1701091306838</updated>
-    </task>
-    <task id="LOCAL-00020" summary="fix">
-      <option name="closed" value="true" />
-      <created>1701100677010</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1701100677011</updated>
-    </task>
-    <task id="LOCAL-00021" summary="fix">
-      <option name="closed" value="true" />
-      <created>1701100721606</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1701100721606</updated>
-    </task>
-    <task id="LOCAL-00022" summary="fix and update rating">
-      <option name="closed" value="true" />
-      <created>1701112726566</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1701112726566</updated>
-    </task>
-    <task id="LOCAL-00023" summary="fix authorie comment and rating">
-      <option name="closed" value="true" />
-      <created>1701194786795</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1701194786795</updated>
-    </task>
-    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="main" />
-                </option>
-              </RecentGroup>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="thanglh" />
-                </option>
-              </RecentGroup>
-            </list>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="thanglh" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="add send OTP and validate OTP" />
-    <MESSAGE value=" modified send OTP and validate OTP" />
-    <MESSAGE value="Modified file AuthenticationService" />
-    <MESSAGE value="Fix model database" />
-    <MESSAGE value="merge from thanglh branch" />
-    <MESSAGE value="Change enum role to entity role" />
-    <MESSAGE value="delete userModel" />
-    <MESSAGE value="mapper for post dto" />
-    <MESSAGE value="modified register account user or owner" />
-    <MESSAGE value="Fix OpenAPI document" />
-    <MESSAGE value="Fix" />
-    <MESSAGE value="Add comment and ratings, modifie post" />
-    <MESSAGE value="Add change password and view profile user" />
-    <MESSAGE value="Add delete post, update post and modify get post by id" />
-    <MESSAGE value="merge thanglh and fix all error" />
-    <MESSAGE value="fix all" />
-    <MESSAGE value="fix and test vnpay" />
-    <MESSAGE value="fix" />
-    <MESSAGE value="fix and update rating" />
-    <MESSAGE value="fix authorie comment and rating" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix authorie comment and rating" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java</url>
-          <line>139</line>
-          <option name="timeStamp" value="19" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-    <pin-to-top-manager>
-      <pinned-members>
-        <PinnedItemInfo parentTag="java.util.Optional" memberName="value" />
-      </pinned-members>
-    </pin-to-top-manager>
   </component>
 </project>

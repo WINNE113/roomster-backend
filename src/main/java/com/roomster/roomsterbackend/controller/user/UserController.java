@@ -5,7 +5,6 @@ import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
-import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +24,6 @@ import java.security.Principal;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final IUserService userService;
-
-    private final IPostService service;
-
-//    @GetMapping("/quan-li-tin/{authorId}")
-//    public List<PostDto> getPostByUserId(@PathVariable Long authorId, Pageable pageable) {
-//        return service.getPostByAuthorId(pageable, authorId);
-//    }
-
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);
