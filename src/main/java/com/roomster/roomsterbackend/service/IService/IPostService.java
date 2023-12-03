@@ -21,7 +21,7 @@ public interface IPostService {
 
     List<ProvinceDto> getTopOfProvince(Pageable pageable);
 
-    Optional<PostDetailDto> getPostDetail(Long postId);
+    PostDetailDtoImp getPostDetail(Long postId);
 
     List<PostImageDto> getPostImages(Long postId);
 }
