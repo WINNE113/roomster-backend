@@ -2,22 +2,28 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.post.*;
+import com.roomster.roomsterbackend.dto.report.ReportDto;
+import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
+import com.roomster.roomsterbackend.service.IService.IReportService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.ConvertUtil;
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/guest")
@@ -30,6 +36,8 @@ public class GuestController {
     private final IDatabaseSearch iDatabaseSearch;
 
     private final ProvinceService provinceService;
+
+    private final IReportService reportService;
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam( name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
@@ -39,8 +47,8 @@ public class GuestController {
     }
     @PostMapping(value = "/post/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public SearchResult searchPost(@RequestPart(required = false) String json,
-                                                       @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) throws SQLException {
+                                   @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                   @RequestParam(name = "size", required = false, defaultValue = "5") Integer size, Principal connectedUser) throws SQLException {
 
         Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
@@ -48,6 +56,16 @@ public class GuestController {
         if(json != null) {
             try {
                 map = objectMapper.readValue(json, LinkedHashMap.class);
+
+                for (var item: map.entrySet()
+                     ) {
+                    if(item.getKey().equals("author_id")){
+                        if(connectedUser != null) {
+                           var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+                            map.replace("author_id",user.getId());
+                        }
+                    }
+                }
                 ConvertUtil.convertStringToArray(map);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
@@ -65,11 +83,6 @@ public class GuestController {
         return provinceService.setImages(topOfProvince);
     }
 
-//    @GetMapping(value = "/postDetail")
-//    public Optional<PostDetailDto> getPostDetail(@RequestParam Long postId){
-//        return postService.getPostDetail(postId);
-//    }
-
     @GetMapping(value = "/postDetail")
     public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId){
         PostDetailDtoWithImage postDetailDtoWithImage = new PostDetailDtoWithImage();
@@ -82,6 +95,20 @@ public class GuestController {
         return ResponseEntity.ok(postDetailDtoWithImage);
     }
 
+    @PostMapping(value = "/report/add")
+    public BaseResponse addReport(@RequestBody ReportDto reportDto){
+        try{
+            ReportDto report = reportService.addReport(reportDto);
+            if(report != null){
+                return BaseResponse.success("Cảm ơn bạn đã đóng góp ý kiến");
+            }
+        }catch (Exception ex){
+            return BaseResponse.error("Ex: " + ex);
+        }
+        return BaseResponse.error("Xin lỗi! Ý kiến của bạn không được chấp nhận");
+    }
+
+    @Hidden
     @GetMapping(value = "/post/images")
     public List<PostImageDto> getPostImage(@RequestParam Long postId){
         return postService.getPostImages(postId);

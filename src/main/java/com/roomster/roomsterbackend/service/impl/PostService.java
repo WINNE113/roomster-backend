@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
+import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.PostTypeEntity;
@@ -15,7 +16,6 @@ import com.roomster.roomsterbackend.service.IService.IPostService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -51,20 +51,12 @@ public class PostService implements IPostService {
 
     private final Cloudinary cloudinary;
     @Override
-    public List<PostDto> getAllPost(Pageable pageable) {
-        Page<PostEntity> postPage = postRepository.findAll(pageable);
-
-        // Get the content (posts) from the page
-        List<PostEntity> posts = postPage.getContent();
-
-        List<PostDto> postDtos = posts.stream()
+    public List<PostDto> getPostsApproved(Pageable pageable) {
+        List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.APPROVED, false);
+        return  postPage.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
-                .filter(postDto -> !postDto.isDeleted())
                 .toList();
-        return postDtos;
-
     }
-
     @Override
     public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
         return postRepository.getPostEntityByAuthorId(pageable, authorId)
@@ -73,17 +65,17 @@ public class PostService implements IPostService {
                 .filter(postDto -> !postDto.isDeleted())
                 .collect(Collectors.toList());
     }
-
     @Override
     public PostDto getPostById(Long postId) {
         return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
     }
-
     @Override
-    public void saveNewPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
+    public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
         PostEntity postEntity = postMapper.dtoToEntity(postDTO);
         postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
         postEntity.setDeleted(false);
+        // need admin or sp admin accept to APPROVED post
+        postEntity.setStatus(Status.REVIEW);
         if(postDTO.getRotation() != null){
             postEntity.setRotation(postDTO.getRotation());
         }
@@ -118,40 +110,83 @@ public class PostService implements IPostService {
     public PostDetailDtoImp getPostDetail(Long postId) {
         Optional<PostDetailDto> postDetailDto = postRepository.getPostDetail(postId);
         PostDetailDtoImp postDetailDtoImp = new PostDetailDtoImp();
-        if(postDetailDto.isPresent()){
-            userRepository.getUserEntityByUserId(postDetailDto.get().getCreatedBy());
-            convertPostDetail(postDetailDtoImp, postDetailDto);
-        }
+        postDetailDto.ifPresent(detailDto -> convertPostDetail(postDetailDtoImp, detailDto));
         return postDetailDtoImp;
     }
 
-    private void convertPostDetail(PostDetailDtoImp postDetailDtoImp, Optional<PostDetailDto> postDetailDto) {
-        postDetailDtoImp.setId(postDetailDto.get().getId());
-        postDetailDtoImp.setTitle(postDetailDto.get().getTitle());
-        postDetailDtoImp.setAddress(postDetailDto.get().getAddress());
-        postDetailDtoImp.setDescription(postDetailDto.get().getDescription());
-        postDetailDtoImp.setObject(postDetailDto.get().getObject());
-        postDetailDtoImp.setConvenient(postDetailDto.get().getConvenient());
-        postDetailDtoImp.setSurroundings(postDetailDto.get().getSurroundings());
+    private void convertPostDetail(PostDetailDtoImp postDetailDtoImp, PostDetailDto postDetailDto) {
+        postDetailDtoImp.setId(postDetailDto.getId());
+        postDetailDtoImp.setTitle(postDetailDto.getTitle());
+        postDetailDtoImp.setAddress(postDetailDto.getAddress());
+        postDetailDtoImp.setDescription(postDetailDto.getDescription());
+        postDetailDtoImp.setObject(postDetailDto.getObject());
+        postDetailDtoImp.setConvenient(postDetailDto.getConvenient());
+        postDetailDtoImp.setSurroundings(postDetailDto.getSurroundings());
 
-        Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.get().getPostType());
+        Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.getPostType());
         postType.ifPresent(postTypeEntity -> postDetailDtoImp.setPostType(postTypeEntity.getName()));
 
-        Optional<UserEntity> user = userRepository.findById(postDetailDto.get().getCreatedBy());
+        Optional<UserEntity> user = userRepository.findById(postDetailDto.getCreatedBy());
         user.ifPresent(userEntity -> postDetailDtoImp.setCreatedBy(userMapper.entityToDto(user.get())));
 
-        postDetailDtoImp.setCreatedDate(postDetailDto.get().getCreatedDate());
-        postDetailDtoImp.setRotation(postDetailDto.get().getRotation());
-        postDetailDtoImp.setAcreage(postDetailDto.get().getAcreage());
-        postDetailDtoImp.setElectricityPrice(postDetailDto.get().getElectricityPrice());
-        postDetailDtoImp.setPrice(postDetailDto.get().getPrice());
-        postDetailDtoImp.setWaterPrice(postDetailDto.get().getWaterPrice());
-        postDetailDtoImp.setStayMax(postDetailDto.get().getStayMax());
+        postDetailDtoImp.setCreatedDate(postDetailDto.getCreatedDate());
+        postDetailDtoImp.setRotation(postDetailDto.getRotation());
+        postDetailDtoImp.setAcreage(postDetailDto.getAcreage());
+        postDetailDtoImp.setElectricityPrice(postDetailDto.getElectricityPrice());
+        postDetailDtoImp.setPrice(postDetailDto.getPrice());
+        postDetailDtoImp.setWaterPrice(postDetailDto.getWaterPrice());
+        postDetailDtoImp.setStayMax(postDetailDto.getStayMax());
     }
 
     @Override
     public List<PostImageDto> getPostImages(Long postId) {
         return postRepository.getPostImages(postId);
+    }
+
+    @Override
+    public void deletePostById(Long postId) {
+        postRepository.deleteById(postId);
+    }
+
+    @Override
+    public void setIsApprovedPosts(Long[] listPostId) {
+        for (Long item: listPostId
+             ) {
+            Optional<PostEntity> post = postRepository.findById(item);
+            if(post.isPresent()){
+                post.get().setStatus(Status.APPROVED);
+                postRepository.save(post.get());
+            }
+        }
+    }
+
+    @Override
+    public List<PostDto> getPostsReview(Pageable pageable) {
+        List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.REVIEW, false);
+        // Get the content (posts) from the page
+        return  postPage.stream()
+                .map(postEntity -> postMapper.entityToDto(postEntity))
+                .toList();
+    }
+
+    @Override
+    public List<PostDto> getPostsRejected(Pageable pageable) {
+        List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.REJECTED, false);
+        return  postPage.stream()
+                .map(postEntity -> postMapper.entityToDto(postEntity))
+                .toList();
+    }
+
+    @Override
+    public void setIsRejectedPosts(Long[] listPostId) {
+        for (Long item: listPostId
+        ) {
+            Optional<PostEntity> post = postRepository.findById(item);
+            if(post.isPresent()){
+                post.get().setStatus(Status.REJECTED);
+                postRepository.save(post.get());
+            }
+        }
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{

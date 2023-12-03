@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.dto.comment;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.roomster.roomsterbackend.dto.user.PartUser;
 import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,10 +15,12 @@ import java.util.Date;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommentPostDto {
     private Long commentPostId;
+    private Long parentComment;
     private Long userId;
+    private PartUser partUser;
     private Long postId;
-    private String title;
     private String content;
     private boolean status;
     private Date createdDate;
+    private Date modifiedDate;
 }
