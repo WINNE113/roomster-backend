@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.roomster.roomsterbackend.common.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,6 +41,9 @@ public class PostEntity extends BaseEntity {
     @Column(name = "is_deleted")
     private boolean isDeleted;
 
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
     @Column(name = "rotation")
     private String rotation;
 
@@ -56,6 +60,9 @@ public class PostEntity extends BaseEntity {
     @ManyToOne()
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity authorId;
+
+    @OneToMany(mappedBy = "postId")
+    private List<ReportEntity> reports;
 
     public UserEntity getAuthorId() {
         return authorId;

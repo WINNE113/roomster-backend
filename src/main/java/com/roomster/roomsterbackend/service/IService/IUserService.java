@@ -22,4 +22,6 @@ public interface IUserService {
     BaseResponse changePassword(ChangePasswordRequest changePasswordRequest, Principal connectedUser);
 
     UserDto getUserById(Long userId);
+
+    void deleteUserById(Long userId);
 }

@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.controller.management;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.rating.AverageRatingPoint;
 import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.service.IService.IRatingService;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,14 @@ public class RatingController {
     @PostMapping("/new")
     public BaseResponse saveNewRating(@RequestBody RatingDto ratingDto, Principal connectedUser) {
         try {
-            ratingService.saveNewRating(ratingDto, connectedUser);
+           RatingDto rating = ratingService.saveNewRating(ratingDto, connectedUser);
+           if(rating != null){
+               return BaseResponse.success("Thêm đánh giá thành công!");
+           }
         }catch (Exception ex){
             BaseResponse.error(ex.getMessage());
         }
-        return BaseResponse.success("Thêm rating thành công!");
+        return BaseResponse.error("Rất tiếc! Bạn chỉ có thể đánh giá một lần");
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -49,5 +53,10 @@ public class RatingController {
     @GetMapping("/list/{postId}")
     public List<RatingDto> getAllRatingOfPost(@PathVariable(name = "postId") Long postId) {
         return ratingService.getAllRatingByPost(postId);
+    }
+
+    @GetMapping("/list/group")
+    public AverageRatingPoint getGroupRatingOfPost(@RequestParam Long postId){
+        return ratingService.getGroupRatingByPost(postId);
     }
 }

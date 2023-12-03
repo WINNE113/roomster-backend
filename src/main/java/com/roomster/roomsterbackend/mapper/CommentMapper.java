@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface CommentMapper {
     @Mapping(target = "commentPostId", source = "id")
     @Mapping(target = "createdDate", source = "createdDate")
+    @Mapping(target = "modifiedDate", source = "modifiedDate")
     CommentPostDto entityToDTO(CommentEnity commentEnity);
 
     @Mapping(target = "id", source = "commentPostId")

@@ -36,7 +36,7 @@ public class DatabaseSearch implements IDatabaseSearch {
         StringBuilder filterQuery = new StringBuilder();
         StringBuilder totalResultQuery = new StringBuilder();
         totalResultQuery.append("SELECT count(*) as total FROM ").append(tableName).append(" inner join ").append(joinTable).append(" on posts.room_id = infor_rooms.id").append(" where posts.is_deleted = false ");
-        filterQuery.append("Select p.id, p.title, p.address, p.created_date, ir.price, p.is_deleted, max(pimg.image_url_list) as image")
+        filterQuery.append("Select p.id, p.title, p.address, p.created_date, ir.price, p.is_deleted,p.status, max(pimg.image_url_list) as image")
                 .append(" from posts p")
                 .append(" left join post_entity_image_url_list pimg")
                 .append(" on p.id = pimg.post_entity_id")
@@ -73,6 +73,8 @@ public class DatabaseSearch implements IDatabaseSearch {
                 count++;
             }
         }
+//        filterQuery.append(" and p.status = 'APPROVED'");
+//        totalResultQuery.append(" and posts.status = 'APPROVED'");
         // Use Group By on filter query
         filterQuery.append(" group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted");
 
@@ -142,6 +144,7 @@ public class DatabaseSearch implements IDatabaseSearch {
                 postDtoWithFilter.setCreatedDate(rs.getDate("created_date"));
                 postDtoWithFilter.setPrice(rs.getBigDecimal("price"));
                 postDtoWithFilter.setDeleted(rs.getBoolean("is_deleted"));
+                postDtoWithFilter.setStatus(rs.getString("status"));
                 postDtoWithFilter.setImage(rs.getString("image"));
                 postDTOs.add(postDtoWithFilter);
             }
