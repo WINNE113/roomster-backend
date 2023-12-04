@@ -6,6 +6,8 @@ public class MessageUtil {
     public static final String MSG_ORDER_NOT_FOUND  = "Order not found !";
     public static final String MSG_SERVICE_NOT_FOUND  = "Service not found !";
     public static final String MSG_POST_NOT_FOUND  = "Post not found !";
+    public static final String MSG_ROLE_NOT_FOUND  = "Role not found !";
+    public static final String MSG_OTP_CODE_INCORRECT  = "OTP Code Incorrect !";
     public static final String MSG_WISHLIST_ITEM_EXITED  = "WishList item is exited !";
     public static final String MSG_ID_FORMAT_INVALID  = "Id format is invalid !";
     public static final String MSG_DELETE_SUCCESS  = "Removed room with id successfully !";
