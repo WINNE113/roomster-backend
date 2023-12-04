@@ -26,7 +26,8 @@ public interface WishListRepository extends JpaRepository<WishlistEntity, Long> 
             "inner join wishlist_items as wi on p.id = wi.post_id\n" +
             "inner join wishlists as w on w.wishlist_id = wi.wishlist_id\n" +
             "where w.user_id =:userId and w.wishlist_name LIKE %:wishListName%\n" +
-            "group by p.id, p.title, p.address, p.created_date, i.price, p.is_deleted", nativeQuery = true)
+            "group by p.id, p.title, p.address, p.created_date, i.price, p.is_deleted, wi.wishlist_item_id\n" +
+            "order by wi.wishlist_item_id desc", nativeQuery = true)
     List<PostByWishList> getAllWishListByNameAndUser(@Param("wishListName") String wishListName, @Param("userId") Long userId);
 
 }
