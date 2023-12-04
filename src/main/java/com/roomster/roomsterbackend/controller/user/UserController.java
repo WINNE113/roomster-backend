@@ -24,6 +24,7 @@ import java.security.Principal;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final IUserService userService;
+
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);

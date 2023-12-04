@@ -113,4 +113,6 @@ public class GuestController {
     public List<PostImageDto> getPostImage(@RequestParam Long postId){
         return postService.getPostImages(postId);
     }
+
+
 }
