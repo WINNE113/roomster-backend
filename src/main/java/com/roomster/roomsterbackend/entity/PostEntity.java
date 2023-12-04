@@ -69,10 +69,6 @@ public class PostEntity extends BaseEntity {
     @JsonBackReference
     private List<ReportEntity> reports;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<WishlistItemEntity> wishlists = new ArrayList<>();
-
     public UserEntity getAuthorId() {
         return authorId;
     }

@@ -73,27 +73,6 @@ public class UserService implements IUserService {
         return BaseResponse.success("Cập nhật thông tin thành công!");
     }
 
-//    @Override
-//    public BaseResponse updateProfile(UpdateProfileRequest profileRequest, MultipartFile images) throws IOException {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        if(authentication != null){
-//            String phoneNumber = authentication.getName();
-//            Optional<UserEntity> userEntity = userRepository.findByPhoneNumber(phoneNumber);
-//            if(userEntity.isPresent()){
-//                userEntity.get().setUserName(profileRequest.getUserName());
-//                userEntity.get().setEmail(profileRequest.getEmail());
-//                userEntity.get().setDateOfBirth(profileRequest.getDateOfBirth());
-//                if(!images.isEmpty()){
-//                    userEntity.get().setImages(getFileUrls(images));
-//                }
-//                userRepository.save(userEntity.get());
-//                return BaseResponse.success("Update profile successfully!");
-//            }
-//        }
-//        return BaseResponse.error("Update profile failed!");
-//
-//    }
-
     @Override
     public BaseResponse changePassword(ChangePasswordRequest changePasswordRequest, Principal connectedUser) {
         var user = (UserEntity)((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();

@@ -26,10 +26,8 @@ public class WishlistItemEntity {
     @JsonBackReference
     private WishlistEntity wishlist;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
-    @JsonBackReference
-    private PostEntity post;
+    @Column(name = "post_id")
+    private Long postId;
 
     @Column(name = "created_date",
             nullable = false,

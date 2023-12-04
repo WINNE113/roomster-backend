@@ -52,7 +52,7 @@ public class WishListService implements IWishListService {
                     if(post.isPresent()){
                         WishlistItemEntity wishlistItem = new WishlistItemEntity();
                         wishlistItem.setWishlist(wishlist);
-                        wishlistItem.setPost(post.get());
+                        wishlistItem.setPostId(post.get().getId());
                         // add wishlist item to wishlist
                         wishlist.getWishlistItems().add(wishlistItem);
                         wishListItemRepository.save(wishlistItem);
