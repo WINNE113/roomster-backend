@@ -11,6 +11,7 @@ import com.roomster.roomsterbackend.repository.WishListRepository;
 import com.roomster.roomsterbackend.service.IService.IWishListService;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -73,12 +74,12 @@ public class WishListService implements IWishListService {
     }
 
     @Override
-    public ResponseEntity<?> getWishListByNameAndUser(Principal connectedUser, String wishListName) {
+    public ResponseEntity<?> getWishListByNameAndUser(Principal connectedUser, String wishListName, Pageable pageable) {
         ResponseEntity<?> responseEntity = null;
         try {
             var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
             if(user != null){
-                var wishList = wishListRepository.getAllWishListByNameAndUser(wishListName, user.getId());
+                var wishList = wishListRepository.getAllWishListByNameAndUser(wishListName, user.getId(),pageable);
                  responseEntity = new ResponseEntity<>(wishList, HttpStatus.OK);
             }
 

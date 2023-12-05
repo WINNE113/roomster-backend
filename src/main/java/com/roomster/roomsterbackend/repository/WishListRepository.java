@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.repository;
 import com.roomster.roomsterbackend.dto.post.PostByWishList;
 import com.roomster.roomsterbackend.dto.wishlist.ExitWishlist;
 import com.roomster.roomsterbackend.entity.WishlistEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -28,6 +29,5 @@ public interface WishListRepository extends JpaRepository<WishlistEntity, Long> 
             "where w.user_id =:userId and w.wishlist_name LIKE %:wishListName%\n" +
             "group by p.id, p.title, p.address, p.created_date, i.price, p.is_deleted, wi.wishlist_item_id\n" +
             "order by wi.wishlist_item_id desc", nativeQuery = true)
-    List<PostByWishList> getAllWishListByNameAndUser(@Param("wishListName") String wishListName, @Param("userId") Long userId);
-
+    List<PostByWishList> getAllWishListByNameAndUser(@Param("wishListName") String wishListName, @Param("userId") Long userId, Pageable pageable);
 }
