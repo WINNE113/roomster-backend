@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="add room management">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/RatingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/management/RatingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/DatabaseSearch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
-    </list>
+    <list default="true" id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="fix" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -48,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "tanlt",
-    "last_opened_file_path": "E:/Final_Project/room-master-final/room-master/roomster-backend-thanglh",
+    "last_opened_file_path": "E:/Final_Project/roomster-backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,6 +89,7 @@
       <workItem from="1701531251008" duration="2516000" />
       <workItem from="1701593325630" duration="2220000" />
       <workItem from="1701625223048" duration="52000" />
+      <workItem from="1701802302867" duration="306000" />
     </task>
     <task id="LOCAL-00001" summary="add room management">
       <option name="closed" value="true" />
@@ -104,7 +99,23 @@
       <option name="project" value="LOCAL" />
       <updated>1701352747183</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="fix password database">
+      <option name="closed" value="true" />
+      <created>1701802511742</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1701802511742</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fix">
+      <option name="closed" value="true" />
+      <created>1701802607942</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1701802607942</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +134,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add room management" />
-    <option name="LAST_COMMIT_MESSAGE" value="add room management" />
+    <MESSAGE value="fix password database" />
+    <MESSAGE value="fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>
