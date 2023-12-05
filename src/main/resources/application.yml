@@ -6,7 +6,7 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: 123456
+        password: root
         url: jdbc:mysql://localhost:3306/trouytin_db
         username: root
     mvc:
@@ -32,5 +32,5 @@ spring:
 
 twilio:
     account_sid: ACc2a522ebd3172b9f66ac39c838814f51
-    auth_token: 3db836b47f6499cb4b8291ede670a688
+    auth_token: b32ec809812a18c11b411bb2b9702a5e
     trial_number: +12314004777
