@@ -10,4 +10,5 @@ public interface PostByWishList {
      Date getCreatedDate();
      BigDecimal getPrice();
      String getImage();
+     Long getWishListItemId();
 }

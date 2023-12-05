@@ -20,7 +20,7 @@ public interface WishListRepository extends JpaRepository<WishlistEntity, Long> 
             "where w.wishlist_name =:wishListName and w.user_id =:userId and wi.post_id =:postId", nativeQuery = true)
     ExitWishlist wishListItemExit(@Param("wishListName") String wishListName,@Param("postId") Long postId,@Param("userId") Long userId);
 
-    @Query(value = "Select p.id, p.title, p.address, p.created_date as createdDate, i.price, max(pimg.image_url_list) as image\n" +
+    @Query(value = "Select p.id, p.title, p.address, p.created_date as createdDate, i.price, max(pimg.image_url_list) as image, wi.wishlist_item_id as wishListItemId\n" +
             "from posts p\n" +
             "inner join infor_rooms i on p.room_id = i.id\n" +
             "inner join post_entity_image_url_list pimg on pimg.post_entity_id = p.id\n" +
