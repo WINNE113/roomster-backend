@@ -47,6 +47,7 @@ public class InforRoomEntity{
     @Column(name = "id_house" )
     private Long houseId;
 
+    @JsonManagedReference
     @OneToOne(mappedBy = "roomId")
     private PostEntity post;
 

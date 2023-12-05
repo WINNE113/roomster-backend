@@ -1,6 +1,5 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -58,6 +57,11 @@ public class UserEntity extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "authorId")
     private List<PostEntity> posts;
+
+    @OneToMany(mappedBy = "userWishList")
+    @JsonManagedReference
+    private List<WishlistEntity> wishlists;
+
 
     public UserEntity(){}
 

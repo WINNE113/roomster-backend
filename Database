@@ -139,7 +139,9 @@ INSERT INTO `posts` VALUES (1,'Nhà Trọ Bình Yên','19 Văn Hiến, Xã Lũng
 INSERT INTO `post_entity_image_url_list` VALUES (2,'http://res.cloudinary.com/dqj1yqlkb/image/upload/v1700059519/846b693d-9a97-474e-adcb-7ec1bf11cc39.jpg'),(4,'http://res.cloudinary.com/dqj1yqlkb/image/upload/v1700061475/4d32c962-83f0-4fa2-b588-468fa30eff18.png')
 
 
-
+select * from wishlist_items as wi
+inner join wishlists as w on w.wishlist_id = wi.wishlist_id
+inner join posts as p on wi.post_id = p.id where w.user_id = 2
 
 
 
