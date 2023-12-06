@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import com.roomster.roomsterbackend.entity.Tenant;
 import com.roomster.roomsterbackend.service.IService.ITenantService;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_MANAGE')")
 @CrossOrigin("*")
 @RequestMapping("/room-master/tenant")
 public class TenantController {

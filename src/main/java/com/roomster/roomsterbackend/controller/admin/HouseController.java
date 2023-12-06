@@ -3,12 +3,14 @@ package com.roomster.roomsterbackend.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.roomster.roomsterbackend.entity.House;
 import com.roomster.roomsterbackend.service.IService.IHouseService;
 
 @RestController
+@PreAuthorize("hasRole('ROLE_MANAGE')")
 @CrossOrigin("*")
 @RequestMapping("/room-master/house")
 public class HouseController {
