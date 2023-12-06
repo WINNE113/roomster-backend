@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix get wishlist">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="HOST-Merge code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/guest/GuestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/user/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,38 +75,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;thanglh&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_CapstoneProject/LPTeam/roomster-backend/roomster-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Rebasing thanglh",
+    "last_opened_file_path": "D:/WorkSpace/_CapstoneProject/LPTeam/roomster-backend/roomster-backend/src/main/java/com/roomster/roomsterbackend/repository",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Problems",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ],
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;
+    "DatabaseDriversLRU": [
+      "mysql"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -109,6 +114,13 @@
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.roomster.roomsterbackend.entity" />
       <recent name="com.roomster.roomsterbackend.dto" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\user" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.roomster.roomsterbackend.controller.management" />
@@ -220,6 +232,7 @@
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -301,6 +314,7 @@
       <workItem from="1701713701713" duration="61000" />
       <workItem from="1701753379748" duration="1309000" />
       <workItem from="1701790607916" duration="564000" />
+      <workItem from="1701841520663" duration="2878000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -622,7 +636,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701791115418</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="HOST-Merge code">
+      <option name="closed" value="true" />
+      <created>1701843440528</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1701843440528</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,7 +699,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add logout and token entity" />
     <MESSAGE value="add filter and fix update profile" />
     <MESSAGE value="fix filter" />
     <MESSAGE value="Just - commit" />
@@ -702,7 +723,8 @@
     <MESSAGE value="Up role to manage" />
     <MESSAGE value="add pageable to get wishlist" />
     <MESSAGE value="Fix get wishlist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix get wishlist" />
+    <MESSAGE value="HOST-Merge code" />
+    <option name="LAST_COMMIT_MESSAGE" value="HOST-Merge code" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
