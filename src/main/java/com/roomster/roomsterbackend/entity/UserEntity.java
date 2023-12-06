@@ -62,7 +62,6 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JsonManagedReference
     private List<WishlistEntity> wishlists;
 
-
     public UserEntity(){}
 
     public List<PostEntity> getPosts() {

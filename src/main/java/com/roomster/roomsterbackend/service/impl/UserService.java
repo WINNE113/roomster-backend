@@ -121,7 +121,7 @@ public class UserService implements IUserService {
                 var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
                 RoleEntity role = roleRepository.findByName("ROLE_MANAGE");
                 if(role != null) {
-                   // user.setRoles(Set.of(role));
+                    // user.setRoles(Set.of(role));
                     user.getRoles().add(role);
                     userRepository.save(user);
                     return new ResponseEntity<>(BaseResponse.success("Up to role is manage is successfully!"), HttpStatus.OK);

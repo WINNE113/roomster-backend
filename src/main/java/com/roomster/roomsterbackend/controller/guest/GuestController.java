@@ -38,13 +38,15 @@ public class GuestController {
     private final ProvinceService provinceService;
 
     private final IReportService reportService;
+
     @GetMapping(value = "/list-post-by-rating")
-    public List<PostDtoWithRating> ListPostByRating(@RequestParam( name = "page", required = false, defaultValue = "0") Integer page,
-                                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+    public List<PostDtoWithRating> ListPostByRating(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                    @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
         return postService.getPostByRating(pageable);
     }
+
     @PostMapping(value = "/post/filters", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public SearchResult searchPost(@RequestPart(required = false) String json,
                                    @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
@@ -53,16 +55,16 @@ public class GuestController {
         Pageable pageable = PageRequest.of(page, size);
         ObjectMapper objectMapper = new ObjectMapper();
         LinkedHashMap<String, Object> map = new LinkedHashMap<>();
-        if(json != null) {
+        if (json != null) {
             try {
                 map = objectMapper.readValue(json, LinkedHashMap.class);
 
-                for (var item: map.entrySet()
-                     ) {
-                    if(item.getKey().equals("author_id")){
-                        if(connectedUser != null) {
-                           var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-                            map.replace("author_id",user.getId());
+                for (var item : map.entrySet()
+                ) {
+                    if (item.getKey().equals("author_id")) {
+                        if (connectedUser != null) {
+                            var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+                            map.replace("author_id", user.getId());
                         }
                     }
                 }
@@ -75,8 +77,8 @@ public class GuestController {
     }
 
     @GetMapping(value = "/post/top-province")
-    public List<ProvinceDtoWithImage> getTopOfProvince(@RequestParam(name = "page" , required = false, defaultValue = "5") Integer page,
-                                                       @RequestParam(name = "size" , required = false, defaultValue = "5") Integer size){
+    public List<ProvinceDtoWithImage> getTopOfProvince(@RequestParam(name = "page", required = false, defaultValue = "5") Integer page,
+                                                       @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         List<ProvinceDto> topOfProvince = postService.getTopOfProvince(pageable);
 
@@ -84,25 +86,25 @@ public class GuestController {
     }
 
     @GetMapping(value = "/postDetail")
-    public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId){
+    public ResponseEntity<PostDetailDtoWithImage> getPostDetail(@RequestParam Long postId) {
         PostDetailDtoWithImage postDetailDtoWithImage = new PostDetailDtoWithImage();
         try {
             postDetailDtoWithImage.setImages(postService.getPostImages(postId));
             postDetailDtoWithImage.setPostDetail(postService.getPostDetail(postId));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             ResponseEntity.badRequest();
         }
         return ResponseEntity.ok(postDetailDtoWithImage);
     }
 
     @PostMapping(value = "/report/add")
-    public BaseResponse addReport(@RequestBody ReportDto reportDto){
-        try{
+    public BaseResponse addReport(@RequestBody ReportDto reportDto) {
+        try {
             ReportDto report = reportService.addReport(reportDto);
-            if(report != null){
+            if (report != null) {
                 return BaseResponse.success("Cảm ơn bạn đã đóng góp ý kiến");
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return BaseResponse.error("Ex: " + ex);
         }
         return BaseResponse.error("Xin lỗi! Ý kiến của bạn không được chấp nhận");
@@ -110,9 +112,7 @@ public class GuestController {
 
     @Hidden
     @GetMapping(value = "/post/images")
-    public List<PostImageDto> getPostImage(@RequestParam Long postId){
+    public List<PostImageDto> getPostImage(@RequestParam Long postId) {
         return postService.getPostImages(postId);
     }
-
-
 }
