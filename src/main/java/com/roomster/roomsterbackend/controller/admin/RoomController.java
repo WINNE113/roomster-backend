@@ -23,6 +23,16 @@ public class RoomController {
         return roomService.findById(id);
     }
 
+    @GetMapping("/status")
+    public ResponseEntity<?> getRoomStatus(){
+        return roomService.getStatusRoom();
+    }
+
+    @GetMapping("/statusPayment")
+    public ResponseEntity<?> getRoomStatusPayment(){
+        return roomService.getStatusPayment();
+    }
+
     @PostMapping()
     public ResponseEntity<?> addRoom(@RequestBody InforRoomEntity room){
         return roomService.save(room);

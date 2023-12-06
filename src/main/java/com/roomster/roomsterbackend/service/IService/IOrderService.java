@@ -11,11 +11,13 @@ public interface IOrderService {
 
 	ResponseEntity<?> getOrderById(String id);
 
-	ResponseEntity<?> createOrder(Order order);
-
-	ResponseEntity<?> updateOrder(String id, Order order);
-
 	ResponseEntity<?> deleteOrder(String id);
 
 	ResponseEntity<?> updateOrderWaterElectric(OrderDTO order);
+
+	ResponseEntity<?> getTotalPaymentByMonth();
+	
+	ResponseEntity<?> checkUpdateOrAddFromMonth(String id, Order order);
+	
+	ResponseEntity<?> sendMailPayment(String roomId);
 }

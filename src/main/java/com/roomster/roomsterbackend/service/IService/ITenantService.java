@@ -4,6 +4,8 @@ import org.springframework.http.ResponseEntity;
 
 import com.roomster.roomsterbackend.entity.Tenant;
 
+import java.util.List;
+
 public interface ITenantService {
 
 	
@@ -17,5 +19,7 @@ public interface ITenantService {
 
 	ResponseEntity<?> updateTenant(String id, Tenant tenant);
 
-	ResponseEntity<?> deleteTenant(String id);
+	ResponseEntity<?> deleteTenant(List<String> tenantIds);
+
+	ResponseEntity<?> moveTenant(String id, List<String> tenantIds);
 }

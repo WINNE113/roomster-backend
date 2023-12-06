@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.roomster.roomsterbackend.entity.Tenant;
 import com.roomster.roomsterbackend.service.IService.ITenantService;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/room-master/tenant")
 public class TenantController {
 
+	
+	
 	@Autowired
     private ITenantService tenantService;
 
@@ -37,19 +41,20 @@ public class TenantController {
     public ResponseEntity<?> getTenantsByHouseId(@PathVariable String id) {
         return tenantService.getTenantByRoomId(id);
     }
-
     @PostMapping
     public ResponseEntity<?> createTenant(@RequestBody Tenant tenant) {
         return tenantService.createTenant(tenant);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody Tenant tenant) {
         return tenantService.updateTenant(id, tenant);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTenant(@PathVariable String id) {
-        return tenantService.deleteTenant(id);
+    @PutMapping("/move/{id}")
+    public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody List<String> tenantIds) {
+        return tenantService.moveTenant(id, tenantIds);
+    }
+    @DeleteMapping()
+    public ResponseEntity<?> deleteTenant(@RequestBody List<String> tenantIds) {
+        return tenantService.deleteTenant(tenantIds);
     }
 }
