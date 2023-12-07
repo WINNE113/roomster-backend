@@ -24,4 +24,11 @@ public class MessageUtil {
     public static final String MSG_TENANT_EXISTS = "Thông tin khách ở đã tồn tại !";
     public static final String MSG_SERVICE_EXISTS = "Thông tin dịch vụ đã tồn tại !";
     public static final String MSG_ROOM_IS_FULL = "Phòng này đã đủ người !";
+    public static final String MSG_PHONE_NUMBER_IS_EXITED = "Số điện thoại đã tồn tại. Vui lòng nhập số điện thoại mới";
+    public static final String MSG_PHONE_NUMBER_NOT_FOUND = "Số điện thoại không đúng. Vui lòng nhập số điện thoại mới";
+    public static final String MSG_PHONE_NUMBER_CONFIRM_NOT_VALID = "Số điện thoại xác thực không đúng. Vui lòng nhập số điện thoại mới";
+    public static final String MSG_OTP_DELIVERED = "Mã xác nhận đã được gửi đến số điện thoại của bạn. Vui lòng nhập mã vào bên dưới để tiếp tục";
+    public static final String MSG_OTP_FAILED = "Rất tiếc! Không thể gửi mã xác nhận. Vui lòng thử lại để tiếp tục";
+    public static final String MSG_USER_BY_TOKEN_NOT_FOUND = "Không thể tìm thấy người dùng với token !";
+    public static final String MSG_UP_ROLE_MANAGE_SUCCESS = "Xác thực số điện thoại thành công !";
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
@@ -66,12 +67,17 @@ public class UserController {
     }
 
     @PostMapping("/sendOTP")
-    public ResponseDto sendOTP(@RequestBody OtpRequestDto requestDto){
-        return twilioOTPService.sendSMS(requestDto);
+    public ResponseEntity<?> sendOTP(@RequestBody OtpRequestDto requestDto){
+        return userService.sendOTP(requestDto);
     }
 
     @PostMapping("/up-to-role-manage")
     public ResponseEntity<?> upRoleUserToManage(@RequestBody OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser) {
         return userService.upRoleToManage(otpValidationRequestDto, connectedUser);
+    }
+
+    @PostMapping(value = "/update-phonenumber")
+    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request){
+        return userService.changePhoneNumber(request);
     }
 }

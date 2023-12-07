@@ -2,7 +2,10 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
+import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
@@ -13,6 +16,7 @@ import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
+import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -123,8 +127,9 @@ public class UserService implements IUserService {
                 if(role != null) {
                     // user.setRoles(Set.of(role));
                     user.getRoles().add(role);
+                    user.setPhoneNumberConfirmed(true);
                     userRepository.save(user);
-                    return new ResponseEntity<>(BaseResponse.success("Up to role is manage is successfully!"), HttpStatus.OK);
+                    return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UP_ROLE_MANAGE_SUCCESS), HttpStatus.OK);
                 }
                 return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROLE_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
@@ -135,6 +140,45 @@ public class UserService implements IUserService {
         }
 
         return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity<?> sendOTP(OtpRequestDto requestDto) {
+        ResponseEntity<?> response = null;
+        try {
+            ResponseDto result = twilioOTPService.sendSMS(requestDto);
+            response = new ResponseEntity<>(result,HttpStatus.OK);
+
+        }catch (Exception ex){
+             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request) {
+        ResponseEntity<?> response = null;
+        try {
+            String normalizePhoneNumber = PhoneNumberValidator.normalizePhoneNumber(request.getOldPhoneNumber());
+            Optional<UserEntity> user = userRepository.findByPhoneNumber(normalizePhoneNumber);
+            if(user.isPresent()){
+                if(request.getNewPhoneNumber().equals(request.getConfirmPhoneNumber())){
+                    user.get().setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
+                    user.get().setPhoneNumberConfirmed(false);
+                    userRepository.save(user.get());
+                    response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                }else {
+                    response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_CONFIRM_NOT_VALID), HttpStatus.NOT_FOUND);
+                }
+
+            }else {
+                response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_NOT_FOUND), HttpStatus.NOT_FOUND);
+            }
+
+        }catch (Exception ex){
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException {

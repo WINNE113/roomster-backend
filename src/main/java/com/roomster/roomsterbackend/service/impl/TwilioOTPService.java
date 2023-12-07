@@ -5,6 +5,7 @@ import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.common.Status;
+import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class TwilioOTPService {
             PhoneNumber to = new PhoneNumber(otpRequest.getPhoneNumber());//to
             PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber()); // from
             String otp = generateOTP();
-            String otpMessage = "Dear Customer , Your OTP is  " + otp + " for sending sms through Spring boot application. Thank You.";
+            String otpMessage = "Dear Customer , Your OTP is  " + otp + " for sending. Thank You.";
             Message message = Message.creator(to, from, otpMessage).create();
             otpMap.put(otpRequest.getUserName(), otp);
-            otpResponseDto = new ResponseDto(Status.DELIVERED, otpMessage);
+            otpResponseDto = new ResponseDto(Status.DELIVERED, MessageUtil.MSG_OTP_DELIVERED);
         } catch (Exception e) {
-            otpResponseDto = new ResponseDto(Status.FAILED, e.getMessage());
+            otpResponseDto = new ResponseDto(Status.FAILED, MessageUtil.MSG_OTP_FAILED);
         }
         return otpResponseDto;
     }
