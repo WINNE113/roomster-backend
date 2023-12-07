@@ -1,8 +1,11 @@
 package com.roomster.roomsterbackend.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import com.roomster.roomsterbackend.entity.Order;
+import com.roomster.roomsterbackend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +35,9 @@ public class ServiceServiceImpl implements IServiceService {
 	
 	@Autowired
 	RoomServiceRepository roomServiceRepository;
+
+	@Autowired
+	OrderRepository orderRepository;
 
 	@Override
 	public ResponseEntity<?> findAll() {
@@ -66,12 +72,23 @@ public class ServiceServiceImpl implements IServiceService {
 		return responseEntity;
 	}
 
+	private boolean isValidService(ServiceHouse service) {
+		Long count = serviceRepository.countByNameAndDifferentId(service.getServiceName(), service.getServiceId());
+		return count == 0;
+	}
+
+
 	@Override
 	public ResponseEntity<?> createServiceHouse(ServiceHouse serviceHouse) {
 		ResponseEntity<?> responseEntity;
 		try {
-			serviceHouse = serviceRepository.save(serviceHouse);
-			responseEntity = new ResponseEntity<>(serviceHouse, HttpStatus.OK);
+			if(isValidService(serviceHouse)){
+				serviceRepository.save(serviceHouse);
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_ADD_SUCCESS), HttpStatus.OK);
+			}
+			else{
+				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_EXISTS), HttpStatus.BAD_REQUEST);
+			}
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -86,16 +103,21 @@ public class ServiceServiceImpl implements IServiceService {
 				Long idL = Long.parseLong(id);
 				Optional<ServiceHouse> existingHouseOptional = serviceRepository.findById(idL);
 				if (existingHouseOptional.isPresent()) {
-					ServiceHouse existingServiceHouse = existingHouseOptional.get();
-					existingServiceHouse.setServiceName(serviceHouse.getServiceName());
-					existingServiceHouse.setServicePrice(serviceHouse.getServicePrice());
-					existingServiceHouse = serviceRepository.save(existingServiceHouse);
-					responseEntity = new ResponseEntity<>(existingServiceHouse, HttpStatus.OK);
+					if(isValidService(serviceHouse)){
+						ServiceHouse existingServiceHouse = existingHouseOptional.get();
+						existingServiceHouse.setServiceName(serviceHouse.getServiceName());
+						existingServiceHouse.setServicePrice(serviceHouse.getServicePrice());
+						serviceRepository.save(existingServiceHouse);
+						responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+					}
+					else{
+						responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_EXISTS), HttpStatus.BAD_REQUEST);
+					}
 				} else {
-					responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+					responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND), HttpStatus.BAD_REQUEST);
 				}
 			} else {
-				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
 			}
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -104,20 +126,22 @@ public class ServiceServiceImpl implements IServiceService {
 	}
 
 	@Override
-	public ResponseEntity<?> deleteServiceHouse(String id) {
+	public ResponseEntity<?> deleteServiceHouse(List<String> listServices) {
 		ResponseEntity<?> responseEntity;
 		try {
-			if (ValidatorUtils.isNumber(id)) {
-				Long idL = Long.parseLong(id);
-				Optional<ServiceHouse> serviceHouse = this.serviceRepository.findById(idL);
-				if (serviceHouse.isPresent()) {
-					serviceRepository.deleteById(idL);
-					responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
-				} else {
-					responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+			if (listServices.size() > 0) {
+				for (String serviceId : listServices) {
+					Long serviceRoomId = Long.parseLong(serviceId);
+					if (serviceRepository.existsById(serviceRoomId)) {
+						serviceRepository.deleteById(serviceRoomId);
+					}
+					else {
+						return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+					}
 				}
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
 			} else {
-				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
 			}
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -129,31 +153,37 @@ public class ServiceServiceImpl implements IServiceService {
 	@Override
 	public ResponseEntity<?> updateServiceHouseByRoomId(String id, List<String> listServiceIds) {
 		ResponseEntity<?> responseEntity;
-		
 		try {
 			Optional<InforRoomEntity> room = roomRepository.findById(Long.parseLong(id));
-			InforRoomEntity roomService = room.get();
-			if(roomService != null) {
+			BigDecimal priceService = BigDecimal.ZERO;
+			if(room.isPresent()) {
+				InforRoomEntity roomService = room.get();
 				for (RoomService service : roomService.getServices()) {
 					roomServiceRepository.deleteById(service.getRoomService());
-					
 				}
-				
 				for (String serviceId : listServiceIds) {
-					Long serviceRoomId = Long.parseLong(id);
+					Long serviceRoomId = Long.parseLong(serviceId);
 					if(serviceRepository.existsById(serviceRoomId)){
 						RoomService roomServiceUpdate = new RoomService();
 						roomServiceUpdate.setRoomId(Long.parseLong(id));
 						roomServiceUpdate.setServiceId(Long.parseLong(serviceId));
 						roomServiceRepository.save(roomServiceUpdate);
-						
 					}
 					else {
 						return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
-						
 					}
 				}
-				responseEntity = new ResponseEntity<>(HttpStatus.OK);
+				// update service price in order
+				Optional<Order> orderOptional =	orderRepository.findOrderForRoomInCurrentMonth(roomService.getId());
+				if(orderOptional.isPresent()) {
+					Order order = orderOptional.get();
+					for (RoomService roomServicePrice : roomService.getServices()) {
+						priceService = priceService.add(roomServicePrice.getServiceHouse().getServicePrice());
+					}
+					order.setService(priceService);
+					orderRepository.save(order);
+				}
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
 			}
 			else {
 				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);

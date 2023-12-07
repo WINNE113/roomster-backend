@@ -12,7 +12,7 @@ import lombok.Data;
 public class OrderPaymentDto extends Order {
 	
   private BigDecimal priceService; 
-  
-  private List<ServiceHouse> serviceHouses;	
+  private BigDecimal priceRoom;
+  private List<ServiceHouse> serviceHouses;
   
 }

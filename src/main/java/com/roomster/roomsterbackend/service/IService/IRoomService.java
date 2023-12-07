@@ -3,8 +3,6 @@ package com.roomster.roomsterbackend.service.IService;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
-
 public interface IRoomService {
     ResponseEntity<?> findAll();
     ResponseEntity<?> save(InforRoomEntity room);
@@ -16,4 +14,8 @@ public interface IRoomService {
     ResponseEntity<?> delete(String id);
     
     ResponseEntity<?>  findServicesByRoomId(String id);
+
+    ResponseEntity<?> getStatusRoom();
+
+    ResponseEntity<?> getStatusPayment();
 }

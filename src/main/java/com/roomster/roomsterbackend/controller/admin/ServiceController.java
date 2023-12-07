@@ -48,17 +48,13 @@ public class ServiceController {
         return serviceHouse.updateServiceHouse(id, ServiceHouse);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteServiceHouse(@PathVariable String id) {
-        return serviceHouse.deleteServiceHouse(id);
+    @DeleteMapping
+    public ResponseEntity<?> deleteServiceHouse(@RequestBody List<String> listServices) {
+        return serviceHouse.deleteServiceHouse(listServices);
     }
     
     @PutMapping("/room-service/{id}")
-    public ResponseEntity<?> updateRoomServiceHouseByRoomId(@PathVariable String id, @RequestBody List<String> listServiceids) {
-        System.out.println("HERE WE GO");
-        System.out.println("ID: " + id);
-        System.out.println("List Service IDs: " + listServiceids);
-
-        return serviceHouse.updateServiceHouseByRoomId(id, listServiceids);    
+    public ResponseEntity<?> updateRoomServiceHouseByRoomId(@PathVariable String id, @RequestBody List<String> listServices) {
+        return serviceHouse.updateServiceHouseByRoomId(id, listServices);
     }
 }

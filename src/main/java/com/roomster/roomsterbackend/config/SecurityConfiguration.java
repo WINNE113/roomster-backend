@@ -37,6 +37,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(
                                 "/api/v1/auth/**",
+                                "/room-master/**",
+                                "/common/**",
                                 "/swagger-ui/**",
                                 "/api/v1/auth/**",
                                 "/room-master/**",
@@ -50,12 +52,11 @@ public class SecurityConfiguration {
                                 "/swagger-ui.html",
                                 "/api/v1/guest/**",
                                 "/api/v1/comment/list/**",
-                                "/api/v1/rating/list/**",
-                                "/room-master/**"
-                                )
-                            .permitAll()
-                            .anyRequest()
-                            .authenticated()
+                                "/api/v1/rating/list/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .sessionManagement((sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
                 .authenticationProvider(authenticationProvider)

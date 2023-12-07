@@ -74,5 +74,4 @@ public class UserController {
     public ResponseEntity<?> upRoleUserToManage(@RequestBody OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser) {
         return userService.upRoleToManage(otpValidationRequestDto, connectedUser);
     }
-
 }
