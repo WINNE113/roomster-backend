@@ -3,10 +3,7 @@ package com.roomster.roomsterbackend.service.impl;
 import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ResponseDto;
-import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
-import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
-import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
-import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.RoleEntity;
@@ -15,6 +12,7 @@ import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IUserService;
+import com.roomster.roomsterbackend.util.handler.TokenHandler;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
@@ -46,15 +44,20 @@ public class UserService implements IUserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    private final JwtService jwtService;
+
+    @Autowired
+    private TokenHandler tokenHandler;
     //
     private UserMapper userMapper;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private final Cloudinary cloudinary;
 
-
     @Autowired
-    public UserService(@Lazy UserMapper userMapper, Cloudinary cloudinary) {
+    public UserService(JwtService jwtService, @Lazy UserMapper userMapper, Cloudinary cloudinary) {
+        this.jwtService = jwtService;
         this.userMapper = userMapper;
         this.cloudinary = cloudinary;
     }
@@ -129,7 +132,17 @@ public class UserService implements IUserService {
                     user.getRoles().add(role);
                     user.setPhoneNumberConfirmed(true);
                     userRepository.save(user);
-                    return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UP_ROLE_MANAGE_SUCCESS), HttpStatus.OK);
+                    // get new token
+                    var jwtToken = jwtService.generateToken(user);
+
+                    tokenHandler.revokeAllUserTokens(user);
+                    tokenHandler.saveUserToken(Optional.of(user), jwtToken);
+
+                    AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
+                            .token(jwtToken)
+                            .message("Get token successfully!")
+                            .build();
+                    return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
                 }
                 return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROLE_NOT_FOUND), HttpStatus.NOT_FOUND);
             }

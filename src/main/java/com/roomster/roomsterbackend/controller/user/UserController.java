@@ -9,6 +9,7 @@ import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import jakarta.validation.Valid;
@@ -31,6 +32,7 @@ import java.security.Principal;
 public class UserController {
     private final IUserService userService;
     private final TwilioOTPService twilioOTPService;
+    private final IAuthenticationService authenticationService;
 
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
