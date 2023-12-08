@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import jakarta.validation.Valid;
@@ -30,6 +32,7 @@ import java.security.Principal;
 public class UserController {
     private final IUserService userService;
     private final TwilioOTPService twilioOTPService;
+    private final IAuthenticationService authenticationService;
 
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
@@ -66,12 +69,17 @@ public class UserController {
     }
 
     @PostMapping("/sendOTP")
-    public ResponseDto sendOTP(@RequestBody OtpRequestDto requestDto){
-        return twilioOTPService.sendSMS(requestDto);
+    public ResponseEntity<?> sendOTP(@RequestBody OtpRequestDto requestDto){
+        return userService.sendOTP(requestDto);
     }
 
     @PostMapping("/up-to-role-manage")
     public ResponseEntity<?> upRoleUserToManage(@RequestBody OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser) {
         return userService.upRoleToManage(otpValidationRequestDto, connectedUser);
+    }
+
+    @PostMapping(value = "/update-phonenumber")
+    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request){
+        return userService.changePhoneNumber(request);
     }
 }

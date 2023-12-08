@@ -2,6 +2,8 @@ package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
+import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
@@ -17,6 +19,7 @@ public interface IUserService {
     Optional<UserEntity> findByEmail(String email);
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
+
     UserDto viewProfile(Principal connectedUser);
 
     BaseResponse updateProfile(UpdateProfileRequest profileRequest, MultipartFile images, Principal connectedUser) throws IOException;
@@ -28,4 +31,8 @@ public interface IUserService {
     void deleteUserById(Long userId);
 
     ResponseEntity<?> upRoleToManage(OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser);
+
+    ResponseEntity<?> sendOTP(OtpRequestDto requestDto);
+
+    ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request);
 }
