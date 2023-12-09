@@ -31,7 +31,7 @@ spring:
 
     mail:
         host: smtp.gmail.com
-        port: 5872
+        port: 587
         username: zxque9681@gmail.com
         password: kpdg oisb uldk hwpj
         properties:
@@ -41,7 +41,9 @@ spring:
                     starttls:
                         enable: true
 
+
 twilio:
     account_sid: ACc2a522ebd3172b9f66ac39c838814f51
     auth_token: b32ec809812a18c11b411bb2b9702a5e
     trial_number: +12314004777
+

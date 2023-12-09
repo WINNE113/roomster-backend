@@ -24,6 +24,10 @@ public class TokenHandler {
         tokenRepository.save(token);
     }
 
+    /*
+    * get all token of user
+    * If user have any token -> set token is expired
+    * */
     public void revokeAllUserTokens(UserEntity user){
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
         if(validUserTokens.isEmpty())

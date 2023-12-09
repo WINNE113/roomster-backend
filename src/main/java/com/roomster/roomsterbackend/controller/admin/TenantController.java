@@ -23,7 +23,6 @@ import java.util.List;
 @RequestMapping("/room-master/tenant")
 public class TenantController {
 
-	
 	@Autowired
     private ITenantService tenantService;
 

@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="fix">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="da764fa0-4c17-4f31-a42e-50e31d5db4b8" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="MarkdownSettingsMigration">
-    <option name="stateVersion" value="1" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -26,10 +26,9 @@
     </option>
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="2YqvjfRDUT5RUKTvWEDJQOcW9h6" />
+  <component name="ProjectId" id="2YzVwkwZEUyb6HOJcatfcYjpbO0" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -44,23 +43,25 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "tanlt",
-    "last_opened_file_path": "E:/Final_Project/roomster-backend",
+    "last_opened_file_path": "E:/Final_Project/room-master-final/room-master/roomster-backend-thanglh",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
+      "redshift",
       "mysql"
     ]
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Final_Project\room-master-final\room-master\roomster-backend-thanglh\src\main" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -74,90 +75,30 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="576d869e-40ff-4d4d-88e1-24b40f466f8c" name="Changes" comment="" />
-      <created>1701266068715</created>
+      <changelist id="da764fa0-4c17-4f31-a42e-50e31d5db4b8" name="Changes" comment="" />
+      <created>1701528640558</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1701266068715</updated>
-      <workItem from="1701266071754" duration="1016000" />
-      <workItem from="1701270314201" duration="3423000" />
-      <workItem from="1701273775491" duration="1851000" />
-      <workItem from="1701275819796" duration="1735000" />
-      <workItem from="1701325880062" duration="893000" />
-      <workItem from="1701338738072" duration="7955000" />
-      <workItem from="1701361750175" duration="5403000" />
-      <workItem from="1701419689900" duration="2493000" />
-      <workItem from="1701527141077" duration="830000" />
-      <workItem from="1701531251008" duration="2516000" />
-      <workItem from="1701593325630" duration="2220000" />
-      <workItem from="1701625223048" duration="52000" />
-      <workItem from="1701802302867" duration="2586000" />
-      <workItem from="1701846833218" duration="2051000" />
-      <workItem from="1701873340340" duration="706000" />
-      <workItem from="1701877365433" duration="2557000" />
-      <workItem from="1701937332371" duration="1497000" />
+      <updated>1701528640558</updated>
+      <workItem from="1701528642142" duration="2588000" />
+      <workItem from="1701625280671" duration="1475000" />
+      <workItem from="1701666230985" duration="2241000" />
+      <workItem from="1701671230393" duration="8792000" />
+      <workItem from="1701696115503" duration="11172000" />
+      <workItem from="1701755431584" duration="7578000" />
+      <workItem from="1701776479327" duration="1433000" />
+      <workItem from="1701786140869" duration="11154000" />
+      <workItem from="1701874052451" duration="2487000" />
+      <workItem from="1701883722689" duration="3000000" />
+      <workItem from="1701935441825" duration="1095000" />
+      <workItem from="1701956983034" duration="6273000" />
+      <workItem from="1702019419217" duration="3962000" />
+      <workItem from="1702038073742" duration="102000" />
+      <workItem from="1702148922539" duration="291000" />
     </task>
-    <task id="LOCAL-00001" summary="add room management">
-      <option name="closed" value="true" />
-      <created>1701352747183</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1701352747183</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix password database">
-      <option name="closed" value="true" />
-      <created>1701802511742</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1701802511742</updated>
-    </task>
-    <task id="LOCAL-00003" summary="fix">
-      <option name="closed" value="true" />
-      <created>1701802607942</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1701802607942</updated>
-    </task>
-    <task id="LOCAL-00004" summary="fix">
-      <option name="closed" value="true" />
-      <created>1701802657769</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1701802657769</updated>
-    </task>
-    <task id="LOCAL-00005" summary="fix">
-      <option name="closed" value="true" />
-      <created>1701873954965</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1701873954965</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="add room management" />
-    <MESSAGE value="fix password database" />
-    <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
   </component>
 </project>

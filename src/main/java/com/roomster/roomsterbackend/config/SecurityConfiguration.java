@@ -37,11 +37,8 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(
                                 "/api/v1/auth/**",
-                                "/room-master/**",
-                                "/common/**",
                                 "/swagger-ui/**",
                                 "/api/v1/auth/**",
-                                "/room-master/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -52,7 +49,9 @@ public class SecurityConfiguration {
                                 "/swagger-ui.html",
                                 "/api/v1/guest/**",
                                 "/api/v1/comment/list/**",
-                                "/api/v1/rating/list/**"
+                                "/api/v1/rating/list/**",
+                                "/room-master/**",
+                                "/common/**"
                         )
                         .permitAll()
                         .anyRequest()

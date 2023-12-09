@@ -163,7 +163,7 @@ public class UserService implements IUserService {
             response = new ResponseEntity<>(result,HttpStatus.OK);
 
         }catch (Exception ex){
-             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;
     }

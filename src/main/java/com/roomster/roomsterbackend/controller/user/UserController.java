@@ -2,7 +2,6 @@ package com.roomster.roomsterbackend.controller.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
@@ -48,7 +47,7 @@ public class UserController {
     }
     @PatchMapping("/update-password")
     public BaseResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser){
-       return userService.changePassword(changePasswordRequest, connectedUser);
+        return userService.changePassword(changePasswordRequest, connectedUser);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

@@ -53,7 +53,7 @@ public class HouseServiceImpl implements IHouseService {
 				house.getRooms().sort(Comparator.comparing(InforRoomEntity::getNumberRoom));
 				house.setRooms(house.getRooms().stream().filter(room -> room.getPrice().compareTo(BigDecimal.valueOf(priceL)) >= 0
 						&& room.getAcreage() >= acreageD
-						&& room.getStayMax() >= stayMaxI
+						&& room.getStayMax() == stayMaxI
 						&& (status == null || room.getEmptyRoom() == statusL)).toList());
 			}
 			responseEntity = new ResponseEntity<>(inforHouseEntityList, HttpStatus.OK);

@@ -41,6 +41,7 @@ public class InforRoomEntity{
     private Long houseId;
 
     @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(mappedBy = "roomId")
     private PostEntity post;
 

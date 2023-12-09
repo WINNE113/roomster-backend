@@ -10,7 +10,6 @@ import com.roomster.roomsterbackend.entity.Order;
 import com.roomster.roomsterbackend.service.IService.IOrderService;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_MANAGE')")
 @CrossOrigin("*")
 @RequestMapping("/room-master/order")
 public class OrderController {

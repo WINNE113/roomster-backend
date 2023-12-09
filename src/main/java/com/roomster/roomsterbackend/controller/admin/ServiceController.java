@@ -20,7 +20,6 @@ import com.roomster.roomsterbackend.service.IService.IServiceService;
 
 
 @RestController
-@PreAuthorize("hasRole('ROLE_MANAGE')")
 @CrossOrigin("*")
 @RequestMapping("/room-master/serviceHouse")
 public class ServiceController {
