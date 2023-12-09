@@ -17,8 +17,8 @@ import java.util.Optional;
 
 public interface IUserService {
     Optional<UserEntity> findByEmail(String email);
-    Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
+    Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
     UserDto viewProfile(Principal connectedUser);
 

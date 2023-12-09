@@ -289,13 +289,15 @@ public class OrderServiceImpl implements IOrderService {
 	public ResponseEntity<?> sendMailPayment(String roomId) {
 		ResponseEntity<?> responseEntity;
 		List<Order> listOrder = orderRepository.findAll();
+		LocalDate currentDate = LocalDate.now();
+		int currentMonth = currentDate.getMonth().getValue() - 1;
 		List<Order> listOrderResult = listOrder.stream()
 				.filter(o -> (o.getRoomId().toString().equals(roomId) && o.getStatusPayment().trim().equals("N")))
 				.toList();
 		for (Order order : listOrderResult) {
 			List<Tenant> listTenant = tenantRepository.findByRoomId(order.getRoomId());
 			for (Tenant tenant : listTenant) {
-				mailService.sendSimpleEmail("gduyanh69@gmail.com", "Subject", "Hello " + tenant.getName() + ",\n\nThis is a simple email body.");
+				mailService.sendSimpleEmail(tenant, "Hóa đơn thánh toán phòng trọ tháng : " + currentMonth , "" , tenant.getName() ,order);
 			}
 		}
 		return null;
