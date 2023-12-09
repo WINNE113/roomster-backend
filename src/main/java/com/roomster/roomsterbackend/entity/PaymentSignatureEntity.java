@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * Entity to store signature of merchant and payment transaction person
  * **/
