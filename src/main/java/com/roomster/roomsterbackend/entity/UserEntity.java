@@ -62,7 +62,27 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JsonManagedReference
     private List<WishlistEntity> wishlists;
 
+    @OneToMany(mappedBy = "userPayment")
+    @JsonManagedReference
+    private List<PaymentEntity> payments;
+
     public UserEntity(){}
+
+    public List<WishlistEntity> getWishlists() {
+        return wishlists;
+    }
+
+    public void setWishlists(List<WishlistEntity> wishlists) {
+        this.wishlists = wishlists;
+    }
+
+    public List<PaymentEntity> getPayments() {
+        return payments;
+    }
+
+    public void setPayments(List<PaymentEntity> payments) {
+        this.payments = payments;
+    }
 
     public List<PostEntity> getPosts() {
         return posts;
