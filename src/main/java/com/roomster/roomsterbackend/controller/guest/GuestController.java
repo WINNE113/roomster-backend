@@ -10,7 +10,7 @@ import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IReportService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
-import com.roomster.roomsterbackend.util.ConvertUtil;
+import com.roomster.roomsterbackend.util.extensions.ConvertStringToArrayExtension;
 import io.swagger.v3.oas.annotations.Hidden;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -68,7 +68,7 @@ public class GuestController {
                         }
                     }
                 }
-                ConvertUtil.convertStringToArray(map);
+                ConvertStringToArrayExtension.convertStringToArray(map);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }

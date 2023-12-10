@@ -51,7 +51,8 @@ public class SecurityConfiguration {
                                 "/api/v1/comment/list/**",
                                 "/api/v1/rating/list/**",
                                 "/room-master/**",
-                                "/common/**"
+                                "/common/**",
+                                "/api/v1/payment/**"
                         )
                         .permitAll()
                         .anyRequest()
