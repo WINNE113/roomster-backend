@@ -1,9 +1,12 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
+import com.roomster.roomsterbackend.common.ModelCommon;
+import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.*;
+import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.RoleEntity;
@@ -169,7 +172,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request) {
+    public ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request, Principal connectedUser) {
         ResponseEntity<?> response = null;
         try {
             String normalizePhoneNumber = PhoneNumberValidator.normalizePhoneNumber(request.getOldPhoneNumber());
@@ -177,10 +180,26 @@ public class UserService implements IUserService {
             if(user.isPresent()){
                 if(request.getNewPhoneNumber().equals(request.getConfirmPhoneNumber())){
                     if(!userRepository.existsByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()))){
+                        //TODO: MANAGE OR ADMIN CHANGE
+                        for (RoleEntity role: user.get().getRoles()
+                             ) {
+                            if(role.getName().equals(ModelCommon.MANAGEMENT) || role.getName().equals(ModelCommon.ADMIN)) {
+                                //TODO: Check OTP of New PhoneNumber
+                                OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUserName(),PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
+                                ResponseDto responseDto = twilioOTPService.sendSMS(otpRequest);
+                                if (responseDto.getStatus().equals(Status.DELIVERED)) {
+                                   return response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED), HttpStatus.OK);
+                                } else {
+                                   return response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_OTP_FAILED), HttpStatus.BAD_REQUEST);
+                                }
+                            }
+                        }
+                        //TODO: USER CHANGE
                         user.get().setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
                         user.get().setPhoneNumberConfirmed(false);
                         userRepository.save(user.get());
                         response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+
                     }else {
                         response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_IS_EXITED), HttpStatus.BAD_REQUEST);
                     }
@@ -193,6 +212,33 @@ public class UserService implements IUserService {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
 
+        }catch (Exception ex){
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    /**
+     * Pre: changePhoneNumber()
+     * Change phoneNumber with OTP
+     * **/
+    @Override
+    public ResponseEntity<?> changePhoneNumberWithOTP(ChangePhoneNumberWithOTP request, Principal connectedUser) {
+        ResponseEntity<?> response = null;
+        try {
+            var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+            if(user != null){
+                boolean isCorrectOTP = twilioOTPService.validateOtp(new OtpValidationRequestDto(user.getUserName(),request.getOTPNumber()));
+                if(isCorrectOTP) {
+                    user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
+                    userRepository.save(user);
+                    response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                }else {
+                    response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT), HttpStatus.BAD_REQUEST);
+                }
+            }else {
+                response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.BAD_REQUEST);
+            }
         }catch (Exception ex){
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
