@@ -8,11 +8,13 @@ public class MessageUtil {
     public static final String MSG_POST_NOT_FOUND = "Bài viết không tồn tại !";
     public static final String MSG_ROLE_NOT_FOUND = "Vai trò không tồn tại !";
     public static final String MSG_OTP_CODE_INCORRECT = "Rất tiếc! Mã OTP của bạn không chính xác.";
+    public static final String MSG_OTP_CODE_CORRECT = "Mã OTP của bạn chính xác.";
     public static final String MSG_WISHLIST_ITEM_EXITED = "Danh sách yêu thích đã tồn tại bài viết";
     public static final String MSG_CITY_NOT_FOUND = "Thành phố không tồn tại !";
     public static final String MSG_WARD_NOT_FOUND = "Phường không tồn tại !";
     public static final String MSG_DISTRICT_NOT_FOUND = "Quận không tồn tại !";
     public static final String MSG_ID_FORMAT_INVALID = "Mã sai định dạng !";
+    public static final String MSG_PHONE_NUMBER_FORMAT_INVALID = "Mã sai định dạng !";
     public static final String MSG_ADD_SUCCESS = "Thêm mới thành công !";
     public static final String MSG_UPDATE_SUCCESS = "Cập nhật thành công !";
     public static final String MSG_DELETE_SUCCESS = "Xóa thành công !";
@@ -31,10 +33,13 @@ public class MessageUtil {
     public static final String MSG_OTP_FAILED = "Rất tiếc! Không thể gửi mã xác nhận. Vui lòng thử lại để tiếp tục";
     public static final String MSG_USER_BY_TOKEN_NOT_FOUND = "Không thể tìm thấy người dùng với token !";
     public static final String MSG_UP_ROLE_MANAGE_SUCCESS = "Xác thực số điện thoại thành công !";
+    public static final String MSG_REGISTER_SUCCESS = "Đăng ký thành công !";
+    public static final String MSG_REGISTER_FAIL = "Đăng ký tài khoản không thành công !";
     public static final String MSG_OK = "OK";
     public static final String MSG_CANCEL = "Cancel";
 
     public static final String MSG_PROCESS_TRANSACTION_PAYMENT_FAIL = "Xin lỗi, giao dịch thanh toán của bạn không thành công.";
     public static final String MSG_PROCESS_TRANSACTION_PAYMENT_SUCCESS = "Cảm ơn bạn, giao dịch thanh toán thành công !";
     public static final String MSG_PAYMENT_NOT_FOUND = "Giao dịch thanh toán không tìm thấy.";
+    public static final String MSG_AUTHENTICATION_FAIL = "Đăng nhập không thành công. Vui lòng kiểm tra số điện thoại hoặc mật khẩu.";
 }
