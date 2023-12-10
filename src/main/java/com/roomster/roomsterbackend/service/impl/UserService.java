@@ -176,10 +176,15 @@ public class UserService implements IUserService {
             Optional<UserEntity> user = userRepository.findByPhoneNumber(normalizePhoneNumber);
             if(user.isPresent()){
                 if(request.getNewPhoneNumber().equals(request.getConfirmPhoneNumber())){
-                    user.get().setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
-                    user.get().setPhoneNumberConfirmed(false);
-                    userRepository.save(user.get());
-                    response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                    if(!userRepository.existsByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()))){
+                        user.get().setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
+                        user.get().setPhoneNumberConfirmed(false);
+                        userRepository.save(user.get());
+                        response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                    }else {
+                        response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_IS_EXITED), HttpStatus.BAD_REQUEST);
+                    }
+
                 }else {
                     response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_CONFIRM_NOT_VALID), HttpStatus.NOT_FOUND);
                 }
