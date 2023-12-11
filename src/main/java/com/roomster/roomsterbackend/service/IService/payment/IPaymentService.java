@@ -17,4 +17,5 @@ public interface IPaymentService {
     BaseResultWithData<VnpayPayIpnResponse> vnpayReturnIpn(VnpayPayResponse response);
 
     ResponseEntity<?> vnpayReturnView(ViewPaymentReturnDto response);
+    ResponseEntity<?> paymentHistory(Principal connectedUser);
 }
