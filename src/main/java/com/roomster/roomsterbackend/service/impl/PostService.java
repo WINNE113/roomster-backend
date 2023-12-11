@@ -158,7 +158,7 @@ public class PostService implements IPostService {
 
         //TODO: Set String convenient to String[]
         String convenient = postDetailDto.getConvenient();
-        String[] convenientArray = convenient.split(",");
+        String[] convenientArray =  convenient.split(",");
         postDetailDtoImp.setConvenient(convenientArray);
 
         postDetailDtoImp.setInforRoomId(postDetailDto.getInforRoomId());
