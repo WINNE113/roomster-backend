@@ -4,22 +4,15 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-@NoArgsConstructor
-@Getter
-@AllArgsConstructor
 @Entity
 @Table(name = "infor_rooms")
 public class InforRoomEntity{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -47,6 +40,8 @@ public class InforRoomEntity{
     @Column(name = "id_house" )
     private Long houseId;
 
+    @JsonManagedReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToOne(mappedBy = "roomId")
     private PostEntity post;
 
@@ -61,6 +56,11 @@ public class InforRoomEntity{
     private List<RoomService> services;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "room")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
     private List<Tenant> tenantList;
 }

@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix all">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="get token after up role">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/util/handler/TokenHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/util/handler/TokenHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -27,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="thanglh" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -79,8 +81,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "kienld",
-    "last_opened_file_path": "D:/Do_an/L&P/room-master-master/room-master-master/roomster-backend-thanglh",
+    "git-widget-placeholder": "Rebasing thanglh",
+    "last_opened_file_path": "D:/WorkSpace/Java_Full/Spring Boot/payment/payment",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -107,7 +109,15 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.roomster.roomsterbackend.entity" />
       <recent name="com.roomster.roomsterbackend.dto" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\user" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.roomster.roomsterbackend.controller.management" />
@@ -220,7 +230,6 @@
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
         <item itemvalue="Spring Boot.RoomsterBackendApplication" />
-        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -286,11 +295,31 @@
       <workItem from="1700371089838" duration="2388000" />
       <workItem from="1700394060201" duration="5518000" />
       <workItem from="1700554151751" duration="47000" />
-      <workItem from="1700737333040" duration="2913000" />
-      <workItem from="1701616426697" duration="8000" />
-      <workItem from="1701697879867" duration="599000" />
-      <workItem from="1701804162952" duration="643000" />
-      <workItem from="1701959012510" duration="646000" />
+      <workItem from="1700737333040" duration="4141000" />
+      <workItem from="1700751354017" duration="50000" />
+      <workItem from="1700837612719" duration="1429000" />
+      <workItem from="1700887702174" duration="2693000" />
+      <workItem from="1700936935580" duration="3680000" />
+      <workItem from="1700996061025" duration="6132000" />
+      <workItem from="1701410750332" duration="679000" />
+      <workItem from="1701449595551" duration="9891000" />
+      <workItem from="1701491773709" duration="1944000" />
+      <workItem from="1701513731868" duration="5588000" />
+      <workItem from="1701592949245" duration="3699000" />
+      <workItem from="1701625688287" duration="8921000" />
+      <workItem from="1701660194556" duration="18678000" />
+      <workItem from="1701713701713" duration="61000" />
+      <workItem from="1701753379748" duration="1309000" />
+      <workItem from="1701790607916" duration="564000" />
+      <workItem from="1701841520663" duration="9952000" />
+      <workItem from="1701885920147" duration="600000" />
+      <workItem from="1701886653453" duration="86000" />
+      <workItem from="1701937372753" duration="1047000" />
+      <workItem from="1701941045345" duration="9302000" />
+      <workItem from="1701958301713" duration="2590000" />
+      <workItem from="1701973836480" duration="48000" />
+      <workItem from="1702032255796" duration="3735000" />
+      <workItem from="1702046382078" duration="99000" />
     </task>
     <task id="LOCAL-00001" summary="add send OTP and validate OTP">
       <option name="closed" value="true" />
@@ -524,15 +553,143 @@
       <option name="project" value="LOCAL" />
       <updated>1700418047792</updated>
     </task>
-    <task id="LOCAL-00030" summary="Fix all">
+    <task id="LOCAL-00030" summary="Fix post detail">
       <option name="closed" value="true" />
-      <created>1701622803733</created>
+      <created>1700740412103</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1701622803733</updated>
+      <updated>1700740412103</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Fix post detail 2">
+      <option name="closed" value="true" />
+      <created>1700740750634</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1700740750634</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fix rating">
+      <option name="closed" value="true" />
+      <created>1700999842388</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1700999842388</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1701365921974</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1701365921974</updated>
+    </task>
+    <task id="LOCAL-00034" summary="add wishList">
+      <option name="closed" value="true" />
+      <created>1701667966457</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1701667966458</updated>
+    </task>
+    <task id="LOCAL-00035" summary="add relation mapper wishListItemEntity and postEntity">
+      <option name="closed" value="true" />
+      <created>1701681611256</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1701681611256</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Remove ImageEntity.java">
+      <option name="closed" value="true" />
+      <created>1701681862421</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1701681862421</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Fix get wishlistitem">
+      <option name="closed" value="true" />
+      <created>1701699869722</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1701699869722</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Up role to manage">
+      <option name="closed" value="true" />
+      <created>1701711022828</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1701711022828</updated>
+    </task>
+    <task id="LOCAL-00039" summary="add pageable to get wishlist">
+      <option name="closed" value="true" />
+      <created>1701754674057</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1701754674058</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fix get wishlist">
+      <option name="closed" value="true" />
+      <created>1701791115418</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1701791115418</updated>
+    </task>
+    <task id="LOCAL-00041" summary="HOST-Merge code">
+      <option name="closed" value="true" />
+      <created>1701843440528</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1701843440528</updated>
+    </task>
+    <task id="LOCAL-00042" summary="HOST-Merge code v2">
+      <option name="closed" value="true" />
+      <created>1701844616669</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1701844616669</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Fix gitignore">
+      <option name="closed" value="true" />
+      <created>1701844790628</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1701844790628</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Fix something">
+      <option name="closed" value="true" />
+      <created>1701937465093</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1701937465093</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fix up role and add update phone number">
+      <option name="closed" value="true" />
+      <created>1701952115430</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1701952115430</updated>
+    </task>
+    <task id="LOCAL-00046" summary="get token after up role">
+      <option name="closed" value="true" />
+      <created>1702035679242</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1702035679243</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -587,21 +744,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change enum role to entity role" />
-    <MESSAGE value="delete userModel" />
-    <MESSAGE value="mapper for post dto" />
-    <MESSAGE value="modified register account user or owner" />
-    <MESSAGE value="Fix OpenAPI document" />
-    <MESSAGE value="add post new" />
-    <MESSAGE value="add view profile and update password" />
-    <MESSAGE value="Fix cross-origin config" />
-    <MESSAGE value="Fix cors config and update profile" />
-    <MESSAGE value="add logout and token entity" />
-    <MESSAGE value="add filter and fix update profile" />
-    <MESSAGE value="fix filter" />
-    <MESSAGE value="Just - commit" />
-    <MESSAGE value="List post by rating" />
-    <MESSAGE value="Change permission for filter" />
     <MESSAGE value="Add total result filter" />
     <MESSAGE value="Fix filter search" />
     <MESSAGE value="Fix get post by rating" />
@@ -610,19 +752,44 @@
     <MESSAGE value="Add api get top of province and total post of province" />
     <MESSAGE value="Add postDetail and images of post" />
     <MESSAGE value="Change structure file and fix comment and rating" />
-    <MESSAGE value="Add postDetail,images of post" />
-    <MESSAGE value="Fix all" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix all" />
+    <MESSAGE value="Fix post detail" />
+    <MESSAGE value="Fix post detail 2" />
+    <MESSAGE value="Fix rating" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="add wishList" />
+    <MESSAGE value="add relation mapper wishListItemEntity and postEntity" />
+    <MESSAGE value="Remove ImageEntity.java" />
+    <MESSAGE value="Fix get wishlistitem" />
+    <MESSAGE value="Up role to manage" />
+    <MESSAGE value="add pageable to get wishlist" />
+    <MESSAGE value="Fix get wishlist" />
+    <MESSAGE value="HOST-Merge code" />
+    <MESSAGE value="HOST-Merge code v2" />
+    <MESSAGE value="Fix gitignore" />
+    <MESSAGE value="Fix something" />
+    <MESSAGE value="Fix up role and add update phone number" />
+    <MESSAGE value="get token after up role" />
+    <option name="LAST_COMMIT_MESSAGE" value="get token after up role" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/CommentPostService.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="1" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/RatingService.java</url>
+          <line>71</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java</url>
+          <line>172</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="com.roomster.roomsterbackend.entity.WishlistItemEntity" memberName="wishlist" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

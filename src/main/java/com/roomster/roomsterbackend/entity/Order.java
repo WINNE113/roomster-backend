@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +27,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "room_id", insertable = false, updatable = false)
+    @JsonBackReference
     private InforRoomEntity room;
 
     @Column(name = "electricity")
@@ -33,6 +35,9 @@ public class Order {
 
     @Column(name = "water")
     private BigDecimal water;
+
+    @Column(name = "service")
+    private BigDecimal service;
     
     @Column(name = "total")
     private BigDecimal total;

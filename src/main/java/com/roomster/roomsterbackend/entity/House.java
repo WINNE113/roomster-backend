@@ -30,7 +30,7 @@ public class House {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "house")
+    @OneToMany(mappedBy = "house" ,cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<InforRoomEntity> rooms;
 

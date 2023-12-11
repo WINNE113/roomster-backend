@@ -1,30 +1,47 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.entity.City;
+import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.entity.District;
+import com.roomster.roomsterbackend.mapper.DistrictMapper;
 import com.roomster.roomsterbackend.repository.DistrictRepository;
 import com.roomster.roomsterbackend.service.IService.IDistrictService;
+import com.roomster.roomsterbackend.util.message.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DistrictServiceImpl implements IDistrictService {
     @Autowired
     DistrictRepository districtRepository;
 
+    @Autowired
+    DistrictMapper districtMapper;
+
     @Override
-    public List<District> findAll() {
-        return districtRepository.findAll();
+    public ResponseEntity<?> findAll() {
+        ResponseEntity<?> responseEntity;
+        try {
+            responseEntity = new ResponseEntity<>(districtRepository.findAll().stream().map(districtMapper::entityToDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.OK);
+        }
+        return responseEntity;
     }
 
     @Override
-    public District findById(Long id) {
-        Optional<District> district = districtRepository.findById(id);
-        if(district.isPresent())
-            return district.get();
-        return null;
+    public ResponseEntity<?> findByIdCity(Long id) {
+        ResponseEntity<?> responseEntity;
+        try {
+            List<District> district = districtRepository.getAllDistrictByCityId(id);
+            responseEntity = new ResponseEntity<>(district.stream().map(districtMapper::entityToDTO), HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.OK);
+        }
+
+        return responseEntity;
     }
 }

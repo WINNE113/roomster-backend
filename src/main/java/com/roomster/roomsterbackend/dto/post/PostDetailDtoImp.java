@@ -22,7 +22,7 @@ public class PostDetailDtoImp{
 
     private String object;
 
-    private String convenient;
+    private String[] convenient;
 
     private String surroundings;
 
@@ -43,4 +43,10 @@ public class PostDetailDtoImp{
     private BigDecimal waterPrice;
 
     private int stayMax;
+
+    private int emptyRoom;
+
+    private int numberRoom;
+
+    private Long inforRoomId;
 }

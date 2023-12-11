@@ -16,7 +16,7 @@ public interface IServiceService {
 
 	ResponseEntity<?>  updateServiceHouse(String id, ServiceHouse serviceHouse);
 
-	ResponseEntity<?>  deleteServiceHouse(String id);
+	ResponseEntity<?>  deleteServiceHouse(List<String> listServices);
 	
 	ResponseEntity<?>  updateServiceHouseByRoomId(String id, List <String> listServiceIds);
 	

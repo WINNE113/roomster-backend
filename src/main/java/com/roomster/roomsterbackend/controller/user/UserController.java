@@ -3,12 +3,19 @@ package com.roomster.roomsterbackend.controller.user;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
+import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
+import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
+import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
+import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +31,9 @@ import java.security.Principal;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final IUserService userService;
+    private final TwilioOTPService twilioOTPService;
+    private final IAuthenticationService authenticationService;
+
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
         return userService.viewProfile(connectedUser);
@@ -38,7 +48,7 @@ public class UserController {
     }
     @PatchMapping("/update-password")
     public BaseResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser){
-       return userService.changePassword(changePasswordRequest, connectedUser);
+        return userService.changePassword(changePasswordRequest, connectedUser);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -56,5 +66,25 @@ public class UserController {
     @GetMapping("/get-user")
     public UserDto getUserById(Long userId){
         return userService.getUserById(userId);
+    }
+
+    @PostMapping("/sendOTP")
+    public ResponseEntity<?> sendOTP(@RequestBody OtpRequestDto requestDto){
+        return userService.sendOTP(requestDto);
+    }
+
+    @PostMapping("/up-to-role-manage")
+    public ResponseEntity<?> upRoleUserToManage(@RequestBody OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser) {
+        return userService.upRoleToManage(otpValidationRequestDto, connectedUser);
+    }
+
+    @PostMapping(value = "/update-phonenumber")
+    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request, Principal connectedUser){
+        return userService.changePhoneNumber(request, connectedUser);
+    }
+
+    @PostMapping(value = "/update-phonenumber-otp")
+    public ResponseEntity<?> changePhoneNumberWithOTP(@RequestBody ChangePhoneNumberWithOTP request, Principal connectedUser){
+        return userService.changePhoneNumberWithOTP(request, connectedUser);
     }
 }

@@ -50,11 +50,13 @@ public class SecurityConfiguration {
                                 "/api/v1/guest/**",
                                 "/api/v1/comment/list/**",
                                 "/api/v1/rating/list/**",
-                                "/room-master/**"
-                                )
-                            .permitAll()
-                            .anyRequest()
-                            .authenticated()
+                                "/room-master/**",
+                                "/common/**",
+                                "/api/v1/payment/**"
+                        )
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated()
                 )
                 .sessionManagement((sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS)))
                 .authenticationProvider(authenticationProvider)

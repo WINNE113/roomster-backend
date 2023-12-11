@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,17 +47,13 @@ public class ServiceController {
         return serviceHouse.updateServiceHouse(id, ServiceHouse);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteServiceHouse(@PathVariable String id) {
-        return serviceHouse.deleteServiceHouse(id);
+    @DeleteMapping
+    public ResponseEntity<?> deleteServiceHouse(@RequestBody List<String> listServices) {
+        return serviceHouse.deleteServiceHouse(listServices);
     }
     
     @PutMapping("/room-service/{id}")
-    public ResponseEntity<?> updateRoomServiceHouseByRoomId(@PathVariable String id, @RequestBody List<String> listServiceids) {
-        System.out.println("HERE WE GO");
-        System.out.println("ID: " + id);
-        System.out.println("List Service IDs: " + listServiceids);
-
-        return serviceHouse.updateServiceHouseByRoomId(id, listServiceids);    
+    public ResponseEntity<?> updateRoomServiceHouseByRoomId(@PathVariable String id, @RequestBody List<String> listServices) {
+        return serviceHouse.updateServiceHouseByRoomId(id, listServices);
     }
 }

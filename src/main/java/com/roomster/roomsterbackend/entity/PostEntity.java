@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.roomster.roomsterbackend.common.Status;
 import jakarta.persistence.*;
@@ -36,6 +37,7 @@ public class PostEntity extends BaseEntity {
 
     @Column(name = "image_url_list")
     @ElementCollection
+    @OrderColumn
     private List<String> imageUrlList;
 
     @Column(name = "is_deleted")
@@ -47,6 +49,7 @@ public class PostEntity extends BaseEntity {
     @Column(name = "rotation")
     private String rotation;
 
+    @JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "room_id", referencedColumnName = "id")
     private InforRoomEntity roomId;
@@ -62,6 +65,7 @@ public class PostEntity extends BaseEntity {
     private UserEntity authorId;
 
     @OneToMany(mappedBy = "postId")
+    @JsonBackReference
     private List<ReportEntity> reports;
 
     public UserEntity getAuthorId() {

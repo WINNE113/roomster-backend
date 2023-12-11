@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.controller.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.roomster.roomsterbackend.entity.Tenant;
 import com.roomster.roomsterbackend.service.IService.ITenantService;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -37,19 +40,20 @@ public class TenantController {
     public ResponseEntity<?> getTenantsByHouseId(@PathVariable String id) {
         return tenantService.getTenantByRoomId(id);
     }
-
     @PostMapping
     public ResponseEntity<?> createTenant(@RequestBody Tenant tenant) {
         return tenantService.createTenant(tenant);
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody Tenant tenant) {
         return tenantService.updateTenant(id, tenant);
     }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTenant(@PathVariable String id) {
-        return tenantService.deleteTenant(id);
+    @PutMapping("/move/{id}")
+    public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody List<String> tenantIds) {
+        return tenantService.moveTenant(id, tenantIds);
+    }
+    @DeleteMapping()
+    public ResponseEntity<?> deleteTenant(@RequestBody List<String> tenantIds) {
+        return tenantService.deleteTenant(tenantIds);
     }
 }

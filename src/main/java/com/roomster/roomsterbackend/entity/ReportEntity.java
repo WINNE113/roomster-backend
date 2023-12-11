@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +28,7 @@ public class ReportEntity{
     @Column(name = "created_date")
     private Date createdDate;
 
-    @JsonIgnore
+    @JsonManagedReference
     @ManyToOne()
     @JoinColumn(name = "postId",referencedColumnName = "id")
     private PostEntity postId;
