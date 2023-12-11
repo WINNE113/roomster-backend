@@ -43,4 +43,6 @@ public class PostDetailDtoImp{
     private BigDecimal waterPrice;
 
     private int stayMax;
+
+    private int emptyRoom;
 }
