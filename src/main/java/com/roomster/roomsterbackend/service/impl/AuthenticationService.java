@@ -12,6 +12,7 @@ import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.TokenRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
+import com.roomster.roomsterbackend.util.helpers.HashHelper;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.NoArgsConstructor;
@@ -82,10 +83,12 @@ public class AuthenticationService implements IAuthenticationService {
         RoleEntity role = roleRepository.findByName(request.getRole());
         if(role != null){
             UserEntity user = new UserEntity();
+            user.setId((long) HashHelper.generateRandomNumbers());
             user.setUserName(request.getUserName());
             user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedBy(0L);
+            user.setCreatedDate(new Date());
             user.setRoles(Set.of(role));
             if(request.getRole().equals(ModelCommon.USER)){
                 user.setPhoneNumberConfirmed(false);

@@ -96,7 +96,7 @@ public class PaymentService implements IPaymentService {
             // get username of account to set signature
             if(user != null){
                 //TODO: insert payment signature
-                paymentSignature.setSignValue(user.getUserName());
+                paymentSignature.setSignValue(user.getUsername());
                 paymentSignature.setIsValid(true);
             }else {
                 paymentSignature.setIsValid(false);

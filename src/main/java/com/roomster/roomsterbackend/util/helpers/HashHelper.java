@@ -3,6 +3,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
+import java.util.Random;
 import java.util.UUID;
 
 public class HashHelper {
@@ -14,6 +15,11 @@ public class HashHelper {
         String codeString = entityId.toString().replace("-", "");
 
         return codeString;
+    }
+
+    public static int generateRandomNumbers() {
+        Random rnd = new Random();
+        return 100000 + rnd.nextInt(900000);
     }
     public static String hmacSHA512(final String key, final String data) {
         try {

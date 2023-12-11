@@ -185,7 +185,7 @@ public class UserService implements IUserService {
                              ) {
                             if(role.getName().equals(ModelCommon.MANAGEMENT) || role.getName().equals(ModelCommon.ADMIN)) {
                                 //TODO: Check OTP of New PhoneNumber
-                                OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUserName(),PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
+                                OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUsername(),PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
                                 ResponseDto responseDto = twilioOTPService.sendSMS(otpRequest);
                                 if (responseDto.getStatus().equals(Status.DELIVERED)) {
                                    return response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED), HttpStatus.OK);
@@ -228,7 +228,7 @@ public class UserService implements IUserService {
         try {
             var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
             if(user != null){
-                boolean isCorrectOTP = twilioOTPService.validateOtp(new OtpValidationRequestDto(user.getUserName(),request.getOTPNumber()));
+                boolean isCorrectOTP = twilioOTPService.validateOtp(new OtpValidationRequestDto(user.getUsername(),request.getOTPNumber()));
                 if(isCorrectOTP) {
                     user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
                     userRepository.save(user);

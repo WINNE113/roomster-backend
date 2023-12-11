@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -42,7 +43,7 @@ public class UserDto {
 
     private String address;
 
-    private String balance;
+    private BigDecimal balance;
 
     private Set<RoleEntity> roleList;
 }
