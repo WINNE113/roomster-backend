@@ -35,4 +35,8 @@ public interface PostDetailDto {
     BigDecimal getWaterPrice();
 
     int getStayMax();
+
+    int getEmptyRoom();
+
+    int getNumberRoom();
 }

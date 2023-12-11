@@ -22,7 +22,7 @@ public class PostDetailDtoImp{
 
     private String object;
 
-    private String convenient;
+    private String[] convenient;
 
     private String surroundings;
 

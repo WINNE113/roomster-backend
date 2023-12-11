@@ -120,7 +120,12 @@ public class PostService implements IPostService {
         postDetailDtoImp.setAddress(postDetailDto.getAddress());
         postDetailDtoImp.setDescription(postDetailDto.getDescription());
         postDetailDtoImp.setObject(postDetailDto.getObject());
-        postDetailDtoImp.setConvenient(postDetailDto.getConvenient());
+
+        //TODO: Set String convenient to String[]
+        String convenient = postDetailDto.getConvenient();
+        String[] convenientArray = convenient.split(",");
+        postDetailDtoImp.setConvenient(convenientArray);
+
         postDetailDtoImp.setSurroundings(postDetailDto.getSurroundings());
 
         Optional<PostTypeEntity> postType = postTypeRepository.findById(postDetailDto.getPostType());
@@ -136,6 +141,8 @@ public class PostService implements IPostService {
         postDetailDtoImp.setPrice(postDetailDto.getPrice());
         postDetailDtoImp.setWaterPrice(postDetailDto.getWaterPrice());
         postDetailDtoImp.setStayMax(postDetailDto.getStayMax());
+        postDetailDtoImp.setEmptyRoom(postDetailDto.getEmptyRoom());
+        postDetailDtoImp.setNumberRoom(postDetailDto.getNumberRoom());
     }
 
     @Override
