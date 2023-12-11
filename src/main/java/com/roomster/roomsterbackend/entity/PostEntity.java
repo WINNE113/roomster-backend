@@ -37,6 +37,7 @@ public class PostEntity extends BaseEntity {
 
     @Column(name = "image_url_list")
     @ElementCollection
+    @OrderColumn
     private List<String> imageUrlList;
 
     @Column(name = "is_deleted")

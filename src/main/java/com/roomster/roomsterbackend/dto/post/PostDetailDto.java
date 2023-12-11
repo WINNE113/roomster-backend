@@ -39,4 +39,6 @@ public interface PostDetailDto {
     int getEmptyRoom();
 
     int getNumberRoom();
+
+    Long getInforRoomId();
 }

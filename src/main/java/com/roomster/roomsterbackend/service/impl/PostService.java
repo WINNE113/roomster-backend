@@ -17,6 +17,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -71,29 +72,63 @@ public class PostService implements IPostService {
     }
     @Override
     public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
-        PostEntity postEntity = postMapper.dtoToEntity(postDTO);
-        postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
-        postEntity.setDeleted(false);
-        // need admin or sp admin accept to APPROVED post
-        postEntity.setStatus(Status.REVIEW);
-        if(postDTO.getRotation() != null){
-            postEntity.setRotation(postDTO.getRotation());
-        }
+
         var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
-        if(user != null){
-            postEntity.setAuthorId(user);
-        }
-        if (!images.isEmpty()) {
-            List<String> imageUrls = new ArrayList<>();
-            for (MultipartFile multipartFile : images) {
-                imageUrls.add(getFileUrls(multipartFile));
+        //TODO: Update post
+        if(postDTO.getPostId() != null && postDTO.getRoomDto().getInforRoomId() != null){
+            Optional<PostEntity> post =  postRepository.findById(postDTO.getPostId());
+            if(post.isPresent()){
+                postDTO.setImageUrlList(post.get().getImageUrlList());
+                post = Optional.of(postMapper.dtoToEntity(postDTO));
+                post.get().setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
+                post.get().setDeleted(false);
+
+                // need admin or sp admin accept to APPROVED post
+                post.get().setStatus(Status.REVIEW);
+                if(postDTO.getRotation() != null){
+                    post.get().setRotation(postDTO.getRotation());
+                }
+
+                if(user != null){
+                    post.get().setAuthorId(user);
+                }
+                if (images != null && !images.isEmpty()) {
+                    List<String> imageUrls = new ArrayList<>();
+                    for (MultipartFile multipartFile : images) {
+                        imageUrls.add(getFileUrls(multipartFile));
+                    }
+                    post.get().setImageUrlList(imageUrls);
+                }
+                if(postDTO.getRoomDto() != null){
+                    post.get().setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
+                }
+                postRepository.save(post.get());
             }
-            postEntity.setImageUrlList(imageUrls);
+        }else {
+            //TODO: Add post
+            PostEntity postEntity = postMapper.dtoToEntity(postDTO);
+            postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
+            postEntity.setDeleted(false);
+            // need admin or sp admin accept to APPROVED post
+            postEntity.setStatus(Status.REVIEW);
+            if(postDTO.getRotation() != null){
+                postEntity.setRotation(postDTO.getRotation());
+            }
+            if(user != null){
+                postEntity.setAuthorId(user);
+            }
+            if (images != null && !images.isEmpty()) {
+                List<String> imageUrls = new ArrayList<>();
+                for (MultipartFile multipartFile : images) {
+                    imageUrls.add(getFileUrls(multipartFile));
+                }
+                postEntity.setImageUrlList(imageUrls);
+            }
+            if(postDTO.getRoomDto() != null){
+                postEntity.setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
+            }
+            postRepository.save(postEntity);
         }
-        if(postDTO.getRoomDto() != null){
-            postEntity.setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
-        }
-        postRepository.save(postEntity);
     }
 
     @Override
@@ -125,6 +160,8 @@ public class PostService implements IPostService {
         String convenient = postDetailDto.getConvenient();
         String[] convenientArray = convenient.split(",");
         postDetailDtoImp.setConvenient(convenientArray);
+
+        postDetailDtoImp.setInforRoomId(postDetailDto.getInforRoomId());
 
         postDetailDtoImp.setSurroundings(postDetailDto.getSurroundings());
 
@@ -194,6 +231,11 @@ public class PostService implements IPostService {
                 postRepository.save(post.get());
             }
         }
+    }
+
+    @Override
+    public ResponseEntity<?> upload(List<MultipartFile> images) {
+        return null;
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{
