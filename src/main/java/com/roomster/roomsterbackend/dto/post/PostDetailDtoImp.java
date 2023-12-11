@@ -45,4 +45,6 @@ public class PostDetailDtoImp{
     private int stayMax;
 
     private int emptyRoom;
+
+    private int numberRoom;
 }
