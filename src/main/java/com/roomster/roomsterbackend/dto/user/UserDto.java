@@ -42,5 +42,7 @@ public class UserDto {
 
     private String address;
 
+    private String balance;
+
     private Set<RoleEntity> roleList;
 }
