@@ -1,14 +1,13 @@
 package com.roomster.roomsterbackend.controller.admin;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.report.ReportDto;
 import com.roomster.roomsterbackend.service.IService.IPostService;
-import com.roomster.roomsterbackend.service.IService.IReportService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +16,6 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class AdminController {
     private final IPostService postService;
-
-    private final IReportService reportService;
     @PatchMapping(value = "/setIsApprovedPost")
     public BaseResponse setIsApprovedPosts(Long[] listPostId){
         try {
@@ -37,20 +34,5 @@ public class AdminController {
             return BaseResponse.error("Ex: " + ex.getMessage());
         }
         return BaseResponse.success("Bài viết cập nhật thành công");
-    }
-
-    @GetMapping(value = "/report/getAllByPost")
-    public List<ReportDto> getAllReportByPostId(@RequestParam Long postId){
-        return reportService.getAllReportByPostId(postId);
-    }
-
-    @DeleteMapping("/report/delete")
-    public BaseResponse deleteReportById(Long[] reportId){
-        try {
-            reportService.deleteReportById(reportId);
-        }catch (Exception ex){
-            return BaseResponse.error("Ex: " + ex.getMessage());
-        }
-        return BaseResponse.success("Xóa đánh giá thành công");
     }
 }

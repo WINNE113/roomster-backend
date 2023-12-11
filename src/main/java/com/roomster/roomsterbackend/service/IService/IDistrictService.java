@@ -1,11 +1,9 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.entity.District;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface IDistrictService {
-    List<District> findAll();
+    ResponseEntity<?> findAll();
 
-    District findById(Long id);
+    ResponseEntity<?> findByIdCity(Long id);
 }

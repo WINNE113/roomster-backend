@@ -2,9 +2,14 @@ package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
+import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
+import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
+import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -13,6 +18,7 @@ import java.util.Optional;
 
 public interface IUserService {
     Optional<UserEntity> findByEmail(String email);
+
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
     UserDto viewProfile(Principal connectedUser);
@@ -24,4 +30,12 @@ public interface IUserService {
     UserDto getUserById(Long userId);
 
     void deleteUserById(Long userId);
+
+    ResponseEntity<?> upRoleToManage(OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser);
+
+    ResponseEntity<?> sendOTP(OtpRequestDto requestDto);
+
+    ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request, Principal connectedUser);
+
+    ResponseEntity<?> changePhoneNumberWithOTP(ChangePhoneNumberWithOTP request, Principal connectedUser);
 }

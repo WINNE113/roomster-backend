@@ -1,8 +1,11 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.dto.inforRoom.InforRoomPaymentStatusDto;
+import com.roomster.roomsterbackend.dto.order.OrderStatusPaymentDto;
 import com.roomster.roomsterbackend.entity.House;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
+import com.roomster.roomsterbackend.entity.Order;
 import com.roomster.roomsterbackend.entity.RoomService;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
@@ -14,8 +17,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RoomServiceImpl implements IRoomService {
@@ -30,12 +35,18 @@ public class RoomServiceImpl implements IRoomService {
     public ResponseEntity<?> findAll() {
         ResponseEntity<?> responseEntity;
         try {
+            handleChangerRoomStatus();
             List<InforRoomEntity> inforRoomEntityList = roomRepository.findAll();
             responseEntity = new ResponseEntity<>(inforRoomEntityList, HttpStatus.OK);
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    private boolean isValidRoom(InforRoomEntity room) {
+        Long countRoomStt = this.roomRepository.countRoomsDifferentStt(room.getNumberRoom(), room.getId(), room.getHouseId());
+        return countRoomStt == 0;
     }
 
     @Override
@@ -47,10 +58,14 @@ public class RoomServiceImpl implements IRoomService {
             Optional<House> house = this.houseRepository.findById(houseId);
             if (house.isPresent()) {
                 // validate room
-                room = roomRepository.save(room);
-                responseEntity = new ResponseEntity<>(room, HttpStatus.OK);
+                if(isValidRoom(room)){
+                    room = roomRepository.save(room);
+                    responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_ADD_SUCCESS), HttpStatus.OK);
+                } else{
+                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_EXISTS), HttpStatus.BAD_REQUEST);
+                }
             } else {
-                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_HOUSE_NOT_FOUND), HttpStatus.METHOD_NOT_ALLOWED);
+                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_HOUSE_NOT_FOUND), HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -67,22 +82,27 @@ public class RoomServiceImpl implements IRoomService {
                 Optional<InforRoomEntity> room = this.roomRepository.findById(idL);
                 if (room.isPresent()) {
                     InforRoomEntity oldRoom = room.get();
-                    oldRoom.setEmptyRoom(newestRoom.getEmptyRoom());
-                    oldRoom.setNumberRoom(newestRoom.getNumberRoom());
-                    oldRoom.setAcreage(newestRoom.getAcreage());
-                    oldRoom.setPost(newestRoom.getPost());
-                    oldRoom.setHouseId(newestRoom.getHouseId());
-                    oldRoom.setPrice(newestRoom.getPrice());
-                    oldRoom.setStayMax(newestRoom.getStayMax());
-                    oldRoom.setWaterPrice(newestRoom.getWaterPrice());
-                    oldRoom.setElectricityPrice(newestRoom.getElectricityPrice());
-                    oldRoom = this.roomRepository.save(oldRoom);
-                    responseEntity = new ResponseEntity<>(oldRoom, HttpStatus.OK);
+                    if(isValidRoom((newestRoom))){
+                        oldRoom.setEmptyRoom(newestRoom.getEmptyRoom());
+                        oldRoom.setNumberRoom(newestRoom.getNumberRoom());
+                        oldRoom.setAcreage(newestRoom.getAcreage());
+                        oldRoom.setPost(newestRoom.getPost());
+                        oldRoom.setHouseId(newestRoom.getHouseId());
+                        oldRoom.setPrice(newestRoom.getPrice());
+                        oldRoom.setStayMax(newestRoom.getStayMax());
+                        oldRoom.setWaterPrice(newestRoom.getWaterPrice());
+                        oldRoom.setElectricityPrice(newestRoom.getElectricityPrice());
+                        oldRoom = this.roomRepository.save(oldRoom);
+                        responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                    }
+                    else{
+                        responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_EXISTS), HttpStatus.BAD_REQUEST);
+                    }
                 } else {
-                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
             } else {
-                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -96,14 +116,16 @@ public class RoomServiceImpl implements IRoomService {
         try {
             if (ValidatorUtils.isNumber(id)) {
                 Long idL = Long.parseLong(id);
-                Optional<InforRoomEntity> room = this.roomRepository.findById(idL);
-                if (room.isPresent()) {
-                    responseEntity = new ResponseEntity<>(room.get(), HttpStatus.OK);
+                Optional<InforRoomEntity> roomEntityOptional = this.roomRepository.findById(idL);
+                if (roomEntityOptional.isPresent()) {
+                    InforRoomEntity room = roomEntityOptional.get();
+                    room.getOrders().sort(Comparator.comparing(Order::getPaymentDate, Comparator.reverseOrder()));
+                    responseEntity = new ResponseEntity<>(room, HttpStatus.OK);
                 } else {
-                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
             } else {
-                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -122,10 +144,10 @@ public class RoomServiceImpl implements IRoomService {
                     this.roomRepository.deleteById(idL);
                     responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
                 } else {
-                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
             } else {
-                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -147,14 +169,68 @@ public class RoomServiceImpl implements IRoomService {
                     
                     responseEntity = new ResponseEntity<>(services, HttpStatus.OK);
                 } else {
-                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
+                    responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
             } else {
-                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.INTERNAL_SERVER_ERROR);
+                responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity<?> getStatusRoom() {
+        ResponseEntity<?> responseEntity;
+        try {
+            Long roomCount = this.roomRepository.count();
+            Long emptyRoomCount = this.roomRepository.countEmptyRooms();
+            Long percent = Math.round((emptyRoomCount.doubleValue() / roomCount.doubleValue()) * 100.0);
+            responseEntity = new ResponseEntity<>(percent, HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity<?> getStatusPayment() {
+        ResponseEntity<?> responseEntity;
+        try {
+            List<InforRoomEntity> roomsWithUnpaidPayments = roomRepository.findRoomsByPaymentStatusNotPaid();
+            List<InforRoomPaymentStatusDto> inforRoomPaymentStatusDtos = roomsWithUnpaidPayments.stream()
+                    .map(room -> {
+                        InforRoomPaymentStatusDto dto = new InforRoomPaymentStatusDto();
+                        dto.setHouseName(room.getHouse().getHouseName());
+                        dto.setRoomName(room.getNumberRoom() + "");
+
+                        List<OrderStatusPaymentDto> orderStatusPayments = room.getOrders().stream()
+                                .filter(order -> "N".equals(order.getStatusPayment()))
+                                .map(order -> new OrderStatusPaymentDto(order.getPaymentDate().toString(), order.getTotal().toString()))
+                                .collect(Collectors.toList());
+                        dto.setOrderStatusPayments(orderStatusPayments);
+                        return dto;
+                    })
+                    .collect(Collectors.toList());
+            responseEntity = new ResponseEntity<>(inforRoomPaymentStatusDtos, HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    private void handleChangerRoomStatus() {
+        List<InforRoomEntity> inforRoomEntityList = roomRepository.findAll();
+        for (InforRoomEntity room : inforRoomEntityList) {
+            int tenantNum = room.getTenantList().size();
+            if(tenantNum > 0){
+                room.setEmptyRoom(1);
+            }
+            else{
+                room.setEmptyRoom(0);
+            }
+            roomRepository.save(room);
+        }
     }
 }

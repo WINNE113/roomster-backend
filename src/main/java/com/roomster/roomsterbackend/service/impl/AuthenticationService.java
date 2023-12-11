@@ -12,7 +12,10 @@ import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.TokenRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
+import com.roomster.roomsterbackend.util.helpers.HashHelper;
+import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -37,13 +41,13 @@ public class AuthenticationService implements IAuthenticationService {
 
     public BaseResponse register(RegisterRequest request) {
         if (!PhoneNumberValidator.isValidPhoneNumber(request.getPhoneNumber())) {
-            return BaseResponse.error("Invalid phone number format");
+            return BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_FORMAT_INVALID);
         }
 
         Optional<UserEntity> existingUser = userRepository.findByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
 
         if (existingUser.isPresent()) {
-            return BaseResponse.error("User with this phone number already exists");
+            return BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_IS_EXITED);
         }
         // Xóa tài khoản hiện tại nếu số điện thoại đã tồn tại
         if (registerAccounts.containsKey(request.getPhoneNumber())) {
@@ -53,19 +57,19 @@ public class AuthenticationService implements IAuthenticationService {
         if(request.getRole().equals(ModelCommon.USER)){
           boolean checkRegister = this.baseRegister(request);
           if(checkRegister){
-              return BaseResponse.success("Successful to register");
+              return BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS);
           }
         }else if(request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ADMIN)){
             OtpRequestDto otpRequestDto = createOtpRequest(request);
             ResponseDto otpResponseDto = twilioOTPService.sendSMS(otpRequestDto);
             if (otpResponseDto.getStatus().equals(Status.DELIVERED)) {
                 registerAccounts.put(request.getPhoneNumber(), request);
-                return BaseResponse.success("Successful to send OTP");
+                return BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED);
             } else {
-                return BaseResponse.error("Failed to send OTP");
+                return BaseResponse.error(MessageUtil.MSG_OTP_FAILED);
             }
         }
-        return BaseResponse.error("Failed to register! ");
+        return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
     }
 
     private OtpRequestDto createOtpRequest(RegisterRequest request) {
@@ -80,10 +84,13 @@ public class AuthenticationService implements IAuthenticationService {
         RoleEntity role = roleRepository.findByName(request.getRole());
         if(role != null){
             UserEntity user = new UserEntity();
+            user.setId((long) HashHelper.generateRandomNumbers());
             user.setUserName(request.getUserName());
+            user.setBalance(new BigDecimal(0));
             user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedBy(0L);
+            user.setCreatedDate(new Date());
             user.setRoles(Set.of(role));
             if(request.getRole().equals(ModelCommon.USER)){
                 user.setPhoneNumberConfirmed(false);
@@ -115,13 +122,13 @@ public class AuthenticationService implements IAuthenticationService {
                         request.setRole(item.getRole());
                         boolean checkRegister =  this.baseRegister(request);
                         if(!checkRegister){
-                            return BaseResponse.error("Register is fail!");
+                            return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
                         }
                     }
                 }
-                return BaseResponse.success("OTP is valid");
+                return BaseResponse.success(MessageUtil.MSG_OTP_CODE_CORRECT);
             }
-        return BaseResponse.error("OTP is invalid");
+        return BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT);
     }
 
     public AuthenticationResponse login(LoginRequest request) {
@@ -135,7 +142,7 @@ public class AuthenticationService implements IAuthenticationService {
                     )
             );
         } catch (AuthenticationException ex) {
-            return AuthenticationResponse.error("Authentication failed. Invalid phone number or password.");
+            return AuthenticationResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
         }
 
        var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
@@ -150,7 +157,7 @@ public class AuthenticationService implements IAuthenticationService {
                     .message("Get token successfully!")
                     .build();
         }else{
-            return AuthenticationResponse.error("User Not Found!");
+            return AuthenticationResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND);
         }
     }
 

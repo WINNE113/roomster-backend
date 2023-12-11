@@ -17,6 +17,8 @@ public class PhoneNumberValidator {
         // Loại bỏ số 0 đầu tiên sau +84 nếu tồn tại
         if (phoneNumber.startsWith("+840")) {
             phoneNumber = phoneNumber.replace("+840", "+84");
+        }else if(phoneNumber.startsWith("0")) {
+            phoneNumber = phoneNumber.replaceFirst("^0+", "");
         }
 
         // Thêm tiền tố +84 nếu thiếu

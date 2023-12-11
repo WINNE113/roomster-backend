@@ -22,7 +22,7 @@ public class ServiceHouse {
     @Column(name = "service_price")
     private BigDecimal servicePrice;
 
-    @OneToMany(mappedBy = "serviceHouse")
+    @OneToMany(mappedBy = "serviceHouse", cascade = CascadeType.ALL)
     @JsonBackReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<RoomService> serviceList;

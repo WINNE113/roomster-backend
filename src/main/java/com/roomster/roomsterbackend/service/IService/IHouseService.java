@@ -1,20 +1,19 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.entity.House;
+import com.roomster.roomsterbackend.dto.admin.HouseDto;
 import org.springframework.http.ResponseEntity;
 
 public interface IHouseService {
 
-	ResponseEntity<?> getAllHouses();
+	ResponseEntity<?> getAllHouses(String price, String acreage, String stayMax, String status);
 
 	ResponseEntity<?> getHouseById(String id);
 
-	ResponseEntity<?> createHouse(House house);
+	ResponseEntity<?> createHouse(HouseDto house);
 
-	ResponseEntity<?> updateHouse(String id, House house);
+	ResponseEntity<?> updateHouse(String id, HouseDto house);
 
 	ResponseEntity<?> deleteHouse(String id);
-	
-	
 
+    ResponseEntity<?> getStatusHouse();
 }

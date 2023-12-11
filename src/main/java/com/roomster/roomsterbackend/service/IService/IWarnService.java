@@ -1,11 +1,10 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.entity.Ward;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface IWarnService {
-    List<Ward> findAll();
+    ResponseEntity<?> findAll();
 
-    Ward findById(Long id);
+
+    ResponseEntity<?> findByIdCity(Long districtId);
 }
