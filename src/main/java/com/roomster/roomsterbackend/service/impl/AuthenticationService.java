@@ -23,6 +23,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Service
@@ -85,6 +86,7 @@ public class AuthenticationService implements IAuthenticationService {
             UserEntity user = new UserEntity();
             user.setId((long) HashHelper.generateRandomNumbers());
             user.setUserName(request.getUserName());
+            user.setBalance(new BigDecimal(0));
             user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedBy(0L);
