@@ -47,4 +47,6 @@ public class PostDetailDtoImp{
     private int emptyRoom;
 
     private int numberRoom;
+
+    private Long inforRoomId;
 }

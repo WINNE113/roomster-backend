@@ -83,7 +83,7 @@ public class PostService implements IPostService {
         if(user != null){
             postEntity.setAuthorId(user);
         }
-        if (!images.isEmpty()) {
+        if (images != null && !images.isEmpty()) {
             List<String> imageUrls = new ArrayList<>();
             for (MultipartFile multipartFile : images) {
                 imageUrls.add(getFileUrls(multipartFile));
@@ -125,6 +125,8 @@ public class PostService implements IPostService {
         String convenient = postDetailDto.getConvenient();
         String[] convenientArray = convenient.split(",");
         postDetailDtoImp.setConvenient(convenientArray);
+
+        postDetailDtoImp.setInforRoomId(postDetailDto.getInforRoomId());
 
         postDetailDtoImp.setSurroundings(postDetailDto.getSurroundings());
 
