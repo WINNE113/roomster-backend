@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "districts")
-public class District {
+public class DistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long districtId;
@@ -25,11 +25,11 @@ public class District {
     @ManyToOne()
     @JoinColumn(name = "city_id", updatable = false, insertable = false)
     @JsonBackReference
-    private City city;
+    private CityEntity city;
 
     @OneToMany(mappedBy = "district")
     @JsonManagedReference
-    private List<Ward> wardList;
+    private List<WardEntity> wardList;
 
     // Constructors, getters, and setters
 }

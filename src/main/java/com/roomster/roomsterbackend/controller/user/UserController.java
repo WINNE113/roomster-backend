@@ -6,6 +6,7 @@ import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
@@ -78,7 +79,12 @@ public class UserController {
     }
 
     @PostMapping(value = "/update-phonenumber")
-    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request){
-        return userService.changePhoneNumber(request);
+    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request, Principal connectedUser){
+        return userService.changePhoneNumber(request, connectedUser);
+    }
+
+    @PostMapping(value = "/update-phonenumber-otp")
+    public ResponseEntity<?> changePhoneNumberWithOTP(@RequestBody ChangePhoneNumberWithOTP request, Principal connectedUser){
+        return userService.changePhoneNumberWithOTP(request, connectedUser);
     }
 }

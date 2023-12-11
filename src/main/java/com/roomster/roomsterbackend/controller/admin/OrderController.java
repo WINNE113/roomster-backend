@@ -6,12 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.roomster.roomsterbackend.entity.Order;
+import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.service.IService.IOrderService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/room-master/order")
+@RequestMapping("/api/vi/room-master/order")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class OrderController {
 
 	@Autowired
@@ -33,7 +34,7 @@ public class OrderController {
     }
 
     @PostMapping("/{id}")
-	public ResponseEntity<?> createorderService(@PathVariable String id, @RequestBody Order order) {
+	public ResponseEntity<?> createorderService(@PathVariable String id, @RequestBody OrderEntity order) {
         System.out.println("HERE WE GO");
 		return orderService.checkUpdateOrAddFromMonth(id, order);
 	}

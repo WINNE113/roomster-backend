@@ -48,19 +48,19 @@ public class InforRoomEntity{
     @ManyToOne()
     @JoinColumn(name = "id_house" , insertable=false, updatable=false)
     @JsonBackReference
-    private House house;
+    private HouseEntity house;
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "inforRoomEntity")
-    private List<RoomService> services;
+    private List<RoomServiceEntity> services;
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<Tenant> tenantList;
+    private List<TenantEntity> tenantList;
 }

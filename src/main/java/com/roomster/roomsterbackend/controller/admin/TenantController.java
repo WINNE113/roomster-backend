@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.roomster.roomsterbackend.entity.Tenant;
+import com.roomster.roomsterbackend.entity.TenantEntity;
 import com.roomster.roomsterbackend.service.IService.ITenantService;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/room-master/tenant")
+@RequestMapping("/api/vi/room-master/tenant")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class TenantController {
 
 	@Autowired
@@ -41,11 +42,11 @@ public class TenantController {
         return tenantService.getTenantByRoomId(id);
     }
     @PostMapping
-    public ResponseEntity<?> createTenant(@RequestBody Tenant tenant) {
+    public ResponseEntity<?> createTenant(@RequestBody TenantEntity tenant) {
         return tenantService.createTenant(tenant);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody Tenant tenant) {
+    public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody TenantEntity tenant) {
         return tenantService.updateTenant(id, tenant);
     }
     @PutMapping("/move/{id}")

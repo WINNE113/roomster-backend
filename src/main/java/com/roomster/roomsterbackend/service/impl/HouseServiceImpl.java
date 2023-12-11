@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomStatusDto;
+import com.roomster.roomsterbackend.entity.HouseEntity;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.mapper.HouseMapper;
 import com.roomster.roomsterbackend.repository.RoomRepository;
@@ -19,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.roomster.roomsterbackend.entity.House;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.service.IService.IHouseService;
 
@@ -48,12 +48,12 @@ public class HouseServiceImpl implements IHouseService {
 				statusL = null;
 			}
 
-			List<House> inforHouseEntityList = houseRepository.findAll();
-			for (House house : inforHouseEntityList) {
+			List<HouseEntity> inforHouseEntityList = houseRepository.findAll();
+			for (HouseEntity house : inforHouseEntityList) {
 				house.getRooms().sort(Comparator.comparing(InforRoomEntity::getNumberRoom));
 				house.setRooms(house.getRooms().stream().filter(room -> room.getPrice().compareTo(BigDecimal.valueOf(priceL)) >= 0
 						&& room.getAcreage() >= acreageD
-						&& room.getStayMax() == stayMaxI
+						&& room.getStayMax() > stayMaxI
 						&& (status == null || room.getEmptyRoom() == statusL)).toList());
 			}
 			responseEntity = new ResponseEntity<>(inforHouseEntityList, HttpStatus.OK);
@@ -69,7 +69,7 @@ public class HouseServiceImpl implements IHouseService {
 			try {
 				if (ValidatorUtils.isNumber(id)) {
 					Long idL = Long.parseLong(id);
-					Optional<House> houseOptional = this.houseRepository.findById(idL);
+					Optional<HouseEntity> houseOptional = this.houseRepository.findById(idL);
 					if (houseOptional.isPresent()) {
 						HouseDto house = houseMapper.entityToDTO(houseOptional.get());
 						house.setDistrictId(houseOptional.get().getWard().getDistrictId());
@@ -116,9 +116,9 @@ public class HouseServiceImpl implements IHouseService {
 				if(isHouseAddressValid(updatedHouse)){
 					if (ValidatorUtils.isNumber(id)) {
 						Long idL = Long.parseLong(id);
-						Optional<House> existingHouseOptional = houseRepository.findById(idL);
+						Optional<HouseEntity> existingHouseOptional = houseRepository.findById(idL);
 						if (existingHouseOptional.isPresent()) {
-							House existingHouse = existingHouseOptional.get();
+							HouseEntity existingHouse = existingHouseOptional.get();
 							existingHouse.setHouseName(updatedHouse.getHouseName());
 							existingHouse.setWarnId(updatedHouse.getWarnId());
 							existingHouse.setAddress(updatedHouse.getAddress());
@@ -145,7 +145,7 @@ public class HouseServiceImpl implements IHouseService {
 			try {
 				if (ValidatorUtils.isNumber(id)) {
 					Long idL = Long.parseLong(id);
-					Optional<House> house = this.houseRepository.findById(idL);
+					Optional<HouseEntity> house = this.houseRepository.findById(idL);
 					if (house.isPresent()) {
 						this.houseRepository.deleteById(idL);
 						responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
@@ -165,9 +165,9 @@ public class HouseServiceImpl implements IHouseService {
 		public ResponseEntity<?> getStatusHouse() {
 			ResponseEntity<?> responseEntity;
 			try {
-				List<House> inforHouseEntityList = houseRepository.findAll();
+				List<HouseEntity> inforHouseEntityList = houseRepository.findAll();
 				List<InforRoomStatusDto> statusDtoList = new ArrayList<>();
-				for (House house : inforHouseEntityList) {
+				for (HouseEntity house : inforHouseEntityList) {
 					List<Integer> rooms = house.getRooms().stream()
 							.filter(r -> r.getEmptyRoom() == 0)
 							.map(InforRoomEntity::getNumberRoom)

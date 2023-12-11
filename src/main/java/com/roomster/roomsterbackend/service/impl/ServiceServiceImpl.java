@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import com.roomster.roomsterbackend.entity.Order;
+import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.RoomService;
-import com.roomster.roomsterbackend.entity.ServiceHouse;
+import com.roomster.roomsterbackend.entity.RoomServiceEntity;
+import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.repository.RoomServiceRepository;
 import com.roomster.roomsterbackend.repository.ServiceRepository;
@@ -29,10 +29,10 @@ public class ServiceServiceImpl implements IServiceService {
 
 	@Autowired
 	ServiceRepository serviceRepository;
-	
+
 	@Autowired
 	RoomRepository roomRepository;
-	
+
 	@Autowired
 	RoomServiceRepository roomServiceRepository;
 
@@ -43,7 +43,7 @@ public class ServiceServiceImpl implements IServiceService {
 	public ResponseEntity<?> findAll() {
 		ResponseEntity<?> responseEntity;
 		try {
-			List<ServiceHouse> serviceHouseList = serviceRepository.findAll();
+			List<ServiceHouseEntity> serviceHouseList = serviceRepository.findAll();
 			responseEntity = new ResponseEntity<>(serviceHouseList, HttpStatus.OK);
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -57,7 +57,7 @@ public class ServiceServiceImpl implements IServiceService {
 		try {
 			if (ValidatorUtils.isNumber(id)) {
 				Long idL = Long.parseLong(id);
-				Optional<ServiceHouse> serviceHouse = this.serviceRepository.findById(idL);
+				Optional<ServiceHouseEntity> serviceHouse = this.serviceRepository.findById(idL);
 				if (serviceHouse.isPresent()) {
 					responseEntity = new ResponseEntity<>(serviceHouse.get(), HttpStatus.OK);
 				} else {
@@ -72,14 +72,14 @@ public class ServiceServiceImpl implements IServiceService {
 		return responseEntity;
 	}
 
-	private boolean isValidService(ServiceHouse service) {
+	private boolean isValidService(ServiceHouseEntity service) {
 		Long count = serviceRepository.countByNameAndDifferentId(service.getServiceName(), service.getServiceId());
 		return count == 0;
 	}
 
 
 	@Override
-	public ResponseEntity<?> createServiceHouse(ServiceHouse serviceHouse) {
+	public ResponseEntity<?> createServiceHouse(ServiceHouseEntity serviceHouse) {
 		ResponseEntity<?> responseEntity;
 		try {
 			if(isValidService(serviceHouse)){
@@ -96,15 +96,15 @@ public class ServiceServiceImpl implements IServiceService {
 	}
 
 	@Override
-	public ResponseEntity<?> updateServiceHouse(String id, ServiceHouse serviceHouse) {
+	public ResponseEntity<?> updateServiceHouse(String id, ServiceHouseEntity serviceHouse) {
 		ResponseEntity<?> responseEntity;
 		try {
 			if (ValidatorUtils.isNumber(id)) {
 				Long idL = Long.parseLong(id);
-				Optional<ServiceHouse> existingHouseOptional = serviceRepository.findById(idL);
+				Optional<ServiceHouseEntity> existingHouseOptional = serviceRepository.findById(idL);
 				if (existingHouseOptional.isPresent()) {
 					if(isValidService(serviceHouse)){
-						ServiceHouse existingServiceHouse = existingHouseOptional.get();
+						ServiceHouseEntity existingServiceHouse = existingHouseOptional.get();
 						existingServiceHouse.setServiceName(serviceHouse.getServiceName());
 						existingServiceHouse.setServicePrice(serviceHouse.getServicePrice());
 						serviceRepository.save(existingServiceHouse);
@@ -158,13 +158,13 @@ public class ServiceServiceImpl implements IServiceService {
 			BigDecimal priceService = BigDecimal.ZERO;
 			if(room.isPresent()) {
 				InforRoomEntity roomService = room.get();
-				for (RoomService service : roomService.getServices()) {
+				for (RoomServiceEntity service : roomService.getServices()) {
 					roomServiceRepository.deleteById(service.getRoomService());
 				}
 				for (String serviceId : listServiceIds) {
 					Long serviceRoomId = Long.parseLong(serviceId);
 					if(serviceRepository.existsById(serviceRoomId)){
-						RoomService roomServiceUpdate = new RoomService();
+						RoomServiceEntity roomServiceUpdate = new RoomServiceEntity();
 						roomServiceUpdate.setRoomId(Long.parseLong(id));
 						roomServiceUpdate.setServiceId(Long.parseLong(serviceId));
 						roomServiceRepository.save(roomServiceUpdate);
@@ -174,10 +174,10 @@ public class ServiceServiceImpl implements IServiceService {
 					}
 				}
 				// update service price in order
-				Optional<Order> orderOptional =	orderRepository.findOrderForRoomInCurrentMonth(roomService.getId());
+				Optional<OrderEntity> orderOptional =	orderRepository.findOrderForRoomInCurrentMonth(roomService.getId());
 				if(orderOptional.isPresent()) {
-					Order order = orderOptional.get();
-					for (RoomService roomServicePrice : roomService.getServices()) {
+					OrderEntity order = orderOptional.get();
+					for (RoomServiceEntity roomServicePrice : roomService.getServices()) {
 						priceService = priceService.add(roomServicePrice.getServiceHouse().getServicePrice());
 					}
 					order.setService(priceService);

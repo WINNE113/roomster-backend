@@ -15,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.roomster.roomsterbackend.entity.ServiceHouse;
+import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 import com.roomster.roomsterbackend.service.IService.IServiceService;
 
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/room-master/serviceHouse")
+@RequestMapping("/api/vi/room-master/serviceHouse")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class ServiceController {
 
 	@Autowired
@@ -38,12 +39,12 @@ public class ServiceController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createServiceHouse(@RequestBody ServiceHouse ServiceHouse) {
+    public ResponseEntity<?> createServiceHouse(@RequestBody ServiceHouseEntity ServiceHouse) {
         return serviceHouse.createServiceHouse(ServiceHouse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateServiceHouse(@PathVariable String id, @RequestBody ServiceHouse ServiceHouse) {
+    public ResponseEntity<?> updateServiceHouse(@PathVariable String id, @RequestBody ServiceHouseEntity ServiceHouse) {
         return serviceHouse.updateServiceHouse(id, ServiceHouse);
     }
 

@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.entity.City;
+import com.roomster.roomsterbackend.entity.CityEntity;
 import com.roomster.roomsterbackend.mapper.CityMapper;
 import com.roomster.roomsterbackend.repository.CityRepository;
 import com.roomster.roomsterbackend.service.IService.ICityService;
@@ -36,7 +36,7 @@ public class CityServiceImpl implements ICityService {
     public ResponseEntity<?> findById(Long id) {
         ResponseEntity<?> responseEntity;
         try {
-            Optional<City> city = cityRepository.findById(id);
+            Optional<CityEntity> city = cityRepository.findById(id);
             if (city.isPresent()) {
                 responseEntity = new ResponseEntity<>(cityMapper.entityToDTO(city.get()), HttpStatus.OK);
             } else {

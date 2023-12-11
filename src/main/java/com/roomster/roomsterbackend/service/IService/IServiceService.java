@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
-import com.roomster.roomsterbackend.entity.ServiceHouse;
+import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 
 public interface IServiceService {
 
@@ -12,9 +12,9 @@ public interface IServiceService {
 
 	ResponseEntity<?>  getServiceHouseById(String id);
 
-	ResponseEntity<?>  createServiceHouse(ServiceHouse serviceHouse);
+	ResponseEntity<?>  createServiceHouse(ServiceHouseEntity serviceHouse);
 
-	ResponseEntity<?>  updateServiceHouse(String id, ServiceHouse serviceHouse);
+	ResponseEntity<?>  updateServiceHouse(String id, ServiceHouseEntity serviceHouse);
 
 	ResponseEntity<?>  deleteServiceHouse(List<String> listServices);
 	

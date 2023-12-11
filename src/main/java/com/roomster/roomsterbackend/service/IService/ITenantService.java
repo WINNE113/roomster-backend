@@ -2,7 +2,7 @@ package com.roomster.roomsterbackend.service.IService;
 
 import org.springframework.http.ResponseEntity;
 
-import com.roomster.roomsterbackend.entity.Tenant;
+import com.roomster.roomsterbackend.entity.TenantEntity;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ public interface ITenantService {
 	
 	ResponseEntity<?> getTenantByRoomId(String id);
 
-	ResponseEntity<?> createTenant(Tenant tenant);
+	ResponseEntity<?> createTenant(TenantEntity tenant);
 
-	ResponseEntity<?> updateTenant(String id, Tenant tenant);
+	ResponseEntity<?> updateTenant(String id, TenantEntity tenant);
 
 	ResponseEntity<?> deleteTenant(List<String> tenantIds);
 

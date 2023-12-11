@@ -2,15 +2,50 @@ package com.roomster.roomsterbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "phone_number"))
-public class UserEntity extends BaseEntity implements UserDetails {
+@Getter
+@Setter
+public class UserEntity implements UserDetails {
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @CreatedDate
+    @Column(
+            nullable = false,
+            updatable = false
+    )
+    private Date createdDate;
+    @LastModifiedDate
+    @Column(
+            insertable = false
+    )
+    private Date modifiedDate;
+    @CreatedBy
+    @Column(
+            nullable = false,
+            updatable = false
+    )
+    private Long createdBy;
+    @LastModifiedBy
+    @Column(
+            insertable = false
+    )
+    private Long modifiedBy;
 
     @Column(name = "user_name")
     private String userName;
@@ -45,6 +80,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "balance")
+    private BigDecimal balance;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
@@ -66,140 +104,7 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @JsonManagedReference
     private List<PaymentEntity> payments;
 
-    public UserEntity(){}
-
-    public List<WishlistEntity> getWishlists() {
-        return wishlists;
-    }
-
-    public void setWishlists(List<WishlistEntity> wishlists) {
-        this.wishlists = wishlists;
-    }
-
-    public List<PaymentEntity> getPayments() {
-        return payments;
-    }
-
-    public void setPayments(List<PaymentEntity> payments) {
-        this.payments = payments;
-    }
-
-    public List<PostEntity> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostEntity> posts) {
-        this.posts = posts;
-    }
-
-    public List<TokenEntity> getTokens() {
-        return tokens;
-    }
-
-    public void setTokens(List<TokenEntity> tokens) {
-        this.tokens = tokens;
-    }
-
-    public String getImages() {
-        return images;
-    }
-
-    public void setImages(String images) {
-        this.images = images;
-    }
-
-    public boolean isPhoneNumberConfirmed() {
-        return phoneNumberConfirmed;
-    }
-
-    public boolean isTwoFactorEnable() {
-        return twoFactorEnable;
-    }
-
-    public List<ChatMessageEntity> getChatMessage() {
-        return chatMessage;
-    }
-
-    public void setChatMessage(List<ChatMessageEntity> chatMessage) {
-        this.chatMessage = chatMessage;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public boolean getPhoneNumberConfirmed(){return phoneNumberConfirmed;}
-
-    public void setPhoneNumberConfirmed(boolean phoneNumberConfirmed){
-        this.phoneNumberConfirmed = phoneNumberConfirmed;
-    }
-
-    public boolean getTwoFactorEnable() {
-        return twoFactorEnable;
-    }
-
-    public void setTwoFactorEnable(boolean twoFactorEnable) {
-        this.twoFactorEnable = twoFactorEnable;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
+    public UserEntity() {
     }
 
     @JsonManagedReference
@@ -207,15 +112,10 @@ public class UserEntity extends BaseEntity implements UserDetails {
         return roles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
-    }
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        for(RoleEntity role: roles){
+        for (RoleEntity role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         }
         return authorities;

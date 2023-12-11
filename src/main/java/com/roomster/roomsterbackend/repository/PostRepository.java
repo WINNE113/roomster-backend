@@ -35,7 +35,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
             "GROUP BY provinceName ORDER BY totalPosts DESC", nativeQuery = true)
     List<ProvinceDto> getTopOfProvince(Pageable pageable);
 
-    @Query(value = "select p.id, p.title, p.address, p.description, p.object, p.convenient, p.surroundings, p.post_type_id as postType, p.created_by as createdBy, p.created_date as createdDate, p.rotation, ir.acreage, ir.electricity_price as electricityPrice, ir.price, ir.staymax, ir.water_price as waterPrice\n" +
+    @Query(value = "select p.id, p.title, p.address, p.description, p.object, p.convenient, p.surroundings, p.post_type_id as postType, p.created_by as createdBy, p.created_date as createdDate, p.rotation, ir.acreage, ir.electricity_price as electricityPrice, ir.price, ir.staymax, ir.water_price as waterPrice, ir.empty_room as emptyRoom, ir.number_room as numberRoom \n" +
             "from posts p\n" +
             "left join infor_rooms ir\n" +
             "on p.room_id = ir.id\n" +

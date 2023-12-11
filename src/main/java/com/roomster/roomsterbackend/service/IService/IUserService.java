@@ -5,6 +5,7 @@ import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
+import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
@@ -34,5 +35,8 @@ public interface IUserService {
 
     ResponseEntity<?> sendOTP(OtpRequestDto requestDto);
 
-    ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request);
+    ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request, Principal connectedUser);
+
+    ResponseEntity<?> changePhoneNumberWithOTP(ChangePhoneNumberWithOTP request, Principal connectedUser);
+
 }

@@ -12,6 +12,8 @@ import lombok.NoArgsConstructor;
 public class AuthenticationResponse {
     private String token;
     private String message;
+    private String role;
+    private String userName;
 
     public static AuthenticationResponse error(String errorMessage) {
         AuthenticationResponse response = new AuthenticationResponse();

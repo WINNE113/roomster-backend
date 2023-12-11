@@ -1,9 +1,9 @@
-package com.roomster.roomsterbackend.util;
+package com.roomster.roomsterbackend.util.extensions;
 
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 
-public class ConvertUtil {
+public class ConvertStringToArrayExtension {
     public static void convertStringToArray(LinkedHashMap<String, Object> map) {
         for (String key : map.keySet()) {
             if (key.equals("price")) {

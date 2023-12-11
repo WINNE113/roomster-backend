@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.Serializable;
-
 @Data
 @Entity
 @Table(name = "room_services")
-public class RoomService {
+public class RoomServiceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "room_services_id")
@@ -30,6 +28,6 @@ public class RoomService {
     @ManyToOne
     @JoinColumn(name = "service_id", insertable=false, updatable=false)
     @JsonManagedReference
-    private ServiceHouse serviceHouse;
+    private ServiceHouseEntity serviceHouse;
 
 }

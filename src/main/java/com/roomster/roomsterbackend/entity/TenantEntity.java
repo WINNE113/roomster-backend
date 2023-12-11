@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "tenant")
-public class Tenant {
+public class TenantEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tenant_id")
