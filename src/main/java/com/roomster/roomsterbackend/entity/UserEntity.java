@@ -107,6 +107,14 @@ public class UserEntity implements UserDetails {
     public UserEntity() {
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     @JsonManagedReference
     public Set<RoleEntity> getRoles() {
         return roles;

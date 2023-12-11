@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.post.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,4 +34,6 @@ public interface IPostService {
     List<PostDto> getPostsRejected(Pageable pageable);
 
     void setIsRejectedPosts(Long[] listPostId);
+
+    ResponseEntity<?> upload(List<MultipartFile> images);
 }

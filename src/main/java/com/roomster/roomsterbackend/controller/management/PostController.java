@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,6 +66,11 @@ public class PostController {
         } catch (Exception ex) {
             return BaseResponse.error(ex.getMessage());
         }
+    }
+
+    @PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<?> upload(@RequestPart(required = false, name = "images") @Valid List<MultipartFile> images){
+            return service.upload(images);
     }
 
     @DeleteMapping(value = "/delete")

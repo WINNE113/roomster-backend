@@ -17,6 +17,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -230,6 +231,11 @@ public class PostService implements IPostService {
                 postRepository.save(post.get());
             }
         }
+    }
+
+    @Override
+    public ResponseEntity<?> upload(List<MultipartFile> images) {
+        return null;
     }
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException{
