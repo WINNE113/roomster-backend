@@ -12,6 +12,8 @@ import com.roomster.roomsterbackend.service.IService.payment.IPaymentService;
 import com.roomster.roomsterbackend.util.extensions.ObjectExtension;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -72,7 +74,10 @@ public class PaymentController {
         httpServletResponse.sendRedirect(builder.toUriString());}
 
     @GetMapping(value = "/history")
-    public ResponseEntity<?> paymentHistory(Principal connectedUser){
-        return paymentService.paymentHistory(connectedUser);
+    public ResponseEntity<?> paymentHistory(@RequestParam(name = "page", required = false, defaultValue = "5") Integer page,
+                                            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
+                                            Principal connectedUser){
+        Pageable pageable = PageRequest.of(page, size);
+        return paymentService.paymentHistory(connectedUser, pageable);
     }
 }
