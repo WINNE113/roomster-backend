@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.service.IService.payment;
 
 import com.roomster.roomsterbackend.dto.payment.ViewPaymentReturnDto;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import com.roomster.roomsterbackend.dto.payment.PaymentDto;
 import com.roomster.roomsterbackend.dto.response.VnpayPayResponse;
@@ -17,5 +18,5 @@ public interface IPaymentService {
     BaseResultWithData<VnpayPayIpnResponse> vnpayReturnIpn(VnpayPayResponse response);
 
     ResponseEntity<?> vnpayReturnView(ViewPaymentReturnDto response);
-    ResponseEntity<?> paymentHistory(Principal connectedUser);
+    ResponseEntity<?> paymentHistory(Principal connectedUser, Pageable pageable);
 }

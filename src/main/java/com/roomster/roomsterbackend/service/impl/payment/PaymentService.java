@@ -14,6 +14,7 @@ import com.roomster.roomsterbackend.util.helpers.HashHelper;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.extensions.ConvertObjectToJsonExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -302,13 +303,13 @@ public class PaymentService implements IPaymentService {
     }
 
     @Override
-    public ResponseEntity<?> paymentHistory(Principal connectedUser) {
+    public ResponseEntity<?> paymentHistory(Principal connectedUser, Pageable pageable) {
         ResponseEntity<?> responseEntity = null;
         try {
             var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
             if(user != null){
                 List<PaymentDtoMapper> paymentDtoMappers =
-                        paymentRepository.findAllByUserPayment_IdOrderByCreatedDate(user.getId())
+                        paymentRepository.findAllByUserPayment_IdOrderByCreatedDate(user.getId(), pageable)
                                 .stream()
                                 .map(paymentEntity -> paymentMapper.entityToDto(paymentEntity))
                                 .collect(Collectors.toList());
