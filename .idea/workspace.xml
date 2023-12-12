@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="get token after up role">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Add payment history">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/InforRoomEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/util/handler/TokenHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/util/handler/TokenHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/admin/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/admin/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/entity/UserEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +17,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Enum" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -72,38 +72,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Rebasing thanglh",
-    "last_opened_file_path": "D:/WorkSpace/Java_Full/Spring Boot/payment/payment",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "spring.configuration.checksum": "5a86b9063a4137cdca5cc22dcffd0406",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Rebasing thanglh&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_CapstoneProject/LPTeam/roomster-backend/roomster-backend/src/main/java/com/roomster/roomsterbackend/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ],
-    "DatabaseDriversLRU": [
-      "mysql"
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -113,11 +113,11 @@
       <recent name="com.roomster.roomsterbackend.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository" />
-      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl" />
-      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\entity" />
-      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\controller\user" />
-      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\mapper" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\config" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\dto" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\repository\payment" />
+      <recent name="D:\WorkSpace\_CapstoneProject\LPTeam\roomster-backend\roomster-backend\src\main\java\com\roomster\roomsterbackend\service\impl\payment" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.roomster.roomsterbackend.controller.management" />
@@ -320,134 +320,12 @@
       <workItem from="1701973836480" duration="48000" />
       <workItem from="1702032255796" duration="3735000" />
       <workItem from="1702046382078" duration="99000" />
-    </task>
-    <task id="LOCAL-00001" summary="add send OTP and validate OTP">
-      <option name="closed" value="true" />
-      <created>1697019183867</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1697019183867</updated>
-    </task>
-    <task id="LOCAL-00002" summary=" modified send OTP and validate OTP">
-      <option name="closed" value="true" />
-      <created>1697766944375</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1697766944375</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Modified file AuthenticationService">
-      <option name="closed" value="true" />
-      <created>1697767144816</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1697767144816</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Fix model database">
-      <option name="closed" value="true" />
-      <created>1698678909257</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1698678909257</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Fix model database">
-      <option name="closed" value="true" />
-      <created>1698762276570</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1698762276570</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Change enum role to entity role">
-      <option name="closed" value="true" />
-      <created>1698936874194</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1698936874194</updated>
-    </task>
-    <task id="LOCAL-00007" summary="delete userModel">
-      <option name="closed" value="true" />
-      <created>1699019466811</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1699019466811</updated>
-    </task>
-    <task id="LOCAL-00008" summary="mapper for post dto">
-      <option name="closed" value="true" />
-      <created>1699020335082</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1699020335082</updated>
-    </task>
-    <task id="LOCAL-00009" summary="modified register account user or owner">
-      <option name="closed" value="true" />
-      <created>1699109237818</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1699109237818</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Fix OpenAPI document">
-      <option name="closed" value="true" />
-      <created>1699263660177</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1699263660177</updated>
-    </task>
-    <task id="LOCAL-00011" summary="add post new">
-      <option name="closed" value="true" />
-      <created>1699293644418</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1699293644418</updated>
-    </task>
-    <task id="LOCAL-00012" summary="add view profile and update password">
-      <option name="closed" value="true" />
-      <created>1699465322234</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1699465322236</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Fix cross-origin config">
-      <option name="closed" value="true" />
-      <created>1699519600421</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1699519600421</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Fix cross-origin config">
-      <option name="closed" value="true" />
-      <created>1699537671485</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1699537671485</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Fix cors config and update profile">
-      <option name="closed" value="true" />
-      <created>1699636363702</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1699636363705</updated>
-    </task>
-    <task id="LOCAL-00016" summary="add logout and token entity">
-      <option name="closed" value="true" />
-      <created>1699695915750</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1699695915750</updated>
+      <workItem from="1702107981838" duration="4348000" />
+      <workItem from="1702114905567" duration="7093000" />
+      <workItem from="1702133060542" duration="15067000" />
+      <workItem from="1702181559780" duration="9506000" />
+      <workItem from="1702274417676" duration="35183000" />
+      <workItem from="1702363340546" duration="5473000" />
     </task>
     <task id="LOCAL-00017" summary="add filter and fix update profile">
       <option name="closed" value="true" />
@@ -689,7 +567,159 @@
       <option name="project" value="LOCAL" />
       <updated>1702035679243</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Fix something">
+      <option name="closed" value="true" />
+      <created>1702108030299</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1702108030299</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Fix util manage">
+      <option name="closed" value="true" />
+      <created>1702108998572</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1702108998572</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Add Future-Payment entities">
+      <option name="closed" value="true" />
+      <created>1702118326115</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1702118326117</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Add Future-Payment entities">
+      <option name="closed" value="true" />
+      <created>1702118393867</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1702118393868</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Fix changePhone number">
+      <option name="closed" value="true" />
+      <created>1702182741361</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1702182741363</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Fix-Update phone number with OTP">
+      <option name="closed" value="true" />
+      <created>1702204439506</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1702204439507</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Fix: Format code v1">
+      <option name="closed" value="true" />
+      <created>1702220452849</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1702220452850</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Add payment v1">
+      <option name="closed" value="true" />
+      <created>1702220977520</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1702220977521</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Fix post dto">
+      <option name="closed" value="true" />
+      <created>1702275185443</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1702275185444</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Fix post dto">
+      <option name="closed" value="true" />
+      <created>1702275251032</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1702275251032</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Fix post dto">
+      <option name="closed" value="true" />
+      <created>1702276423219</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1702276423219</updated>
+    </task>
+    <task id="LOCAL-00058" summary="get balance">
+      <option name="closed" value="true" />
+      <created>1702276854875</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1702276854876</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Format ID User">
+      <option name="closed" value="true" />
+      <created>1702278399113</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1702278399114</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Fix something">
+      <option name="closed" value="true" />
+      <created>1702281160687</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1702281160687</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Fix Images post">
+      <option name="closed" value="true" />
+      <created>1702286154211</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1702286154213</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1702307610389</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1702307610390</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Fix v1">
+      <option name="closed" value="true" />
+      <created>1702310477714</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1702310477716</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Fix v2">
+      <option name="closed" value="true" />
+      <created>1702314069131</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1702314069132</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Add payment history">
+      <option name="closed" value="true" />
+      <created>1702328745603</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1702328745605</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -744,20 +774,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add total result filter" />
-    <MESSAGE value="Fix filter search" />
-    <MESSAGE value="Fix get post by rating" />
-    <MESSAGE value="Don't get post is deleted" />
-    <MESSAGE value="fix cors" />
-    <MESSAGE value="Add api get top of province and total post of province" />
-    <MESSAGE value="Add postDetail and images of post" />
-    <MESSAGE value="Change structure file and fix comment and rating" />
-    <MESSAGE value="Fix post detail" />
-    <MESSAGE value="Fix post detail 2" />
-    <MESSAGE value="Fix rating" />
-    <MESSAGE value="Fix" />
-    <MESSAGE value="add wishList" />
-    <MESSAGE value="add relation mapper wishListItemEntity and postEntity" />
     <MESSAGE value="Remove ImageEntity.java" />
     <MESSAGE value="Fix get wishlistitem" />
     <MESSAGE value="Up role to manage" />
@@ -766,10 +782,24 @@
     <MESSAGE value="HOST-Merge code" />
     <MESSAGE value="HOST-Merge code v2" />
     <MESSAGE value="Fix gitignore" />
-    <MESSAGE value="Fix something" />
     <MESSAGE value="Fix up role and add update phone number" />
     <MESSAGE value="get token after up role" />
-    <option name="LAST_COMMIT_MESSAGE" value="get token after up role" />
+    <MESSAGE value="Fix util manage" />
+    <MESSAGE value="Add Future-Payment entities" />
+    <MESSAGE value="Fix changePhone number" />
+    <MESSAGE value="Fix-Update phone number with OTP" />
+    <MESSAGE value="Fix: Format code v1" />
+    <MESSAGE value="Add payment v1" />
+    <MESSAGE value="Fix post dto" />
+    <MESSAGE value="get balance" />
+    <MESSAGE value="Format ID User" />
+    <MESSAGE value="Fix something" />
+    <MESSAGE value="Fix Images post" />
+    <MESSAGE value="Fix" />
+    <MESSAGE value="Fix v1" />
+    <MESSAGE value="Fix v2" />
+    <MESSAGE value="Add payment history" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add payment history" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -780,9 +810,14 @@
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/UserService.java</url>
-          <line>172</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/target/generated-sources/annotations/com/roomster/roomsterbackend/mapper/PostMapperImpl_.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/ServicePackageServiceImpl.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

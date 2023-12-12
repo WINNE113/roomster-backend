@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.w3c.dom.Text;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class PaymentTransactionEntity extends BaseSecurityEntity {
     @Column(name = "tran_message", length = 250)
     private String tranMessage;
 
-    @Column(name = "tran_payload", length = 500)
+    @Column(name = "tran_payload", columnDefinition = "TEXT")
     private String tranPayload;
 
     @Column(name = "tran_status", length = 10)

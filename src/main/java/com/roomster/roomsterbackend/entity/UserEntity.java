@@ -87,9 +87,6 @@ public class UserEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userChatMessage")
-    private List<ChatMessageEntity> chatMessage = new ArrayList<>();
-
     @OneToMany(mappedBy = "userToken")
     private List<TokenEntity> tokens;
 
@@ -103,6 +100,10 @@ public class UserEntity implements UserDetails {
     @OneToMany(mappedBy = "userPayment")
     @JsonManagedReference
     private List<PaymentEntity> payments;
+
+    @OneToMany(mappedBy = "userTransaction")
+    @JsonManagedReference
+    private List<TransactionEntity> transactionEntities;
 
     public UserEntity() {
     }
