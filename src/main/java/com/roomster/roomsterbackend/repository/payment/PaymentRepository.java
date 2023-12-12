@@ -11,4 +11,5 @@ import java.util.List;
 public interface PaymentRepository extends JpaRepository<PaymentEntity, String> {
 
     List<PaymentEntity> findAllByUserPayment_IdOrderByCreatedDate(Long userId , Pageable pageable);
+    Long countPaymentEntitiesByUserPayment_Id(Long userId);
 }
