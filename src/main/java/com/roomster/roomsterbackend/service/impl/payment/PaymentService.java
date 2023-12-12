@@ -1,28 +1,28 @@
 package com.roomster.roomsterbackend.service.impl.payment;
 
+import com.roomster.roomsterbackend.base.BaseResultWithData;
+import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.config.VnpayConfig;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.payment.*;
 import com.roomster.roomsterbackend.dto.request.VnpayPayRequest;
+import com.roomster.roomsterbackend.dto.response.VnpayPayIpnResponse;
+import com.roomster.roomsterbackend.dto.response.VnpayPayResponse;
 import com.roomster.roomsterbackend.entity.*;
 import com.roomster.roomsterbackend.mapper.PaymentMapper;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.repository.payment.*;
 import com.roomster.roomsterbackend.service.IService.payment.IPaymentService;
 import com.roomster.roomsterbackend.service.IService.payment.IUserIpAddress;
+import com.roomster.roomsterbackend.util.extensions.ConvertObjectToJsonExtension;
 import com.roomster.roomsterbackend.util.helpers.HashHelper;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
-import com.roomster.roomsterbackend.util.extensions.ConvertObjectToJsonExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
-import com.roomster.roomsterbackend.base.BaseResultWithData;
-import com.roomster.roomsterbackend.dto.response.VnpayPayResponse;
-import com.roomster.roomsterbackend.dto.response.VnpayPayIpnResponse;
-
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -306,16 +306,23 @@ public class PaymentService implements IPaymentService {
     public ResponseEntity<?> paymentHistory(Principal connectedUser, Pageable pageable) {
         ResponseEntity<?> responseEntity = null;
         try {
-            var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
-            if(user != null){
+            var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+            if (user != null) {
                 List<PaymentDtoMapper> paymentDtoMappers =
                         paymentRepository.findAllByUserPayment_IdOrderByCreatedDate(user.getId(), pageable)
                                 .stream()
                                 .map(paymentEntity -> paymentMapper.entityToDto(paymentEntity))
                                 .collect(Collectors.toList());
+                Long count = paymentRepository.countPaymentEntitiesByUserPayment_Id(user.getId());
+                BaseResultWithDataAndCount<List<PaymentDtoMapper>> resultData = new BaseResultWithDataAndCount<>();
 
-                responseEntity = new ResponseEntity<>(paymentDtoMappers, HttpStatus.OK);
-            }else {
+
+                resultData.setData(paymentDtoMappers);
+                resultData.setCount(count);
+
+
+                responseEntity = new ResponseEntity<>(resultData, HttpStatus.OK);
+            } else {
                 responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
         } catch (Exception ex) {
