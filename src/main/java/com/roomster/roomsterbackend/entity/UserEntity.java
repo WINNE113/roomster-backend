@@ -104,6 +104,10 @@ public class UserEntity implements UserDetails {
     @JsonManagedReference
     private List<PaymentEntity> payments;
 
+    @OneToMany(mappedBy = "userTransaction")
+    @JsonManagedReference
+    private List<TransactionEntity> transactionEntities;
+
     public UserEntity() {
     }
 
