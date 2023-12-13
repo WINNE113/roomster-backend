@@ -12,6 +12,7 @@ public class MessageUtil {
     public static final String MSG_WISHLIST_ITEM_EXITED = "Danh sách yêu thích đã tồn tại bài viết";
     public static final String MSG_CITY_NOT_FOUND = "Thành phố không tồn tại !";
     public static final String MSG_WARD_NOT_FOUND = "Phường không tồn tại !";
+    public static final String MSG_TENANT_NOT_CHECK = "Bạn chưa chọn khách thuê phòng nào !";
     public static final String MSG_DISTRICT_NOT_FOUND = "Quận không tồn tại !";
     public static final String MSG_ID_FORMAT_INVALID = "Mã sai định dạng !";
     public static final String MSG_PHONE_NUMBER_FORMAT_INVALID = "Mã sai định dạng !";
@@ -49,4 +50,5 @@ public class MessageUtil {
     public static final String MSG_BALANCE_NOT_ENOUGH = "Hiện tại, Số dư của bạn không đủ để thực hiện giao dịch.";
     public static final String MSG_SERVICE_PACKAGE_IS_EXPIRED = "Gói dịch vụ của bạn đã hết hạn, vui lòng gia hạn hoặc mua gói mới để sử dụng tính năng";
     public static final String MSG_SERVICE_PACKAGE_NOT_FOUND = "Vui lòng mua gói mới để sử dụng tính năng";
+    public static final String MSG_SEND_MAIL_SUCCESS = "Xác thực số điện thoại thành công !";
 }
