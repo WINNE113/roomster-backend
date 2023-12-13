@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public interface HouseRepository extends JpaRepository<HouseEntity, Long> {
 
 	List<HouseEntity> findAll();
-
+	
 	Optional<HouseEntity> findById(Long id);
 
 	@Query("SELECT COUNT(h) FROM HouseEntity h " +

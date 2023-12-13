@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/common/ward")
+@RequestMapping("/api/v1/common/ward")
 public class WardController {
     @Autowired
     private IWarnService warnService;

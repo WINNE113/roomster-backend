@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/vi/room-master/room")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/v1/room-master/room")
+@PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class RoomController {
     @Autowired
     IRoomService roomService;

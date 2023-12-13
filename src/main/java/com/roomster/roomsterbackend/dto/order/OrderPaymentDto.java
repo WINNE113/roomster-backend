@@ -14,6 +14,5 @@ public class OrderPaymentDto extends OrderEntity {
   private BigDecimal priceService; 
   private BigDecimal priceRoom;
   private List<ServiceHouseEntity> serviceHouses;
-
   
 }

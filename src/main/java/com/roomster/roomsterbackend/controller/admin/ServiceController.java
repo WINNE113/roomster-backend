@@ -21,8 +21,8 @@ import com.roomster.roomsterbackend.service.IService.IServiceService;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/vi/room-master/serviceHouse")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/v1/room-master/serviceHouse")
+@PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class ServiceController {
 
 	@Autowired

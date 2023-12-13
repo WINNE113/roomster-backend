@@ -20,8 +20,8 @@ import java.util.List;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/api/vi/room-master/tenant")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/v1/room-master/tenant")
+@PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class TenantController {
 
 	@Autowired
@@ -37,8 +37,8 @@ public class TenantController {
         return tenantService.getGuestById(id);
     }
 
-    @GetMapping("/house/{id}")
-    public ResponseEntity<?> getTenantsByHouseId(@PathVariable String id) {
+    @GetMapping("/room/{id}")
+    public ResponseEntity<?> getTenantsByRoomId(@PathVariable String id) {
         return tenantService.getTenantByRoomId(id);
     }
     @PostMapping
@@ -50,7 +50,7 @@ public class TenantController {
         return tenantService.updateTenant(id, tenant);
     }
     @PutMapping("/move/{id}")
-    public ResponseEntity<?> updateTenant(@PathVariable String id, @RequestBody List<String> tenantIds) {
+    public ResponseEntity<?> moveTenant(@PathVariable String id, @RequestBody List<String> tenantIds) {
         return tenantService.moveTenant(id, tenantIds);
     }
     @DeleteMapping()

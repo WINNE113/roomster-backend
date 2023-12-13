@@ -12,6 +12,7 @@ public class MessageUtil {
     public static final String MSG_WISHLIST_ITEM_EXITED = "Danh sách yêu thích đã tồn tại bài viết";
     public static final String MSG_CITY_NOT_FOUND = "Thành phố không tồn tại !";
     public static final String MSG_WARD_NOT_FOUND = "Phường không tồn tại !";
+    public static final String MSG_TENANT_NOT_CHECK = "Bạn chưa chọn khách thuê phòng nào !";
     public static final String MSG_DISTRICT_NOT_FOUND = "Quận không tồn tại !";
     public static final String MSG_ID_FORMAT_INVALID = "Mã sai định dạng !";
     public static final String MSG_PHONE_NUMBER_FORMAT_INVALID = "Mã sai định dạng !";
@@ -43,4 +44,12 @@ public class MessageUtil {
     public static final String MSG_PROCESS_TRANSACTION_PAYMENT_SUCCESS = "Cảm ơn bạn, giao dịch thanh toán thành công !";
     public static final String MSG_PAYMENT_NOT_FOUND = "Giao dịch thanh toán không tìm thấy.";
     public static final String MSG_AUTHENTICATION_FAIL = "Đăng nhập không thành công. Vui lòng kiểm tra số điện thoại hoặc mật khẩu.";
+    public static final String MSG_TRANSACTION_SERVICE_SUCCESS_WITH_SMS = "Giao dich thanh toán dịch vụ thành công, Vui lòng kiểm tra SMS để xem chi tiết ";
+    public static final String MSG_TRANSACTION_EXTENSION_SERVICE_SUCCESS_WITH_SMS = "Giao dich thanh toán gia hạn dịch vụ thành công, Vui lòng kiểm tra SMS để xem chi tiết ";
+    public static final String MSG_TRANSACTION_SERVICE_SUCCESS_WITHOUT_SMS = "Giao dich thanh toán dịch vụ thành công. Lỗi gửi SMS! ";
+    public static final String MSG_TRANSACTION_EXTENSION_SERVICE_SUCCESS_WITHOUT_SMS = "Giao dich thanh toán gia hạn dịch vụ thành công. Lỗi gửi SMS! ";
+    public static final String MSG_BALANCE_NOT_ENOUGH = "Hiện tại, Số dư của bạn không đủ để thực hiện giao dịch.";
+    public static final String MSG_SERVICE_PACKAGE_IS_EXPIRED = "Gói dịch vụ của bạn đã hết hạn, vui lòng gia hạn hoặc mua gói mới để sử dụng tính năng";
+    public static final String MSG_SERVICE_PACKAGE_NOT_FOUND = "Vui lòng mua gói mới để sử dụng tính năng";
+    public static final String MSG_SEND_MAIL_SUCCESS = "Xác thực số điện thoại thành công !";
 }

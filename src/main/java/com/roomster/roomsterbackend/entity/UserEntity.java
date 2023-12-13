@@ -87,9 +87,6 @@ public class UserEntity implements UserDetails {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "userChatMessage")
-    private List<ChatMessageEntity> chatMessage = new ArrayList<>();
-
     @OneToMany(mappedBy = "userToken")
     private List<TokenEntity> tokens;
 
@@ -117,6 +114,16 @@ public class UserEntity implements UserDetails {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void addRole(RoleEntity role){
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
+
+    public void removeRole(RoleEntity role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 
     @JsonManagedReference

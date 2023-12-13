@@ -3,14 +3,15 @@ package com.roomster.roomsterbackend.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import com.roomster.roomsterbackend.entity.TenantEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface TenantRepository extends JpaRepository<TenantEntity, Long> {
 
-
     List<TenantEntity> findByRoomId(Long roomId);
+
     @Query("SELECT COUNT(t) FROM TenantEntity t " +
             "WHERE t.email = :email " +
             "AND (:tenantId IS NULL OR t.id != :tenantId)")

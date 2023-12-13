@@ -41,9 +41,12 @@ public class OrderEntity {
     
     @Column(name = "total")
     private BigDecimal total;
+
+    @Column(name = "total_payment")
+    private BigDecimal totalPayment = BigDecimal.ZERO;
     
     @Column(name = "status_payment")
-    private String statusPayment;
+    private String statusPayment = "N";
 
     @Column(name = "payment_date")
     private Date paymentDate;
