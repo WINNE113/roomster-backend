@@ -41,12 +41,7 @@ public class AdminController {
     }
 
     //TODO: CRUD service package
-    @GetMapping(value = "/service/service-package")
-    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
-        Pageable pageable = PageRequest.of(page, size);
-        return servicePackageService.getAllServicePackage(pageable);
-    }
+
 
     @PostMapping(value = "/service/add-service-package")
     public ResponseEntity<?> addServicePackage(@RequestBody  ServicePackageDto request){
