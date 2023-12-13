@@ -5,6 +5,8 @@ import com.roomster.roomsterbackend.dto.service.servicePackage.ServicePackageDto
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IServicePackageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +42,10 @@ public class AdminController {
 
     //TODO: CRUD service package
     @GetMapping(value = "/service/service-package")
-    public ResponseEntity<?> getAllServicePackage(){
-        return servicePackageService.getAllServicePackage();
+    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return servicePackageService.getAllServicePackage(pageable);
     }
 
     @PostMapping(value = "/service/add-service-package")
