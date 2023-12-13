@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/common/district")
+@RequestMapping("/api/v1/common/district")
 public class DistrictController {
     @Autowired
     private IDistrictService districtService;

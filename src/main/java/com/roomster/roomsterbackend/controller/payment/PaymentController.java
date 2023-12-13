@@ -74,7 +74,7 @@ public class PaymentController {
         httpServletResponse.sendRedirect(builder.toUriString());}
 
     @GetMapping(value = "/history")
-    public ResponseEntity<?> paymentHistory(@RequestParam(name = "page", required = false, defaultValue = "5") Integer page,
+    public ResponseEntity<?> paymentHistory(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size,
                                             Principal connectedUser){
         Pageable pageable = PageRequest.of(page, size);

@@ -3,10 +3,10 @@ package com.roomster.roomsterbackend.service.impl;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomPaymentStatusDto;
 import com.roomster.roomsterbackend.dto.order.OrderStatusPaymentDto;
-import com.roomster.roomsterbackend.entity.House;
+import com.roomster.roomsterbackend.entity.HouseEntity;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.Order;
-import com.roomster.roomsterbackend.entity.RoomService;
+import com.roomster.roomsterbackend.entity.OrderEntity;
+import com.roomster.roomsterbackend.entity.RoomServiceEntity;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.service.IService.IRoomService;
@@ -55,7 +55,7 @@ public class RoomServiceImpl implements IRoomService {
         try {
             // check house
             Long houseId = room.getHouseId();
-            Optional<House> house = this.houseRepository.findById(houseId);
+            Optional<HouseEntity> house = this.houseRepository.findById(houseId);
             if (house.isPresent()) {
                 // validate room
                 if(isValidRoom(room)){
@@ -119,7 +119,7 @@ public class RoomServiceImpl implements IRoomService {
                 Optional<InforRoomEntity> roomEntityOptional = this.roomRepository.findById(idL);
                 if (roomEntityOptional.isPresent()) {
                     InforRoomEntity room = roomEntityOptional.get();
-                    room.getOrders().sort(Comparator.comparing(Order::getPaymentDate, Comparator.reverseOrder()));
+                    room.getOrders().sort(Comparator.comparing(OrderEntity::getPaymentDate, Comparator.reverseOrder()));
                     responseEntity = new ResponseEntity<>(room, HttpStatus.OK);
                 } else {
                     responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
@@ -165,7 +165,7 @@ public class RoomServiceImpl implements IRoomService {
                 
                 if (roomOptional.isPresent()) {
                     InforRoomEntity room = roomOptional.get();
-                    List<RoomService> services = room.getServices();
+                    List<RoomServiceEntity> services = room.getServices();
                     
                     responseEntity = new ResponseEntity<>(services, HttpStatus.OK);
                 } else {
@@ -206,9 +206,14 @@ public class RoomServiceImpl implements IRoomService {
                         dto.setRoomName(room.getNumberRoom() + "");
 
                         List<OrderStatusPaymentDto> orderStatusPayments = room.getOrders().stream()
-                                .filter(order -> "N".equals(order.getStatusPayment()))
-                                .map(order -> new OrderStatusPaymentDto(order.getPaymentDate().toString(), order.getTotal().toString()))
+                                .filter(order -> ("N".equals(order.getStatusPayment()) || "P".equals(order.getStatusPayment())))
+                                .map(order -> new OrderStatusPaymentDto(order.getPaymentDate().toString()
+                                        , order.getTotal().toString()
+                                        ,order.getTotalPayment().toString()
+                                        ,order.getTotal().subtract(order.getTotalPayment()).toString()
+                                        ))
                                 .collect(Collectors.toList());
+
                         dto.setOrderStatusPayments(orderStatusPayments);
                         return dto;
                     })

@@ -22,13 +22,19 @@ public class TransactionEntity {
     @Column(name = "expiration_date")
     private Date expirationDate;
 
+    @Column(name = "extension_days")
+    private Integer extensionDays;
+
+    @Column(name = "expired")
+    private boolean expired;
+
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", updatable = false)
     @JsonBackReference
     private UserEntity userTransaction;
 
     @ManyToOne
-    @JoinColumn(name = "package_id", referencedColumnName = "id", updatable = false)
+    @JoinColumn(name = "package_id", referencedColumnName = "id")
     @JsonBackReference
     private ServicePackageEntity servicePackage;
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 import java.util.UUID;
 
 public class HashHelper {
+    //String ID
     public static String generateEntityId() {
         // Generate a UUID (Universally Unique Identifier)
         UUID entityId = UUID.randomUUID();
@@ -17,6 +18,7 @@ public class HashHelper {
         return codeString;
     }
 
+    //Int ID
     public static int generateRandomNumbers() {
         Random rnd = new Random();
         return 100000 + rnd.nextInt(900000);

@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.twilio;
 
 import com.roomster.roomsterbackend.config.TwilioConfig;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
