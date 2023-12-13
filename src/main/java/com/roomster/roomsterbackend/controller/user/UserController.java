@@ -9,9 +9,8 @@ import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
-import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
+import com.roomster.roomsterbackend.service.IService.ITransactionService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
-import com.roomster.roomsterbackend.service.impl.TwilioOTPService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -31,8 +30,8 @@ import java.security.Principal;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UserController {
     private final IUserService userService;
-    private final TwilioOTPService twilioOTPService;
-    private final IAuthenticationService authenticationService;
+
+    private final ITransactionService transactionService;
 
     @GetMapping("/view-profile")
     public UserDto viewProfile(Principal connectedUser){
@@ -86,5 +85,15 @@ public class UserController {
     @PostMapping(value = "/update-phonenumber-otp")
     public ResponseEntity<?> changePhoneNumberWithOTP(@RequestBody ChangePhoneNumberWithOTP request, Principal connectedUser){
         return userService.changePhoneNumberWithOTP(request, connectedUser);
+    }
+
+    @PostMapping(value = "/service/purchasePackageByUser")
+    public ResponseEntity<?> purchasePackageByUser(@RequestParam Long servicePackageId, Principal connectedUser){
+        return transactionService.purchasePackageByUser(connectedUser, servicePackageId);
+    }
+
+    @PostMapping(value = "/service/valid-ulti-manager")
+    public ResponseEntity<?> isValidUltiManager(Principal connectedUser){
+        return transactionService.isValidUltiManager(connectedUser);
     }
 }

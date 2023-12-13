@@ -58,4 +58,7 @@ public class AdminController {
     public ResponseEntity<?> deleteServicePackage(@PathVariable Long id){
         return servicePackageService.removeServicePackageById(id);
     }
+
+    
+
 }

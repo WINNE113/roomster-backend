@@ -15,6 +15,7 @@ import com.roomster.roomsterbackend.mapper.UserMapper;
 import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IUserService;
+import com.roomster.roomsterbackend.service.impl.twilio.TwilioOTPService;
 import com.roomster.roomsterbackend.util.handler.TokenHandler;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
