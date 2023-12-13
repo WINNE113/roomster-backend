@@ -1,18 +1,16 @@
 package com.roomster.roomsterbackend.mailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.Order;
-import com.roomster.roomsterbackend.entity.RoomService;
-import com.roomster.roomsterbackend.entity.Tenant;
+import com.roomster.roomsterbackend.entity.OrderEntity;
+import com.roomster.roomsterbackend.entity.RoomServiceEntity;
+import com.roomster.roomsterbackend.entity.TenantEntity;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 
-import io.swagger.v3.oas.annotations.info.Info;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 
@@ -32,7 +30,7 @@ public class MailService {
     @Autowired
     private RoomRepository roomRepository;
 
-    public void sendSimpleEmail(Tenant tenant, String subject, String text, String name, Order order) {
+    public void sendSimpleEmail(TenantEntity tenant, String subject, String text, String name, OrderEntity order) {
         try {
         	Long roomId = order.getRoomId();
         	
@@ -49,7 +47,7 @@ public class MailService {
         	
         	
         	
-        	for (RoomService roomServicePrice : roomRs.getServices()) {
+        	for (RoomServiceEntity roomServicePrice : roomRs.getServices()) {
 				priceService = priceService.add(roomServicePrice.getServiceHouse().getServicePrice());
 			}
         	

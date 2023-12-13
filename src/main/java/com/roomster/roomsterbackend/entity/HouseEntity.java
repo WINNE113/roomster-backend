@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "houses")
-public class House {
+public class HouseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long houseId;
@@ -25,7 +25,7 @@ public class House {
     @ManyToOne()
     @JoinColumn(name = "warn_id", insertable = false, updatable = false)
     @JsonBackReference
-    private Ward ward;
+    private WardEntity ward;
 
     @Column(name = "address")
     private String address;

@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.mapper;
 
 import com.roomster.roomsterbackend.dto.common.DistrictDto;
-import com.roomster.roomsterbackend.entity.District;
+import com.roomster.roomsterbackend.entity.DistrictEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,8 +9,8 @@ import org.mapstruct.Mapping;
 public interface DistrictMapper {
     @Mapping(target = "districtId", source = "districtId")
     @Mapping(target = "districtName", source = "districtName")
-    DistrictDto entityToDTO(District district);
+    DistrictDto entityToDTO(DistrictEntity district);
 
     @Mapping(target = "districtId", source = "districtId")
-    District dtoToEntity(DistrictDto districtDto);
+    DistrictEntity dtoToEntity(DistrictDto districtDto);
 }

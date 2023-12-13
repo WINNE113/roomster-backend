@@ -3,10 +3,9 @@ package com.roomster.roomsterbackend.controller.admin;
 import com.roomster.roomsterbackend.dto.order.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import com.roomster.roomsterbackend.entity.Order;
+import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.service.IService.IOrderService;
 
 @RestController
@@ -33,7 +32,7 @@ public class OrderController {
     }
 
     @PostMapping("/{id}")
-	public ResponseEntity<?> createorderService(@PathVariable String id, @RequestBody Order order) {
+	public ResponseEntity<?> createorderService(@PathVariable String id, @RequestBody OrderEntity order) {
         System.out.println("HERE WE GO");
 		return orderService.checkUpdateOrAddFromMonth(id, order);
 	}

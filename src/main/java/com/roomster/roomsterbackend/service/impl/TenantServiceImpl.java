@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.roomster.roomsterbackend.entity.Tenant;
+import com.roomster.roomsterbackend.entity.TenantEntity;
 import com.roomster.roomsterbackend.repository.TenantRepository;
 import com.roomster.roomsterbackend.service.IService.ITenantService;
 
@@ -31,7 +31,7 @@ public class TenantServiceImpl implements ITenantService {
     public ResponseEntity<?> getAllTenant() {
         try {
             handleChangerRoomStatus();
-            List<Tenant> tenants = tenantRepository.findAll();
+            List<TenantEntity> tenants = tenantRepository.findAll();
             return ResponseEntity.ok(tenants);
         } catch (Exception e) {
             return new ResponseEntity<>("Error retrieving tenants", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -43,7 +43,7 @@ public class TenantServiceImpl implements ITenantService {
         ResponseEntity<?> responseEntity;
         try {
             handleChangerRoomStatus();
-            Tenant tenant = tenantRepository.findById(Long.parseLong(id)).orElse(null);
+            TenantEntity tenant = tenantRepository.findById(Long.parseLong(id)).orElse(null);
             if (tenant != null) {
                 responseEntity = ResponseEntity.ok(tenant);
             } else {
@@ -59,7 +59,7 @@ public class TenantServiceImpl implements ITenantService {
     public ResponseEntity<?> getTenantByRoomId(String id) {
         ResponseEntity<?> responseEntity;
         try {
-            List<Tenant> tenants = tenantRepository.findByRoomId(Long.parseLong(id));
+            List<TenantEntity> tenants = tenantRepository.findByRoomId(Long.parseLong(id));
             responseEntity =  ResponseEntity.ok(tenants);
         } catch (NumberFormatException e) {
             responseEntity =  new ResponseEntity<>("Invalid house ID format", HttpStatus.BAD_REQUEST);
@@ -67,7 +67,7 @@ public class TenantServiceImpl implements ITenantService {
         return responseEntity;
     }
 
-    private boolean isValidTenant(Tenant tenant) {
+    private boolean isValidTenant(TenantEntity tenant) {
         // Validate email uniqueness
         if (isDuplicateEmail(tenant.getEmail(), tenant.getId())) {
             // Handle duplicate email validation error
@@ -109,7 +109,7 @@ public class TenantServiceImpl implements ITenantService {
     }
 
     @Override
-    public ResponseEntity<?> createTenant(Tenant tenant) {
+    public ResponseEntity<?> createTenant(TenantEntity tenant) {
         ResponseEntity<?> responseEntity;
         try {
             if (isValidTenant(tenant)) {
@@ -137,15 +137,15 @@ public class TenantServiceImpl implements ITenantService {
     }
 
     @Override
-    public ResponseEntity<?> updateTenant(String id, Tenant newestTenant) {
+    public ResponseEntity<?> updateTenant(String id, TenantEntity newestTenant) {
         ResponseEntity<?> responseEntity;
         try {
             if (ValidatorUtils.isNumber(id)) {
                 Long idL = Long.parseLong(id);
-                Optional<Tenant> tenantOptional = tenantRepository.findById(idL);
+                Optional<TenantEntity> tenantOptional = tenantRepository.findById(idL);
                 if (tenantOptional.isPresent()) {
                     if (isValidTenant(newestTenant)) {
-                        Tenant oldTenant = tenantOptional.get();
+                        TenantEntity oldTenant = tenantOptional.get();
                         Optional<InforRoomEntity> inforRoomEntityOptional = inforRoomRepository.findById(newestTenant.getIdRoom());
                         if (inforRoomEntityOptional.isPresent()) {
                             InforRoomEntity room = inforRoomEntityOptional.get();
@@ -226,9 +226,9 @@ public class TenantServiceImpl implements ITenantService {
                 for (String tenantId : tenantIds) {
                     if (ValidatorUtils.isNumber(tenantId)) {
                         Long idt = Long.parseLong(tenantId);
-                        Optional<Tenant> tenantOptional = tenantRepository.findById(idt);
+                        Optional<TenantEntity> tenantOptional = tenantRepository.findById(idt);
                         if (tenantOptional.isPresent()) {
-                            Tenant oldTenant = tenantOptional.get();
+                            TenantEntity oldTenant = tenantOptional.get();
                             oldTenant.setIdRoom(room.getId());
                             oldTenant.setRoom(room);
                             tenantRepository.save(oldTenant);
