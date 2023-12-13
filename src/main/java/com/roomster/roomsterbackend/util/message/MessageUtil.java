@@ -52,4 +52,5 @@ public class MessageUtil {
     public static final String MSG_SERVICE_PACKAGE_IS_EXPIRED = "Gói dịch vụ của bạn đã hết hạn, vui lòng gia hạn hoặc mua gói mới để sử dụng tính năng";
     public static final String MSG_SERVICE_PACKAGE_NOT_FOUND = "Vui lòng mua gói mới để sử dụng tính năng";
     public static final String MSG_SEND_MAIL_SUCCESS = "Xác thực số điện thoại thành công !";
+    public static final String MSG_USER_NOT_FOUND = "Người dùng không tìm thấy !";
 }

@@ -29,19 +29,16 @@ public class SecurityConfiguration {
     private final LogoutHandler logoutHandler;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                         .requestMatchers(
                                 "/api/v1/auth/**",
-                                "/api/v1/common/**"
-                        )
-                        .permitAll()
-                        .requestMatchers(
                                 "/swagger-ui/**",
+                                "/api/v1/auth/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -53,9 +50,11 @@ public class SecurityConfiguration {
                                 "/api/v1/guest/**",
                                 "/api/v1/comment/list/**",
                                 "/api/v1/rating/list/**",
-                                "/api/v1/room-master/**"
+                                "/room-master/**",
+                                "/common/**",
+                                "/api/v1/payment/**"
                         )
-                        .authenticated()
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
                 )

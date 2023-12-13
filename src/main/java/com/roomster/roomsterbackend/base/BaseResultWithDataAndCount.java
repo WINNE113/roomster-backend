@@ -13,4 +13,9 @@ public class BaseResultWithDataAndCount<T> {
     private T data;
 
     private Long count;
+
+    public void set(T data, Long count) {
+        this.data = data;
+        this.count = count;
+    }
 }

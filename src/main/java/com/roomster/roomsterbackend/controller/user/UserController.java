@@ -96,4 +96,9 @@ public class UserController {
     public ResponseEntity<?> isValidUltiManager(Principal connectedUser){
         return transactionService.isValidUltiManager(connectedUser);
     }
+
+    @GetMapping(value = "/service/purchased-service-by-user")
+    public ResponseEntity<?> purchasedServiceByUSer(Principal connectedUser){
+        return transactionService.purchasedServiceByUser(connectedUser);
+    }
 }

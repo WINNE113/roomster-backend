@@ -19,4 +19,6 @@ public interface IPaymentService {
 
     ResponseEntity<?> vnpayReturnView(ViewPaymentReturnDto response);
     ResponseEntity<?> paymentHistory(Principal connectedUser, Pageable pageable);
+
+    ResponseEntity<?> getAllPayment(Pageable pageable);
 }
