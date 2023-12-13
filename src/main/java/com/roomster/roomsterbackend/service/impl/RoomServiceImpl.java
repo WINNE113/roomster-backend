@@ -206,9 +206,14 @@ public class RoomServiceImpl implements IRoomService {
                         dto.setRoomName(room.getNumberRoom() + "");
 
                         List<OrderStatusPaymentDto> orderStatusPayments = room.getOrders().stream()
-                                .filter(order -> "N".equals(order.getStatusPayment()))
-                                .map(order -> new OrderStatusPaymentDto(order.getPaymentDate().toString(), order.getTotal().toString()))
+                                .filter(order -> ("N".equals(order.getStatusPayment()) || "P".equals(order.getStatusPayment())))
+                                .map(order -> new OrderStatusPaymentDto(order.getPaymentDate().toString()
+                                        , order.getTotal().toString()
+                                        ,order.getTotalPayment().toString()
+                                        ,order.getTotal().subtract(order.getTotalPayment()).toString()
+                                        ))
                                 .collect(Collectors.toList());
+
                         dto.setOrderStatusPayments(orderStatusPayments);
                         return dto;
                     })

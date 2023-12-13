@@ -70,7 +70,7 @@ public class PostController {
 
     @PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_OCTET_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<?> upload(@RequestPart(required = false, name = "images") @Valid List<MultipartFile> images){
-            return service.upload(images);
+        return service.upload(images);
     }
 
     @DeleteMapping(value = "/delete")

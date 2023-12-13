@@ -1,9 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.order.OrderDTO;
-import com.roomster.roomsterbackend.dto.order.OrderPaymentDto;
-import com.roomster.roomsterbackend.dto.order.PaymentByMonthDto;
+import com.roomster.roomsterbackend.dto.order.*;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.entity.RoomServiceEntity;
@@ -242,14 +240,11 @@ public class OrderServiceImpl implements IOrderService {
 				if (existingOrderOptional.isPresent()) {
 					OrderEntity existingOrder = existingOrderOptional.get();
 					Optional<InforRoomEntity> room = roomRepository.findById(order.getRoomId());
-					existingOrder.setOrderId(idL);
-					existingOrder.setRoomId(order.getRoomId());
-					existingOrder.setRoom(room.get());
 					existingOrder.setElectricity(order.getElectricity());
 					existingOrder.setWater(order.getWater());
-					existingOrder.setPaymentDate(order.getPaymentDate());
-					existingOrder.setStatusPayment(order.getStatusPayment());
-
+					existingOrder.setStatusPayment("N");
+					LocalDate currentDate = LocalDate.now();
+					existingOrder.setPaymentDate(Date.valueOf(currentDate));
 					InforRoomEntity roomService = room.get();
 					priceRoom = priceRoom.add(roomService.getPrice());
 					for (RoomServiceEntity roomServicePrice : roomService.getServices()) {
@@ -261,12 +256,9 @@ public class OrderServiceImpl implements IOrderService {
 						if (order.getWater() != null && order.getElectricity() != null) {
 							price = room.get().getElectricityPrice().multiply(order.getElectricity())
 									.add(room.get().getWaterPrice().multiply(order.getWater()));
-
 							existingOrder.setTotal(price.add(priceService.add(priceRoom)));
 						}
-
 						existingOrder = orderRepository.save(existingOrder);
-
 						return new ResponseEntity<>(existingOrder, HttpStatus.OK);
 					}
 					responseEntity = new ResponseEntity<>(existingOrder, HttpStatus.OK);
@@ -292,7 +284,7 @@ public class OrderServiceImpl implements IOrderService {
 		LocalDate currentDate = LocalDate.now();
 		int currentMonth = currentDate.getMonth().getValue() - 1;
 		List<OrderEntity> listOrderResult = listOrder.stream()
-				.filter(o -> (o.getRoomId().toString().equals(roomId) && o.getStatusPayment().trim().equals("N")))
+				.filter(o -> (o.getRoomId().toString().equals(roomId) && (o.getStatusPayment().trim().equals("N") || o.getStatusPayment().trim().equals("P"))))
 				.toList();
 		for (OrderEntity order : listOrderResult) {
 			List<TenantEntity> listTenant = tenantRepository.findByRoomId(order.getRoomId());
@@ -300,6 +292,73 @@ public class OrderServiceImpl implements IOrderService {
 				mailService.sendSimpleEmail(tenant, "Hóa đơn thánh toán phòng trọ tháng : " + currentMonth , "" , tenant.getName() ,order);
 			}
 		}
-		return null;
+		return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_SEND_MAIL_SUCCESS),
+				HttpStatus.OK);
+	}
+
+	@Override
+	public ResponseEntity<?> updateOrderPayment(String id, OrderStatusPaymentDto order) {
+		ResponseEntity<?> responseEntity;
+		try{
+			Long idL = Long.parseLong(id);
+			Optional<OrderEntity> orderEntityOptional = this.orderRepository.findById(idL);
+			if(orderEntityOptional.isPresent()) {
+				OrderEntity orderEntity = orderEntityOptional.get();
+				orderEntity.setTotalPayment(BigDecimal.valueOf(Long.parseLong(order.getBillNumber())));
+				if (orderEntity.getTotalPayment().compareTo(orderEntity.getTotal()) == 0) {
+					orderEntity.setStatusPayment("Y");
+				} else if (orderEntity.getTotalPayment().compareTo(orderEntity.getTotal()) < 0) {
+					orderEntity.setStatusPayment("P");
+				} else if (orderEntity.getTotalPayment().compareTo(BigDecimal.ZERO) == 0) {
+					orderEntity.setStatusPayment("N");
+				}
+				this.orderRepository.save(orderEntity);
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS),
+						HttpStatus.OK);
+			}else{
+				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}catch (Exception e){
+			responseEntity = new ResponseEntity<>(BaseResponse.error(e.getMessage()),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return responseEntity;
+	}
+
+	@Override
+	public ResponseEntity<?> getOrderBillById(String id) {
+		ResponseEntity<?> responseEntity;
+		try {
+			if (ValidatorUtils.isNumber(id)) {
+				Long idL = Long.parseLong(id);
+				Optional<OrderEntity> orderEntityOptional = this.orderRepository.findById(idL);
+				if (orderEntityOptional.isPresent()) {
+					OrderEntity order = orderEntityOptional.get();
+					OrderBillDTO orderBillDTO = new OrderBillDTO();
+					orderBillDTO.setOrderId(order.getOrderId().toString());
+					orderBillDTO.setHouseName(order.getRoom().getHouse().getHouseName());
+					orderBillDTO.setHouseAddress(order.getRoom().getHouse().getAddress());
+					orderBillDTO.setRoomNumber(order.getRoom().getNumberRoom() + "");
+					orderBillDTO.setServicePrice(order.getService().toString());
+					orderBillDTO.setElectricPrice(order.getElectricity().multiply(order.getRoom().getElectricityPrice()).toString());
+					orderBillDTO.setWaterPrice(order.getWater().multiply(order.getRoom().getWaterPrice()).toString());
+					orderBillDTO.setTotalPayment(order.getTotalPayment().toString());
+					orderBillDTO.setTotalPrice(order.getTotal().toString());
+					orderBillDTO.setDatePayment(order.getPaymentDate().toString());
+					responseEntity = new ResponseEntity<>(orderBillDTO, HttpStatus.OK);
+				} else {
+					responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND),
+							HttpStatus.INTERNAL_SERVER_ERROR);
+				}
+			} else {
+				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		} catch (Exception e) {
+			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		return responseEntity;
 	}
 }

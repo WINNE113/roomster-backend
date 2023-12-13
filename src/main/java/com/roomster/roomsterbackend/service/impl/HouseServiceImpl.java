@@ -9,6 +9,7 @@ import java.util.Optional;
 import com.roomster.roomsterbackend.dto.BaseResponse;
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomStatusDto;
+import com.roomster.roomsterbackend.entity.HouseEntity;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.mapper.HouseMapper;
 import com.roomster.roomsterbackend.repository.RoomRepository;
@@ -19,7 +20,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.roomster.roomsterbackend.entity.HouseEntity;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.service.IService.IHouseService;
 
@@ -51,9 +51,10 @@ public class HouseServiceImpl implements IHouseService {
 			List<HouseEntity> inforHouseEntityList = houseRepository.findAll();
 			for (HouseEntity house : inforHouseEntityList) {
 				house.getRooms().sort(Comparator.comparing(InforRoomEntity::getNumberRoom));
-				house.setRooms(house.getRooms().stream().filter(room -> room.getPrice().compareTo(BigDecimal.valueOf(priceL)) >= 0
+				house.setRooms(house.getRooms().stream().filter(room -> room.getPrice().compareTo(
+						BigDecimal.valueOf(priceL)) >= 0
 						&& room.getAcreage() >= acreageD
-						&& room.getStayMax() >= stayMaxI
+						&& (stayMaxI == 0 || room.getStayMax() == stayMaxI)
 						&& (status == null || room.getEmptyRoom() == statusL)).toList());
 			}
 			responseEntity = new ResponseEntity<>(inforHouseEntityList, HttpStatus.OK);

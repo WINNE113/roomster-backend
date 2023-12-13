@@ -183,15 +183,15 @@ public class UserService implements IUserService {
                     if(!userRepository.existsByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()))){
                         //TODO: MANAGE OR ADMIN CHANGE
                         for (RoleEntity role: user.get().getRoles()
-                             ) {
+                        ) {
                             if(role.getName().equals(ModelCommon.MANAGEMENT) || role.getName().equals(ModelCommon.ADMIN)) {
                                 //TODO: Check OTP of New PhoneNumber
                                 OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUsername(),PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
                                 ResponseDto responseDto = twilioOTPService.sendSMS(otpRequest);
                                 if (responseDto.getStatus().equals(Status.DELIVERED)) {
-                                   return response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED), HttpStatus.OK);
+                                    return response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED), HttpStatus.OK);
                                 } else {
-                                   return response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_OTP_FAILED), HttpStatus.BAD_REQUEST);
+                                    return response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_OTP_FAILED), HttpStatus.BAD_REQUEST);
                                 }
                             }
                         }

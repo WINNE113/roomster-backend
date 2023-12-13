@@ -65,6 +65,8 @@ public class MailService {
             templateContent = templateContent.replace("{phone}", tenant.getPhoneNumber());
             templateContent = templateContent.replace("{numberRoom}", String.valueOf(roomRs.getNumberRoom()));
             templateContent = templateContent.replace("{total}", String.valueOf(order.getTotal()));
+            templateContent = templateContent.replace("{totalPayment}", String.valueOf(order.getTotalPayment()));
+            templateContent = templateContent.replace("{rest}", String.valueOf(order.getTotal().subtract(order.getTotalPayment())));
             templateContent = templateContent.replace("{priceWate}", String.valueOf(priceWate));
             templateContent = templateContent.replace("{priceElectric}", String.valueOf(priceElectric));
             templateContent = templateContent.replace("{priceService}", String.valueOf(priceService));

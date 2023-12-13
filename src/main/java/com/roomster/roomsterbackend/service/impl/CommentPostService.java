@@ -63,10 +63,10 @@ public class CommentPostService implements ICommentPostService {
         Optional<CommentEnity> comment = commentPostRepository.findById(commentId);
         try {
             if(comment.isPresent() && user != null){
-               if(comment.get().getUserId().equals(user.getId())){
-                   commentPostRepository.deleteById(commentId);
-                   return BaseResponse.success("Bạn đã xóa bình luận!");
-               }
+                if(comment.get().getUserId().equals(user.getId())){
+                    commentPostRepository.deleteById(commentId);
+                    return BaseResponse.success("Bạn đã xóa bình luận!");
+                }
             }
         } catch (Exception ex) {
             BaseResponse.error(ex.getMessage());

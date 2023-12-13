@@ -30,7 +30,6 @@ public class TenantServiceImpl implements ITenantService {
     @Override
     public ResponseEntity<?> getAllTenant() {
         try {
-            handleChangerRoomStatus();
             List<TenantEntity> tenants = tenantRepository.findAll();
             return ResponseEntity.ok(tenants);
         } catch (Exception e) {
@@ -42,7 +41,6 @@ public class TenantServiceImpl implements ITenantService {
     public ResponseEntity<?> getGuestById(String id) {
         ResponseEntity<?> responseEntity;
         try {
-            handleChangerRoomStatus();
             TenantEntity tenant = tenantRepository.findById(Long.parseLong(id)).orElse(null);
             if (tenant != null) {
                 responseEntity = ResponseEntity.ok(tenant);
@@ -149,7 +147,7 @@ public class TenantServiceImpl implements ITenantService {
                         Optional<InforRoomEntity> inforRoomEntityOptional = inforRoomRepository.findById(newestTenant.getIdRoom());
                         if (inforRoomEntityOptional.isPresent()) {
                             InforRoomEntity room = inforRoomEntityOptional.get();
-                            if (room.getTenantList().size() < room.getStayMax()) {
+                            if (room.getTenantList().size() <= room.getStayMax()) {
                                 oldTenant.setName(newestTenant.getName());
                                 oldTenant.setAge(newestTenant.getAge());
                                 oldTenant.setGender(newestTenant.getGender());
@@ -178,8 +176,6 @@ public class TenantServiceImpl implements ITenantService {
             }
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
-        } finally {
-            handleChangerRoomStatus();
         }
         return responseEntity;
     }
@@ -194,8 +190,6 @@ public class TenantServiceImpl implements ITenantService {
             responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS), HttpStatus.OK);
         } catch (NumberFormatException e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.BAD_REQUEST);
-        } finally {
-            handleChangerRoomStatus();
         }
         return responseEntity;
     }
@@ -209,19 +203,17 @@ public class TenantServiceImpl implements ITenantService {
                 Long idL = Long.parseLong(id);
                 Optional<InforRoomEntity> targetRoom = inforRoomRepository.findById(idL);
                 if(tenantIds == null || tenantIds.size() == 0){
-                    handleChangerRoomStatus();
-                    return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_TENANT_NOT_FOUND), HttpStatus.BAD_REQUEST);
+                    return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_TENANT_NOT_CHECK), HttpStatus.BAD_REQUEST);
                 }
                 if (!targetRoom.isPresent()) {
-                    handleChangerRoomStatus();
                     return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
                 if (targetRoom.get().getStayMax() - targetRoom.get().getTenantList().size() < tenantIds.size()) {
                     // If the room is not empty, return an error
-                    handleChangerRoomStatus();
                     return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_VALID), HttpStatus.BAD_REQUEST);
                 }
                 InforRoomEntity room = targetRoom.get();
+                Long idCurrentRoom = 0L;
                 // Move tenants to the target room
                 for (String tenantId : tenantIds) {
                     if (ValidatorUtils.isNumber(tenantId)) {
@@ -229,6 +221,7 @@ public class TenantServiceImpl implements ITenantService {
                         Optional<TenantEntity> tenantOptional = tenantRepository.findById(idt);
                         if (tenantOptional.isPresent()) {
                             TenantEntity oldTenant = tenantOptional.get();
+                            idCurrentRoom = oldTenant.getIdRoom();
                             oldTenant.setIdRoom(room.getId());
                             oldTenant.setRoom(room);
                             tenantRepository.save(oldTenant);
@@ -241,6 +234,16 @@ public class TenantServiceImpl implements ITenantService {
                         break;
                     }
                 }
+                if (idCurrentRoom != 0){
+                    Optional<InforRoomEntity> roomEntityOptional = inforRoomRepository.findById(idCurrentRoom);
+                    if (roomEntityOptional.isPresent()){
+                        InforRoomEntity curentRoom = roomEntityOptional.get();
+                        if(curentRoom.getTenantList().size()==0) {
+                            curentRoom.setEmptyRoom(0);
+                            inforRoomRepository.save(curentRoom);
+                        }
+                    }
+                }
                 responseEntity = new ResponseEntity<>(BaseResponse.success("Di chuyển thành công"), HttpStatus.OK);
             } else {
                 responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
@@ -248,27 +251,12 @@ public class TenantServiceImpl implements ITenantService {
         } catch (Exception e) {
             responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         } finally {
-            handleChangerRoomStatus();
             Long idL = Long.parseLong(id);
             Optional<InforRoomEntity> targetRoom = inforRoomRepository.findById(idL);
             InforRoomEntity room = targetRoom.get();
             room.setEmptyRoom(1);
-            room = inforRoomRepository.save(room);
-        }
-        return responseEntity;
-    }
-
-    private void handleChangerRoomStatus() {
-        List<InforRoomEntity> inforRoomEntityList = inforRoomRepository.findAll();
-        for (InforRoomEntity room : inforRoomEntityList) {
-            int tenantNum = room.getTenantList().size();
-            if(tenantNum > 0){
-                room.setEmptyRoom(1);
-            }
-            else{
-                room.setEmptyRoom(0);
-            }
             inforRoomRepository.save(room);
         }
+        return responseEntity;
     }
 }

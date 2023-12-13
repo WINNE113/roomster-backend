@@ -55,10 +55,10 @@ public class AuthenticationService implements IAuthenticationService {
         }
 
         if(request.getRole().equals(ModelCommon.USER)){
-          boolean checkRegister = this.baseRegister(request);
-          if(checkRegister){
-              return BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS);
-          }
+            boolean checkRegister = this.baseRegister(request);
+            if(checkRegister){
+                return BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS);
+            }
         }else if(request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ADMIN)){
             OtpRequestDto otpRequestDto = createOtpRequest(request);
             ResponseDto otpResponseDto = twilioOTPService.sendSMS(otpRequestDto);
@@ -109,25 +109,25 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     public BaseResponse registerTwoFactor(OtpValidationRequestDto requestDto) {
-            boolean checkValidOTP = twilioOTPService.validateOtp(requestDto);
-            if (checkValidOTP) {
-                for (Map.Entry<String, RegisterRequest> entry : registerAccounts.entrySet()
-                ) {
-                    RegisterRequest item = entry.getValue();
-                    if (item.getUserName().equals(requestDto.getUserName())) {
-                        RegisterRequest request = new RegisterRequest();
-                        request.setUserName(item.getUserName());
-                        request.setPhoneNumber(item.getPhoneNumber());
-                        request.setPassword(item.getPassword());
-                        request.setRole(item.getRole());
-                        boolean checkRegister =  this.baseRegister(request);
-                        if(!checkRegister){
-                            return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
-                        }
+        boolean checkValidOTP = twilioOTPService.validateOtp(requestDto);
+        if (checkValidOTP) {
+            for (Map.Entry<String, RegisterRequest> entry : registerAccounts.entrySet()
+            ) {
+                RegisterRequest item = entry.getValue();
+                if (item.getUserName().equals(requestDto.getUserName())) {
+                    RegisterRequest request = new RegisterRequest();
+                    request.setUserName(item.getUserName());
+                    request.setPhoneNumber(item.getPhoneNumber());
+                    request.setPassword(item.getPassword());
+                    request.setRole(item.getRole());
+                    boolean checkRegister =  this.baseRegister(request);
+                    if(!checkRegister){
+                        return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
                     }
                 }
-                return BaseResponse.success(MessageUtil.MSG_OTP_CODE_CORRECT);
             }
+            return BaseResponse.success(MessageUtil.MSG_OTP_CODE_CORRECT);
+        }
         return BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT);
     }
 
@@ -145,7 +145,7 @@ public class AuthenticationService implements IAuthenticationService {
             return AuthenticationResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
         }
 
-       var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
+        var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
         if (user.isPresent()) {
             var jwtToken = jwtService.generateToken(user.get());
 
@@ -173,13 +173,13 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     private void revokeAllUserTokens(UserEntity user){
-         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
-         if(validUserTokens.isEmpty())
-             return;
-         validUserTokens.forEach( t -> {
-             t.setRevoked(true);
-             t.setExpired(true);
-         });
-         tokenRepository.saveAll(validUserTokens);
+        var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
+        if(validUserTokens.isEmpty())
+            return;
+        validUserTokens.forEach( t -> {
+            t.setRevoked(true);
+            t.setExpired(true);
+        });
+        tokenRepository.saveAll(validUserTokens);
     }
 }
