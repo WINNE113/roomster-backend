@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +30,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -174,28 +176,49 @@ public class TransactionServiceImpl implements ITransactionService {
         ResponseEntity<?> response = null;
         try {
             var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
-            if(user != null){
+            if (user != null) {
                 //TODO: Get transaction have expired = 0
                 Optional<TransactionEntity> transactionEntity = transactionRepository.findByUserTransaction_IdAndExpiredFalse(user.getId());
-                if(transactionEntity.isPresent()){
-                    if(transactionEntity.get().getExpirationDate().after(new Date())){
+                if (transactionEntity.isPresent()) {
+                    if (transactionEntity.get().getExpirationDate().after(new Date())) {
                         response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OK), HttpStatus.OK);
-                    }else {
+                    } else {
                         transactionEntity.get().setExpired(true);
                         transactionRepository.save(transactionEntity.get());
                         //TODO: Remove role_ulti_manage of user
                         RoleEntity role = roleRepository.findByName(ModelCommon.ULTI_MANAGER);
-                        if(role != null){
+                        if (role != null) {
                             //TODO: Remove role Ulti_Manage of User
                             userRepository.deleteRole(user.getId(), role.getId());
-                        }else {
-                            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROLE_NOT_FOUND),HttpStatus.NOT_FOUND);
+                        } else {
+                            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROLE_NOT_FOUND), HttpStatus.NOT_FOUND);
                         }
-                        response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_PACKAGE_IS_EXPIRED),HttpStatus.BAD_REQUEST);
+                        response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_PACKAGE_IS_EXPIRED), HttpStatus.BAD_REQUEST);
                     }
-                }else {
+                } else {
                     response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_PACKAGE_NOT_FOUND), HttpStatus.BAD_REQUEST);
                 }
+            } else {
+                response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> purchasedServiceByUser(Principal connectedUser) {
+        ResponseEntity<?> response = null;
+        try {
+            var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+            if(user != null){
+               Optional<TransactionEntity> transaction = transactionRepository.findByUserTransaction_IdAndExpiredFalse(user.getId());
+               if(transaction.isPresent()){
+                   response = new ResponseEntity<>(transaction.get(), HttpStatus.OK);
+               }else {
+                   response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.NOT_FOUND);
+               }
             }else {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.NOT_FOUND);
             }

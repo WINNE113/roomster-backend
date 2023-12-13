@@ -8,4 +8,6 @@ public interface ITransactionService {
     ResponseEntity<?> purchasePackageByUser(Principal connectedUser, Long servicePackageId);
 
     ResponseEntity<?> isValidUltiManager(Principal connectedUser);
+
+    ResponseEntity<?> purchasedServiceByUser(Principal connectedUser);
 }

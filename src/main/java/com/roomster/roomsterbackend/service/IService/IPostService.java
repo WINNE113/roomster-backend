@@ -10,6 +10,7 @@ import java.security.Principal;
 import java.util.List;
 
 public interface IPostService {
+
     List<PostDto> getPostsApproved(Pageable pageable);
     List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId);
 

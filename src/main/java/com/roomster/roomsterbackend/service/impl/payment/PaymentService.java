@@ -330,4 +330,22 @@ public class PaymentService implements IPaymentService {
         }
         return responseEntity;
     }
+
+    @Override
+    public ResponseEntity<?> getAllPayment(Pageable pageable) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<PaymentDtoMapper>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<PaymentDtoMapper> paymentDtoMappers = paymentRepository.findAll(pageable)
+                    .stream()
+                    .map(paymentEntity -> paymentMapper.entityToDto(paymentEntity))
+                    .collect(Collectors.toList());
+            Long count = paymentRepository.count();
+            resultWithDataAndCount.set(paymentDtoMappers, count);
+            response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
 }

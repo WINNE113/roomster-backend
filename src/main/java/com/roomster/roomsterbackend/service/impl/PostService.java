@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
+import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
@@ -13,10 +14,12 @@ import com.roomster.roomsterbackend.repository.PostRepository;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.repository.UserRepository;
 import com.roomster.roomsterbackend.service.IService.IPostService;
+import com.roomster.roomsterbackend.util.message.MessageUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
@@ -51,6 +54,7 @@ public class PostService implements IPostService {
     private UserMapper userMapper;
 
     private final Cloudinary cloudinary;
+
     @Override
     public List<PostDto> getPostsApproved(Pageable pageable) {
         List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.APPROVED, false);

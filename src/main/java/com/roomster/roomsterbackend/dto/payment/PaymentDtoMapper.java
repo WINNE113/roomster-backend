@@ -26,4 +26,5 @@ public class PaymentDtoMapper {
     private String paymentStatus;
     private String paymentLastMessage;
     private String paymentDestinationsName;
+    private String phoneNumberUser;
 }

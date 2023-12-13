@@ -9,6 +9,7 @@ import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
 import com.roomster.roomsterbackend.entity.UserEntity;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,9 @@ import java.util.Optional;
 
 public interface IUserService {
     Optional<UserEntity> findByEmail(String email);
+
+    ResponseEntity<?> findAllByIsDeletedIsFalse(Pageable pageable);
+    ResponseEntity<?> findAllByIsDeletedIsTrue(Pageable pageable);
 
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
 
@@ -38,4 +42,11 @@ public interface IUserService {
     ResponseEntity<?> changePhoneNumber(ChangePhoneNumberRequest request, Principal connectedUser);
 
     ResponseEntity<?> changePhoneNumberWithOTP(ChangePhoneNumberWithOTP request, Principal connectedUser);
+
+    ResponseEntity<?> findAllAccountByRoleName(Pageable pageable, String roleName);
+
+    ResponseEntity<?> deleteUserByIds(Long[] listId);
+
+    ResponseEntity<?> upRoleUserByAdmin(String roleName, Long userId);
+
 }
