@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "services")
-public class ServiceHouse {
+public class ServiceHouseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
@@ -25,7 +25,7 @@ public class ServiceHouse {
     @OneToMany(mappedBy = "serviceHouse", cascade = CascadeType.ALL)
     @JsonBackReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private List<RoomService> serviceList;
+    private List<RoomServiceEntity> serviceList;
 
     // Constructors, getters, and setters
 }

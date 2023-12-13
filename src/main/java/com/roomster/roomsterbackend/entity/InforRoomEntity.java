@@ -1,8 +1,6 @@
 package com.roomster.roomsterbackend.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,6 +14,7 @@ public class InforRoomEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "number_room")
     private int numberRoom;
 
@@ -48,19 +47,19 @@ public class InforRoomEntity{
     @ManyToOne()
     @JoinColumn(name = "id_house" , insertable=false, updatable=false)
     @JsonBackReference
-    private House house;
+    private HouseEntity house;
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "inforRoomEntity")
-    private List<RoomService> services;
+    private List<RoomServiceEntity> services;
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<Order> orders;
+    private List<OrderEntity> orders;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "room",cascade = CascadeType.ALL)
-    private List<Tenant> tenantList;
+    private List<TenantEntity> tenantList;
 }

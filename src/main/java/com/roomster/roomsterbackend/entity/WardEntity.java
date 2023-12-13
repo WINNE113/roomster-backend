@@ -1,17 +1,14 @@
 package com.roomster.roomsterbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 
 @Data
 @Entity
 @Table(name = "wards")
-public class Ward {
+public class WardEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wardId;
@@ -25,7 +22,7 @@ public class Ward {
     @ManyToOne()
     @JoinColumn(name = "district_id", insertable = false, updatable = false)
     @JsonBackReference
-    private District district;
+    private DistrictEntity district;
 
 
 }

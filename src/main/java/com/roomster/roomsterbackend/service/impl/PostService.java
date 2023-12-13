@@ -133,7 +133,7 @@ public class PostService implements IPostService {
 
     @Override
     public List<PostDtoWithRating> getPostByRating(Pageable pageable) {
-            return postRepository.getPostByRating(pageable).stream().filter(postDtoWithRating -> !postDtoWithRating.getIsDeleted()).collect(Collectors.toList());
+        return postRepository.getPostByRating(pageable).stream().filter(postDtoWithRating -> !postDtoWithRating.getIsDeleted()).collect(Collectors.toList());
     }
 
     @Override
@@ -195,7 +195,7 @@ public class PostService implements IPostService {
     @Override
     public void setIsApprovedPosts(Long[] listPostId) {
         for (Long item: listPostId
-             ) {
+        ) {
             Optional<PostEntity> post = postRepository.findById(item);
             if(post.isPresent()){
                 post.get().setStatus(Status.APPROVED);

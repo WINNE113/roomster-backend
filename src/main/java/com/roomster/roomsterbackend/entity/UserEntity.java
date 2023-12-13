@@ -116,6 +116,16 @@ public class UserEntity implements UserDetails {
         this.userName = userName;
     }
 
+    public void addRole(RoleEntity role){
+        this.roles.add(role);
+        role.getUsers().add(this);
+    }
+
+    public void removeRole(RoleEntity role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
+    }
+
     @JsonManagedReference
     public Set<RoleEntity> getRoles() {
         return roles;

@@ -4,11 +4,13 @@ import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.service.IService.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/room-master/room")
+@RequestMapping("/api/v1/room-master/room")
+@PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class RoomController {
     @Autowired
     IRoomService roomService;
@@ -38,7 +40,7 @@ public class RoomController {
         return roomService.save(room);
     }
 
-    @PutMapping(value = "/{id}" , consumes = "application/json;charset=UTF-8")
+    @PutMapping(value = "/{id}")
     public ResponseEntity<?> updateRoom(@PathVariable String id, @RequestBody InforRoomEntity room){
         return roomService.update(id, room);
     }
