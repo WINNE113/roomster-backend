@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.PostTypeDto;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.dto.postType.PostTypeDto;
 
 import java.util.List;
 

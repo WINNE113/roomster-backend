@@ -1,10 +1,10 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.ultiManger;
 
 
 import java.util.List;
 import java.util.Optional;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.roomster.roomsterbackend.entity.TenantEntity;
 import com.roomster.roomsterbackend.repository.TenantRepository;
-import com.roomster.roomsterbackend.service.IService.ITenantService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.ITenantService;
 
 @Service
 public class TenantServiceImpl implements ITenantService {

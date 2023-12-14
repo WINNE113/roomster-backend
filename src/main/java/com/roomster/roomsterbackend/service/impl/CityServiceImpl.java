@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.entity.CityEntity;
 import com.roomster.roomsterbackend.mapper.CityMapper;
 import com.roomster.roomsterbackend.repository.CityRepository;

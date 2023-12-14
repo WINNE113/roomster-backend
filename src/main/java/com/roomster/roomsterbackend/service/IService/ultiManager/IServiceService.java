@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.IService;
+package com.roomster.roomsterbackend.service.IService.ultiManager;
 
 import java.util.List;
 

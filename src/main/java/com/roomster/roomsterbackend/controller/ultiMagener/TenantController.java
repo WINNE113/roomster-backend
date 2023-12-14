@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.controller.admin;
+package com.roomster.roomsterbackend.controller.ultiMagener;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.roomster.roomsterbackend.entity.TenantEntity;
-import com.roomster.roomsterbackend.service.IService.ITenantService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.ITenantService;
 
 import java.util.List;
 

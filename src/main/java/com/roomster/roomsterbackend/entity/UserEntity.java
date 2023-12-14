@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -19,6 +20,7 @@ import java.util.*;
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "phone_number"))
 @Getter
 @Setter
+@Data
 public class UserEntity implements UserDetails {
     @Id
     @Column(name = "id", nullable = false)

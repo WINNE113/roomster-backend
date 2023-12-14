@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.ultiManger;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomStatusDto;
 import com.roomster.roomsterbackend.entity.HouseEntity;
@@ -21,7 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.roomster.roomsterbackend.repository.HouseRepository;
-import com.roomster.roomsterbackend.service.IService.IHouseService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IHouseService;
 
 @Service
 public class HouseServiceImpl implements IHouseService {

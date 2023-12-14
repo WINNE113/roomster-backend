@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.IService;
+package com.roomster.roomsterbackend.service.IService.ultiManager;
 
 
 import com.roomster.roomsterbackend.dto.order.OrderDTO;
