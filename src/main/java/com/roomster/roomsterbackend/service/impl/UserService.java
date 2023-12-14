@@ -180,7 +180,7 @@ public class UserService implements IUserService {
                     tokenHandler.revokeAllUserTokens(user);
                     tokenHandler.saveUserToken(Optional.of(user), jwtToken);
 
-                    AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
+                    LoginResponse authenticationResponse = LoginResponse.builder()
                             .token(jwtToken)
                             .message("Get token successfully!")
                             .build();

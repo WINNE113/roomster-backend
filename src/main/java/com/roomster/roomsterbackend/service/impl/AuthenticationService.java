@@ -1,10 +1,10 @@
 package com.roomster.roomsterbackend.service.impl;
 
 
-import com.roomster.roomsterbackend.common.ModelCommon;
-import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.base.ResponseDto;
+import com.roomster.roomsterbackend.common.ModelCommon;
+import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.TokenEntity;
@@ -89,7 +89,7 @@ public class AuthenticationService implements IAuthenticationService {
                     boolean checkRegister = this.baseRegister(request);
                     if (checkRegister) {
                         response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS), HttpStatus.OK);
-                    }else{
+                    } else {
                         response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL), HttpStatus.BAD_REQUEST);
                     }
                 }
@@ -119,11 +119,13 @@ public class AuthenticationService implements IAuthenticationService {
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedBy(0L);
             user.setCreatedDate(new Date());
-            user.setRoles(Set.of(role));
             if (request.getRole().equals(ModelCommon.USER)) {
+                user.setRoles(Set.of(role));
                 user.setPhoneNumberConfirmed(false);
                 user.setTwoFactorEnable(false);
             } else if (request.getRole().equals(ModelCommon.ADMIN) || request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ULTI_MANAGER)) {
+                RoleEntity userRoleUser = roleRepository.findByName(ModelCommon.USER);
+                user.setRoles(Set.of(role,userRoleUser));
                 user.setPhoneNumberConfirmed(true);
                 user.setTwoFactorEnable(true);
             }
@@ -159,7 +161,7 @@ public class AuthenticationService implements IAuthenticationService {
         return BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT);
     }
 
-    public AuthenticationResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         // normalize phone number
         String normalizePhoneNumber = PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber());
         try {
@@ -170,7 +172,7 @@ public class AuthenticationService implements IAuthenticationService {
                     )
             );
         } catch (AuthenticationException ex) {
-            return AuthenticationResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
+            return LoginResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
         }
 
         var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
@@ -180,12 +182,12 @@ public class AuthenticationService implements IAuthenticationService {
             revokeAllUserTokens(user.get());
             saveUserToken(user, jwtToken);
 
-            return AuthenticationResponse.builder()
+            return LoginResponse.builder()
                     .token(jwtToken)
                     .message("Get token successfully!")
                     .build();
         } else {
-            return AuthenticationResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND);
+            return LoginResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND);
         }
     }
 

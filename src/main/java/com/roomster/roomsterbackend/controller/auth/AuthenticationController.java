@@ -46,7 +46,7 @@ public class AuthenticationController {
             summary = "Endpoint For Login"
     )
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
 
         return ResponseEntity.ok(authenticationService.login(request));
     }

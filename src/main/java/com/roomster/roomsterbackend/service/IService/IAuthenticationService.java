@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.base.BaseResponse;
-import com.roomster.roomsterbackend.dto.auth.AuthenticationResponse;
+import com.roomster.roomsterbackend.dto.auth.LoginResponse;
 import com.roomster.roomsterbackend.dto.auth.LoginRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
 import com.roomster.roomsterbackend.dto.auth.RegisterRequest;
@@ -16,6 +16,6 @@ public interface IAuthenticationService {
 
     BaseResponse registerTwoFactor(OtpValidationRequestDto request);
 
-    AuthenticationResponse login(LoginRequest request);
+    LoginResponse login(LoginRequest request);
 
 }
