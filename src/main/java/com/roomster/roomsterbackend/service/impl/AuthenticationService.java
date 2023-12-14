@@ -1,9 +1,10 @@
 package com.roomster.roomsterbackend.service.impl;
 
 
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.common.Status;
-import com.roomster.roomsterbackend.dto.*;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.TokenEntity;
@@ -17,6 +18,8 @@ import com.roomster.roomsterbackend.util.helpers.HashHelper;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -54,12 +57,12 @@ public class AuthenticationService implements IAuthenticationService {
             registerAccounts.remove(request.getPhoneNumber());
         }
 
-        if(request.getRole().equals(ModelCommon.USER)){
+        if (request.getRole().equals(ModelCommon.USER)) {
             boolean checkRegister = this.baseRegister(request);
-            if(checkRegister){
+            if (checkRegister) {
                 return BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS);
             }
-        }else if(request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ADMIN)){
+        } else if (request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ADMIN)) {
             OtpRequestDto otpRequestDto = createOtpRequest(request);
             ResponseDto otpResponseDto = twilioOTPService.sendSMS(otpRequestDto);
             if (otpResponseDto.getStatus().equals(Status.DELIVERED)) {
@@ -72,6 +75,31 @@ public class AuthenticationService implements IAuthenticationService {
         return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
     }
 
+    @Override
+    public ResponseEntity<?> registerByAdmin(RegisterRequest request) {
+        ResponseEntity<?> response = null;
+        try {
+            if (!PhoneNumberValidator.isValidPhoneNumber(request.getPhoneNumber())) {
+                response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_FORMAT_INVALID), HttpStatus.BAD_REQUEST);
+            } else {
+                Optional<UserEntity> existingUser = userRepository.findByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
+                if (existingUser.isPresent()) {
+                    response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_IS_EXITED), HttpStatus.BAD_REQUEST);
+                } else {
+                    boolean checkRegister = this.baseRegister(request);
+                    if (checkRegister) {
+                        response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_REGISTER_SUCCESS), HttpStatus.OK);
+                    } else {
+                        response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL), HttpStatus.BAD_REQUEST);
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
     private OtpRequestDto createOtpRequest(RegisterRequest request) {
         OtpRequestDto otpRequestDto = new OtpRequestDto();
         otpRequestDto.setPhoneNumber(request.getPhoneNumber());
@@ -80,9 +108,9 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
 
-    private boolean baseRegister(RegisterRequest request){
+    private boolean baseRegister(RegisterRequest request) {
         RoleEntity role = roleRepository.findByName(request.getRole());
-        if(role != null){
+        if (role != null) {
             UserEntity user = new UserEntity();
             user.setId((long) HashHelper.generateRandomNumbers());
             user.setUserName(request.getUserName());
@@ -91,11 +119,13 @@ public class AuthenticationService implements IAuthenticationService {
             user.setPasswordHash(passwordEncoder.encode(request.getPassword()));
             user.setCreatedBy(0L);
             user.setCreatedDate(new Date());
-            user.setRoles(Set.of(role));
-            if(request.getRole().equals(ModelCommon.USER)){
+            if (request.getRole().equals(ModelCommon.USER)) {
+                user.setRoles(Set.of(role));
                 user.setPhoneNumberConfirmed(false);
                 user.setTwoFactorEnable(false);
-            }else if(request.getRole().equals(ModelCommon.ADMIN) || request.getRole().equals(ModelCommon.MANAGEMENT)){
+            } else if (request.getRole().equals(ModelCommon.ADMIN) || request.getRole().equals(ModelCommon.MANAGEMENT) || request.getRole().equals(ModelCommon.ULTI_MANAGER)) {
+                RoleEntity userRoleUser = roleRepository.findByName(ModelCommon.USER);
+                user.setRoles(Set.of(role,userRoleUser));
                 user.setPhoneNumberConfirmed(true);
                 user.setTwoFactorEnable(true);
             }
@@ -103,7 +133,7 @@ public class AuthenticationService implements IAuthenticationService {
             user.setDeleted(false);
             userRepository.save(user);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -120,8 +150,8 @@ public class AuthenticationService implements IAuthenticationService {
                     request.setPhoneNumber(item.getPhoneNumber());
                     request.setPassword(item.getPassword());
                     request.setRole(item.getRole());
-                    boolean checkRegister =  this.baseRegister(request);
-                    if(!checkRegister){
+                    boolean checkRegister = this.baseRegister(request);
+                    if (!checkRegister) {
                         return BaseResponse.error(MessageUtil.MSG_REGISTER_FAIL);
                     }
                 }
@@ -131,7 +161,7 @@ public class AuthenticationService implements IAuthenticationService {
         return BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT);
     }
 
-    public AuthenticationResponse login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
         // normalize phone number
         String normalizePhoneNumber = PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber());
         try {
@@ -142,7 +172,7 @@ public class AuthenticationService implements IAuthenticationService {
                     )
             );
         } catch (AuthenticationException ex) {
-            return AuthenticationResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
+            return LoginResponse.error(MessageUtil.MSG_AUTHENTICATION_FAIL);
         }
 
         var user = userRepository.findByPhoneNumber(normalizePhoneNumber);
@@ -152,12 +182,12 @@ public class AuthenticationService implements IAuthenticationService {
             revokeAllUserTokens(user.get());
             saveUserToken(user, jwtToken);
 
-            return AuthenticationResponse.builder()
+            return LoginResponse.builder()
                     .token(jwtToken)
                     .message("Get token successfully!")
                     .build();
-        }else{
-            return AuthenticationResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND);
+        } else {
+            return LoginResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND);
         }
     }
 
@@ -172,11 +202,11 @@ public class AuthenticationService implements IAuthenticationService {
         tokenRepository.save(token);
     }
 
-    private void revokeAllUserTokens(UserEntity user){
+    private void revokeAllUserTokens(UserEntity user) {
         var validUserTokens = tokenRepository.findAllValidTokensByUser(user.getId());
-        if(validUserTokens.isEmpty())
+        if (validUserTokens.isEmpty())
             return;
-        validUserTokens.forEach( t -> {
+        validUserTokens.forEach(t -> {
             t.setRevoked(true);
             t.setExpired(true);
         });

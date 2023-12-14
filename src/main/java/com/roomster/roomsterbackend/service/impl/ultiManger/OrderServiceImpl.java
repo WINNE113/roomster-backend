@@ -1,16 +1,16 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.ultiManger;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.order.*;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.entity.RoomServiceEntity;
 import com.roomster.roomsterbackend.entity.TenantEntity;
-import com.roomster.roomsterbackend.mailService.MailService;
+import com.roomster.roomsterbackend.service.impl.mailService.MailService;
 import com.roomster.roomsterbackend.repository.OrderRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.repository.TenantRepository;
-import com.roomster.roomsterbackend.service.IService.IOrderService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IOrderService;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.ValidatorUtils;
 import org.springframework.beans.BeanUtils;

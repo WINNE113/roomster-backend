@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.controller.user;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.ChangePasswordRequest;
 import com.roomster.roomsterbackend.dto.auth.ChangePhoneNumberRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
@@ -95,5 +95,10 @@ public class UserController {
     @PostMapping(value = "/service/valid-ulti-manager")
     public ResponseEntity<?> isValidUltiManager(Principal connectedUser){
         return transactionService.isValidUltiManager(connectedUser);
+    }
+
+    @GetMapping(value = "/service/purchased-service-by-user")
+    public ResponseEntity<?> purchasedServiceByUSer(Principal connectedUser){
+        return transactionService.purchasedServiceByUser(connectedUser);
     }
 }

@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.controller.management;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.rating.AverageRatingPoint;
 import com.roomster.roomsterbackend.dto.rating.RatingDto;
 import com.roomster.roomsterbackend.service.IService.IRatingService;

@@ -1,10 +1,11 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
+import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.common.Status;
-import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ResponseDto;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
@@ -22,6 +23,7 @@ import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,9 +34,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -69,6 +70,43 @@ public class UserService implements IUserService {
     @Override
     public Optional<UserEntity> findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public ResponseEntity<?> findAllByIsDeletedIsFalse(Pageable pageable) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<UserDto>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<UserDto> userDtoList = userRepository.findAllByIsDeletedFalse(pageable)
+                    .stream()
+                    .map(userEntity -> userMapper.entityToDto(userEntity))
+                    .filter(userDto -> !userDto.getUserName().equals("Admin"))
+                    .collect(Collectors.toList());
+            Long count = userRepository.countAllByIsDeletedFalse();
+            resultWithDataAndCount.set(userDtoList, count);
+            response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(MessageUtil.MSG_SYSTEM_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> findAllByIsDeletedIsTrue(Pageable pageable) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<UserDto>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<UserDto> userDtoList = userRepository.findAllByIsDeletedTrue(pageable)
+                    .stream()
+                    .map(userEntity -> userMapper.entityToDto(userEntity))
+                    .collect(Collectors.toList());
+            Long count = userRepository.countAllByIsDeletedTrue();
+            resultWithDataAndCount.set(userDtoList, count);
+            response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(MessageUtil.MSG_SYSTEM_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
     }
 
     @Override
@@ -129,9 +167,9 @@ public class UserService implements IUserService {
         try {
             boolean isCorrectOTPCode = twilioOTPService.validateOtp(otpValidationRequestDto);
             if (isCorrectOTPCode) {
-                var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+                var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
                 RoleEntity role = roleRepository.findByName("ROLE_MANAGE");
-                if(role != null) {
+                if (role != null) {
                     // user.setRoles(Set.of(role));
                     user.getRoles().add(role);
                     user.setPhoneNumberConfirmed(true);
@@ -142,7 +180,7 @@ public class UserService implements IUserService {
                     tokenHandler.revokeAllUserTokens(user);
                     tokenHandler.saveUserToken(Optional.of(user), jwtToken);
 
-                    AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
+                    LoginResponse authenticationResponse = LoginResponse.builder()
                             .token(jwtToken)
                             .message("Get token successfully!")
                             .build();
@@ -164,9 +202,9 @@ public class UserService implements IUserService {
         ResponseEntity<?> response = null;
         try {
             ResponseDto result = twilioOTPService.sendSMS(requestDto);
-            response = new ResponseEntity<>(result,HttpStatus.OK);
+            response = new ResponseEntity<>(result, HttpStatus.OK);
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;
@@ -178,15 +216,15 @@ public class UserService implements IUserService {
         try {
             String normalizePhoneNumber = PhoneNumberValidator.normalizePhoneNumber(request.getOldPhoneNumber());
             Optional<UserEntity> user = userRepository.findByPhoneNumber(normalizePhoneNumber);
-            if(user.isPresent()){
-                if(request.getNewPhoneNumber().equals(request.getConfirmPhoneNumber())){
-                    if(!userRepository.existsByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()))){
+            if (user.isPresent()) {
+                if (request.getNewPhoneNumber().equals(request.getConfirmPhoneNumber())) {
+                    if (!userRepository.existsByPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()))) {
                         //TODO: MANAGE OR ADMIN CHANGE
-                        for (RoleEntity role: user.get().getRoles()
+                        for (RoleEntity role : user.get().getRoles()
                         ) {
-                            if(role.getName().equals(ModelCommon.MANAGEMENT) || role.getName().equals(ModelCommon.ADMIN)) {
+                            if (role.getName().equals(ModelCommon.MANAGEMENT) || role.getName().equals(ModelCommon.ADMIN)) {
                                 //TODO: Check OTP of New PhoneNumber
-                                OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUsername(),PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
+                                OtpRequestDto otpRequest = new OtpRequestDto(user.get().getUsername(), PhoneNumberValidator.normalizePhoneNumber(request.getNewPhoneNumber()));
                                 ResponseDto responseDto = twilioOTPService.sendSMS(otpRequest);
                                 if (responseDto.getStatus().equals(Status.DELIVERED)) {
                                     return response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_OTP_DELIVERED), HttpStatus.OK);
@@ -201,19 +239,19 @@ public class UserService implements IUserService {
                         userRepository.save(user.get());
                         response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
 
-                    }else {
+                    } else {
                         response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_IS_EXITED), HttpStatus.BAD_REQUEST);
                     }
 
-                }else {
+                } else {
                     response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_CONFIRM_NOT_VALID), HttpStatus.NOT_FOUND);
                 }
 
-            }else {
+            } else {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_PHONE_NUMBER_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
 
-        }catch (Exception ex){
+        } catch (Exception ex) {
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;
@@ -222,25 +260,85 @@ public class UserService implements IUserService {
     /**
      * Pre: changePhoneNumber()
      * Change phoneNumber with OTP
-     * **/
+     **/
     @Override
     public ResponseEntity<?> changePhoneNumberWithOTP(ChangePhoneNumberWithOTP request, Principal connectedUser) {
         ResponseEntity<?> response = null;
         try {
-            var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
-            if(user != null){
-                boolean isCorrectOTP = twilioOTPService.validateOtp(new OtpValidationRequestDto(user.getUsername(),request.getOTPNumber()));
-                if(isCorrectOTP) {
+            var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+            if (user != null) {
+                boolean isCorrectOTP = twilioOTPService.validateOtp(new OtpValidationRequestDto(user.getUsername(), request.getOTPNumber()));
+                if (isCorrectOTP) {
                     user.setPhoneNumber(PhoneNumberValidator.normalizePhoneNumber(request.getPhoneNumber()));
                     userRepository.save(user);
                     response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
-                }else {
+                } else {
                     response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_OTP_CODE_INCORRECT), HttpStatus.BAD_REQUEST);
                 }
-            }else {
+            } else {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.BAD_REQUEST);
             }
-        }catch (Exception ex){
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> findAllAccountByRoleName(Pageable pageable, String roleName) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<UserDto>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<UserDto> userDtos = userRepository.findAllByRoles_Name(roleName)
+                    .stream()
+                    .map(userEntity -> userMapper.entityToDto(userEntity))
+                    .filter(userDto -> !userDto.getUserName().equals("Admin"))
+                    .collect(Collectors.toList());
+            Long count = userRepository.countAllByRoles_Name(roleName);
+            resultWithDataAndCount.set(userDtos, count);
+            response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> deleteUserByIds(Long[] listId) {
+        ResponseEntity<?> response = null;
+        long count = 0L;
+        try {
+            for (Long item : listId
+            ) {
+                Optional<UserEntity> user = userRepository.findById(item);
+                user.ifPresent(userEntity -> userEntity.setDeleted(true));
+                count++;
+            }
+            response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_DELETE_SUCCESS + " " + count + " tài khoản."), HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> upRoleUserByAdmin(String roleName, Long userId) {
+        ResponseEntity<?> response = null;
+        try {
+            Optional<UserEntity> user = userRepository.findById(userId);
+            if (user.isPresent()) {
+                Optional<RoleEntity> role = Optional.of(roleRepository.findByName(roleName));
+                if (role.isPresent()) {
+                    user.get().getRoles().add(role.get());
+                    userRepository.save(user.get());
+                    response = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
+                } else {
+                    response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROLE_NOT_FOUND), HttpStatus.NOT_FOUND);
+                }
+            } else {
+                response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_NOT_FOUND), HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return response;

@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.PostTypeDto;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.dto.postType.PostTypeDto;
 import com.roomster.roomsterbackend.mapper.PostTypeMapper;
 import com.roomster.roomsterbackend.repository.PostTypeRepository;
 import com.roomster.roomsterbackend.service.IService.IPostTypeService;

@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticationResponse {
+public class LoginResponse {
     private String token;
     private String message;
 
-    public static AuthenticationResponse error(String errorMessage) {
-        AuthenticationResponse response = new AuthenticationResponse();
+    public static LoginResponse error(String errorMessage) {
+        LoginResponse response = new LoginResponse();
         response.setMessage(errorMessage);
         return response;
     }
