@@ -1,8 +1,8 @@
-package com.roomster.roomsterbackend.controller.admin;
+package com.roomster.roomsterbackend.controller.ultiMagener;
 
 
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
-import com.roomster.roomsterbackend.service.IService.IHouseService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

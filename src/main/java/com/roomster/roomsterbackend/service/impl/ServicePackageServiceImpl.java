@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.service.servicePackage.ServicePackageDto;
 import com.roomster.roomsterbackend.entity.ServicePackageEntity;
 import com.roomster.roomsterbackend.mapper.ServicePackageMapper;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

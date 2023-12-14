@@ -3,7 +3,7 @@ package com.roomster.roomsterbackend.service.impl.payment;
 import com.roomster.roomsterbackend.base.BaseResultWithData;
 import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.config.VnpayConfig;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.payment.*;
 import com.roomster.roomsterbackend.dto.request.VnpayPayRequest;
 import com.roomster.roomsterbackend.dto.response.VnpayPayIpnResponse;

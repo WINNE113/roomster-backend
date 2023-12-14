@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.AuthenticationResponse;
 import com.roomster.roomsterbackend.dto.auth.LoginRequest;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;

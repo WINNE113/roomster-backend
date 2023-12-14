@@ -3,8 +3,8 @@ package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.common.Status;
-import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ResponseDto;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.TokenEntity;

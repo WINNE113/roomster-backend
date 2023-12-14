@@ -1,7 +1,7 @@
-package com.roomster.roomsterbackend.controller.admin;
+package com.roomster.roomsterbackend.controller.ultiMagener;
 
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.service.IService.IRoomService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

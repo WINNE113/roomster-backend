@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.service.IService;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.comment.CommentPostDto;
 
 import java.security.Principal;
