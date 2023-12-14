@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b1cbe4f3-34fc-42c4-8952-fe212608c2b1" name="Changes" comment="update service admin">
+    <list default="true" id="b1cbe4f3-34fc-42c4-8952-fe212608c2b1" name="Changes" comment="pull">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -13,10 +13,18 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="thanglh" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/6.0.12/spring-aop-6.0.12.jar!/org/springframework/aop/support/AopUtils.class" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -45,14 +53,25 @@
   }
 }</component>
   <component name="RunManager">
-    <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="roomster-backend" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.roomster.roomsterbackend.RoomsterBackendApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.roomster.roomsterbackend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.RoomsterBackendApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,7 +85,10 @@
       <workItem from="1702402740160" duration="2465000" />
       <workItem from="1702480721033" duration="4280000" />
       <workItem from="1702504095345" duration="3918000" />
-      <workItem from="1702558960167" duration="298000" />
+      <workItem from="1702558960167" duration="1132000" />
+      <workItem from="1702560421403" duration="76000" />
+      <workItem from="1702563100969" duration="21000" />
+      <workItem from="1702565048832" duration="962000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -100,7 +122,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702507615471</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="pull">
+      <option name="closed" value="true" />
+      <created>1702559369056</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702559369056</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,7 +153,8 @@
     <MESSAGE value="update PaymentTransactionEntity.java" />
     <MESSAGE value="update code" />
     <MESSAGE value="update service admin" />
-    <option name="LAST_COMMIT_MESSAGE" value="update service admin" />
+    <MESSAGE value="pull" />
+    <option name="LAST_COMMIT_MESSAGE" value="pull" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
