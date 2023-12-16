@@ -10,6 +10,11 @@ insert into roles(name) values ('ROLE_USER');
 insert into roles(name) values ('ROLE_MANAGE');
 insert into roles(name) values ('ROLE_ADMIN');
 
+UPDATE `trouytin_db`.`roles` SET `description` = 'Thành viên' WHERE (`id` = '1');
+UPDATE `trouytin_db`.`roles` SET `description` = 'Quản lý tin' WHERE (`id` = '2');
+UPDATE `trouytin_db`.`roles` SET `description` = 'Admin' WHERE (`id` = '3');
+UPDATE `trouytin_db`.`roles` SET `description` = 'Quản lý trọ' WHERE (`id` = '4');
+
 
 
 // Change order column in post table

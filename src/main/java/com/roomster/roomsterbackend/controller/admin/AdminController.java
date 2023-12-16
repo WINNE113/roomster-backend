@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.controller.admin;
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.RegisterRequest;
 import com.roomster.roomsterbackend.dto.service.servicePackage.ServicePackageDto;
+import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.service.IService.*;
 import com.roomster.roomsterbackend.service.IService.payment.IPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +31,9 @@ public class AdminController {
 
     private final IPaymentService paymentService;
 
+    private final IRoleService roleService;
+
     //TODO: CRUD service package
-    @GetMapping(value = "/service/service-package")
-    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return servicePackageService.getAllServicePackage(pageable);
-    }
 
     @PostMapping(value = "/service/add-service-package")
     public ResponseEntity<?> addServicePackage(@RequestBody ServicePackageDto request) {
@@ -138,4 +135,14 @@ public class AdminController {
         return paymentService.getAllPayment(pageable);
     }
 
+    //TODO: CRUD Role
+    @GetMapping(value = "/role/getAll")
+    public ResponseEntity<?> getAllRole() {
+        return roleService.getAll();
+    }
+
+    @PostMapping(value = "/role")
+    public ResponseEntity<?> addRole(@RequestBody RoleEntity entity) {
+        return roleService.addRole(entity);
+    }
 }

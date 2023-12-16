@@ -42,6 +42,13 @@ public class GuestController {
 
     private final IServicePackageService servicePackageService;
 
+
+    @GetMapping(value = "/service/service-package")
+    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return servicePackageService.getAllServicePackage(pageable);
+    }
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
@@ -117,12 +124,5 @@ public class GuestController {
     @GetMapping(value = "/post/images")
     public List<PostImageDto> getPostImage(@RequestParam Long postId) {
         return postService.getPostImages(postId);
-    }
-
-    @GetMapping(value = "/service/service-package")
-    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
-        Pageable pageable = PageRequest.of(page, size);
-        return servicePackageService.getAllServicePackage(pageable);
     }
 }
