@@ -2,7 +2,7 @@ package com.roomster.roomsterbackend.controller.guest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.dto.report.ReportDto;
 import com.roomster.roomsterbackend.entity.UserEntity;

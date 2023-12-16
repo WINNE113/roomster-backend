@@ -1,6 +1,6 @@
 package com.roomster.roomsterbackend.controller.admin;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.RegisterRequest;
 import com.roomster.roomsterbackend.dto.service.servicePackage.ServicePackageDto;
 import com.roomster.roomsterbackend.service.IService.*;

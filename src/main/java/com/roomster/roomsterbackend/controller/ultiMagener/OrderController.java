@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.controller.admin;
+package com.roomster.roomsterbackend.controller.ultiMagener;
 
 import com.roomster.roomsterbackend.dto.order.OrderDTO;
 import com.roomster.roomsterbackend.dto.order.OrderStatusPaymentDto;
@@ -8,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.roomster.roomsterbackend.entity.OrderEntity;
-import com.roomster.roomsterbackend.service.IService.IOrderService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IOrderService;
 
 @RestController
 @CrossOrigin("*")

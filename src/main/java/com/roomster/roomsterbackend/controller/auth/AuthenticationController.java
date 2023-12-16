@@ -1,6 +1,7 @@
 package com.roomster.roomsterbackend.controller.auth;
 
-import com.roomster.roomsterbackend.dto.*;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.service.IService.IAuthenticationService;
 import com.roomster.roomsterbackend.service.impl.twilio.TwilioOTPService;
@@ -45,7 +46,8 @@ public class AuthenticationController {
             summary = "Endpoint For Login"
     )
     @PostMapping("/authenticate")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request){
+
         return ResponseEntity.ok(authenticationService.login(request));
     }
 

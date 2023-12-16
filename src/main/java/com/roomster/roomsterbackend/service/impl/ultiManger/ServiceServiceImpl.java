@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.ultiManger;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -11,14 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.entity.InforRoomEntity;
 import com.roomster.roomsterbackend.entity.RoomServiceEntity;
 import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.repository.RoomServiceRepository;
 import com.roomster.roomsterbackend.repository.ServiceRepository;
-import com.roomster.roomsterbackend.service.IService.IServiceService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IServiceService;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.ValidatorUtils;
 

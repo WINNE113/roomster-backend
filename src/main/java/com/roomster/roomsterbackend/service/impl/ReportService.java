@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.report.ReportDto;
 import com.roomster.roomsterbackend.mapper.ReportMapper;
 import com.roomster.roomsterbackend.repository.ReportRepository;

@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.mailService;
+package com.roomster.roomsterbackend.service.impl.mailService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

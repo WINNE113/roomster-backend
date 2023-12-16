@@ -4,8 +4,8 @@ import com.cloudinary.Cloudinary;
 import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.common.Status;
-import com.roomster.roomsterbackend.dto.BaseResponse;
-import com.roomster.roomsterbackend.dto.ResponseDto;
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
@@ -180,7 +180,7 @@ public class UserService implements IUserService {
                     tokenHandler.revokeAllUserTokens(user);
                     tokenHandler.saveUserToken(Optional.of(user), jwtToken);
 
-                    AuthenticationResponse authenticationResponse = AuthenticationResponse.builder()
+                    LoginResponse authenticationResponse = LoginResponse.builder()
                             .token(jwtToken)
                             .message("Get token successfully!")
                             .build();

@@ -1,7 +1,7 @@
 package com.roomster.roomsterbackend.controller.payment;
 
 import com.roomster.roomsterbackend.base.BaseResultWithData;
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.payment.PaymentDto;
 import com.roomster.roomsterbackend.dto.payment.PaymentResultData;
 import com.roomster.roomsterbackend.dto.payment.PaymentReturnDto;

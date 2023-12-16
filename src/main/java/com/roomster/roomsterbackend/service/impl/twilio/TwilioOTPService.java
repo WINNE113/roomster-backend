@@ -3,7 +3,7 @@ package com.roomster.roomsterbackend.service.impl.twilio;
 import com.roomster.roomsterbackend.config.TwilioConfig;
 import com.roomster.roomsterbackend.dto.auth.OtpRequestDto;
 import com.roomster.roomsterbackend.dto.auth.OtpValidationRequestDto;
-import com.roomster.roomsterbackend.dto.ResponseDto;
+import com.roomster.roomsterbackend.base.ResponseDto;
 import com.roomster.roomsterbackend.common.Status;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.twilio.rest.api.v2010.account.Message;

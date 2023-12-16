@@ -1,6 +1,6 @@
-package com.roomster.roomsterbackend.service.impl;
+package com.roomster.roomsterbackend.service.impl.ultiManger;
 
-import com.roomster.roomsterbackend.dto.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomPaymentStatusDto;
 import com.roomster.roomsterbackend.dto.order.OrderStatusPaymentDto;
 import com.roomster.roomsterbackend.entity.HouseEntity;
@@ -9,7 +9,7 @@ import com.roomster.roomsterbackend.entity.OrderEntity;
 import com.roomster.roomsterbackend.entity.RoomServiceEntity;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
-import com.roomster.roomsterbackend.service.IService.IRoomService;
+import com.roomster.roomsterbackend.service.IService.ultiManager.IRoomService;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
