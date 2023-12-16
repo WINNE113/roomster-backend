@@ -33,6 +33,23 @@ public class AdminController {
 
     private final IRoleService roleService;
 
+
+    //TODO: Dashboard
+    @GetMapping(value = "transaction/status")
+    public ResponseEntity<?> getTotalPaymentServiceByMonth() {
+        return postService.getTotalPaymentServiceByMonth();
+    }
+
+    @GetMapping(value = "payment/status")
+    public ResponseEntity<?> getTotalPaymentTransactionByMonth() {
+        return paymentService.getTotalPaymentTransactionByMonth();
+    }
+
+    @GetMapping(value = "post/status")
+    public ResponseEntity<?> getStatusPost() {
+        return postService.getStatusPost();
+    }
+
     //TODO: CRUD service package
 
     @PostMapping(value = "/service/add-service-package")
@@ -51,7 +68,6 @@ public class AdminController {
     }
 
     //TODO: CRUD Post
-
 
     @PatchMapping(value = "/setIsApprovedPost")
     public BaseResponse setIsApprovedPosts(Long[] listPostId) {

@@ -158,7 +158,7 @@ public class OrderServiceImpl implements IOrderService {
 		ResponseEntity<?> responseEntity;
 		try{
 			List<Object[]> result = orderRepository.getTotalPaymentByMonth();
-			List<PaymentByMonthDto> paymentByMonthDtoList =  result.stream()
+			List<PaymentByMonthDto> paymentByMonthDtoList = result.stream()
 					.map(row -> new PaymentByMonthDto((Integer) row[0], (BigDecimal) row[1]))
 					.toList();
 			responseEntity = new ResponseEntity<>(paymentByMonthDtoList, HttpStatus.OK);

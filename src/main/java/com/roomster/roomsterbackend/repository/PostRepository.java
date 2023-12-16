@@ -47,4 +47,15 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
     @Query(value = "select img.image_url_list as image from post_entity_image_url_list img where img.post_entity_id =:postId", nativeQuery = true)
     List<PostImageDto> getPostImages(@Param("postId") Long postId);
     List<PostEntity> getAllByStatusAndIsDeleted(Pageable pageable, Status status, boolean isDeleted);
+
+    Long countByIsDeletedFalse();
+
+    Long countByStatus(Status status);
+
+    @Query(value = "SELECT Month(t.purchase_date) as month, SUM(sp.price) as tolalPrice \n" +
+            "FROM trouytin_db.transaction as t inner join service_package as sp\n" +
+            "where t.package_id = sp.id\n" +
+            "GROUP BY MONTH(t.purchase_date)\n" +
+            "Order by month(t.purchase_date)", nativeQuery = true)
+    List<Object[]> getTotalPaymentServiceByMonth();
 }
