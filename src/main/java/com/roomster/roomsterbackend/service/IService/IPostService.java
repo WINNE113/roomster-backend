@@ -37,4 +37,8 @@ public interface IPostService {
     void setIsRejectedPosts(Long[] listPostId);
 
     ResponseEntity<?> upload(List<MultipartFile> images);
+
+    ResponseEntity<?> getStatusPost();
+
+    ResponseEntity<?> getTotalPaymentServiceByMonth();
 }

@@ -21,4 +21,5 @@ public interface IPaymentService {
     ResponseEntity<?> paymentHistory(Principal connectedUser, Pageable pageable);
 
     ResponseEntity<?> getAllPayment(Pageable pageable);
+    ResponseEntity<?> getTotalPaymentTransactionByMonth();
 }
