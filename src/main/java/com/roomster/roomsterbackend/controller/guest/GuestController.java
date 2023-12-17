@@ -9,6 +9,7 @@ import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.service.IService.IDatabaseSearch;
 import com.roomster.roomsterbackend.service.IService.IPostService;
 import com.roomster.roomsterbackend.service.IService.IReportService;
+import com.roomster.roomsterbackend.service.IService.IServicePackageService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.extensions.ConvertStringToArrayExtension;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -39,6 +40,15 @@ public class GuestController {
 
     private final IReportService reportService;
 
+    private final IServicePackageService servicePackageService;
+
+
+    @GetMapping(value = "/service/service-package")
+    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return servicePackageService.getAllServicePackage(pageable);
+    }
     @GetMapping(value = "/list-post-by-rating")
     public List<PostDtoWithRating> ListPostByRating(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
                                                     @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {

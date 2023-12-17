@@ -1,8 +1,9 @@
 package com.roomster.roomsterbackend.service.impl;
 
 import com.cloudinary.Cloudinary;
-import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
+import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.common.Status;
+import com.roomster.roomsterbackend.dto.order.PaymentByMonthDto;
 import com.roomster.roomsterbackend.dto.post.*;
 import com.roomster.roomsterbackend.entity.PostEntity;
 import com.roomster.roomsterbackend.entity.PostTypeEntity;
@@ -27,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,10 +60,11 @@ public class PostService implements IPostService {
     @Override
     public List<PostDto> getPostsApproved(Pageable pageable) {
         List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.APPROVED, false);
-        return  postPage.stream()
+        return postPage.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .toList();
     }
+
     @Override
     public List<PostDto> getPostByAuthorId(Pageable pageable, Long authorId) {
         return postRepository.getPostEntityByAuthorId(pageable, authorId)
@@ -70,18 +73,20 @@ public class PostService implements IPostService {
                 .filter(postDto -> !postDto.isDeleted())
                 .collect(Collectors.toList());
     }
+
     @Override
     public PostDto getPostById(Long postId) {
         return postMapper.entityToDto(postRepository.findById(postId).orElseThrow(EntityNotFoundException::new));
     }
+
     @Override
     public void upsertPost(PostDto postDTO, List<MultipartFile> images, Principal connectedUser) throws IOException {
 
-        var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
+        var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
         //TODO: Update post
-        if(postDTO.getPostId() != null && postDTO.getRoomDto().getInforRoomId() != null){
-            Optional<PostEntity> post =  postRepository.findById(postDTO.getPostId());
-            if(post.isPresent()){
+        if (postDTO.getPostId() != null && postDTO.getRoomDto().getInforRoomId() != null) {
+            Optional<PostEntity> post = postRepository.findById(postDTO.getPostId());
+            if (post.isPresent()) {
                 postDTO.setImageUrlList(post.get().getImageUrlList());
                 post = Optional.of(postMapper.dtoToEntity(postDTO));
                 post.get().setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
@@ -89,11 +94,11 @@ public class PostService implements IPostService {
 
                 // need admin or sp admin accept to APPROVED post
                 post.get().setStatus(Status.REVIEW);
-                if(postDTO.getRotation() != null){
+                if (postDTO.getRotation() != null) {
                     post.get().setRotation(postDTO.getRotation());
                 }
 
-                if(user != null){
+                if (user != null) {
                     post.get().setAuthorId(user);
                 }
                 if (images != null && !images.isEmpty()) {
@@ -103,22 +108,22 @@ public class PostService implements IPostService {
                     }
                     post.get().setImageUrlList(imageUrls);
                 }
-                if(postDTO.getRoomDto() != null){
+                if (postDTO.getRoomDto() != null) {
                     post.get().setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
                 }
                 postRepository.save(post.get());
             }
-        }else {
+        } else {
             //TODO: Add post
             PostEntity postEntity = postMapper.dtoToEntity(postDTO);
             postEntity.setPostType(postTypeRepository.getPostEntityByCode(postDTO.getPost_type()));
             postEntity.setDeleted(false);
             // need admin or sp admin accept to APPROVED post
             postEntity.setStatus(Status.REVIEW);
-            if(postDTO.getRotation() != null){
+            if (postDTO.getRotation() != null) {
                 postEntity.setRotation(postDTO.getRotation());
             }
-            if(user != null){
+            if (user != null) {
                 postEntity.setAuthorId(user);
             }
             if (images != null && !images.isEmpty()) {
@@ -128,7 +133,7 @@ public class PostService implements IPostService {
                 }
                 postEntity.setImageUrlList(imageUrls);
             }
-            if(postDTO.getRoomDto() != null){
+            if (postDTO.getRoomDto() != null) {
                 postEntity.setRoomId(inforRoomMapper.dtoToEntity(postDTO.getRoomDto()));
             }
             postRepository.save(postEntity);
@@ -162,7 +167,7 @@ public class PostService implements IPostService {
 
         //TODO: Set String convenient to String[]
         String convenient = postDetailDto.getConvenient();
-        String[] convenientArray =  convenient.split(",");
+        String[] convenientArray = convenient.split(",");
         postDetailDtoImp.setConvenient(convenientArray);
 
         postDetailDtoImp.setInforRoomId(postDetailDto.getInforRoomId());
@@ -198,10 +203,10 @@ public class PostService implements IPostService {
 
     @Override
     public void setIsApprovedPosts(Long[] listPostId) {
-        for (Long item: listPostId
+        for (Long item : listPostId
         ) {
             Optional<PostEntity> post = postRepository.findById(item);
-            if(post.isPresent()){
+            if (post.isPresent()) {
                 post.get().setStatus(Status.APPROVED);
                 postRepository.save(post.get());
             }
@@ -212,7 +217,7 @@ public class PostService implements IPostService {
     public List<PostDto> getPostsReview(Pageable pageable) {
         List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.REVIEW, false);
         // Get the content (posts) from the page
-        return  postPage.stream()
+        return postPage.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .toList();
     }
@@ -220,17 +225,17 @@ public class PostService implements IPostService {
     @Override
     public List<PostDto> getPostsRejected(Pageable pageable) {
         List<PostEntity> postPage = postRepository.getAllByStatusAndIsDeleted(pageable, Status.REJECTED, false);
-        return  postPage.stream()
+        return postPage.stream()
                 .map(postEntity -> postMapper.entityToDto(postEntity))
                 .toList();
     }
 
     @Override
     public void setIsRejectedPosts(Long[] listPostId) {
-        for (Long item: listPostId
+        for (Long item : listPostId
         ) {
             Optional<PostEntity> post = postRepository.findById(item);
-            if(post.isPresent()){
+            if (post.isPresent()) {
                 post.get().setStatus(Status.REJECTED);
                 postRepository.save(post.get());
             }
@@ -242,7 +247,49 @@ public class PostService implements IPostService {
         return null;
     }
 
-    private String getFileUrls(MultipartFile multipartFile) throws IOException{
+    @Override
+    public ResponseEntity<?> getStatusPost() {
+        ResponseEntity<?> responseEntity = null;
+        try {
+            Long countPost = this.postRepository.countByIsDeletedFalse();
+            Long countApprovedPost = this.postRepository.countByStatus(Status.APPROVED);
+            Long countRejectedPost = this.postRepository.countByStatus(Status.REJECTED);
+            Long countReviewPost = this.postRepository.countByStatus(Status.REVIEW);
+            StatusPost status;
+            if (countPost == 0) {
+                status = new StatusPost(0L, 0L, 0L);
+                return new ResponseEntity<>(status, HttpStatus.OK);
+            }
+
+            Long percentApproved = Math.round((countApprovedPost.doubleValue() / countPost.doubleValue()) * 100.0);
+            Long percentRejected = Math.round((countRejectedPost.doubleValue() / countPost.doubleValue()) * 100.0);
+            Long percentReview = Math.round((countReviewPost.doubleValue() / countPost.doubleValue()) * 100.0);
+            status = new StatusPost(percentApproved, percentRejected, percentReview);
+            return new ResponseEntity<>(status, HttpStatus.OK);
+        } catch (Exception e) {
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    @Override
+    public ResponseEntity<?> getTotalPaymentServiceByMonth() {
+        ResponseEntity<?> responseEntity;
+        try{
+            List<Object[]> result = postRepository.getTotalPaymentServiceByMonth();
+            List<PaymentByMonthDto> paymentByMonthDtoList = result.stream()
+                    .map(row -> new PaymentByMonthDto((Integer) row[0], (BigDecimal) row[1]))
+                    .toList();
+            responseEntity = new ResponseEntity<>(paymentByMonthDtoList, HttpStatus.OK);
+        }
+        catch (Exception e){
+            responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID),
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return responseEntity;
+    }
+
+    private String getFileUrls(MultipartFile multipartFile) throws IOException {
         return cloudinary.uploader()
                 .upload(multipartFile.getBytes(), Map.of("public_id", UUID.randomUUID().toString()))
                 .get("url")

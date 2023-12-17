@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.controller.admin;
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.auth.RegisterRequest;
 import com.roomster.roomsterbackend.dto.service.servicePackage.ServicePackageDto;
+import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.service.IService.*;
 import com.roomster.roomsterbackend.service.IService.payment.IPaymentService;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +31,26 @@ public class AdminController {
 
     private final IPaymentService paymentService;
 
-    //TODO: CRUD service package
-    @GetMapping(value = "/service/service-package")
-    public ResponseEntity<?> getAllServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return servicePackageService.getAllServicePackage(pageable);
+    private final IRoleService roleService;
+
+
+    //TODO: Dashboard
+    @GetMapping(value = "transaction/status")
+    public ResponseEntity<?> getTotalPaymentServiceByMonth() {
+        return postService.getTotalPaymentServiceByMonth();
     }
+
+    @GetMapping(value = "payment/status")
+    public ResponseEntity<?> getTotalPaymentTransactionByMonth() {
+        return paymentService.getTotalPaymentTransactionByMonth();
+    }
+
+    @GetMapping(value = "post/status")
+    public ResponseEntity<?> getStatusPost() {
+        return postService.getStatusPost();
+    }
+
+    //TODO: CRUD service package
 
     @PostMapping(value = "/service/add-service-package")
     public ResponseEntity<?> addServicePackage(@RequestBody ServicePackageDto request) {
@@ -54,7 +68,6 @@ public class AdminController {
     }
 
     //TODO: CRUD Post
-
 
     @PatchMapping(value = "/setIsApprovedPost")
     public BaseResponse setIsApprovedPosts(Long[] listPostId) {
@@ -138,4 +151,14 @@ public class AdminController {
         return paymentService.getAllPayment(pageable);
     }
 
+    //TODO: CRUD Role
+    @GetMapping(value = "/role/getAll")
+    public ResponseEntity<?> getAllRole() {
+        return roleService.getAll();
+    }
+
+    @PostMapping(value = "/role")
+    public ResponseEntity<?> addRole(@RequestBody RoleEntity entity) {
+        return roleService.addRole(entity);
+    }
 }
