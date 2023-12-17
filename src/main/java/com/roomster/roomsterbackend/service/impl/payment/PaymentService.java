@@ -1,9 +1,11 @@
 package com.roomster.roomsterbackend.service.impl.payment;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.roomster.roomsterbackend.base.BaseResultWithData;
 import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.config.VnpayConfig;
 import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.dto.order.PaymentByMonthDto;
 import com.roomster.roomsterbackend.dto.payment.*;
 import com.roomster.roomsterbackend.dto.request.VnpayPayRequest;
 import com.roomster.roomsterbackend.dto.response.VnpayPayIpnResponse;
@@ -343,6 +345,22 @@ public class PaymentService implements IPaymentService {
             Long count = paymentRepository.count();
             resultWithDataAndCount.set(paymentDtoMappers, count);
             response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> getTotalPaymentTransactionByMonth() {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<PaymentDtoMapper>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<Object[]> result = paymentRepository.getTotalPaymentTransactionByMonth();
+            List<PaymentByMonthDto> paymentByMonthDtos = result.stream()
+                    .map(row -> new PaymentByMonthDto((Integer) row[0], (BigDecimal) row[1]))
+                    .collect(Collectors.toList());
+            response = new ResponseEntity<>(paymentByMonthDtos, HttpStatus.OK);
         } catch (Exception ex) {
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }

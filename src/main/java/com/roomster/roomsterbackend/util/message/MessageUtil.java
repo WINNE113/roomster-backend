@@ -7,6 +7,7 @@ public class MessageUtil {
     public static final String MSG_SERVICE_NOT_FOUND = "Dịch vụ không tồn tại !";
     public static final String MSG_POST_NOT_FOUND = "Bài viết không tồn tại !";
     public static final String MSG_ROLE_NOT_FOUND = "Vai trò không tồn tại !";
+    public static final String MSG_ROLE_EXITED = "Vai trò tồn tại !";
     public static final String MSG_OTP_CODE_INCORRECT = "Rất tiếc! Mã OTP của bạn không chính xác.";
     public static final String MSG_OTP_CODE_CORRECT = "Mã OTP của bạn chính xác.";
     public static final String MSG_WISHLIST_ITEM_EXITED = "Danh sách yêu thích đã tồn tại bài viết";
