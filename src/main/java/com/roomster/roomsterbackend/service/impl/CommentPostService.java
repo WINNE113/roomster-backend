@@ -82,6 +82,7 @@ public class CommentPostService implements ICommentPostService {
         ) {
             PartUser partUser = new PartUser();
             UserEntity user = userRepository.findById(item.getUserId()).orElseThrow();
+            partUser.setUserId(user.getId());
             partUser.setUserName(user.getUsername());
             partUser.setImages(user.getImages());
             Optional<PostEntity> post = postRepository.findById(item.getPostId());

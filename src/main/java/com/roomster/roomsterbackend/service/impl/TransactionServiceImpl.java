@@ -1,12 +1,15 @@
 package com.roomster.roomsterbackend.service.impl;
 
+import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.base.BaseResultWithDataAndCount;
 import com.roomster.roomsterbackend.common.ModelCommon;
 import com.roomster.roomsterbackend.common.Status;
-import com.roomster.roomsterbackend.base.BaseResponse;
+import com.roomster.roomsterbackend.dto.service.transaction.TransactionDto;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.ServicePackageEntity;
 import com.roomster.roomsterbackend.entity.TransactionEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.mapper.TransactionMapper;
 import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.repository.ServicePackageRepository;
 import com.roomster.roomsterbackend.repository.TransactionRepository;
@@ -16,6 +19,7 @@ import com.roomster.roomsterbackend.service.IService.twilio.ITwilioService;
 import com.roomster.roomsterbackend.util.helpers.HashHelper;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +35,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransactionServiceImpl implements ITransactionService {
@@ -50,6 +56,9 @@ public class TransactionServiceImpl implements ITransactionService {
 
     @Autowired
     private ITwilioService twilioService;
+
+    @Autowired
+    private TransactionMapper transactionMapper;
 
     @Override
     public ResponseEntity<?> purchasePackageByUser(Principal connectedUser, Long servicePackageId) {
@@ -227,6 +236,45 @@ public class TransactionServiceImpl implements ITransactionService {
             } else {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> getAllTransactionServiceByUser(Principal connectedUser, Pageable pageable) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<TransactionDto>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            var user = (UserEntity) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+            if (user != null) {
+                List<TransactionDto> transactionDtos = transactionRepository.findByUserTransactionIdOrderByPurchaseDateDesc(user.getId(), pageable)
+                        .stream()
+                        .map(transaction -> transactionMapper.entityToDto(transaction))
+                        .collect(Collectors.toList());
+                Long count = transactionRepository.countByUserTransaction_Id(user.getId());
+                resultWithDataAndCount.set(transactionDtos, count);
+                response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
+            }
+        } catch (Exception ex) {
+            response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return response;
+    }
+
+    @Override
+    public ResponseEntity<?> getAllTransactionService(Pageable pageable) {
+        ResponseEntity<?> response = null;
+        BaseResultWithDataAndCount<List<TransactionDto>> baseResultWithDataAndCount = new BaseResultWithDataAndCount<>();
+        try {
+            List<TransactionDto> transactionDtos = transactionRepository.findAllByOrderByPurchaseDateDesc(pageable)
+                    .stream()
+                    .map(transaction -> transactionMapper.entityToDto(transaction))
+                    .collect(Collectors.toList());
+            Long count = transactionRepository.count();
+            baseResultWithDataAndCount.set(transactionDtos, count);
+            response = new ResponseEntity<>(baseResultWithDataAndCount, HttpStatus.OK);
         } catch (Exception ex) {
             response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
         }

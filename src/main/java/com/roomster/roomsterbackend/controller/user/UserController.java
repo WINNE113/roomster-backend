@@ -13,6 +13,8 @@ import com.roomster.roomsterbackend.service.IService.ITransactionService;
 import com.roomster.roomsterbackend.service.IService.IUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -92,13 +94,17 @@ public class UserController {
         return transactionService.purchasePackageByUser(connectedUser, servicePackageId);
     }
 
+    //TODO: get service package by user
+    @GetMapping(value = "/transaction/service-package")
+    public ResponseEntity<?> getAllTransactionServiceByUser(Principal connectedUser,
+                                                            @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return transactionService.getAllTransactionServiceByUser(connectedUser, pageable);
+    }
+
     @PostMapping(value = "/service/valid-ulti-manager")
     public ResponseEntity<?> isValidUltiManager(Principal connectedUser){
         return transactionService.isValidUltiManager(connectedUser);
     }
-
-//    @GetMapping(value = "/service/purchased-service-by-user")
-//    public ResponseEntity<?> purchasedServiceByUSer(){
-//        return transactionService.purchasedServiceByUser();
-//    }
 }
