@@ -9,5 +9,5 @@ public interface ITransactionService {
 
     ResponseEntity<?> isValidUltiManager(Principal connectedUser);
 
-    ResponseEntity<?> purchasedServiceByUser(Principal connectedUser);
+    ResponseEntity<?> purchasedServiceByUser();
 }

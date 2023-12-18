@@ -24,7 +24,7 @@ import java.util.List;
 @PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class TenantController {
 
-	@Autowired
+    @Autowired
     private ITenantService tenantService;
 
     @GetMapping

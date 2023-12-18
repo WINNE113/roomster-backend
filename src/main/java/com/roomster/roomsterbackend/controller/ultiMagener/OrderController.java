@@ -34,35 +34,39 @@ public class OrderController {
 		return orderService.getOrderBillById(id);
 	}
 
-    @GetMapping("/status")
-    public ResponseEntity<?> getTotalPaymentByMonth() {
-        return orderService.getTotalPaymentByMonth();
-    }
+	@GetMapping("/status")
+	public ResponseEntity<?> getTotalPaymentByMonth() {
+		return orderService.getTotalPaymentByMonth();
+	}
 
-    @PostMapping("/{id}")
+	@PostMapping("/{id}")
 	public ResponseEntity<?> createorderService(@PathVariable String id, @RequestBody OrderEntity order) {
-        System.out.println("HERE WE GO");
 		return orderService.checkUpdateOrAddFromMonth(id, order);
 	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteorderService(@PathVariable String id) {
-        return orderService.deleteOrder(id);
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<?> deleteorderService(@PathVariable String id) {
+		return orderService.deleteOrder(id);
+	}
 
-    @PutMapping("water-electric")
-    public ResponseEntity<?> updateorderService(@RequestBody OrderDTO order) {
-        return orderService.updateOrderWaterElectric(order);
-    }
+	@PutMapping("water-electric")
+	public ResponseEntity<?> updateorderService(@RequestBody OrderDTO order) {
+		return orderService.updateOrderWaterElectric(order);
+	}
 
 	@PutMapping("/payment/{id}")
 	public ResponseEntity<?> updateorderService(@PathVariable String id, @RequestBody OrderStatusPaymentDto order) {
 		return orderService.updateOrderPayment(id, order);
 	}
-	
+
 	@PostMapping("/mail-payment/{roomId}")
 	public ResponseEntity<?> sendMail(@PathVariable String roomId) {
 		return orderService.sendMailPayment(roomId);
+	}
+
+	@GetMapping("/download")
+	public ResponseEntity<?> downloadExcel() {
+		return this.orderService.downloadExcel();
 	}
 
 }

@@ -45,6 +45,11 @@ public class AdminController {
         return paymentService.getTotalPaymentTransactionByMonth();
     }
 
+    @GetMapping(value = "user/status")
+    public ResponseEntity<?> getUserAccountStatus(){
+        return userService.getUserAccountStatus();
+    }
+
     @GetMapping(value = "post/status")
     public ResponseEntity<?> getStatusPost() {
         return postService.getStatusPost();

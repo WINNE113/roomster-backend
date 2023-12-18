@@ -10,6 +10,7 @@ import com.roomster.roomsterbackend.dto.auth.*;
 import com.roomster.roomsterbackend.dto.user.ChangePhoneNumberWithOTP;
 import com.roomster.roomsterbackend.dto.user.UpdateProfileRequest;
 import com.roomster.roomsterbackend.dto.user.UserDto;
+import com.roomster.roomsterbackend.dto.user.UserStatus;
 import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.mapper.UserMapper;
@@ -289,12 +290,12 @@ public class UserService implements IUserService {
         ResponseEntity<?> response = null;
         BaseResultWithDataAndCount<List<UserDto>> resultWithDataAndCount = new BaseResultWithDataAndCount<>();
         try {
-            List<UserDto> userDtos = userRepository.findAllByRoles_Name(roleName)
+            List<UserDto> userDtos = userRepository.findAllByRoles_NameAndIsDeletedFalse(roleName)
                     .stream()
                     .map(userEntity -> userMapper.entityToDto(userEntity))
                     .filter(userDto -> !userDto.getUserName().equals("Admin"))
                     .collect(Collectors.toList());
-            Long count = userRepository.countAllByRoles_Name(roleName);
+            Long count = userRepository.countByRoles_NameAndIsDeletedFalse(roleName);
             resultWithDataAndCount.set(userDtos, count);
             response = new ResponseEntity<>(resultWithDataAndCount, HttpStatus.OK);
         } catch (Exception ex) {
@@ -343,6 +344,44 @@ public class UserService implements IUserService {
         }
         return response;
     }
+    @Override
+    public ResponseEntity<?> getUserAccountStatus() {
+        try {
+            RoleEntity role = roleRepository.findByName(ModelCommon.ADMIN);
+            List<UserEntity> allUsers = userRepository.findAllByRolesNotContainingAndIsDeletedFalse(role);
+            Long totalRoles = allUsers.stream()
+                    .flatMap(user -> user.getRoles().stream())
+                    .distinct()
+                    .count();
+
+            if (totalRoles == 0) {
+                UserStatus userStatus = new UserStatus(0L, 0L, 0L, 0L, 0L, 0L, 0L);
+                return ResponseEntity.ok(userStatus);
+            }
+
+            Map<String, Long> roleCounts = allUsers.stream()
+                    .flatMap(user -> user.getRoles().stream())
+                    .collect(Collectors.groupingBy(RoleEntity::getName, Collectors.counting()));
+
+            Long totalUsers = (long) allUsers.size();
+
+            Long percentUser = roleCounts.getOrDefault(ModelCommon.USER, 0L) * 100 / totalUsers;
+            Long percentManage = roleCounts.getOrDefault(ModelCommon.MANAGEMENT, 0L) * 100 / totalUsers;
+            Long percentUltiManage = roleCounts.getOrDefault(ModelCommon.ULTI_MANAGER, 0L) * 100 / totalUsers;
+
+            UserStatus userStatus = new UserStatus(
+                    totalUsers, percentUser, roleCounts.getOrDefault(ModelCommon.USER, 0L),
+                    percentManage, roleCounts.getOrDefault(ModelCommon.MANAGEMENT, 0L),
+                    percentUltiManage, roleCounts.getOrDefault(ModelCommon.ULTI_MANAGER, 0L)
+            );
+
+            return ResponseEntity.ok(userStatus);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR));
+        }
+    }
+
 
     private String getFileUrls(MultipartFile multipartFile) throws IOException {
         return cloudinary.uploader()

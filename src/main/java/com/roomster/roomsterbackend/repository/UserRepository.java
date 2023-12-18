@@ -1,5 +1,6 @@
 package com.roomster.roomsterbackend.repository;
 
+import com.roomster.roomsterbackend.entity.RoleEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,12 +22,14 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllByIsDeletedTrue(Pageable pageable);
     Long countAllByIsDeletedTrue();
     List<UserEntity> findAllByIsDeletedFalse(Pageable pageable);
+    List<UserEntity> findAllByRolesNotContainingAndIsDeletedFalse(RoleEntity role);
     Long countAllByIsDeletedFalse();
     boolean existsByPhoneNumber(String phoneNumber);
 
-    List<UserEntity> findAllByRoles_Name(String roleName);
+    List<UserEntity> findAllByRoles_NameAndIsDeletedFalse(String roleName);
 
-    Long countAllByRoles_Name(String roleName);
+    Long countByRoles_NameAndIsDeletedFalse(String roleName);
+
 
     boolean existsAllByPhoneNumber (String phoneNumber);
 

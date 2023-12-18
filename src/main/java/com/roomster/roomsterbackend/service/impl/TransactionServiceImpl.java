@@ -19,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -206,18 +208,23 @@ public class TransactionServiceImpl implements ITransactionService {
     }
 
     @Override
-    public ResponseEntity<?> purchasedServiceByUser(Principal connectedUser) {
+    public ResponseEntity<?> purchasedServiceByUser() {
         ResponseEntity<?> response = null;
         try {
-            var user = (UserEntity)((UsernamePasswordAuthenticationToken)connectedUser).getPrincipal();
-            if(user != null){
-               Optional<TransactionEntity> transaction = transactionRepository.findByUserTransaction_IdAndExpiredFalse(user.getId());
-               if(transaction.isPresent()){
-                   response = new ResponseEntity<>(transaction.get(), HttpStatus.OK);
-               }else {
-                   response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.NOT_FOUND);
-               }
-            }else {
+            Long userId = 0L;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserEntity) {
+                userId = ((UserEntity) principal).getId();
+            }
+            if (userId != 0L) {
+                Optional<TransactionEntity> transaction = transactionRepository.findByUserTransaction_IdAndExpiredFalse(userId);
+                if (transaction.isPresent()) {
+                    response = new ResponseEntity<>(transaction.get(), HttpStatus.OK);
+                } else {
+                    response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.NOT_FOUND);
+                }
+            } else {
                 response = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_USER_BY_TOKEN_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
         } catch (Exception ex) {
