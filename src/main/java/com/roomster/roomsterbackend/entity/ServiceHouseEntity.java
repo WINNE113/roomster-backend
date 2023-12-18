@@ -16,6 +16,12 @@ public class ServiceHouseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private UserEntity user;
+
     @Column(name = "service_name")
     private String serviceName;
 

@@ -4,17 +4,16 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import com.roomster.roomsterbackend.entity.OrderEntity;
+import com.roomster.roomsterbackend.entity.*;
 import com.roomster.roomsterbackend.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.roomster.roomsterbackend.base.BaseResponse;
-import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.RoomServiceEntity;
-import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.repository.RoomServiceRepository;
 import com.roomster.roomsterbackend.repository.ServiceRepository;
@@ -43,7 +42,13 @@ public class ServiceServiceImpl implements IServiceService {
 	public ResponseEntity<?> findAll() {
 		ResponseEntity<?> responseEntity;
 		try {
-			List<ServiceHouseEntity> serviceHouseList = serviceRepository.findAll();
+			Long userId = 0L;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserEntity) {
+				userId = ((UserEntity) principal).getId();
+			}
+			List<ServiceHouseEntity> serviceHouseList = serviceRepository.findAllByUserId(userId);
 			responseEntity = new ResponseEntity<>(serviceHouseList, HttpStatus.OK);
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,8 +77,8 @@ public class ServiceServiceImpl implements IServiceService {
 		return responseEntity;
 	}
 
-	private boolean isValidService(ServiceHouseEntity service) {
-		Long count = serviceRepository.countByNameAndDifferentId(service.getServiceName(), service.getServiceId());
+	private boolean isValidService(ServiceHouseEntity service, long id) {
+		Long count = serviceRepository.countByNameAndDifferentId(service.getServiceName(), service.getServiceId(), id);
 		return count == 0;
 	}
 
@@ -82,7 +87,11 @@ public class ServiceServiceImpl implements IServiceService {
 	public ResponseEntity<?> createServiceHouse(ServiceHouseEntity serviceHouse) {
 		ResponseEntity<?> responseEntity;
 		try {
-			if(isValidService(serviceHouse)){
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			UserEntity user = (UserEntity) authentication.getPrincipal();
+			if(isValidService(serviceHouse, user.getId())){
+
+				serviceHouse.setUser(user);
 				serviceRepository.save(serviceHouse);
 				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_ADD_SUCCESS), HttpStatus.OK);
 			}
@@ -100,10 +109,12 @@ public class ServiceServiceImpl implements IServiceService {
 		ResponseEntity<?> responseEntity;
 		try {
 			if (ValidatorUtils.isNumber(id)) {
+				Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+				UserEntity user = (UserEntity) authentication.getPrincipal();
 				Long idL = Long.parseLong(id);
 				Optional<ServiceHouseEntity> existingHouseOptional = serviceRepository.findById(idL);
 				if (existingHouseOptional.isPresent()) {
-					if(isValidService(serviceHouse)){
+					if(isValidService(serviceHouse, user.getId())){
 						ServiceHouseEntity existingServiceHouse = existingHouseOptional.get();
 						existingServiceHouse.setServiceName(serviceHouse.getServiceName());
 						existingServiceHouse.setServicePrice(serviceHouse.getServicePrice());
@@ -159,15 +170,17 @@ public class ServiceServiceImpl implements IServiceService {
 			if(room.isPresent()) {
 				InforRoomEntity roomService = room.get();
 				for (RoomServiceEntity service : roomService.getServices()) {
-					roomServiceRepository.deleteById(service.getRoomService());
+					roomServiceRepository.deleteRoomService(service.getRoomService());
 				}
 				for (String serviceId : listServiceIds) {
 					Long serviceRoomId = Long.parseLong(serviceId);
-					if(serviceRepository.existsById(serviceRoomId)){
+					Optional<ServiceHouseEntity> serviceHouseEntityOptional =  serviceRepository.findById(serviceRoomId);
+					if(serviceHouseEntityOptional.isPresent()){
 						RoomServiceEntity roomServiceUpdate = new RoomServiceEntity();
 						roomServiceUpdate.setRoomId(Long.parseLong(id));
 						roomServiceUpdate.setServiceId(Long.parseLong(serviceId));
 						roomServiceRepository.save(roomServiceUpdate);
+						priceService = priceService.add(serviceHouseEntityOptional.get().getServicePrice());
 					}
 					else {
 						return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -177,9 +190,9 @@ public class ServiceServiceImpl implements IServiceService {
 				Optional<OrderEntity> orderOptional =	orderRepository.findOrderForRoomInCurrentMonth(roomService.getId());
 				if(orderOptional.isPresent()) {
 					OrderEntity order = orderOptional.get();
-					for (RoomServiceEntity roomServicePrice : roomService.getServices()) {
-						priceService = priceService.add(roomServicePrice.getServiceHouse().getServicePrice());
-					}
+//					for (RoomServiceEntity roomServicePrice : roomService.getServices()) {
+//						priceService = priceService.add(roomServicePrice.getServiceHouse().getServicePrice());
+//					}
 					order.setService(priceService);
 					orderRepository.save(order);
 				}
@@ -189,6 +202,7 @@ public class ServiceServiceImpl implements IServiceService {
 				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND), HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
+			System.out.println(e.getMessage());
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;

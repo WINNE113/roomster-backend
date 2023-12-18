@@ -13,16 +13,19 @@ import com.roomster.roomsterbackend.entity.ServiceHouseEntity;
 
 @Repository
 public interface ServiceRepository extends JpaRepository<ServiceHouseEntity, Long> {
-	
-	 List<ServiceHouseEntity> findAll() ;
-	 
-	 Optional<ServiceHouseEntity> findById(Long id);
+
+	List<ServiceHouseEntity> findAll();
+
+	List<ServiceHouseEntity> findAllByUserId(Long userId);
+
+	Optional<ServiceHouseEntity> findById(Long id);
 
 	void save(RoomServiceEntity roomServiceUpdate);
 
 	@Query("SELECT COUNT(s) FROM ServiceHouseEntity s " +
 			"WHERE s.serviceName = :serviceName " +
-			"AND (:serviceId IS NULL OR s.serviceId != :serviceId)")
-	Long countByNameAndDifferentId(@Param("serviceName") String serviceName, @Param("serviceId") Long serviceId);
+			"AND (:serviceId IS NULL OR s.serviceId != :serviceId) " +
+			"AND (:userId IS NULL OR s.user.id = :userId)")
+	Long countByNameAndDifferentId(@Param("serviceName") String serviceName, @Param("serviceId") Long serviceId, @Param("userId") Long id);
 
 }

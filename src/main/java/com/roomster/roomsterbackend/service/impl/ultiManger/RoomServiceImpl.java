@@ -3,10 +3,7 @@ package com.roomster.roomsterbackend.service.impl.ultiManger;
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.inforRoom.InforRoomPaymentStatusDto;
 import com.roomster.roomsterbackend.dto.order.OrderStatusPaymentDto;
-import com.roomster.roomsterbackend.entity.HouseEntity;
-import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.OrderEntity;
-import com.roomster.roomsterbackend.entity.RoomServiceEntity;
+import com.roomster.roomsterbackend.entity.*;
 import com.roomster.roomsterbackend.repository.HouseRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.service.IService.ultiManager.IRoomService;
@@ -15,6 +12,8 @@ import com.roomster.roomsterbackend.util.validator.ValidatorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -184,8 +183,14 @@ public class RoomServiceImpl implements IRoomService {
     public ResponseEntity<?> getStatusRoom() {
         ResponseEntity<?> responseEntity;
         try {
+            Long userId = 0L;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserEntity) {
+                userId = ((UserEntity) principal).getId();
+            }
             Long roomCount = this.roomRepository.count();
-            Long emptyRoomCount = this.roomRepository.countEmptyRooms();
+            Long emptyRoomCount = this.roomRepository.countEmptyRooms(userId);
             Long percent = Math.round((emptyRoomCount.doubleValue() / roomCount.doubleValue()) * 100.0);
             responseEntity = new ResponseEntity<>(percent, HttpStatus.OK);
         } catch (Exception e) {
@@ -198,7 +203,13 @@ public class RoomServiceImpl implements IRoomService {
     public ResponseEntity<?> getStatusPayment() {
         ResponseEntity<?> responseEntity;
         try {
-            List<InforRoomEntity> roomsWithUnpaidPayments = roomRepository.findRoomsByPaymentStatusNotPaid();
+            Long userId = 0L;
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof UserEntity) {
+                userId = ((UserEntity) principal).getId();
+            }
+            List<InforRoomEntity> roomsWithUnpaidPayments = roomRepository.findRoomsByPaymentStatusNotPaid(userId);
             List<InforRoomPaymentStatusDto> inforRoomPaymentStatusDtos = roomsWithUnpaidPayments.stream()
                     .map(room -> {
                         InforRoomPaymentStatusDto dto = new InforRoomPaymentStatusDto();
