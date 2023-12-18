@@ -12,12 +12,21 @@ import org.springframework.data.repository.query.Param;
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
 	List<OrderEntity> findAll();
-	@Query("SELECT MONTH(o.paymentDate) AS month, SUM(o.total) AS total FROM OrderEntity o WHERE o.statusPayment = 'Y' GROUP BY MONTH(o.paymentDate) ORDER BY MONTH(o.paymentDate)")
-	List<Object[]> getTotalPaymentByMonth();
+	List<OrderEntity> findAllByRoomHouseUserId(Long userId);
+	@Query("SELECT MONTH(o.paymentDate) AS month, SUM(o.total) AS total FROM OrderEntity o " +
+			"WHERE o.statusPayment = 'Y' AND o.room.house.user.id = :userId " +
+			"GROUP BY MONTH(o.paymentDate) " +
+			"ORDER BY MONTH(o.paymentDate)")
+	List<Object[]> getTotalPaymentByMonth(@Param("userId") Long userId);
 
 	@Query("SELECT o FROM OrderEntity o " +
 			"WHERE o.roomId = :roomId " +
 			"AND FUNCTION('MONTH', o.paymentDate) = FUNCTION('MONTH', CURRENT_DATE)")
 	Optional<OrderEntity> findOrderForRoomInCurrentMonth(@Param("roomId") Long roomId);
+
+	@Query("SELECT o FROM OrderEntity o " +
+			"WHERE o.room.house.user.id = :userId " +
+			"AND FUNCTION('MONTH', o.paymentDate) = FUNCTION('MONTH', CURRENT_DATE)")
+	List<OrderEntity> findAllOrderInCurrentMonth(@Param("userId") Long userId);
 
 }

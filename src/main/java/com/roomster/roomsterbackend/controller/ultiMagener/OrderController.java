@@ -50,7 +50,7 @@ public class OrderController {
         return orderService.deleteOrder(id);
     }
 
-    @PutMapping("water-electric")
+    @PutMapping("/water-electric")
     public ResponseEntity<?> updateorderService(@RequestBody OrderDTO order) {
         return orderService.updateOrderWaterElectric(order);
     }
@@ -65,4 +65,8 @@ public class OrderController {
 		return orderService.sendMailPayment(roomId);
 	}
 
+	@GetMapping("/download")
+	public ResponseEntity<?> downloadExcel() {
+		return this.orderService.downloadExcel();
+	}
 }

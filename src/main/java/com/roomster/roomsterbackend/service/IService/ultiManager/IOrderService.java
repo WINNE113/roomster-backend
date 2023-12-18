@@ -25,4 +25,6 @@ public interface IOrderService {
     ResponseEntity<?> updateOrderPayment(String id, OrderStatusPaymentDto order);
 
 	ResponseEntity<?> getOrderBillById(String id);
+
+	ResponseEntity<?> downloadExcel();
 }

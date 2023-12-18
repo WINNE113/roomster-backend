@@ -29,6 +29,7 @@ public class MessageUtil {
     public static final String MSG_TENANT_EXISTS = "Thông tin khách ở đã tồn tại !";
     public static final String MSG_SERVICE_EXISTS = "Thông tin dịch vụ đã tồn tại !";
     public static final String MSG_ROOM_IS_FULL = "Phòng này đã đủ người !";
+    public static final String MSG_ROOM_IS_EMPTY = "Trạng thái phòng này chưa thuê không thể thêm dịch vụ điện nước!";
     public static final String MSG_PHONE_NUMBER_IS_EXITED = "Số điện thoại đã tồn tại. Vui lòng nhập số điện thoại mới";
     public static final String MSG_PHONE_NUMBER_NOT_FOUND = "Số điện thoại không đúng. Vui lòng nhập số điện thoại mới";
     public static final String MSG_PHONE_NUMBER_CONFIRM_NOT_VALID = "Số điện thoại xác thực không đúng. Vui lòng nhập số điện thoại mới";
@@ -52,6 +53,8 @@ public class MessageUtil {
     public static final String MSG_BALANCE_NOT_ENOUGH = "Hiện tại, Số dư của bạn không đủ để thực hiện giao dịch.";
     public static final String MSG_SERVICE_PACKAGE_IS_EXPIRED = "Gói dịch vụ của bạn đã hết hạn, vui lòng gia hạn hoặc mua gói mới để sử dụng tính năng";
     public static final String MSG_SERVICE_PACKAGE_NOT_FOUND = "Vui lòng mua gói mới để sử dụng tính năng";
-    public static final String MSG_SEND_MAIL_SUCCESS = "Xác thực số điện thoại thành công !";
     public static final String MSG_USER_NOT_FOUND = "Người dùng không tìm thấy !";
+    public static final String MSG_SEND_MAIL_SUCCESS = "Gửi mail thành công !";
+    public static final String MSG_SEND_MAIL_FAILURE = "Gửi mail Thất bại !";
+    public static final String MSG_ORDER_PAYMENT = "Đơn tháng này đã thanh toán không thể thêm mới hay chỉnh sửa";
 }
