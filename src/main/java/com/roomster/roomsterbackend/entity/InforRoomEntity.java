@@ -41,7 +41,7 @@ public class InforRoomEntity{
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OneToOne(mappedBy = "roomId")
+    @OneToOne(mappedBy = "roomId", cascade = CascadeType.ALL)
     private PostEntity post;
 
     @ManyToOne()
@@ -51,7 +51,7 @@ public class InforRoomEntity{
 
     @JsonManagedReference
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @OneToMany(mappedBy = "inforRoomEntity")
+    @OneToMany(mappedBy = "inforRoomEntity", cascade = CascadeType.ALL)
     private List<RoomServiceEntity> services;
 
     @JsonManagedReference

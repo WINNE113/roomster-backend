@@ -35,7 +35,7 @@ public class HouseController {
         return houseService.getStatusHouse();
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<?> createHouse(@RequestBody HouseDto house) {
         return houseService.createHouse(house);
     }
