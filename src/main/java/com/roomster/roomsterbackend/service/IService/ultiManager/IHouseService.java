@@ -1,4 +1,4 @@
-package com.roomster.roomsterbackend.service.IService.ultiManager;
+package com.roomster.roomsterbackend.service.IService;
 
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
 import org.springframework.http.ResponseEntity;
@@ -15,5 +15,5 @@ public interface IHouseService {
 
 	ResponseEntity<?> deleteHouse(String id);
 
-    ResponseEntity<?> getStatusHouse();
+	ResponseEntity<?> getStatusHouse();
 }

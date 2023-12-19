@@ -1,11 +1,14 @@
-package com.roomster.roomsterbackend.controller.ultiMagener;
+package com.roomster.roomsterbackend.controller.utilmanager;
 
 
 import com.roomster.roomsterbackend.dto.admin.HouseDto;
-import com.roomster.roomsterbackend.service.IService.ultiManager.IHouseService;
+import com.roomster.roomsterbackend.entity.UserEntity;
+import com.roomster.roomsterbackend.service.IService.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -35,7 +38,7 @@ public class HouseController {
         return houseService.getStatusHouse();
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<?> createHouse(@RequestBody HouseDto house) {
         return houseService.createHouse(house);
     }
