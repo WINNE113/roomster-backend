@@ -2,23 +2,27 @@ package com.roomster.roomsterbackend.service.impl.ultiManger;
 
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.order.*;
-import com.roomster.roomsterbackend.entity.InforRoomEntity;
-import com.roomster.roomsterbackend.entity.OrderEntity;
-import com.roomster.roomsterbackend.entity.RoomServiceEntity;
-import com.roomster.roomsterbackend.entity.TenantEntity;
+import com.roomster.roomsterbackend.entity.*;
 import com.roomster.roomsterbackend.service.impl.mailService.MailService;
 import com.roomster.roomsterbackend.repository.OrderRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
 import com.roomster.roomsterbackend.repository.TenantRepository;
 import com.roomster.roomsterbackend.service.IService.ultiManager.IOrderService;
+import com.roomster.roomsterbackend.util.excel.ExcelUtil;
 import com.roomster.roomsterbackend.util.message.MessageUtil;
 import com.roomster.roomsterbackend.util.validator.ValidatorUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -29,17 +33,16 @@ import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements IOrderService {
-
 	@Autowired
 	RoomRepository roomRepository;
 
 	@Autowired
 	OrderRepository orderRepository;
-	
-	
+
+
 	@Autowired
 	TenantRepository tenantRepository;
-	
+
 	@Autowired
 	MailService mailService;
 
@@ -48,7 +51,7 @@ public class OrderServiceImpl implements IOrderService {
 		ResponseEntity<?> responseEntity;
 		try {
 			List<OrderEntity> orderList = orderRepository.findAll();
-			orderList.sort(Comparator.comparing(OrderEntity::getPaymentDate,Comparator.reverseOrder()));
+			orderList.sort(Comparator.comparing(OrderEntity::getPaymentDate, Comparator.reverseOrder()));
 			List<OrderPaymentDto> orderPaymentDtos = new ArrayList<OrderPaymentDto>();
 			for (OrderEntity order : orderList) {
 				OrderPaymentDto paymentDto = new OrderPaymentDto();
@@ -156,14 +159,19 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public ResponseEntity<?> getTotalPaymentByMonth() {
 		ResponseEntity<?> responseEntity;
-		try{
-			List<Object[]> result = orderRepository.getTotalPaymentByMonth();
+		try {
+			Long userId = 0L;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserEntity) {
+				userId = ((UserEntity) principal).getId();
+			}
+			List<Object[]> result = orderRepository.getTotalPaymentByMonth(userId);
 			List<PaymentByMonthDto> paymentByMonthDtoList = result.stream()
 					.map(row -> new PaymentByMonthDto((Integer) row[0], (BigDecimal) row[1]))
 					.toList();
 			responseEntity = new ResponseEntity<>(paymentByMonthDtoList, HttpStatus.OK);
-		}
-		catch (Exception e){
+		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ID_FORMAT_INVALID),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -176,14 +184,27 @@ public class OrderServiceImpl implements IOrderService {
 		List<OrderEntity> orderCheck = orderRepository.findAll();
 		LocalDate currentDate = LocalDate.now();
 		int currentMonth = currentDate.getMonth().getValue() - 1;
-		Optional<OrderEntity> orderOptional =	orderRepository.findOrderForRoomInCurrentMonth(order.getRoomId());
+		Optional<OrderEntity> orderOptional = orderRepository.findOrderForRoomInCurrentMonth(order.getRoomId());
 
-		System.out.println("orderExists " + orderOptional.isPresent());
 		if (orderOptional.isPresent()) {
+			if (orderOptional.get().getStatusPayment().equals("Y") || orderOptional.get().getStatusPayment().equals("P")) {
+				return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_PAYMENT),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+			}
 			return updateOrderAfterCheck(orderOptional.get().getOrderId().toString(), order);
 		}
-
-		return createOrderAfterCheck(order);
+		else{
+			Long idRoom = order.getRoomId();
+			Optional<InforRoomEntity> room = roomRepository.findById(idRoom);
+			InforRoomEntity roomService = room.get();
+			if(roomService.getEmptyRoom() == 1){
+				return createOrderAfterCheck(order);
+			}
+			else{
+				return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_IS_EMPTY),
+						HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
 	}
 
 	public ResponseEntity<?> createOrderAfterCheck(OrderEntity order) {
@@ -207,17 +228,16 @@ public class OrderServiceImpl implements IOrderService {
 				if (order.getWater() != null && order.getElectricity() != null) {
 					price = room.get().getElectricityPrice().multiply(order.getElectricity())
 							.add(room.get().getWaterPrice().multiply(order.getWater()));
-
 					order.setTotal(price.add(priceService.add(priceRoom)));
 					order.setStatusPayment("N");
 					LocalDate currentDate = LocalDate.now();
 					order.setPaymentDate(Date.valueOf(currentDate));
 				}
 				order = orderRepository.save(order);
-				responseEntity = new ResponseEntity<>(order, HttpStatus.OK);
+				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_ADD_SUCCESS), HttpStatus.OK);
 			} else {
 				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ROOM_NOT_FOUND),
-						HttpStatus.METHOD_NOT_ALLOWED);
+						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR),
@@ -259,9 +279,9 @@ public class OrderServiceImpl implements IOrderService {
 							existingOrder.setTotal(price.add(priceService.add(priceRoom)));
 						}
 						existingOrder = orderRepository.save(existingOrder);
-						return new ResponseEntity<>(existingOrder, HttpStatus.OK);
+						return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
 					}
-					responseEntity = new ResponseEntity<>(existingOrder, HttpStatus.OK);
+					responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS), HttpStatus.OK);
 				} else {
 					responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND),
 							HttpStatus.INTERNAL_SERVER_ERROR);
@@ -280,29 +300,40 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public ResponseEntity<?> sendMailPayment(String roomId) {
 		ResponseEntity<?> responseEntity;
-		List<OrderEntity> listOrder = orderRepository.findAll();
-		LocalDate currentDate = LocalDate.now();
-		int currentMonth = currentDate.getMonth().getValue() - 1;
-		List<OrderEntity> listOrderResult = listOrder.stream()
-				.filter(o -> (o.getRoomId().toString().equals(roomId) && (o.getStatusPayment().trim().equals("N") || o.getStatusPayment().trim().equals("P"))))
-				.toList();
-		for (OrderEntity order : listOrderResult) {
-			List<TenantEntity> listTenant = tenantRepository.findByRoomId(order.getRoomId());
-			for (TenantEntity tenant : listTenant) {
-				mailService.sendSimpleEmail(tenant, "Hóa đơn thánh toán phòng trọ tháng : " + currentMonth , "" , tenant.getName() ,order);
+		try{
+			Long userId = 0L;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserEntity) {
+				userId = ((UserEntity) principal).getId();
 			}
+			List<OrderEntity> listOrder = orderRepository.findAllByRoomHouseUserId(userId);
+			LocalDate currentDate = LocalDate.now();
+			int currentMonth = currentDate.getMonth().getValue();
+			List<OrderEntity> listOrderResult = listOrder.stream()
+					.filter(o -> (o.getRoomId().toString().equals(roomId) && (o.getStatusPayment().trim().equals("N") || o.getStatusPayment().trim().equals("P"))))
+					.toList();
+			for (OrderEntity order : listOrderResult) {
+				List<TenantEntity> listTenant = tenantRepository.findByRoomId(order.getRoomId());
+				for (TenantEntity tenant : listTenant) {
+					mailService.sendSimpleEmail(tenant, "Hóa đơn thánh toán phòng trọ tháng : " + currentMonth, "", tenant.getName(), order);
+				}
+			}
+			return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_SEND_MAIL_SUCCESS),
+					HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SEND_MAIL_FAILURE),
+					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		return new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_SEND_MAIL_SUCCESS),
-				HttpStatus.OK);
 	}
 
 	@Override
 	public ResponseEntity<?> updateOrderPayment(String id, OrderStatusPaymentDto order) {
 		ResponseEntity<?> responseEntity;
-		try{
+		try {
 			Long idL = Long.parseLong(id);
 			Optional<OrderEntity> orderEntityOptional = this.orderRepository.findById(idL);
-			if(orderEntityOptional.isPresent()) {
+			if (orderEntityOptional.isPresent()) {
 				OrderEntity orderEntity = orderEntityOptional.get();
 				orderEntity.setTotalPayment(BigDecimal.valueOf(Long.parseLong(order.getBillNumber())));
 				if (orderEntity.getTotalPayment().compareTo(orderEntity.getTotal()) == 0) {
@@ -315,11 +346,11 @@ public class OrderServiceImpl implements IOrderService {
 				this.orderRepository.save(orderEntity);
 				responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_UPDATE_SUCCESS),
 						HttpStatus.OK);
-			}else{
+			} else {
 				responseEntity = new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_NOT_FOUND),
 						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			responseEntity = new ResponseEntity<>(BaseResponse.error(e.getMessage()),
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -360,5 +391,32 @@ public class OrderServiceImpl implements IOrderService {
 					HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
+	}
+
+	@Override
+	public ResponseEntity<?> downloadExcel() {
+		ByteArrayOutputStream outputStream;
+		try {
+			Long userId = 0L;
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			Object principal = authentication.getPrincipal();
+			if (principal instanceof UserEntity) {
+				userId = ((UserEntity) principal).getId();
+			}
+			ExcelUtil excelUtil = new ExcelUtil(this.orderRepository.findAllOrderInCurrentMonth(userId));
+			outputStream = excelUtil.export();
+		} catch (IOException e) {
+			return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SYSTEM_ERROR),
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		// Chuẩn bị ResponseEntity với byte array và headers để tải xuống
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+		headers.setContentDispositionFormData("attachment", "THONG_KE.xlsx");
+
+		return ResponseEntity.ok()
+				.headers(headers)
+				.body(outputStream.toByteArray());
 	}
 }

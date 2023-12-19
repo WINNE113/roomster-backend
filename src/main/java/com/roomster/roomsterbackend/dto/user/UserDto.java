@@ -45,5 +45,7 @@ public class UserDto {
 
     private BigDecimal balance;
 
+    private String servicePackageUsed;
+
     private Set<RoleEntity> roleList;
 }

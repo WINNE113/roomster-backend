@@ -25,15 +25,15 @@ import com.roomster.roomsterbackend.service.IService.ultiManager.IServiceService
 @PreAuthorize("hasRole('ROLE_ULTI_MANAGER')")
 public class ServiceController {
 
-	@Autowired
+    @Autowired
     IServiceService serviceHouse;
 
-	@GetMapping("")
-	public ResponseEntity<?> getAllServiceHouse() {
-		return serviceHouse.findAll();
-	}
-	
-	@GetMapping("/{id}")
+    @GetMapping("")
+    public ResponseEntity<?> getAllServiceHouse() {
+        return serviceHouse.findAll();
+    }
+
+    @GetMapping("/{id}")
     public ResponseEntity<?> getServiceHouseById(@PathVariable String id) {
         return serviceHouse.getServiceHouseById(id);
     }
@@ -52,7 +52,7 @@ public class ServiceController {
     public ResponseEntity<?> deleteServiceHouse(@RequestBody List<String> listServices) {
         return serviceHouse.deleteServiceHouse(listServices);
     }
-    
+
     @PutMapping("/room-service/{id}")
     public ResponseEntity<?> updateRoomServiceHouseByRoomId(@PathVariable String id, @RequestBody List<String> listServices) {
         return serviceHouse.updateServiceHouseByRoomId(id, listServices);

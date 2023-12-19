@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -135,65 +135,73 @@
         tfoot td {
             font-weight: bold;
         }
-         h3 {
+        h3 {
             color: #777;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <main>
-            <div class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
-                <h1 class="font-bold text-2xl my-4 text-center text-blue-600">Roomster Rent Bill</h1>
-                <hr class="mb-2" />
-                <div class="mb-8">
-                    <h2 class="text-lg font-bold mb-4">Bill To:</h2>
-                    <div class="text-gray-700 mb-2">Dear {name}</div>
-                    <div class="text-gray-700 mb-2">Room : {numberRoom} </div>
-                    <div class="text-gray-700 mb-2">Phone : {phone}</div>
-                    
-                </div>
-                <table class="w-full mb-8">
-                    <thead>
-                        <tr>
-                            <th class="text-left font-bold text-gray-700">Description</th>
-                            <th class="text-right font-bold text-gray-700">Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-left text-gray-700">Water Price Amount</td>
-                            <td class="text-right text-gray-700">{priceWate} VND</td>
-                        </tr>
-                        <tr>
-                            <td class="text-left text-gray-700">Electric Price Amount</td>
-                            <td class="text-right text-gray-700">{priceElectric}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-left text-gray-700">Service House Price Amount</td>
-                            <td class="text-right text-gray-700">{priceService}</td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td class="text-left font-bold text-gray-700">Total Amount</td>
-                            <td class="text-right font-bold text-gray-700">{total}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-                 <h3 class="text-gray-700 mb-2">Payment Methods:</h3>
-		            <ul>
-		                <li>Vietinbank: 66445566778899</li>
-		                <li>MOMO: 66445566778899</li>
-		                <li>VIETCOMBANK: 66445566778899</li>
-		            </ul>
-                <div class="text-gray-700 text-sm">Please remit payment within 30 days.</div>
-                
-                <h3 class="text-gray-700 mb-2">Thank you for choosing Roomster!</h3>
+<div class="container">
+    <main>
+        <div class="bg-white border rounded-lg shadow-lg px-6 py-8 max-w-md mx-auto mt-8">
+            <h1 class="font-bold text-2xl my-4 text-center text-blue-600">Roomster Rent Bill</h1>
+            <hr class="mb-2" />
+            <div class="mb-8">
+                <h2 class="text-lg font-bold mb-4">Bill To:</h2>
+                <div class="text-gray-700 mb-2" th:text="'Gửi ' + ${name}"></div>
+                <div class="text-gray-700 mb-2" th:text="'Phòng : ' + ${numberRoom}"></div>
+                <div class="text-gray-700 mb-2" th:text="'Số điện thoại : ' + ${phone}"></div>
+
             </div>
-        </main>
-    </div>
+            <table class="w-full mb-8">
+                <thead>
+                <tr>
+                    <th class="text-left font-bold text-gray-700">Mô tả</th>
+                    <th class="text-right font-bold text-gray-700">Giá</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left text-gray-700">Tổng giá nước</td>
+                    <td class="text-right text-gray-700" th:text="${priceWate}"></td>
+                </tr>
+                <tr>
+                    <td class="text-left text-gray-700">Tổng giá điện</td>
+                    <td class="text-right text-gray-700" th:text="${priceElectric}"></td>
+                </tr>
+                <tr>
+                    <td class="text-left text-gray-700">Tổng giá dịch vụ</td>
+                    <td class="text-right text-gray-700" th:text="${priceService}"></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="text-left font-bold text-gray-700">Số tiền đã thanh toán</td>
+                    <td class="text-right font-bold text-gray-700" th:text="${totalPayment}"></td>
+                </tr>
+                <tr>
+                    <td class="text-left font-bold text-gray-700">Tổng tiền phòng</td>
+                    <td class="text-right font-bold text-gray-700" th:text="${total}"></td>
+                </tr>
+                <tr>
+                    <td class="text-left font-bold text-gray-700">Tổng số tiền phải thanh toán</td>
+                    <td class="text-right font-bold text-gray-700" th:text="${rest}"></td>
+                </tr>
+                </tfoot>
+            </table>
+            <h3 class="text-gray-700 mb-2">Phương thức thanh toán:</h3>
+            <ul>
+                <li th:each="bankMethod : ${bankMethods}">
+                    <span th:text="${bankMethod.getBankName()}"></span>: <span th:text="${bankMethod.getBankAccount()}"></span>
+                </li>
+            </ul>
+            <div class="text-gray-700 text-sm">Làm ơn hãy thanh toán trong vòng 30 ngày từ lúc nhận mail này</div>
+
+            <h3 class="text-gray-700 mb-2">Cảm ơn bạn đã lựa chọn Roomster!</h3>
+        </div>
+    </main>
+</div>
 </body>
 
 </html>
