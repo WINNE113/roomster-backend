@@ -10,7 +10,7 @@ import lombok.Data;
 @Table(name = "wards")
 public class WardEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long wardId;
 
     @Column(name = "ward_name")

@@ -6,6 +6,7 @@ import com.roomster.roomsterbackend.entity.TransactionEntity;
 import com.roomster.roomsterbackend.entity.UserEntity;
 import com.roomster.roomsterbackend.repository.RoleRepository;
 import com.roomster.roomsterbackend.service.IService.ITransactionService;
+import com.roomster.roomsterbackend.util.validator.PhoneNumberValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,7 @@ public abstract class UserMapperDecorator implements UserMapper {
     @Override
     public UserDto entityToDto(UserEntity userEntity) {
         UserDto userDTO = delegate.entityToDto(userEntity);
+        userDTO.setPhoneNumber(PhoneNumberValidator.normalizeDisplayPhoneNumber(userEntity.getPhoneNumber()));
         Set<RoleEntity> roleDTOList = userEntity.getRoles();
         userDTO.setRoleList(roleDTOList);
         ResponseEntity<?> response = transactionService.purchasedServiceByUser();

@@ -382,7 +382,6 @@ public class UserService implements IUserService {
         }
     }
 
-
     private String getFileUrls(MultipartFile multipartFile) throws IOException {
         return cloudinary.uploader()
                 .upload(multipartFile.getBytes(), Map.of("public_id", UUID.randomUUID().toString()))

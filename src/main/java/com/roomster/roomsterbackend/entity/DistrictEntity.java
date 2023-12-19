@@ -13,7 +13,7 @@ import java.util.List;
 @Table(name = "districts")
 public class DistrictEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long districtId;
 
     @Column(name = "district_name")

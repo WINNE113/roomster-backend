@@ -36,28 +36,30 @@ public class UserController {
     private final ITransactionService transactionService;
 
     @GetMapping("/view-profile")
-    public UserDto viewProfile(Principal connectedUser){
+    public UserDto viewProfile(Principal connectedUser) {
         return userService.viewProfile(connectedUser);
     }
+
     @PostMapping(value = "/update-profile", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public BaseResponse saveNewPost(@RequestPart String profileRequest,@RequestPart(required = false,name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
+    public BaseResponse saveNewPost(@RequestPart String profileRequest, @RequestPart(required = false, name = "images") @Valid MultipartFile images, Principal connectedUser) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         UpdateProfileRequest profile = objectMapper.readValue(profileRequest, UpdateProfileRequest.class);
 
         return userService.updateProfile(profile, images, connectedUser);
     }
+
     @PatchMapping("/update-password")
-    public BaseResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser){
+    public BaseResponse changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, Principal connectedUser) {
         return userService.changePassword(changePasswordRequest, connectedUser);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/delete")
-    public BaseResponse deleteUserById(@RequestParam Long userId){
-        try{
+    public BaseResponse deleteUserById(@RequestParam Long userId) {
+        try {
             userService.deleteUserById(userId);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             return BaseResponse.error("Ex: " + ex.getMessage());
         }
         return BaseResponse.success("Xóa người dùng thành công");
@@ -65,12 +67,12 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get-user")
-    public UserDto getUserById(Long userId){
+    public UserDto getUserById(Long userId) {
         return userService.getUserById(userId);
     }
 
     @PostMapping("/sendOTP")
-    public ResponseEntity<?> sendOTP(@RequestBody OtpRequestDto requestDto){
+    public ResponseEntity<?> sendOTP(@RequestBody OtpRequestDto requestDto) {
         return userService.sendOTP(requestDto);
     }
 
@@ -80,17 +82,17 @@ public class UserController {
     }
 
     @PostMapping(value = "/update-phonenumber")
-    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request, Principal connectedUser){
+    public ResponseEntity<?> changePhoneNumber(@RequestBody ChangePhoneNumberRequest request, Principal connectedUser) {
         return userService.changePhoneNumber(request, connectedUser);
     }
 
     @PostMapping(value = "/update-phonenumber-otp")
-    public ResponseEntity<?> changePhoneNumberWithOTP(@RequestBody ChangePhoneNumberWithOTP request, Principal connectedUser){
+    public ResponseEntity<?> changePhoneNumberWithOTP(@RequestBody ChangePhoneNumberWithOTP request, Principal connectedUser) {
         return userService.changePhoneNumberWithOTP(request, connectedUser);
     }
 
     @PostMapping(value = "/service/purchasePackageByUser")
-    public ResponseEntity<?> purchasePackageByUser(@RequestParam Long servicePackageId, Principal connectedUser){
+    public ResponseEntity<?> purchasePackageByUser(@RequestParam Long servicePackageId, Principal connectedUser) {
         return transactionService.purchasePackageByUser(connectedUser, servicePackageId);
     }
 
@@ -98,13 +100,13 @@ public class UserController {
     @GetMapping(value = "/transaction/service-package")
     public ResponseEntity<?> getAllTransactionServiceByUser(Principal connectedUser,
                                                             @RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
-                                                            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+                                                            @RequestParam(name = "size", required = false, defaultValue = "5") Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return transactionService.getAllTransactionServiceByUser(connectedUser, pageable);
     }
 
-    @PostMapping(value = "/service/valid-ulti-manager")
-    public ResponseEntity<?> isValidUltiManager(Principal connectedUser){
+    @GetMapping(value = "/service/valid-ulti-manager")
+    public ResponseEntity<?> isValidUltiManager(Principal connectedUser) {
         return transactionService.isValidUltiManager(connectedUser);
     }
 }
