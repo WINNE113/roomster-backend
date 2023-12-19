@@ -31,8 +31,7 @@ public class TwilioOTPService {
             PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber()); // from
             String otp = generateOTP();
             String otpMessage = "Kính gửi Quý khách hàng, Mã OTP của bạn là " + otp + " để xác nhận. Cảm ơn bạn.";
-            System.out.println(otpMessage);
-           // Message message = Message.creator(to, from, otpMessage).create();
+            Message message = Message.creator(to, from, otpMessage).create();
             otpMap.put(otpRequest.getUserName(), otp);
             otpResponseDto = new ResponseDto(Status.DELIVERED, MessageUtil.MSG_OTP_DELIVERED);
         } catch (Exception e) {

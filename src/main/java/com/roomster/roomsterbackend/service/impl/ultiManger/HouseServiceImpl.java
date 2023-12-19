@@ -61,9 +61,8 @@ public class HouseServiceImpl implements IHouseService {
             List<HouseEntity> inforHouseEntityList = new ArrayList<HouseEntity>();
             if (!inforHouseEntityListFilter.isEmpty()) {
                 for (HouseEntity houseEntity : inforHouseEntityListFilter) {
-                    if (houseEntity.getUser().getId() == userId) {
+                    if (houseEntity.getUser().getId().equals(userId)) {
                         HouseEntity house = new HouseEntity();
-                        BeanUtils.copyProperties(houseEntity, house);
                         inforHouseEntityList.add(house);
                     }
                 }

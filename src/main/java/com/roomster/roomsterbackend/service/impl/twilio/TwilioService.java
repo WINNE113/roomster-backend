@@ -24,9 +24,7 @@ public class TwilioService implements ITwilioService {
         try {
             PhoneNumber to = new PhoneNumber(phoneNumber);//to
             PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber()); // from
-
-            System.out.println(message);
-            // Message messaged = Message.creator(to, from, message).create();
+             Message messaged = Message.creator(to, from, message).create();
             response = new ResponseEntity<>(Status.DELIVERED, HttpStatus.OK);
         } catch (Exception e) {
             response = new ResponseEntity<>(Status.FAILED, HttpStatus.INTERNAL_SERVER_ERROR);
