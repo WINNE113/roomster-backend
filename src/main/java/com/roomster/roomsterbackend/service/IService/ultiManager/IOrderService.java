@@ -17,12 +17,14 @@ public interface IOrderService {
 	ResponseEntity<?> updateOrderWaterElectric(OrderDTO order);
 
 	ResponseEntity<?> getTotalPaymentByMonth();
-	
+
 	ResponseEntity<?> checkUpdateOrAddFromMonth(String id, OrderEntity order);
-	
+
 	ResponseEntity<?> sendMailPayment(String roomId);
 
-    ResponseEntity<?> updateOrderPayment(String id, OrderStatusPaymentDto order);
+	ResponseEntity<?> updateOrderPayment(String id, OrderStatusPaymentDto order);
 
 	ResponseEntity<?> getOrderBillById(String id);
+
+	ResponseEntity<?> downloadExcel();
 }

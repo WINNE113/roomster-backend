@@ -13,11 +13,15 @@ public interface RoomRepository extends JpaRepository<InforRoomEntity, Long> {
     @Override
     List<InforRoomEntity> findAll();
 
-    @Query("SELECT COUNT(r) FROM InforRoomEntity r WHERE r.emptyRoom = 1")
-    Long countEmptyRooms();
+    @Query("SELECT COUNT(r) FROM InforRoomEntity r " +
+            "WHERE r.emptyRoom = 1 " +
+            "AND r.house.user.id = :userId")
+    Long countEmptyRooms(@Param("userId") Long userId);
 
-    @Query("SELECT r FROM InforRoomEntity r JOIN r.orders o WHERE o.statusPayment = 'N' OR o.statusPayment = 'P'")
-    List<InforRoomEntity> findRoomsByPaymentStatusNotPaid();
+    @Query("SELECT r FROM InforRoomEntity r JOIN r.orders o " +
+            "WHERE r.house.user.id=:userId " +
+            "AND (o.statusPayment = 'N' OR o.statusPayment = 'P')")
+    List<InforRoomEntity> findRoomsByPaymentStatusNotPaid(@Param("userId") Long userId);
 
     @Query("SELECT COUNT(ir) FROM InforRoomEntity ir " +
             "WHERE ir.houseId = :houseId " +

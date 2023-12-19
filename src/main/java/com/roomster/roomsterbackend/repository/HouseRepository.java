@@ -16,6 +16,7 @@ public interface HouseRepository extends JpaRepository<HouseEntity, Long> {
 	List<HouseEntity> findAll();
 
 	List<HouseEntity> findAllByUserId(Long id);
+
 	Optional<HouseEntity> findById(Long id);
 
 	@Query("SELECT COUNT(h) FROM HouseEntity h " +

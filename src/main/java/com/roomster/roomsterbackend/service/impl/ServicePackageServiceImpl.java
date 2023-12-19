@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +30,10 @@ public class ServicePackageServiceImpl implements IServicePackageService {
     public ResponseEntity<?> addServicePackage(ServicePackageDto request) {
         ResponseEntity<?> responseEntity = null;
         try {
+            Optional<ServicePackageEntity> servicePackage = servicePackageRepository.findByName(request.getName());
+            if(servicePackage.isPresent()){
+                return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_SERVICE_EXISTS), HttpStatus.BAD_REQUEST);
+            }
             servicePackageRepository.save(servicePackageMapper.dtoToEntity(request));
             responseEntity = new ResponseEntity<>(BaseResponse.success(MessageUtil.MSG_ADD_SUCCESS), HttpStatus.OK);
         } catch (Exception ex) {

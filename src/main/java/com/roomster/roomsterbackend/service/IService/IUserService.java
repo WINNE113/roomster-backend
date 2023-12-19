@@ -49,4 +49,6 @@ public interface IUserService {
 
     ResponseEntity<?> upRoleUserByAdmin(String roleName, Long userId);
 
+    ResponseEntity<?> getUserAccountStatus();
+
 }

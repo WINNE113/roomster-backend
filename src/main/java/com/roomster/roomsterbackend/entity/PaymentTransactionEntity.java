@@ -22,6 +22,7 @@ public class PaymentTransactionEntity extends BaseSecurityEntity {
     private String tranMessage;
 
     @Column(name = "tran_payload", columnDefinition = "TEXT")
+    @Lob
     private String tranPayload;
 
     @Column(name = "tran_status", length = 10)

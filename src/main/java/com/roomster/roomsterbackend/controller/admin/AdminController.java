@@ -33,6 +33,7 @@ public class AdminController {
 
     private final IRoleService roleService;
 
+    private final ITransactionService transactionService;
 
     //TODO: Dashboard
     @GetMapping(value = "transaction/status")
@@ -43,6 +44,11 @@ public class AdminController {
     @GetMapping(value = "payment/status")
     public ResponseEntity<?> getTotalPaymentTransactionByMonth() {
         return paymentService.getTotalPaymentTransactionByMonth();
+    }
+
+    @GetMapping(value = "user/status")
+    public ResponseEntity<?> getUserAccountStatus(){
+        return userService.getUserAccountStatus();
     }
 
     @GetMapping(value = "post/status")
@@ -65,6 +71,15 @@ public class AdminController {
     @DeleteMapping(value = "/service/delete-service-package/{id}")
     public ResponseEntity<?> deleteServicePackage(@PathVariable Long id) {
         return servicePackageService.removeServicePackageById(id);
+    }
+
+    //TODO: Transaction service package by user
+
+    @GetMapping("transaction/service-package")
+    public ResponseEntity<?> getAllTransactionServicePackage(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                             @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return transactionService.getAllTransactionService(pageable);
     }
 
     //TODO: CRUD Post
@@ -161,4 +176,6 @@ public class AdminController {
     public ResponseEntity<?> addRole(@RequestBody RoleEntity entity) {
         return roleService.addRole(entity);
     }
+
+
 }

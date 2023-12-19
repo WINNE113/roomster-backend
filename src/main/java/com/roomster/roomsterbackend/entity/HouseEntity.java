@@ -4,7 +4,6 @@ package com.roomster.roomsterbackend.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -40,7 +39,6 @@ public class HouseEntity {
 
     @OneToMany(mappedBy = "house" ,cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<InforRoomEntity> rooms;
 
     // Constructors, getters, and setters

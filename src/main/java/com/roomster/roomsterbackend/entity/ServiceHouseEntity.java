@@ -27,5 +27,11 @@ public class ServiceHouseEntity {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private List<RoomServiceEntity> serviceList;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonBackReference
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private UserEntity user;
+
     // Constructors, getters, and setters
 }
