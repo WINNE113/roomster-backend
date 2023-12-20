@@ -62,8 +62,7 @@ public class HouseServiceImpl implements IHouseService {
             if (!inforHouseEntityListFilter.isEmpty()) {
                 for (HouseEntity houseEntity : inforHouseEntityListFilter) {
                     if (houseEntity.getUser().getId().equals(userId)) {
-                        HouseEntity house = new HouseEntity();
-                        inforHouseEntityList.add(house);
+                        inforHouseEntityList.add(houseEntity);
                     }
                 }
             }

@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="add history transaction service package">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix loi commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/ultiManger/HouseServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/impl/ultiManger/HouseServiceImpl.java" afterDir="false" />
     </list>
@@ -80,7 +80,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Rebasing thanglh&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kienld&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/WorkSpace/_CapstoneProject/LPTeam/roomster-backend/roomster-backend/src/main/java/com/roomster/roomsterbackend/util&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -332,6 +332,13 @@
       <workItem from="1702823525034" duration="11382000" />
       <workItem from="1702879507472" duration="25736000" />
       <workItem from="1702964183434" duration="13718000" />
+      <workItem from="1703008707300" duration="1146000" />
+      <workItem from="1703010723231" duration="1478000" />
+      <workItem from="1703012278920" duration="1192000" />
+      <workItem from="1703017914119" duration="1140000" />
+      <workItem from="1703049817029" duration="6230000" />
+      <workItem from="1703075480449" duration="1176000" />
+      <workItem from="1703077998343" duration="11923000" />
     </task>
     <task id="LOCAL-00025" summary="Don't get post is deleted">
       <option name="closed" value="true" />
@@ -819,6 +826,24 @@
           <url>file://$PROJECT_DIR$/target/generated-sources/annotations/com/roomster/roomsterbackend/mapper/PostMapperImpl_.java</url>
           <line>55</line>
           <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/ultiManager/IRoomService.java</url>
+          <line>15</line>
+          <properties class="com.roomster.roomsterbackend.service.IService.ultiManager.IRoomService" method="findServicesByRoomId">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/service/IService/ultiManager/IRoomService.java</url>
+          <line>19</line>
+          <properties class="com.roomster.roomsterbackend.service.IService.ultiManager.IRoomService" method="getStatusPayment">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
