@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="add history transaction service package">
+    <list default="true" id="10a35afd-1502-499c-a49d-80b2bf865c3a" name="Changes" comment="Fix - connected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/payment/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/roomster/roomsterbackend/controller/payment/PaymentController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +90,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;5a86b9063a4137cdca5cc22dcffd0406&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -122,7 +122,44 @@
       <recent name="com.roomster.roomsterbackend.controller.management" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Azure Spring Apps.Deploy Spring app: roomster-backend">
+    <configuration default="true" type="AZURE_FUNCTION_SUPPORT" factoryName="Run Functions">
+      <option name="appName" />
+      <option name="appServicePlanName" />
+      <option name="appServicePlanResourceGroup" />
+      <option name="appSettingsKey" value="415e1e1a-2d75-4a18-acad-0830ab701090" />
+      <option name="artifact" />
+      <option name="debugOptions" />
+      <option name="deployment" />
+      <option name="deploymentStagingDirectoryPath" />
+      <option name="funcPath" />
+      <option name="functionHostArguments" />
+      <option name="hostJsonPath" />
+      <option name="insightsName" />
+      <option name="instrumentationKey" />
+      <option name="javaVersion" />
+      <option name="localSettingsJsonPath" />
+      <option name="moduleName" />
+      <option name="os" />
+      <option name="pricingTier" />
+      <option name="providerMap">
+        <map />
+      </option>
+      <option name="region" />
+      <option name="resourceGroup" />
+      <option name="stagingFolder" />
+      <option name="subscription" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Deploy Spring app: roomster-backend" type="AZURE_SPRING_CLOUD_SUPPORT" factoryName="Deploy Spring Cloud Services">
+      <App id="/subscriptions/dd0da315-5417-4dbe-8be2-68a0f2990f20/resourceGroups/nhatro/providers/Microsoft.AppPlatform/Spring/nhatro/apps/spring-app-20231220005522" />
+      <Artifact identifier="com.roomster:roomster-backend:0.0.1-SNAPSHOT" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="package" />
+      </method>
+    </configuration>
     <configuration name="RoomsterBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="roomster-backend" />
@@ -332,14 +369,7 @@
       <workItem from="1702823525034" duration="11382000" />
       <workItem from="1702879507472" duration="25736000" />
       <workItem from="1702964183434" duration="13718000" />
-    </task>
-    <task id="LOCAL-00025" summary="Don't get post is deleted">
-      <option name="closed" value="true" />
-      <created>1700219226766</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1700219226766</updated>
+      <workItem from="1703088883654" duration="6987000" />
     </task>
     <task id="LOCAL-00026" summary="fix cors">
       <option name="closed" value="true" />
@@ -725,7 +755,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702926822953</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Fix - connected">
+      <option name="closed" value="true" />
+      <created>1703086885147</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1703086885147</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -780,7 +818,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix gitignore" />
     <MESSAGE value="Fix up role and add update phone number" />
     <MESSAGE value="get token after up role" />
     <MESSAGE value="Fix util manage" />
@@ -805,7 +842,8 @@
     <MESSAGE value="HOST: Fix admin and ulti-manage" />
     <MESSAGE value="add history transaction service package" />
     <MESSAGE value="HOST: FIX description post" />
-    <option name="LAST_COMMIT_MESSAGE" value="HOST: FIX description post" />
+    <MESSAGE value="Fix - connected" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix - connected" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
