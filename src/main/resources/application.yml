@@ -6,9 +6,9 @@ server:
 spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        password: huuthang
-        url: jdbc:mysql://localhost:3306/trouytin_db
-        username: root
+        password: 123456789Aaa!
+        url: jdbc:mysql://srv1098.hstgr.io/u898129453_testdb
+        username: u898129453_root25
     mvc:
         pathmatch:
             matching-strategy: ant_path_matcher
