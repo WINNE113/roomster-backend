@@ -46,7 +46,7 @@ public abstract class UserMapperDecorator implements UserMapper {
     @Override
     public UserDto entityToDto(UserEntity userEntity) {
         UserDto userDTO = delegate.entityToDto(userEntity);
-        userDTO.setPhoneNumber(PhoneNumberValidator.normalizeDisplayPhoneNumber(userEntity.getPhoneNumber()));
+        userDTO.setPhoneNumber(userEntity.getPhoneNumber());
         Set<RoleEntity> roleDTOList = userEntity.getRoles();
         userDTO.setRoleList(roleDTOList);
         ResponseEntity<?> response = transactionService.purchasedServiceByUser();
