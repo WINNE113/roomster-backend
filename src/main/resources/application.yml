@@ -47,7 +47,7 @@ twilio:
     trial_number: +12314004777
 
 vnpay:
-    returnUrl: http://localhost:8080/api/v1/payment/vnpay-return
+    returnUrl: https://nhatro-spring-app-20231220005522.azuremicroservices.io/api/v1/payment/vnpay-return
     paymentUrl: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
     tmnCode": QYBSTFGY
     hashSecret: ZZFKYHJMITRTSDOUEIJUFQYRLLRMMSVN
