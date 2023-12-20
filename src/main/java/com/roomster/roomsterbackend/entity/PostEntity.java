@@ -23,7 +23,8 @@ public class PostEntity extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "description")
+    @Column(name = "description", columnDefinition = "TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+    @Lob
     private String description;
 
     @Column(name = "object")
