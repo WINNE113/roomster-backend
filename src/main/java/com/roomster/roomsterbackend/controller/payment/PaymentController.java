@@ -68,7 +68,7 @@ public class PaymentController {
     public void vnpayReturnView(@ModelAttribute ViewPaymentReturnDto response, HttpServletResponse httpServletResponse) throws IOException {
         ResponseEntity<?> responseEntity = paymentService.vnpayReturnView(response);
         BaseResponse baseResponse = (BaseResponse)responseEntity.getBody();
-        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://aaaa.dongvanthiet.com/payment/status")
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("https://trouytin.online/payment/status")
                 .queryParam("message", baseResponse.getMessage())
                 .queryParam("success", baseResponse.isSuccess());
         httpServletResponse.sendRedirect(builder.toUriString());}

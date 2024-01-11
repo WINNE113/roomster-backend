@@ -3,6 +3,7 @@ package com.roomster.roomsterbackend.service.impl.ultiManger;
 import com.roomster.roomsterbackend.base.BaseResponse;
 import com.roomster.roomsterbackend.dto.order.*;
 import com.roomster.roomsterbackend.entity.*;
+import com.roomster.roomsterbackend.repository.BankMethodRepository;
 import com.roomster.roomsterbackend.service.impl.mailService.MailService;
 import com.roomster.roomsterbackend.repository.OrderRepository;
 import com.roomster.roomsterbackend.repository.RoomRepository;
@@ -39,9 +40,11 @@ public class OrderServiceImpl implements IOrderService {
 	@Autowired
 	OrderRepository orderRepository;
 
-
 	@Autowired
 	TenantRepository tenantRepository;
+
+	@Autowired
+	BankMethodRepository bankMethodRepository;
 
 	@Autowired
 	MailService mailService;
@@ -307,12 +310,22 @@ public class OrderServiceImpl implements IOrderService {
 			if (principal instanceof UserEntity) {
 				userId = ((UserEntity) principal).getId();
 			}
+			var listBankMethod = bankMethodRepository.findAllByUserId(userId);
+			if(listBankMethod == null || listBankMethod.isEmpty()){
+				return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_METHOD_PAYMENT_NOT_FOUND),
+						HttpStatus.BAD_REQUEST);
+			}
 			List<OrderEntity> listOrder = orderRepository.findAllByRoomHouseUserId(userId);
 			LocalDate currentDate = LocalDate.now();
 			int currentMonth = currentDate.getMonth().getValue();
 			List<OrderEntity> listOrderResult = listOrder.stream()
 					.filter(o -> (o.getRoomId().toString().equals(roomId) && (o.getStatusPayment().trim().equals("N") || o.getStatusPayment().trim().equals("P"))))
 					.toList();
+			if(listOrderResult == null || listOrderResult.isEmpty()){
+				return new ResponseEntity<>(BaseResponse.error(MessageUtil.MSG_ORDER_PAYMENT_NOT_FOUND),
+						HttpStatus.BAD_REQUEST);
+			}
+
 			for (OrderEntity order : listOrderResult) {
 				List<TenantEntity> listTenant = tenantRepository.findByRoomId(order.getRoomId());
 				for (TenantEntity tenant : listTenant) {

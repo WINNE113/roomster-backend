@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.*;
 public class AuthenticationController {
 
     private final IAuthenticationService authenticationService;
-
-    private final TwilioOTPService twilioOTPService;
-
     @Operation(
             description = "Must register by only phoneNumber: +84332101032 and Format role is [ROLE_USER, ROLE_MANAGE]",
             summary = "Endpoint For Register"
@@ -54,24 +51,5 @@ public class AuthenticationController {
     @GetMapping("/logout")
     public ResponseEntity<String> logout(){
         return ResponseEntity.ok("Logout successfully!");
-    }
-    @Hidden
-    @GetMapping("/process")
-    public String processSMS() {
-        return "SMS sent";
-    }
-
-    @Hidden
-    @PostMapping("/demo-send-otp")
-    public ResponseDto sendOTP(@RequestBody OtpRequestDto requestDto) {
-        log.info("inside sendOtp :: "+requestDto.getUserName());
-        return twilioOTPService.sendSMS(requestDto);
-    }
-
-    @Hidden
-    @PostMapping("/demo-validate-otp")
-    public boolean validateOTP(@RequestBody OtpValidationRequestDto otpValidationRequestDto) {
-        log.info("inside validateOtp :: "+otpValidationRequestDto.getUserName()+" "+otpValidationRequestDto.getOtpNumber());
-        return twilioOTPService.validateOtp(otpValidationRequestDto);
     }
 }

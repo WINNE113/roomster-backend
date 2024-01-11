@@ -17,6 +17,28 @@ import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<PostEntity, Long> {
+
+//    List<PostEntity> findByLatitudeBetweenAndLongitudeBetween(
+//            Double minLatitude, Double maxLatitude,
+//            Double minLongitude, Double maxLongitude
+//    );
+
+    @Query(value = "Select p.id, p.title, p.address, p.created_date,p.modified_date, ir.price, p.is_deleted,p.status, max(pimg.image_url_list) as image , ir.acreage from posts p left join post_entity_image_url_list pimg on p.id = pimg.post_entity_id\n" +
+            "inner join infor_rooms ir on ir.id = p.room_id \n" +
+            "where p.is_deleted = false and p.status = \"APPROVED\"\n" +
+            "group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted \n" +
+            "order by ir.price ASC", nativeQuery = true)
+    List<Object[]> getAllByOrderPriceDesc(Pageable pageable);
+
+    @Query(value = "Select p.id, p.title, p.address, p.created_date,p.modified_date, ir.price, p.is_deleted,p.status, max(pimg.image_url_list) as image, ir.acreage\n" +
+            "from posts p left join post_entity_image_url_list pimg on p.id = pimg.post_entity_id\n" +
+            "inner join infor_rooms ir on ir.id = p.room_id \n" +
+            "where p.is_deleted = false and p.status = \"APPROVED\"\n" +
+            "group by p.id, p.title, p.address, p.created_by, p.created_date, ir.price, p.is_deleted, ir.acreage\n" +
+            "order by ir.acreage DESC", nativeQuery = true)
+    List<Object[]> getAllByOrderAcreageDesc(Pageable pageable);
+
+
     List<PostEntity> getPostEntityByAuthorId(Pageable pageable, Long id);
 
     @Query(value = "Select p.id, p.title, p.address, p.created_date as createdDate, i.price, p.is_deleted as isDeleted, max(pimg.image_url_list) as image, AVG(r.star_point) as averageRating\n" +
@@ -46,14 +68,16 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 
     @Query(value = "select img.image_url_list as image from post_entity_image_url_list img where img.post_entity_id =:postId", nativeQuery = true)
     List<PostImageDto> getPostImages(@Param("postId") Long postId);
+    List<PostEntity> getAllByStatusAndIsDeletedAndRotationIsNotNull(Status status, boolean isDeleted);
     List<PostEntity> getAllByStatusAndIsDeleted(Pageable pageable, Status status, boolean isDeleted);
 
     Long countByIsDeletedFalse();
+    Long countByIsDeletedFalseAndStatus(Status status);
 
     Long countByStatus(Status status);
 
     @Query(value = "SELECT Month(t.purchase_date) as month, SUM(sp.price) as tolalPrice \n" +
-            "FROM trouytin_db.transaction as t inner join service_package as sp\n" +
+            "FROM transaction as t inner join service_package as sp\n" +
             "where t.package_id = sp.id\n" +
             "GROUP BY MONTH(t.purchase_date)\n" +
             "Order by month(t.purchase_date)", nativeQuery = true)

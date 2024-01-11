@@ -13,6 +13,7 @@ import com.roomster.roomsterbackend.service.IService.IServicePackageService;
 import com.roomster.roomsterbackend.service.impl.ProvinceService;
 import com.roomster.roomsterbackend.util.extensions.ConvertStringToArrayExtension;
 import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,6 +42,30 @@ public class GuestController {
     private final IReportService reportService;
 
     private final IServicePackageService servicePackageService;
+
+
+    @Operation(
+            description = "Latitude: Vĩ Độ, Longitude: Kinh Độ",
+            summary = "Endpoint For Get Post Around Location"
+    )
+    @GetMapping("/post/location")
+    public ResponseEntity<?> findPostsAroundLocation(@RequestParam double latitude, @RequestParam double longitude) {
+        return postService.findPostsAroundLocation(latitude, longitude, 50.0);
+    }
+
+    @GetMapping(value = "post/sorted/price")
+    public ResponseEntity<?> sortedPostByPriceDes(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return postService.sortedPostByPriceDes(pageable);
+    }
+
+    @GetMapping(value = "post/sorted/acreage")
+    public ResponseEntity<?> sortedPostByAcreageDes(@RequestParam(name = "page", required = false, defaultValue = "0") Integer page,
+                                                  @RequestParam(name = "size", required = false, defaultValue = "5") Integer size){
+        Pageable pageable = PageRequest.of(page, size);
+        return postService.sortedPostByAcreageDes(pageable);
+    }
 
 
     @GetMapping(value = "/service/service-package")

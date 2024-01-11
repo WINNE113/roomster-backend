@@ -36,9 +36,12 @@ public interface IPostService {
 
     void setIsRejectedPosts(Long[] listPostId);
 
-    ResponseEntity<?> upload(List<MultipartFile> images);
-
     ResponseEntity<?> getStatusPost();
 
     ResponseEntity<?> getTotalPaymentServiceByMonth();
+
+    ResponseEntity<?> sortedPostByPriceDes(Pageable pageable);
+    ResponseEntity<?> sortedPostByAcreageDes(Pageable pageable);
+
+    ResponseEntity<?> findPostsAroundLocation(double latitude, double longitude, double radiusInKm);
 }

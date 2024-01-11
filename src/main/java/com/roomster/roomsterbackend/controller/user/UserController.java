@@ -55,17 +55,6 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping(value = "/delete")
-    public BaseResponse deleteUserById(@RequestParam Long userId) {
-        try {
-            userService.deleteUserById(userId);
-        } catch (Exception ex) {
-            return BaseResponse.error("Ex: " + ex.getMessage());
-        }
-        return BaseResponse.success("Xóa người dùng thành công");
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get-user")
     public UserDto getUserById(Long userId) {
         return userService.getUserById(userId);

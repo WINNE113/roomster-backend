@@ -158,11 +158,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteUserById(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    @Override
     public ResponseEntity<?> upRoleToManage(OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser) {
         ResponseEntity<?> responseEntity = null;
         try {

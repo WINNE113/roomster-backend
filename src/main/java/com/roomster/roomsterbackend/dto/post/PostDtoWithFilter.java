@@ -20,4 +20,5 @@ public class PostDtoWithFilter {
     private boolean isDeleted;
     private String status;
     private String image;
+    private double acreage;
 }

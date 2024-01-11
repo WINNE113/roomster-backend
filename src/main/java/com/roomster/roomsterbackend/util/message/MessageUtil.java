@@ -2,6 +2,7 @@ package com.roomster.roomsterbackend.util.message;
 
 public class MessageUtil {
     public static final String MSG_ROOM_NOT_FOUND = "Phòng không tồn tại !";
+    public static final String MSG_BANK_METHOD_NOT_FOUND = "Phương thức thanh toán không tồn tại !";
     public static final String MSG_HOUSE_NOT_FOUND = "Nhà không tồn tại !";
     public static final String MSG_ORDER_NOT_FOUND = "Đơn không tồn tại !";
     public static final String MSG_SERVICE_NOT_FOUND = "Dịch vụ không tồn tại !";
@@ -55,5 +56,7 @@ public class MessageUtil {
     public static final String MSG_SERVICE_PACKAGE_NOT_FOUND = "Vui lòng mua gói mới để sử dụng tính năng";
     public static final String MSG_SEND_MAIL_SUCCESS = "Gửi mail thành công !";
     public static final String MSG_SEND_MAIL_FAILURE = "Gửi mail Thất bại !";
+    public static final String MSG_ORDER_PAYMENT_NOT_FOUND = "Không có phòng cần gửi bill";
+    public static final String MSG_METHOD_PAYMENT_NOT_FOUND = "Không tìm thấy phương thức thanh toán nào !";
     public static final String MSG_ORDER_PAYMENT = "Đơn tháng này đã thanh toán không thể thêm mới hay chỉnh sửa";    public static final String MSG_USER_NOT_FOUND = "Người dùng không tìm thấy !";
 }

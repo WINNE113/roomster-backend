@@ -33,8 +33,6 @@ public interface IUserService {
 
     UserDto getUserById(Long userId);
 
-    void deleteUserById(Long userId);
-
     ResponseEntity<?> upRoleToManage(OtpValidationRequestDto otpValidationRequestDto, Principal connectedUser);
 
     ResponseEntity<?> sendOTP(OtpRequestDto requestDto);
